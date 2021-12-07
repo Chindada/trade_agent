@@ -1,0 +1,32 @@
+# server settings
+server:
+    run_mode: "release"
+    http_port: "6670"
+    sinopac_srv_host: "127.0.0.1"
+    sinopac_srv_port: "3333"
+    reset: false
+# db settings
+database:
+    db_host: "127.0.0.1"
+    db_port: "5432"
+    db_user: "postgres"
+    db_pass: "peCnof-cijhih-7fezvy"
+    database: "trade_agent_debug"
+    db_encode: "utf8"
+    db_timezone: "Asia/Taipei"
+# mqtt
+internal_mq:
+    host: "127.0.0.1"
+    port: "18882"
+    user: "trade"
+    password: "peCnof-cijhih-7fezvy"
+# trade settings
+trade:
+    kbar_period: 20
+    target_condition: '[{"limit_price_low":10,"limit_price_high":50,"limit_volume":20000}]'
+    black_stock_arr: '["1314","2317","3481","3701"]'
+    black_category_arr: '["17"]'
+# cron
+schedule:
+    cleanevent_cron: "0 0 4 * * ?"
+    restart_sinopac_cron: "0 20 1,8,15 * * ?"
