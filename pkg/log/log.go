@@ -5,19 +5,22 @@ import (
 	"os"
 	"path/filepath"
 	"strings"
+	"sync"
 	"time"
+	"trade_agent/global"
 
 	"github.com/rifflock/lfshook"
 	"github.com/sirupsen/logrus"
-	"gitlab.tocraw.com/root/toc_trader/global"
 )
 
-var globalLogger *logrus.Logger
+var (
+	globalLogger *logrus.Logger
+	once         sync.Once
+)
 
-// Get Get
-func Get() *logrus.Logger {
+func initLogger() {
 	if globalLogger != nil {
-		return globalLogger
+		return
 	}
 	// Get current path
 	ex, err := os.Executable()
@@ -25,10 +28,8 @@ func Get() *logrus.Logger {
 		panic(err)
 	}
 	basePath := filepath.Dir(ex)
-
 	// create new instance
 	globalLogger = logrus.New()
-
 	deployment := os.Getenv(global.EnvDeployment)
 	if deployment == global.DockerDeployment {
 		globalLogger.SetFormatter(&logrus.JSONFormatter{
@@ -45,14 +46,11 @@ func Get() *logrus.Logger {
 			ForceQuote:       true,
 		})
 	}
-
 	// Log.SetReportCaller(true)
 	fileNamePrefix := time.Now().Format(time.RFC3339)[:16] + "-"
 	fileNamePrefix = strings.ReplaceAll(fileNamePrefix, ":", "")
-
 	globalLogger.SetLevel(logrus.TraceLevel)
 	globalLogger.SetOutput(os.Stdout)
-
 	pathMap := lfshook.PathMap{
 		logrus.PanicLevel: basePath + "/logs/" + fileNamePrefix + "panic.json",
 		logrus.FatalLevel: basePath + "/logs/" + fileNamePrefix + "fetal.json",
@@ -62,10 +60,17 @@ func Get() *logrus.Logger {
 		logrus.DebugLevel: basePath + "/logs/" + fileNamePrefix + "debug.json",
 		logrus.TraceLevel: basePath + "/logs/" + fileNamePrefix + "error.json",
 	}
-
 	globalLogger.Hooks.Add(lfshook.NewHook(
 		pathMap,
 		&logrus.JSONFormatter{},
 	))
+}
+
+// Get Get
+func Get() *logrus.Logger {
+	if globalLogger != nil {
+		return globalLogger
+	}
+	once.Do(initLogger)
 	return globalLogger
 }

@@ -4,9 +4,9 @@ package dao
 import (
 	"sync"
 	"time"
+	"trade_agent/pkg/config"
+	"trade_agent/pkg/log"
 
-	"gitlab.tocraw.com/root/toc_trader/pkg/config"
-	"gitlab.tocraw.com/root/toc_trader/pkg/log"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 
@@ -15,12 +15,10 @@ import (
 
 var (
 	globalConnection *gorm.DB
-	initLock         sync.Mutex
+	once             sync.Once
 )
 
 func initConnection() {
-	defer initLock.Unlock()
-	initLock.Lock()
 	if globalConnection != nil {
 		return
 	}
@@ -33,12 +31,11 @@ func initConnection() {
 			LogLevel:                  gormlogger.Warn,
 		})
 	var err error
-	var allConfigs config.Config
-	if allConfigs, err = config.Get(); err != nil {
+	var conf config.Config
+	if conf, err = config.Get(); err != nil {
 		log.Get().Panic(err)
 	}
-
-	dbSettings := allConfigs.GetDBConfig()
+	dbSettings := conf.GetDBConfig()
 	dsn := "host=" + dbSettings.DBHost + " user=" + dbSettings.DBUser +
 		" password=" + dbSettings.DBPass + " dbname=" + dbSettings.Database +
 		" port=" + dbSettings.DBPort + " sslmode=disable" +
@@ -73,6 +70,6 @@ func Get() *gorm.DB {
 	if globalConnection != nil {
 		return globalConnection
 	}
-	initConnection()
+	once.Do(initConnection)
 	return globalConnection
 }

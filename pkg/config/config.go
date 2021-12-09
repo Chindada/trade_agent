@@ -4,20 +4,22 @@ package config
 import (
 	"io/ioutil"
 	"sync"
+	"trade_agent/pkg/log"
 
-	"gitlab.tocraw.com/root/toc_trader/pkg/log"
 	"gopkg.in/yaml.v2"
 )
 
 var (
 	globalConfig *Config
-	initLock     sync.Mutex
+	once         sync.Once
 )
 
 // Config Config
 type Config struct {
-	Server   Server   `yaml:"server"`
-	Database Database `yaml:"database"`
+	Server   `yaml:"server"`
+	Database `yaml:"database"`
+	Schedule `yaml:"schedule"`
+	MQTT     `yaml:"mqtt"`
 }
 
 // Server Server
@@ -26,7 +28,6 @@ type Server struct {
 	HTTPPort       string `yaml:"http_port"`
 	SinopacSRVHost string `yaml:"sinopac_srv_host"`
 	SinopacSRVPort string `yaml:"sinopac_srv_port"`
-	Reset          bool   `yaml:"reset"`
 }
 
 // Database Database
@@ -40,35 +41,45 @@ type Database struct {
 	DBTimeZone string `yaml:"db_timezone"`
 }
 
+// MQTT MQTT
+type MQTT struct {
+	Host     string `yaml:"host"`
+	Port     string `yaml:"port"`
+	User     string `yaml:"user"`
+	Password string `yaml:"password"`
+	ClientID string `yaml:"client_id"`
+	CAPath   string `yaml:"ca_path"`
+	CertPath string `yaml:"cert_path"`
+	KeyPath  string `yaml:"key_path"`
+}
+
+// Schedule Schedule
+type Schedule struct {
+	CleaneventCron     string `yaml:"cleanevent_cron"`
+	RestartSinopacCron string `yaml:"restart_sinopac_cron"`
+}
+
 // parseConfig parseConfig
-func parseConfig() (err error) {
-	defer initLock.Unlock()
-	initLock.Lock()
+func parseConfig() {
 	if globalConfig != nil {
 		return
 	}
-
-	var yamlFile []byte
-	yamlFile, err = ioutil.ReadFile("./configs/config.yaml")
+	yamlFile, err := ioutil.ReadFile("./configs/config.yaml")
 	if err != nil {
-		return err
+		log.Get().Panic(err)
 	}
-
 	err = yaml.Unmarshal(yamlFile, &globalConfig)
 	if err != nil {
-		return err
+		log.Get().Panic(err)
 	}
-	return err
 }
 
 // Get Get
 func Get() (config Config, err error) {
-	if globalConfig == nil {
-		err = parseConfig()
-		if err != nil {
-			log.Get().Panic(err)
-		}
+	if globalConfig != nil {
+		return *globalConfig, err
 	}
+	once.Do(parseConfig)
 	return *globalConfig, err
 }
 
@@ -80,4 +91,14 @@ func (c Config) GetServerConfig() Server {
 // GetDBConfig GetDBConfig
 func (c Config) GetDBConfig() Database {
 	return c.Database
+}
+
+// GetScheduleConfig GetScheduleConfig
+func (c Config) GetScheduleConfig() Schedule {
+	return c.Schedule
+}
+
+// GetMQConfig GetMQConfig
+func (c Config) GetMQConfig() MQTT {
+	return c.MQTT
 }

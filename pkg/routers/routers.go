@@ -1,2 +1,47 @@
 // Package routers package routers
 package routers
+
+import (
+	"trade_agent/pkg/config"
+	"trade_agent/pkg/log"
+
+	"github.com/gin-gonic/gin"
+)
+
+// ServeHTTP ServeHTTP
+func ServeHTTP() {
+	go func() {
+		conf, err := config.Get()
+		if err != nil {
+			log.Get().Panic(err)
+		}
+		serverConf := conf.GetServerConfig()
+		gin.SetMode(serverConf.RunMode)
+		g := gin.New()
+		g.Use(corsMiddleware())
+		g.Use(gin.Recovery())
+		err = g.SetTrustedProxies(nil)
+		if err != nil {
+			log.Get().Panic(err)
+		}
+		addSwagger(g)
+		initRouters(g)
+		if err := g.Run(":" + serverConf.HTTPPort); err != nil {
+			log.Get().Panic(err)
+		}
+	}()
+}
+
+func initRouters(router *gin.Engine) {
+	// mainRoute := router.Group("trade-agent")
+}
+
+func corsMiddleware() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		c.Header("Access-Control-Allow-Origin", "*")
+		c.Header("Access-Control-Allow-Headers", "*")
+		c.Header("Access-Control-Allow-Methods", "GET, OPTIONS, POST, PUT, DELETE")
+		c.Set("content-type", "application/json")
+		c.Next()
+	}
+}

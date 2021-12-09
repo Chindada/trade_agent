@@ -1,0 +1,11 @@
+basePath: /trade-agent
+info:
+  contact: {}
+  description: API docs for Trade Agent
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  title: Trade Agent
+  version: 2.0.0
+paths: {}
+swagger: "2.0"

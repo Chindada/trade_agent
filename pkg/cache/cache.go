@@ -9,12 +9,10 @@ import (
 
 var (
 	globalCache *cache.Cache
-	initLock    sync.Mutex
+	once        sync.Once
 )
 
 func initGlobalCache() {
-	defer initLock.Unlock()
-	initLock.Lock()
 	if globalCache != nil {
 		return
 	}
@@ -24,7 +22,7 @@ func initGlobalCache() {
 // Set Set
 func Set(key string, value interface{}) {
 	if globalCache == nil {
-		initGlobalCache()
+		once.Do(initGlobalCache)
 	}
 	globalCache.Set(key, value, 0)
 }
@@ -32,7 +30,7 @@ func Set(key string, value interface{}) {
 // Get Get
 func Get(key string) interface{} {
 	if globalCache == nil {
-		initGlobalCache()
+		once.Do(initGlobalCache)
 	}
 	if value, ok := globalCache.Get(key); ok {
 		return value

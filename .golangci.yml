@@ -84,6 +84,7 @@ linters-settings:
             - G104
         excludes:
             - G204
+            - G402
 
     funlen:
         lines: 60

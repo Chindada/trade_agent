@@ -2,12 +2,12 @@
 package cache
 
 import (
+	"fmt"
 	"time"
-
-	"gitlab.tocraw.com/root/toc_trader/global"
+	"trade_agent/global"
 )
 
 // KeyStockHistoryClose KeyStockHistoryClose
 func KeyStockHistoryClose(stockNum string, date time.Time) string {
-	return "HistoryClose" + ":" + stockNum + ":" + date.Format(global.ShortTimeLayout)
+	return fmt.Sprintf("HistoryClose:%s:%s", stockNum, date.Format(global.ShortTimeLayout))
 }

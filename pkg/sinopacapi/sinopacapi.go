@@ -15,7 +15,7 @@ var globalClient *TradeAgent
 
 // TradeAgent TradeAgent
 type TradeAgent struct {
-	restAgent *resty.Client
+	*resty.Client
 	urlPrefix string
 }
 
@@ -40,7 +40,7 @@ func Get() *TradeAgent {
 // NewAgent NewAgent
 func NewAgent(serverHost, serverPort string, restAgent *resty.Client) {
 	new := TradeAgent{
-		restAgent: restAgent,
+		Client:    restAgent,
 		urlPrefix: "http://" + serverHost + ":" + serverPort,
 	}
 	globalClient = &new
@@ -49,7 +49,7 @@ func NewAgent(serverHost, serverPort string, restAgent *resty.Client) {
 // FetchServerKey FetchServerKey
 func (c *TradeAgent) FetchServerKey() (token string, err error) {
 	var resp *resty.Response
-	resp, err = c.restAgent.R().
+	resp, err = c.Client.R().
 		SetResult(&ResponseHealthStatus{}).
 		Get(c.urlPrefix + urlFetchServerKey)
 	if err != nil {
@@ -63,7 +63,7 @@ func (c *TradeAgent) FetchServerKey() (token string, err error) {
 // UpdateTraderIP UpdateTraderIP
 func (c *TradeAgent) UpdateTraderIP(ip string) (err error) {
 	var resp *resty.Response
-	resp, err = c.restAgent.R().
+	resp, err = c.Client.R().
 		SetHeader("X-Trade-Bot-Host", ip).
 		SetResult(&ResponseCommon{}).
 		Post(c.urlPrefix + urlUpdateTraderIP)
@@ -95,7 +95,7 @@ func (c *TradeAgent) PlaceOrder(order Order) (res OrderResponse, err error) {
 		Quantity: order.Quantity,
 	}
 	var resp *resty.Response
-	resp, err = c.restAgent.R().
+	resp, err = c.Client.R().
 		SetBody(body).
 		SetResult(&OrderResponse{}).
 		Post(c.urlPrefix + url)
@@ -113,7 +113,7 @@ func (c *TradeAgent) CancelOrder(orderID string) (err error) {
 		OrderID: orderID,
 	}
 	var resp *resty.Response
-	resp, err = c.restAgent.R().
+	resp, err = c.Client.R().
 		SetBody(order).
 		SetResult(&OrderResponse{}).
 		Post(c.urlPrefix + urlCancelOrder)
@@ -136,7 +136,7 @@ func (c *TradeAgent) CancelOrder(orderID string) (err error) {
 // FetchOrderStatus FetchOrderStatus
 func (c *TradeAgent) FetchOrderStatus() (err error) {
 	var resp *resty.Response
-	resp, err = c.restAgent.R().
+	resp, err = c.Client.R().
 		SetResult(&ResponseCommon{}).
 		Get(c.urlPrefix + urlFetchOrderStatus)
 	if err != nil {
@@ -153,7 +153,7 @@ func (c *TradeAgent) FetchOrderStatus() (err error) {
 // RestartSinopacSRV RestartSinopacSRV
 func (c *TradeAgent) RestartSinopacSRV() (err error) {
 	var resp *resty.Response
-	resp, err = c.restAgent.R().
+	resp, err = c.Client.R().
 		SetResult(&OrderResponse{}).
 		Get(c.urlPrefix + urlRestartSinopacSRV)
 	if err != nil {
@@ -175,7 +175,7 @@ func (c *TradeAgent) FetchLastCloseByStockArrDateArr(stockNumArr, dateArr []stri
 		DateArr:     dateArr,
 	}
 	var resp *resty.Response
-	resp, err = c.restAgent.R().
+	resp, err = c.Client.R().
 		SetBody(stockAndDateArr).
 		SetResult(&[]LastCloseWithStockAndDate{}).
 		Post(c.urlPrefix + urlFetchLastCloseByStockArrDateArr)
@@ -196,16 +196,16 @@ func (c *TradeAgent) FetchLastCloseByStockArrDateArr(stockNumArr, dateArr []stri
 }
 
 // FetchAllSnapShot FetchAllSnapShot
-func (c *TradeAgent) FetchAllSnapShot() (data []*SnapShotProto, err error) {
+func (c *TradeAgent) FetchAllSnapShot() (data []*SnapshotMessage, err error) {
 	var resp *resty.Response
-	resp, err = c.restAgent.R().
+	resp, err = c.Client.R().
 		Get(c.urlPrefix + urlFetchAllSnapShot)
 	if err != nil {
 		return data, err
 	} else if resp.StatusCode() != http.StatusOK {
 		return data, errors.New("FetchAllSnapShot API Fail")
 	}
-	body := SnapShotArrProto{}
+	body := SnapshotResponse{}
 	if err = proto.Unmarshal(resp.Body(), &body); err != nil {
 		return data, err
 	}
@@ -221,7 +221,7 @@ func (c *TradeAgent) FetchStockCloseMapByStockDateArr(stockNumArr []string, date
 	tmpNoClose := make(map[string]bool)
 	for _, date := range dateArr {
 		var resp *resty.Response
-		resp, err = c.restAgent.R().
+		resp, err = c.Client.R().
 			SetHeader("X-Date", date.Format(shortTimeLayout)).
 			SetBody(stockArr).
 			SetResult(&[]StockLastCount{}).
@@ -255,7 +255,7 @@ func (c *TradeAgent) FetchStockCloseMapByStockDateArr(stockNumArr []string, date
 // FetchTSE001CloseByDate FetchTSE001CloseByDate
 func (c *TradeAgent) FetchTSE001CloseByDate(date time.Time) (close float64, err error) {
 	var resp *resty.Response
-	resp, err = c.restAgent.R().
+	resp, err = c.Client.R().
 		SetHeader("X-Date", date.Format(shortTimeLayout)).
 		SetResult(&[]StockLastCount{}).
 		Post(c.urlPrefix + urlFetchTSE001CloseByDate)
@@ -269,9 +269,9 @@ func (c *TradeAgent) FetchTSE001CloseByDate(date time.Time) (close float64, err 
 }
 
 // FetchVolumeRankByDate FetchVolumeRankByDate
-func (c *TradeAgent) FetchVolumeRankByDate(date string, count int64) (data []*VolumeRankProto, err error) {
+func (c *TradeAgent) FetchVolumeRankByDate(date string, count int64) (data []*VolumeRankMessage, err error) {
 	var resp *resty.Response
-	resp, err = c.restAgent.R().
+	resp, err = c.Client.R().
 		SetHeader("X-Count", strconv.FormatInt(count, 10)).
 		SetHeader("X-Date", date).
 		Get(c.urlPrefix + urlFetchVolumeRankByDate)
@@ -280,7 +280,7 @@ func (c *TradeAgent) FetchVolumeRankByDate(date string, count int64) (data []*Vo
 	} else if resp.StatusCode() != http.StatusOK {
 		return data, errors.New("FetchVolumeRankByDate API Fail")
 	}
-	body := VolumeRankArrProto{}
+	body := VolumeRankResponse{}
 	if err = proto.Unmarshal(resp.Body(), &body); err != nil {
 		return data, err
 	}
@@ -288,13 +288,13 @@ func (c *TradeAgent) FetchVolumeRankByDate(date string, count int64) (data []*Vo
 }
 
 // FetchKbarByDateRange FetchKbarByDateRange
-func (c *TradeAgent) FetchKbarByDateRange(stockNum string, start, end time.Time) (data []*KbarProto, err error) {
+func (c *TradeAgent) FetchKbarByDateRange(stockNum string, start, end time.Time) (data []*KbarMessage, err error) {
 	stockAndDateArr := FetchKbarBody{
 		StockNum:  stockNum,
 		StartDate: start.Format(shortTimeLayout),
 		EndDate:   end.Format(shortTimeLayout),
 	}
-	resp, err := c.restAgent.R().
+	resp, err := c.Client.R().
 		SetBody(stockAndDateArr).
 		Post(c.urlPrefix + urlFetchKbarByDateRange)
 	if err != nil {
@@ -302,7 +302,7 @@ func (c *TradeAgent) FetchKbarByDateRange(stockNum string, start, end time.Time)
 	} else if resp.StatusCode() != http.StatusOK {
 		return data, errors.New("FetchKbarByDateRange API Fail")
 	}
-	res := KbarArrProto{}
+	res := KbarResponse{}
 	if err = proto.Unmarshal(resp.Body(), &res); err != nil {
 		return data, err
 	}
@@ -310,34 +310,34 @@ func (c *TradeAgent) FetchKbarByDateRange(stockNum string, start, end time.Time)
 }
 
 // FetchTSE001KbarByDate FetchTSE001KbarByDate
-func (c *TradeAgent) FetchTSE001KbarByDate(date time.Time) (err error) {
+func (c *TradeAgent) FetchTSE001KbarByDate(date time.Time) (data []*KbarMessage, err error) {
 	stockAndDateArr := FetchKbarBody{
 		StartDate: date.Format(shortTimeLayout),
 		EndDate:   date.Format(shortTimeLayout),
 	}
-	resp, err := c.restAgent.R().
+	resp, err := c.Client.R().
 		SetBody(stockAndDateArr).
 		Post(c.urlPrefix + urlFetchTSE001KbarByDate)
 	if err != nil {
-		return err
+		return data, err
 	} else if resp.StatusCode() != http.StatusOK {
-		return errors.New("FetchTSEKbarByDateRange API Fail")
+		return data, errors.New("FetchTSEKbarByDateRange API Fail")
 	}
-	res := KbarArrProto{}
+	res := KbarResponse{}
 	if err = proto.Unmarshal(resp.Body(), &res); err != nil {
-		return err
+		return data, err
 	}
-	return err
+	return res.Data, err
 }
 
 // FetchEntireTickByStockAndDate FetchEntireTickByStockAndDate
-func (c *TradeAgent) FetchEntireTickByStockAndDate(stockNum, date string) (data []*EntireTickProto, err error) {
+func (c *TradeAgent) FetchEntireTickByStockAndDate(stockNum, date string) (data []*HistoryTickMessage, err error) {
 	stockAndDate := FetchBody{
 		StockNum: stockNum,
 		Date:     date,
 	}
 	var resp *resty.Response
-	resp, err = c.restAgent.R().
+	resp, err = c.Client.R().
 		SetBody(stockAndDate).
 		Post(c.urlPrefix + urlFetchEntireTickByStockAndDate)
 	if err != nil {
@@ -345,7 +345,7 @@ func (c *TradeAgent) FetchEntireTickByStockAndDate(stockNum, date string) (data 
 	} else if resp.StatusCode() != http.StatusOK {
 		return data, errors.New("FetchEntireTickByStockAndDate API Fail")
 	}
-	res := EntireTickArrProto{}
+	res := HistoryTickResponse{}
 	if err = proto.Unmarshal(resp.Body(), &res); err != nil {
 		return data, err
 	}
@@ -355,7 +355,7 @@ func (c *TradeAgent) FetchEntireTickByStockAndDate(stockNum, date string) (data 
 // FetchAllStockDetail FetchAllStockDetail
 func (c *TradeAgent) FetchAllStockDetail() (data []FetchStockBody, err error) {
 	var resp *resty.Response
-	resp, err = c.restAgent.R().
+	resp, err = c.Client.R().
 		SetResult(&[]FetchStockBody{}).
 		Get(c.urlPrefix + urlFetchAllStockDetail)
 	if err != nil {
@@ -372,7 +372,7 @@ func (c *TradeAgent) SubStreamTick(stockArr []string) (err error) {
 		StockNumArr: stockArr,
 	}
 	var resp *resty.Response
-	resp, err = c.restAgent.R().
+	resp, err = c.Client.R().
 		SetBody(stocks).
 		SetResult(&OrderResponse{}).
 		Post(c.urlPrefix + urlSubStreamTick)
@@ -394,7 +394,7 @@ func (c *TradeAgent) SubBidAsk(stockArr []string) (err error) {
 		StockNumArr: stockArr,
 	}
 	var resp *resty.Response
-	resp, err = c.restAgent.R().
+	resp, err = c.Client.R().
 		SetBody(stocks).
 		SetResult(&OrderResponse{}).
 		Post(c.urlPrefix + urlSubBidAsk)
@@ -415,11 +415,11 @@ func (c *TradeAgent) UnSubscribeAllByType(dataType TickType) (err error) {
 	switch {
 	case dataType == StreamType:
 		url = urlUnSubscribeAllStream
-	case dataType == BidAsk:
+	case dataType == BidAskType:
 		url = urlUnSubscribeAllBidAsk
 	}
 	var resp *resty.Response
-	resp, err = c.restAgent.R().
+	resp, err = c.Client.R().
 		SetResult(&OrderResponse{}).
 		Get(c.urlPrefix + url)
 	if err != nil {

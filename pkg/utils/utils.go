@@ -7,8 +7,7 @@ import (
 	"strconv"
 	"sync"
 	"time"
-
-	"gitlab.tocraw.com/root/toc_trader/pkg/log"
+	"trade_agent/pkg/log"
 )
 
 // StrToInt64 StrToInt64

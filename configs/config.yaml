@@ -4,22 +4,25 @@ server:
     http_port: "6670"
     sinopac_srv_host: "127.0.0.1"
     sinopac_srv_port: "3333"
-    reset: false
 # db settings
 database:
     db_host: "127.0.0.1"
     db_port: "5432"
     db_user: "postgres"
-    db_pass: "peCnof-cijhih-7fezvy"
+    db_pass: "asdf0000"
     database: "trade_agent_debug"
     db_encode: "utf8"
     db_timezone: "Asia/Taipei"
 # mqtt
-internal_mq:
+mqtt:
     host: "127.0.0.1"
-    port: "18882"
-    user: "trade"
-    password: "peCnof-cijhih-7fezvy"
+    port: "8887"
+    user: "toc"
+    password: "asdf0000"
+    client_id: "trade-agent"
+    ca_path: "./configs/certs/ca_crt.pem"
+    cert_path: "./configs/certs/client_crt.pem"
+    key_path: "./configs/certs/client_key.pem"
 # trade settings
 trade:
     kbar_period: 20
