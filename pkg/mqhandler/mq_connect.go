@@ -68,6 +68,6 @@ func onConnect(mqConf config.MQTT) func(mqtt.Client) {
 
 func onLost(mqConf config.MQTT) func(mqtt.Client, error) {
 	return func(mqtt.Client, error) {
-		log.Get().Panic("MQTT Broker on %s:%s is disconnected", mqConf.Host, mqConf.Port)
+		log.Get().Panicf("MQTT Broker on %s:%s is disconnected", mqConf.Host, mqConf.Port)
 	}
 }
