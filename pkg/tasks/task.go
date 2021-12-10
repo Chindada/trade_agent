@@ -12,6 +12,7 @@ import (
 
 // InitTasks InitTasks
 func InitTasks() {
+	log.Get().Info("Initial Tasks")
 	var err error
 	var conf config.Config
 

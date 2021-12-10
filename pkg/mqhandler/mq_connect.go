@@ -28,7 +28,6 @@ func getMQClient(mqConf config.MQTT) (client mqtt.Client, err error) {
 		SetPassword(mqConf.Password).
 		SetOnConnectHandler(onConnect(mqConf)).
 		SetConnectionLostHandler(onLost(mqConf))
-	log.Get().Info("MQTT connecting...")
 	c := mqtt.NewClient(opts)
 	if token := c.Connect(); token.Wait() && token.Error() != nil {
 		return client, err
@@ -69,6 +68,6 @@ func onConnect(mqConf config.MQTT) func(mqtt.Client) {
 
 func onLost(mqConf config.MQTT) func(mqtt.Client, error) {
 	return func(mqtt.Client, error) {
-		log.Get().Errorf("MQTT Broker on %s:%s is disconnected", mqConf.Host, mqConf.Port)
+		log.Get().Panic("MQTT Broker on %s:%s is disconnected", mqConf.Host, mqConf.Port)
 	}
 }

@@ -15,4 +15,4 @@ ALTER USER postgres WITH SUPERUSER;
 psql postgres -f sql_script
 rm -rf sql_script
 
-pg_ctl -D ./data/trade_agent -l ./data/trade_agent/logfile stop
+# pg_ctl -D ./data/trade_agent -l ./data/trade_agent/logfile stop

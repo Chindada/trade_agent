@@ -4,80 +4,107 @@ package mqhandler
 import (
 	"sync"
 	"trade_agent/pkg/config"
+	"trade_agent/pkg/log"
 
 	mqtt "github.com/eclipse/paho.mqtt.golang"
 )
 
+var (
+	globalHandler *MQHandler
+	once          sync.Once
+)
+
 // MQHandler MQHandler
 type MQHandler struct {
-	lock        sync.Mutex
+	lock        sync.RWMutex
 	client      mqtt.Client
-	callbackMap map[string]topicCallback
+	callbackMap map[string]MQCallback
 }
 
-type topicCallback struct {
-	callBack func(mqtt.Client, mqtt.Message)
-	once     bool
+// type topicCallback struct {
+// 	callBack MQCallback
+// 	once     bool
+// }
+
+// MQCallback MQCallback
+type MQCallback func(mqtt.Client, mqtt.Message)
+
+// Get Get
+func Get() *MQHandler {
+	if globalHandler != nil {
+		return globalHandler
+	}
+	once.Do(initMQHandler)
+	return globalHandler
 }
 
-// NewMQHandler NewMQHandler
-func NewMQHandler() (handler *MQHandler, err error) {
+// initMQHandler initMQHandler
+func initMQHandler() {
+	if globalHandler != nil {
+		return
+	}
+	var err error
 	var conf config.Config
 	conf, err = config.Get()
 	if err != nil {
-		return nil, err
+		log.Get().Panic(err)
 	}
 	var newClient mqtt.Client
 	newClient, err = getMQClient(conf.GetMQConfig())
 	if err != nil {
-		return nil, err
+		log.Get().Panic(err)
 	}
-	callbackMap := make(map[string]topicCallback)
-	handler = &MQHandler{
-		lock:        sync.Mutex{},
+	if newClient == nil {
+		log.Get().Panic("MQTT connect fail")
+	}
+	callbackMap := make(map[string]MQCallback)
+	globalHandler = &MQHandler{
+		lock:        sync.RWMutex{},
 		client:      newClient,
 		callbackMap: callbackMap,
 	}
-	return handler, err
 }
 
-// AddCallback AddCallback
-func (c *MQHandler) AddCallback(topic Topic, callback func(mqtt.Client, mqtt.Message), once bool) {
+// AddCallbackByTopic AddCallbackByTopic
+func (c *MQHandler) AddCallbackByTopic(topic Topic, cb MQCallback) {
 	defer c.lock.Unlock()
 	c.lock.Lock()
-	tmp := topicCallback{
-		callBack: callback,
-		once:     once,
-	}
-	c.callbackMap[string(topic)] = tmp
+	c.callbackMap[string(topic)] = cb
 }
 
 // Pub Pub
-func (c *MQHandler) Pub(topic Topic, msg interface{}) {
-	c.client.Publish(string(topic), 0, false, msg)
+func (c *MQHandler) Pub(topic Topic, msg interface{}) error {
+	token := c.client.Publish(string(topic), 0, false, msg)
+	if token.Wait() && token.Error() != nil {
+		return token.Error()
+	}
+	return nil
 }
 
 // Sub Sub
-func (c *MQHandler) Sub(topic Topic) {
-	c.client.Subscribe(string(topic), 0, c.onMessage(topic))
+func (c *MQHandler) Sub(topic Topic) error {
+	token := c.client.Subscribe(string(topic), 0, c.onMessage(topic))
+	if token.Wait() && token.Error() != nil {
+		return token.Error()
+	}
+	return nil
 }
 
 // UnSub UnSub
-func (c *MQHandler) UnSub(topics []Topic) {
+func (c *MQHandler) UnSub(topic Topic) error {
 	var tmp []string
-	for _, v := range topics {
-		tmp = append(tmp, string(v))
+	tmp = append(tmp, string(topic))
+
+	token := c.client.Unsubscribe(tmp...)
+	if token.Wait() && token.Error() != nil {
+		return token.Error()
 	}
-	c.client.Unsubscribe(tmp...)
+	return nil
 }
 
 func (c *MQHandler) onMessage(topic Topic) func(mqtt.Client, mqtt.Message) {
-	defer c.lock.Unlock()
-	c.lock.Lock()
+	defer c.lock.RUnlock()
+	c.lock.RLock()
 	callback := c.callbackMap[string(topic)]
-	if callback.once {
-		tmp := []Topic{topic}
-		c.UnSub(tmp)
-	}
-	return callback.callBack
+	return callback
 }

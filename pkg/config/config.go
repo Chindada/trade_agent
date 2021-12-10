@@ -20,6 +20,7 @@ type Config struct {
 	Database `yaml:"database"`
 	Schedule `yaml:"schedule"`
 	MQTT     `yaml:"mqtt"`
+	Trade    `yaml:"trade"`
 }
 
 // Server Server
@@ -51,6 +52,14 @@ type MQTT struct {
 	CAPath   string `yaml:"ca_path"`
 	CertPath string `yaml:"cert_path"`
 	KeyPath  string `yaml:"key_path"`
+}
+
+// Trade Trade
+type Trade struct {
+	KbarPeriod      string `yaml:"kbar_period"`
+	TargetCondition string `yaml:"target_condition"`
+	BlackStock      string `yaml:"black_stock"`
+	BlackCategory   string `yaml:"black_category"`
 }
 
 // Schedule Schedule
@@ -96,6 +105,11 @@ func (c Config) GetDBConfig() Database {
 // GetScheduleConfig GetScheduleConfig
 func (c Config) GetScheduleConfig() Schedule {
 	return c.Schedule
+}
+
+// GetTradeConfig GetTradeConfig
+func (c Config) GetTradeConfig() Trade {
+	return c.Trade
 }
 
 // GetMQConfig GetMQConfig

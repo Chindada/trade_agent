@@ -4,6 +4,7 @@ package routers
 import (
 	"trade_agent/pkg/config"
 	"trade_agent/pkg/log"
+	"trade_agent/pkg/utils"
 
 	"github.com/gin-gonic/gin"
 )
@@ -26,6 +27,7 @@ func ServeHTTP() {
 		}
 		addSwagger(g)
 		initRouters(g)
+		log.Get().Infof("HTTP Server serve on http://%s:%s/", utils.GetHostIP(), serverConf.HTTPPort)
 		if err := g.Run(":" + serverConf.HTTPPort); err != nil {
 			log.Get().Panic(err)
 		}

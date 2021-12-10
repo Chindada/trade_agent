@@ -1,10 +1,10 @@
-# server settings
+# server
 server:
     run_mode: "release"
-    http_port: "6670"
+    http_port: "16670"
     sinopac_srv_host: "127.0.0.1"
-    sinopac_srv_port: "3333"
-# db settings
+    sinopac_srv_port: "13333"
+# database
 database:
     db_host: "127.0.0.1"
     db_port: "5432"
@@ -23,13 +23,13 @@ mqtt:
     ca_path: "./configs/certs/ca_crt.pem"
     cert_path: "./configs/certs/client_crt.pem"
     key_path: "./configs/certs/client_key.pem"
-# trade settings
+# trade
 trade:
     kbar_period: 20
     target_condition: '[{"limit_price_low":10,"limit_price_high":50,"limit_volume":20000}]'
     black_stock_arr: '["1314","2317","3481","3701"]'
     black_category_arr: '["17"]'
-# cron
+# schedule
 schedule:
     cleanevent_cron: "0 0 4 * * ?"
     restart_sinopac_cron: "0 20 1,8,15 * * ?"
