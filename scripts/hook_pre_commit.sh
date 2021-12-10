@@ -49,6 +49,7 @@ fi
 git diff-index --check --cached $against --
 
 # Trade Agent Hook
+pg_ctl -D ./data/trade_agent -l ./data/trade_agent/logfile stop
 # go test -race $(go list ./... | grep -v /vendor/) -v > go_test_result
 # if grep FAIL go_test_result
 # then

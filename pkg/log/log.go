@@ -47,18 +47,18 @@ func initLogger() {
 		})
 	}
 	// Log.SetReportCaller(true)
-	fileNamePrefix := time.Now().Format(time.RFC3339)[:16] + "-"
-	fileNamePrefix = strings.ReplaceAll(fileNamePrefix, ":", "")
+	folderName := time.Now().Format(time.RFC3339)[:16]
+	folderName = strings.ReplaceAll(folderName, ":", "")
 	globalLogger.SetLevel(logrus.TraceLevel)
 	globalLogger.SetOutput(os.Stdout)
 	pathMap := lfshook.PathMap{
-		logrus.PanicLevel: basePath + "/logs/" + fileNamePrefix + "panic.json",
-		logrus.FatalLevel: basePath + "/logs/" + fileNamePrefix + "fetal.json",
-		logrus.ErrorLevel: basePath + "/logs/" + fileNamePrefix + "error.json",
-		logrus.WarnLevel:  basePath + "/logs/" + fileNamePrefix + "warn.json",
-		logrus.InfoLevel:  basePath + "/logs/" + fileNamePrefix + "info.json",
-		logrus.DebugLevel: basePath + "/logs/" + fileNamePrefix + "debug.json",
-		logrus.TraceLevel: basePath + "/logs/" + fileNamePrefix + "error.json",
+		logrus.PanicLevel: basePath + "/logs/" + folderName + "/panic.json",
+		logrus.FatalLevel: basePath + "/logs/" + folderName + "/fetal.json",
+		logrus.ErrorLevel: basePath + "/logs/" + folderName + "/error.json",
+		logrus.WarnLevel:  basePath + "/logs/" + folderName + "/warn.json",
+		logrus.InfoLevel:  basePath + "/logs/" + folderName + "/info.json",
+		logrus.DebugLevel: basePath + "/logs/" + folderName + "/debug.json",
+		logrus.TraceLevel: basePath + "/logs/" + folderName + "/error.json",
 	}
 	globalLogger.Hooks.Add(lfshook.NewHook(
 		pathMap,
