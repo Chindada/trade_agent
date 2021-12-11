@@ -1,10 +1,17 @@
 // Package mqhandler package mqhandler
 package mqhandler
 
+// MQSubBody MQSubBody
+type MQSubBody struct {
+	Topic
+	Once     bool
+	Callback MQCallback
+}
+
 // Topic Topic
 type Topic string
 
-const (
-	// TradeRecordResponse TradeRecordResponse
-	TradeRecordResponse Topic = "internal/trade_record"
-)
+// TopicTradeRecord TopicTradeRecord
+func TopicTradeRecord() Topic {
+	return "internal/trade_record"
+}

@@ -14,20 +14,15 @@ var (
 	once          sync.Once
 )
 
+// MQCallback MQCallback
+type MQCallback func(mqtt.Client, mqtt.Message)
+
 // MQHandler MQHandler
 type MQHandler struct {
-	lock        sync.RWMutex
+	lock        sync.Mutex
 	client      mqtt.Client
 	callbackMap map[string]MQCallback
 }
-
-// type topicCallback struct {
-// 	callBack MQCallback
-// 	once     bool
-// }
-
-// MQCallback MQCallback
-type MQCallback func(mqtt.Client, mqtt.Message)
 
 // Get Get
 func Get() *MQHandler {
@@ -55,56 +50,59 @@ func initMQHandler() {
 		log.Get().Panic(err)
 	}
 	if newClient == nil {
-		log.Get().Panic("MQTT connect fail")
+		log.Get().Panic("MQTT Connect Fail")
 	}
 	callbackMap := make(map[string]MQCallback)
 	globalHandler = &MQHandler{
-		lock:        sync.RWMutex{},
+		lock:        sync.Mutex{},
 		client:      newClient,
 		callbackMap: callbackMap,
 	}
 }
 
-// AddCallbackByTopic AddCallbackByTopic
-func (c *MQHandler) AddCallbackByTopic(topic Topic, cb MQCallback) {
-	defer c.lock.Unlock()
+// Sub Sub
+func (c *MQHandler) Sub(body MQSubBody) error {
 	c.lock.Lock()
-	c.callbackMap[string(topic)] = cb
+	c.callbackMap[string(body.Topic)] = body.Callback
+	c.lock.Unlock()
+	token := c.client.Subscribe(string(body.Topic), 2, c.onMessage(body))
+	if token.Wait() && token.Error() != nil {
+		return token.Error()
+	}
+	return nil
 }
 
 // Pub Pub
 func (c *MQHandler) Pub(topic Topic, msg interface{}) error {
-	token := c.client.Publish(string(topic), 0, false, msg)
+	token := c.client.Publish(string(topic), 2, false, msg)
 	if token.Wait() && token.Error() != nil {
 		return token.Error()
 	}
 	return nil
 }
 
-// Sub Sub
-func (c *MQHandler) Sub(topic Topic) error {
-	token := c.client.Subscribe(string(topic), 0, c.onMessage(topic))
-	if token.Wait() && token.Error() != nil {
-		return token.Error()
+func (c *MQHandler) onMessage(body MQSubBody) func(mqtt.Client, mqtt.Message) {
+	defer c.lock.Unlock()
+	c.lock.Lock()
+	callback := c.callbackMap[string(body.Topic)]
+	if callback == nil {
+		err := c.UnSub(string(body.Topic))
+		if err != nil {
+			log.Get().Error(err)
+		}
+		log.Get().Infof("Finish %s Once Subscribe", body.Topic)
 	}
-	return nil
+	if body.Once {
+		delete(c.callbackMap, string(body.Topic))
+	}
+	return callback
 }
 
 // UnSub UnSub
-func (c *MQHandler) UnSub(topic Topic) error {
-	var tmp []string
-	tmp = append(tmp, string(topic))
-
-	token := c.client.Unsubscribe(tmp...)
+func (c *MQHandler) UnSub(topic string) error {
+	token := c.client.Unsubscribe(topic)
 	if token.Wait() && token.Error() != nil {
 		return token.Error()
 	}
 	return nil
-}
-
-func (c *MQHandler) onMessage(topic Topic) func(mqtt.Client, mqtt.Message) {
-	defer c.lock.RUnlock()
-	c.lock.RLock()
-	callback := c.callbackMap[string(topic)]
-	return callback
 }
