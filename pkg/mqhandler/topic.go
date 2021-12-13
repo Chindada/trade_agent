@@ -3,15 +3,20 @@ package mqhandler
 
 // MQSubBody MQSubBody
 type MQSubBody struct {
-	Topic
+	MQTopic
 	Once     bool
 	Callback MQCallback
 }
 
-// Topic Topic
-type Topic string
+// MQTopic MQTopic
+type MQTopic string
 
 // TopicTradeRecord TopicTradeRecord
-func TopicTradeRecord() Topic {
+func TopicTradeRecord() MQTopic {
 	return "internal/trade_record"
+}
+
+// TopicStockDetail TopicStockDetail
+func TopicStockDetail() MQTopic {
+	return "internal/stock_detail"
 }

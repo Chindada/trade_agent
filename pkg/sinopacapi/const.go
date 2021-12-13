@@ -10,8 +10,6 @@ const (
 	StatusSuccuss string = "success"
 	// StatusFail StatusFail
 	StatusFail string = "fail"
-	// StatusHistoryNotFound StatusHistoryNotFound
-	StatusHistoryNotFound string = "history not found"
 	// StatusCancelOrderNotFound StatusCancelOrderNotFound
 	StatusCancelOrderNotFound string = "cancel order not found"
 	// StatusAlreadyCanceled StatusAlreadyCanceled

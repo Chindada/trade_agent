@@ -8,7 +8,7 @@ import (
 )
 
 var (
-	globalBus *EventBus.Bus
+	globalBus EventBus.Bus
 	once      sync.Once
 )
 
@@ -17,11 +17,11 @@ func initBus() {
 		return
 	}
 	newBus := EventBus.New()
-	globalBus = &newBus
+	globalBus = newBus
 }
 
 // Get Get
-func Get() *EventBus.Bus {
+func Get() EventBus.Bus {
 	if globalBus != nil {
 		return globalBus
 	}

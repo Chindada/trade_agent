@@ -1,5 +1,5 @@
-// Package dao package dao
-package dao
+// Package dbagent package dbagent
+package dbagent
 
 import (
 	"time"
@@ -13,7 +13,7 @@ type HistoryTick struct {
 	time.Time  `json:"time" gorm:"column:time;index:idx_history_tick"`
 	Stock      `json:"stock" gorm:"foreignKey:StockID"`
 
-	StockID   int64   `json:"stock_id" gorm:"column:stock_id;index:idx_history_tick"`
+	StockID   int64   `json:"stock_id" gorm:"column:stock_id"`
 	Close     float64 `json:"close" gorm:"column:close"`
 	TickType  int64   `json:"tick_type" gorm:"column:tick_type"`
 	Volume    int64   `json:"volume" gorm:"column:volume"`
@@ -25,4 +25,26 @@ type HistoryTick struct {
 	Open float64 `json:"open" gorm:"column:open"`
 	High float64 `json:"high" gorm:"column:high"`
 	Low  float64 `json:"low" gorm:"column:low"`
+}
+
+// InsertHistoryTick InsertHistoryTick
+func (c *DBAgent) InsertHistoryTick(tick HistoryTick) error {
+	err := c.DB.Transaction(func(tx *gorm.DB) error {
+		if err := tx.Create(&tick).Error; err != nil {
+			return err
+		}
+		return nil
+	})
+	return err
+}
+
+// InsertMultiHistoryTick InsertMultiHistoryTick
+func (c *DBAgent) InsertMultiHistoryTick(tickArr []*HistoryTick) error {
+	err := c.DB.Transaction(func(tx *gorm.DB) error {
+		if err := tx.CreateInBatches(&tickArr, multiInsertBatchSize).Error; err != nil {
+			return err
+		}
+		return nil
+	})
+	return err
 }

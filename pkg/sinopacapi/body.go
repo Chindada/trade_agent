@@ -41,23 +41,3 @@ type FetchBody struct {
 type SubscribeBody struct {
 	StockNumArr []string `json:"stock_num_arr"`
 }
-
-// FetchStockBody FetchStockBody
-type FetchStockBody struct {
-	Close    float64 `json:"close"`
-	Code     string  `json:"code"`
-	DayTrade string  `json:"day_trade"`
-	Exchange string  `json:"exchange"`
-	Name     string  `json:"name"`
-	Updated  string  `json:"updated"`
-	Category string  `json:"category"`
-}
-
-// LastCloseWithStockAndDate LastCloseWithStockAndDate
-type LastCloseWithStockAndDate struct {
-	StockNum string `json:"stock_num"`
-	CloseArr []struct {
-		Date  string  `json:"date"`
-		Close float64 `json:"close"`
-	} `json:"close_arr"`
-}

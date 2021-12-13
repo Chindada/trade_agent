@@ -63,9 +63,9 @@ func initMQHandler() {
 // Sub Sub
 func (c *MQHandler) Sub(body MQSubBody) error {
 	c.lock.Lock()
-	c.callbackMap[string(body.Topic)] = body.Callback
+	c.callbackMap[string(body.MQTopic)] = body.Callback
 	c.lock.Unlock()
-	token := c.client.Subscribe(string(body.Topic), 2, c.onMessage(body))
+	token := c.client.Subscribe(string(body.MQTopic), 2, c.onMessage(body))
 	if token.Wait() && token.Error() != nil {
 		return token.Error()
 	}
@@ -73,7 +73,7 @@ func (c *MQHandler) Sub(body MQSubBody) error {
 }
 
 // Pub Pub
-func (c *MQHandler) Pub(topic Topic, msg interface{}) error {
+func (c *MQHandler) Pub(topic MQTopic, msg interface{}) error {
 	token := c.client.Publish(string(topic), 2, false, msg)
 	if token.Wait() && token.Error() != nil {
 		return token.Error()
@@ -84,16 +84,16 @@ func (c *MQHandler) Pub(topic Topic, msg interface{}) error {
 func (c *MQHandler) onMessage(body MQSubBody) func(mqtt.Client, mqtt.Message) {
 	defer c.lock.Unlock()
 	c.lock.Lock()
-	callback := c.callbackMap[string(body.Topic)]
+	callback := c.callbackMap[string(body.MQTopic)]
 	if callback == nil {
-		err := c.UnSub(string(body.Topic))
+		err := c.UnSub(string(body.MQTopic))
 		if err != nil {
 			log.Get().Error(err)
 		}
-		log.Get().Infof("Finish %s Once Subscribe", body.Topic)
+		log.Get().Infof("Finish %s Once Subscribe", body.MQTopic)
 	}
 	if body.Once {
-		delete(c.callbackMap, string(body.Topic))
+		delete(c.callbackMap, string(body.MQTopic))
 	}
 	return callback
 }

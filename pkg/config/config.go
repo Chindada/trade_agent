@@ -44,14 +44,14 @@ type Database struct {
 
 // MQTT MQTT
 type MQTT struct {
-	Host     string `yaml:"host"`
-	Port     string `yaml:"port"`
-	User     string `yaml:"user"`
-	Password string `yaml:"password"`
-	ClientID string `yaml:"client_id"`
-	CAPath   string `yaml:"ca_path"`
-	CertPath string `yaml:"cert_path"`
-	KeyPath  string `yaml:"key_path"`
+	Host     string `yaml:"host" json:"host"`
+	Port     string `yaml:"port" json:"port"`
+	User     string `yaml:"user" json:"user"`
+	Password string `yaml:"password" json:"password"`
+	ClientID string `yaml:"client_id" json:"client_id"`
+	CAPath   string `yaml:"ca_path" json:"ca_path"`
+	CertPath string `yaml:"cert_path" json:"cert_path"`
+	KeyPath  string `yaml:"key_path" json:"key_path"`
 }
 
 // Trade Trade

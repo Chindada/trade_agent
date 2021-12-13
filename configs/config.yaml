@@ -15,7 +15,7 @@ database:
     db_timezone: "Asia/Taipei"
 # mqtt
 mqtt:
-    host: "127.0.0.1"
+    host: "172.20.10.250"
     port: "8887"
     user: "toc"
     password: "asdf0000"
