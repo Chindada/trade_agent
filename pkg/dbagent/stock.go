@@ -40,12 +40,12 @@ func (c *DBAgent) InsertMultiStock(stockArr []*Stock) error {
 }
 
 // GetAllStockMap GetAllStockMap
-func (c *DBAgent) GetAllStockMap() (stockMap map[string]*Stock, err error) {
-	stockMap = make(map[string]*Stock)
+func (c *DBAgent) GetAllStockMap() (allStockMap map[string]*Stock, err error) {
+	allStockMap = make(map[string]*Stock)
 	var stockArr []*Stock
 	result := c.DB.Model(&Stock{}).Not("name = ?", "").Order("number").Find(&stockArr)
 	for _, v := range stockArr {
-		stockMap[v.Number] = v
+		allStockMap[v.Number] = v
 	}
-	return stockMap, result.Error
+	return allStockMap, result.Error
 }

@@ -20,13 +20,13 @@ mqtt:
     user: "toc"
     password: "asdf0000"
     client_id: "trade-agent"
-    ca_path: "./configs/certs/ca_crt.pem"
-    cert_path: "./configs/certs/client_crt.pem"
-    key_path: "./configs/certs/client_key.pem"
+    ca_path: "/configs/certs/ca_crt.pem"
+    cert_path: "/configs/certs/client_crt.pem"
+    key_path: "/configs/certs/client_key.pem"
 # trade
 trade:
     kbar_period: 20
-    target_condition: '[{"limit_price_low":10,"limit_price_high":50,"limit_volume":20000}]'
+    target_condition: '{"limit_price_low":10,"limit_price_high":50,"limit_volume":20000}'
     black_stock_arr: '["1314","2317","3481","3701"]'
     black_category_arr: '["17"]'
 # schedule

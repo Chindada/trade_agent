@@ -9,7 +9,7 @@ import (
 
 // Cache Cache
 type Cache struct {
-	*cache.Cache
+	Cache *cache.Cache
 }
 
 var (

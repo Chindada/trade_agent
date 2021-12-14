@@ -18,7 +18,7 @@ import (
 
 // DBAgent DBAgent
 type DBAgent struct {
-	*gorm.DB
+	DB *gorm.DB
 }
 
 const (
@@ -62,6 +62,8 @@ func initConnection() {
 		&Stock{},
 		&HistoryTick{},
 		&TradeEvent{},
+		&CalendarDate{},
+		&Target{},
 	)
 	if err != nil {
 		log.Get().Panic(err)

@@ -7,5 +7,5 @@ report.xml
 go_test_result
 
 trade_agent
-
+.vscode
 !.gitkeep

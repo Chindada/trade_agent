@@ -62,12 +62,12 @@ func genTLSConfig(mqConf config.MQTT) *tls.Config {
 
 func onConnect(mqConf config.MQTT) func(mqtt.Client) {
 	return func(mqtt.Client) {
-		log.Get().Infof("MQTT Broker on %s:%s is connected", mqConf.Host, mqConf.Port)
+		log.Get().Infof("MQTT Broker on %s:%s Connected", mqConf.Host, mqConf.Port)
 	}
 }
 
 func onLost(mqConf config.MQTT) func(mqtt.Client, error) {
 	return func(mqtt.Client, error) {
-		log.Get().Panicf("MQTT Broker on %s:%s is disconnected", mqConf.Host, mqConf.Port)
+		log.Get().Panicf("MQTT Broker on %s:%s Disconnected", mqConf.Host, mqConf.Port)
 	}
 }

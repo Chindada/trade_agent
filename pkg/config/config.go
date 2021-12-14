@@ -3,6 +3,8 @@ package config
 
 import (
 	"io/ioutil"
+	"os"
+	"path/filepath"
 	"sync"
 	"trade_agent/pkg/log"
 
@@ -16,11 +18,12 @@ var (
 
 // Config Config
 type Config struct {
-	Server   `yaml:"server"`
-	Database `yaml:"database"`
-	Schedule `yaml:"schedule"`
-	MQTT     `yaml:"mqtt"`
-	Trade    `yaml:"trade"`
+	basePath string
+	Server   Server   `yaml:"server"`
+	Database Database `yaml:"database"`
+	Schedule Schedule `yaml:"schedule"`
+	MQTT     MQTT     `yaml:"mqtt"`
+	Trade    Trade    `yaml:"trade"`
 }
 
 // Server Server
@@ -73,7 +76,12 @@ func parseConfig() {
 	if globalConfig != nil {
 		return
 	}
-	yamlFile, err := ioutil.ReadFile("./configs/config.yaml")
+	ex, err := os.Executable()
+	if err != nil {
+		log.Get().Panic(err)
+	}
+	exPath := filepath.Clean(filepath.Dir(ex) + "/configs/config.yaml")
+	yamlFile, err := ioutil.ReadFile(exPath)
 	if err != nil {
 		log.Get().Panic(err)
 	}
@@ -81,6 +89,7 @@ func parseConfig() {
 	if err != nil {
 		log.Get().Panic(err)
 	}
+	globalConfig.basePath = filepath.Clean(filepath.Dir(ex))
 }
 
 // Get Get
@@ -114,5 +123,8 @@ func (c Config) GetTradeConfig() Trade {
 
 // GetMQConfig GetMQConfig
 func (c Config) GetMQConfig() MQTT {
+	c.MQTT.CAPath = c.basePath + c.MQTT.CAPath
+	c.MQTT.KeyPath = c.basePath + c.MQTT.KeyPath
+	c.MQTT.CertPath = c.basePath + c.MQTT.CertPath
 	return c.MQTT
 }

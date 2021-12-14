@@ -1,5 +1,6 @@
 #!/bin/bash
 
+pkill mosquitto
 pg_ctl -D ./data/trade_agent -l ./data/trade_agent/logfile stop
 rm -rf ./data/trade_agent
 mkdir -p ./data/trade_agent
@@ -16,3 +17,5 @@ psql postgres -f sql_script
 rm -rf sql_script
 
 # pg_ctl -D ./data/trade_agent -l ./data/trade_agent/logfile stop
+
+mosquitto -c /Users/timhsu/dev_projects/trade_agent_mqtt/configs/local_conf.conf

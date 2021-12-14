@@ -12,6 +12,16 @@ func (Stock) TableName() string {
 }
 
 // TableName TableName
+func (CalendarDate) TableName() string {
+	return "basic_calendar"
+}
+
+// TableName TableName
+func (Target) TableName() string {
+	return "trade_targets"
+}
+
+// TableName TableName
 func (HistoryTick) TableName() string {
 	return "history_tick"
 }

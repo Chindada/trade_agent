@@ -3,7 +3,7 @@ package mqhandler
 
 // MQSubBody MQSubBody
 type MQSubBody struct {
-	MQTopic
+	MQTopic  MQTopic
 	Once     bool
 	Callback MQCallback
 }
@@ -19,4 +19,9 @@ func TopicTradeRecord() MQTopic {
 // TopicStockDetail TopicStockDetail
 func TopicStockDetail() MQTopic {
 	return "internal/stock_detail"
+}
+
+// TopicSnapshotAll TopicSnapshotAll
+func TopicSnapshotAll() MQTopic {
+	return "internal/snapshot_all"
 }

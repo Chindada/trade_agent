@@ -17,7 +17,7 @@ var globalClient *TradeAgent
 
 // TradeAgent TradeAgent
 type TradeAgent struct {
-	*resty.Client
+	Client    *resty.Client
 	urlPrefix string
 }
 

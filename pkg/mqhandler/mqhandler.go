@@ -24,13 +24,19 @@ type MQHandler struct {
 	callbackMap map[string]MQCallback
 }
 
+// InitMQHandler InitMQHandler
+func InitMQHandler() {
+	log.Get().Info("Initial MQHandler")
+	once.Do(initMQHandler)
+}
+
 // Get Get
 func Get() *MQHandler {
 	if globalHandler != nil {
 		return globalHandler
 	}
-	once.Do(initMQHandler)
-	return globalHandler
+	log.Get().Panic("MQHandler was not initailized")
+	return nil
 }
 
 // initMQHandler initMQHandler

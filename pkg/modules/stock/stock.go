@@ -17,7 +17,8 @@ import (
 var wg sync.WaitGroup
 
 // InitStock InitStock
-func InitStock(handler *mqhandler.MQHandler) {
+func InitStock() {
+	handler := mqhandler.Get()
 	wg.Add(1)
 	body := mqhandler.MQSubBody{
 		MQTopic:  mqhandler.TopicStockDetail(),
@@ -33,6 +34,14 @@ func InitStock(handler *mqhandler.MQHandler) {
 		log.Get().Panic(err)
 	}
 	wg.Wait()
+	inDBStock, err := dbagent.Get().GetAllStockMap()
+	if err != nil {
+		log.Get().Panic(err)
+	}
+	for key := range inDBStock {
+		// add stock detail to cache
+		cache.GetCache().Set(cache.KeyStockDetail(key), inDBStock[key])
+	}
 }
 
 // process mq back stock deail, check db record to decide to insert, and add to cache
@@ -52,13 +61,11 @@ func stockDetailCallback() mqhandler.MQCallback {
 		}
 
 		var saveStock []*dbagent.Stock
-		var already, insert int
+		var exist, insert int
 		for _, v := range body.GetStock() {
-			// add to cache
-			cache.GetCache().Set(cache.KeyStockDetail(v.GetCode()), v.ToStock())
 			// check whether already in db
 			if _, ok := inDBStock[v.GetCode()]; ok {
-				already++
+				exist++
 				continue
 			}
 			saveStock = append(saveStock, v.ToStock())
@@ -70,8 +77,8 @@ func stockDetailCallback() mqhandler.MQCallback {
 			log.Get().Panic(err)
 		}
 		log.Get().WithFields(map[string]interface{}{
-			"Already": already,
-			"Insert":  insert,
+			"Exist":  exist,
+			"Insert": insert,
 		}).Info("GetAllStockDetail")
 	}
 }
