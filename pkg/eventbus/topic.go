@@ -3,12 +3,12 @@ package eventbus
 
 import "fmt"
 
-// BusTopicStockDetail BusTopicStockDetail
-func BusTopicStockDetail(stockNum string) string {
+// TopicStockDetail TopicStockDetail
+func TopicStockDetail(stockNum string) string {
 	return fmt.Sprintf("StockDetail:%s", stockNum)
 }
 
-// BusTopicTargets BusTopicTargets
-func BusTopicTargets() string {
+// TopicTargets TopicTargets
+func TopicTargets() string {
 	return "Targets"
 }

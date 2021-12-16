@@ -22,11 +22,56 @@ func (Target) TableName() string {
 }
 
 // TableName TableName
+func (TradeEvent) TableName() string {
+	return "trade_event"
+}
+
+// TableName TableName
 func (HistoryTick) TableName() string {
 	return "history_tick"
 }
 
 // TableName TableName
-func (TradeEvent) TableName() string {
-	return "trade_event"
+func (Balance) TableName() string {
+	return "trade_balance"
+}
+
+// TableName TableName
+func (HistoryBidAsk) TableName() string {
+	return "history_bidask"
+}
+
+// TableName TableName
+func (HistoryKbar) TableName() string {
+	return "history_kbar"
+}
+
+// TableName TableName
+func (RealTimeTick) TableName() string {
+	return "realtime_tick"
+}
+
+// TableName TableName
+func (TradeRecord) TableName() string {
+	return "trade_record"
+}
+
+// TableName TableName
+func (AnalyzedTick) TableName() string {
+	return "analyzed_tick"
+}
+
+// TableName TableName
+func (SimulationResult) TableName() string {
+	return "simulation_result"
+}
+
+// TableName TableName
+func (SimulationCondition) TableName() string {
+	return "simulation_condition"
+}
+
+// TableName TableName
+func (HistoryClose) TableName() string {
+	return "history_close"
 }

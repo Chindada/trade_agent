@@ -9,10 +9,10 @@ import (
 type TradeEvent struct {
 	gorm.Model `json:"-" swaggerignore:"true"`
 
-	Event     string `gorm:"column:event" json:"event"`
-	EventCode int64  `gorm:"column:event_code" json:"event_code"`
-	Info      string `gorm:"column:info" json:"info"`
-	Response  int64  `gorm:"column:response" json:"response"`
+	Event     string `json:"event,omitempty" yaml:"event" gorm:"column:event"`
+	EventCode int64  `json:"event_code,omitempty" yaml:"event_code" gorm:"column:event_code"`
+	Info      string `json:"info,omitempty" yaml:"info" gorm:"column:info"`
+	Response  int64  `json:"response,omitempty" yaml:"response" gorm:"column:response"`
 }
 
 // InsertTradeEvent InsertTradeEvent

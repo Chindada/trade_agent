@@ -4,7 +4,6 @@ package targets
 import (
 	"encoding/json"
 	"sync"
-	"time"
 	"trade_agent/pkg/cache"
 	"trade_agent/pkg/config"
 	"trade_agent/pkg/dbagent"
@@ -14,7 +13,6 @@ import (
 	"trade_agent/pkg/pb"
 	"trade_agent/pkg/sinopacapi"
 
-	mqtt "github.com/eclipse/paho.mqtt.golang"
 	"google.golang.org/protobuf/proto"
 )
 
@@ -27,7 +25,7 @@ func InitTargets() {
 	body := mqhandler.MQSubBody{
 		MQTopic:  mqhandler.TopicSnapshotAll(),
 		Once:     true,
-		Callback: snapShotAllCallback(),
+		Callback: snapShotAllCallback,
 	}
 	err := handler.Sub(body)
 	if err != nil {
@@ -40,47 +38,57 @@ func InitTargets() {
 	wg.Wait()
 }
 
-func snapShotAllCallback() mqhandler.MQCallback {
-	return func(c mqtt.Client, m mqtt.Message) {
-		defer wg.Done()
-		var err error
-		body := pb.SnapshotResponse{}
-		if err = proto.Unmarshal(m.Payload(), &body); err != nil {
-			log.Get().Errorf("Format Wrong: %s", string(m.Payload()))
-			return
-		}
-		conf, err := config.Get()
-		if err != nil {
-			log.Get().Panic(err)
-		}
+func snapShotAllCallback(m mqhandler.MQMessage) {
+	defer wg.Done()
+	var err error
+	body := pb.SnapshotResponse{}
+	if err = proto.Unmarshal(m.Payload(), &body); err != nil {
+		log.Get().Errorf("Format Wrong: %s", string(m.Payload()))
+		return
+	}
+	conf, err := config.Get()
+	if err != nil {
+		log.Get().Panic(err)
+	}
 
-		tradeConf := conf.GetTradeConfig()
-		var cond dbagent.TargetCond
-		err = json.Unmarshal([]byte(tradeConf.TargetCondition), &cond)
-		if err != nil {
-			log.Get().Panic(err)
-		}
+	tradeConf := conf.GetTradeConfig()
+	var cond dbagent.TargetCond
+	err = json.Unmarshal([]byte(tradeConf.TargetCondition), &cond)
+	if err != nil {
+		log.Get().Panic(err)
+	}
 
-		var targetArr []*dbagent.Target
-		for _, v := range body.GetData() {
-			if v.GetTotalVolume() < cond.LimitVolume {
-				continue
-			}
-			if v.GetClose() < cond.LimitPriceLow || v.GetClose() > cond.LimitPriceHigh {
-				continue
-			}
-			stock := cache.GetCache().Get(cache.KeyStockDetail(v.Code)).(*dbagent.Stock)
+	var targetArr []*dbagent.Target
+	for _, v := range body.GetData() {
+		if targetFilter(v, cond) {
+			stock := cache.GetCache().GetStock(v.GetCode())
 			tmp := &dbagent.Target{
-				Stock:    *stock,
-				TradeDay: cache.GetCache().Get(cache.KeyTradeDay()).(time.Time),
+				Stock:    stock,
+				TradeDay: cache.GetCache().GetTradeDay(),
 				Volume:   v.GetTotalVolume(),
 			}
 			targetArr = append(targetArr, tmp)
-			eventbus.Get().Publish(eventbus.BusTopicTargets(), tmp)
-		}
-		err = dbagent.Get().InsertMultiTarget(targetArr)
-		if err != nil {
-			log.Get().Panic(err)
 		}
 	}
+	// eventbus.Get().Publish(eventbus.TopicTargets(), targetArr)
+	eventbus.Get().Pub(eventbus.TopicTargets(), targetArr)
+
+	err = dbagent.Get().DeleteMultiTargetByDate(cache.GetCache().GetTradeDay())
+	if err != nil {
+		log.Get().Panic(err)
+	}
+	err = dbagent.Get().InsertMultiTarget(targetArr)
+	if err != nil {
+		log.Get().Panic(err)
+	}
+}
+
+func targetFilter(v *pb.SnapshotMessage, cond dbagent.TargetCond) bool {
+	if v.GetTotalVolume() < cond.LimitVolume {
+		return false
+	}
+	if v.GetClose() < cond.LimitPriceLow || v.GetClose() > cond.LimitPriceHigh {
+		return false
+	}
+	return true
 }

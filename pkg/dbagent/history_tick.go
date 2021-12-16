@@ -10,21 +10,21 @@ import (
 // HistoryTick HistoryTick
 type HistoryTick struct {
 	gorm.Model `json:"-" swaggerignore:"true"`
-	Stock      Stock `json:"stock" gorm:"foreignKey:StockID"`
 
-	StockID   int64     `json:"stock_id" gorm:"column:stock_id"`
-	TickTime  time.Time `json:"tick_time" gorm:"column:tick_time;index:idx_history_tick"`
-	Close     float64   `json:"close" gorm:"column:close"`
-	TickType  int64     `json:"tick_type" gorm:"column:tick_type"`
-	Volume    int64     `json:"volume" gorm:"column:volume"`
-	BidPrice  float64   `json:"bid_price" gorm:"column:bid_price"`
-	BidVolume int64     `json:"bid_volume" gorm:"column:bid_volume"`
-	AskPrice  float64   `json:"ask_price" gorm:"column:ask_price"`
-	AskVolume int64     `json:"ask_volume" gorm:"column:ask_volume"`
+	Stock    *Stock    `json:"stock,omitempty" yaml:"stock" gorm:"foreignKey:StockID"`
+	StockID  int64     `json:"stock_id,omitempty" yaml:"stock_id" gorm:"column:stock_id"`
+	TickTime time.Time `json:"tick_time,omitempty" yaml:"tick_time" gorm:"column:tick_time"`
 
-	Open float64 `json:"open" gorm:"column:open"`
-	High float64 `json:"high" gorm:"column:high"`
-	Low  float64 `json:"low" gorm:"column:low"`
+	Close     float64 `json:"close,omitempty" yaml:"close" gorm:"column:close"`
+	TickType  int64   `json:"tick_type,omitempty" yaml:"tick_type" gorm:"column:tick_type"`
+	Volume    int64   `json:"volume,omitempty" yaml:"volume" gorm:"column:volume"`
+	BidPrice  float64 `json:"bid_price,omitempty" yaml:"bid_price" gorm:"column:bid_price"`
+	BidVolume int64   `json:"bid_volume,omitempty" yaml:"bid_volume" gorm:"column:bid_volume"`
+	AskPrice  float64 `json:"ask_price,omitempty" yaml:"ask_price" gorm:"column:ask_price"`
+	AskVolume int64   `json:"ask_volume,omitempty" yaml:"ask_volume" gorm:"column:ask_volume"`
+	Open      float64 `json:"open,omitempty" yaml:"open" gorm:"column:open"`
+	High      float64 `json:"high,omitempty" yaml:"high" gorm:"column:high"`
+	Low       float64 `json:"low,omitempty" yaml:"low" gorm:"column:low"`
 }
 
 // InsertHistoryTick InsertHistoryTick

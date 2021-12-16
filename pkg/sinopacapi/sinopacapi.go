@@ -23,12 +23,12 @@ type TradeAgent struct {
 
 // Order Order
 type Order struct {
-	StockNum  string
-	Price     float64
-	Quantity  int64
-	OrderID   string
-	Action    OrderAction
-	TradeTime time.Time
+	StockNum  string      `json:"stock_num,omitempty" yaml:"stock_num"`
+	Price     float64     `json:"price,omitempty" yaml:"price"`
+	Quantity  int64       `json:"quantity,omitempty" yaml:"quantity"`
+	OrderID   string      `json:"order_id,omitempty" yaml:"order_id"`
+	Action    OrderAction `json:"action,omitempty" yaml:"action"`
+	TradeTime time.Time   `json:"trade_time,omitempty" yaml:"trade_time"`
 }
 
 // Get Get
@@ -184,8 +184,8 @@ func (c *TradeAgent) RestartSinopacSRV() (err error) {
 	return err
 }
 
-// FetchLastCloseByStockArrDateArr FetchLastCloseByStockArrDateArr
-func (c *TradeAgent) FetchLastCloseByStockArrDateArr(stockNumArr, dateArr []string) (err error) {
+// FetchStockCloseByStockArrDateArr FetchStockCloseByStockArrDateArr
+func (c *TradeAgent) FetchStockCloseByStockArrDateArr(stockNumArr, dateArr []string) (err error) {
 	stockAndDateArr := FetchLastCloseBody{
 		StockNumArr: stockNumArr,
 		DateArr:     dateArr,
@@ -198,7 +198,7 @@ func (c *TradeAgent) FetchLastCloseByStockArrDateArr(stockNumArr, dateArr []stri
 	if err != nil {
 		return err
 	} else if resp.StatusCode() != http.StatusOK {
-		return errors.New("FetchLastCloseByStockArrDateArr API Fail")
+		return errors.New("FetchStockCloseByStockArrDateArr API Fail")
 	}
 	if result := resp.Result().(*ResponseCommon).Result; result != StatusSuccuss {
 		return errors.New(result)
@@ -223,26 +223,24 @@ func (c *TradeAgent) FetchAllSnapShot() (err error) {
 	return err
 }
 
-// FetchStockCloseMapByStockDateArr FetchStockCloseMapByStockDateArr
-func (c *TradeAgent) FetchStockCloseMapByStockDateArr(stockNumArr []string, dateArr []time.Time) (err error) {
+// FetchStockCloseByStockArrAndDate FetchStockCloseByStockArrAndDate
+func (c *TradeAgent) FetchStockCloseByStockArrAndDate(stockNumArr []string, date time.Time) (err error) {
 	stockArr := FetchLastCountBody{
 		StockNumArr: stockNumArr,
 	}
-	for _, date := range dateArr {
-		var resp *resty.Response
-		resp, err = c.Client.R().
-			SetHeader("X-Date", date.Format(shortTimeLayout)).
-			SetBody(stockArr).
-			SetResult(&ResponseCommon{}).
-			Post(c.urlPrefix + urlFetchStockCloseMapByStockDateArr)
-		if err != nil {
-			return err
-		} else if resp.StatusCode() != http.StatusOK {
-			return errors.New("FetchStockCloseMapByStockDateArr API Fail")
-		}
-		if result := resp.Result().(*ResponseCommon).Result; result != StatusSuccuss {
-			return errors.New(result)
-		}
+	var resp *resty.Response
+	resp, err = c.Client.R().
+		SetHeader("X-Date", date.Format(shortTimeLayout)).
+		SetBody(stockArr).
+		SetResult(&ResponseCommon{}).
+		Post(c.urlPrefix + urlFetchStockCloseMapByStockDateArr)
+	if err != nil {
+		return err
+	} else if resp.StatusCode() != http.StatusOK {
+		return errors.New("FetchStockCloseByStockArrAndDate API Fail")
+	}
+	if result := resp.Result().(*ResponseCommon).Result; result != StatusSuccuss {
+		return errors.New(result)
 	}
 	return err
 }

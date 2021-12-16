@@ -10,7 +10,6 @@ import (
 	"trade_agent/pkg/pb"
 	"trade_agent/pkg/sinopacapi"
 
-	mqtt "github.com/eclipse/paho.mqtt.golang"
 	"google.golang.org/protobuf/proto"
 )
 
@@ -23,7 +22,7 @@ func InitStock() {
 	body := mqhandler.MQSubBody{
 		MQTopic:  mqhandler.TopicStockDetail(),
 		Once:     true,
-		Callback: stockDetailCallback(),
+		Callback: stockDetailCallback,
 	}
 	err := handler.Sub(body)
 	if err != nil {
@@ -33,52 +32,52 @@ func InitStock() {
 	if err != nil {
 		log.Get().Panic(err)
 	}
+	// wait stock callback return
 	wg.Wait()
+
+	// add stock detail to cache from db
 	inDBStock, err := dbagent.Get().GetAllStockMap()
 	if err != nil {
 		log.Get().Panic(err)
 	}
 	for key := range inDBStock {
-		// add stock detail to cache
 		cache.GetCache().Set(cache.KeyStockDetail(key), inDBStock[key])
 	}
 }
 
 // process mq back stock deail, check db record to decide to insert, and add to cache
-func stockDetailCallback() mqhandler.MQCallback {
-	return func(_ mqtt.Client, m mqtt.Message) {
-		defer wg.Done()
-		var err error
-		body := pb.StockResponse{}
-		if err = proto.Unmarshal(m.Payload(), &body); err != nil {
-			log.Get().Errorf("Format Wrong: %s", string(m.Payload()))
-			return
-		}
-		var inDBStock map[string]*dbagent.Stock
-		inDBStock, err = dbagent.Get().GetAllStockMap()
-		if err != nil {
-			log.Get().Panic(err)
-		}
-
-		var saveStock []*dbagent.Stock
-		var exist, insert int
-		for _, v := range body.GetStock() {
-			// check whether already in db
-			if _, ok := inDBStock[v.GetCode()]; ok {
-				exist++
-				continue
-			}
-			saveStock = append(saveStock, v.ToStock())
-			insert++
-		}
-		// insert
-		err = dbagent.Get().InsertMultiStock(saveStock)
-		if err != nil {
-			log.Get().Panic(err)
-		}
-		log.Get().WithFields(map[string]interface{}{
-			"Exist":  exist,
-			"Insert": insert,
-		}).Info("GetAllStockDetail")
+func stockDetailCallback(m mqhandler.MQMessage) {
+	defer wg.Done()
+	var err error
+	body := pb.StockResponse{}
+	if err = proto.Unmarshal(m.Payload(), &body); err != nil {
+		log.Get().Errorf("Format Wrong: %s", string(m.Payload()))
+		return
 	}
+	var inDBStock map[string]*dbagent.Stock
+	inDBStock, err = dbagent.Get().GetAllStockMap()
+	if err != nil {
+		log.Get().Panic(err)
+	}
+
+	var saveStock []*dbagent.Stock
+	var exist, insert int
+	for _, v := range body.GetStock() {
+		// check whether already in db
+		if _, ok := inDBStock[v.GetCode()]; ok {
+			exist++
+			continue
+		}
+		saveStock = append(saveStock, v.ToStock())
+		insert++
+	}
+	// insert
+	err = dbagent.Get().InsertMultiStock(saveStock)
+	if err != nil {
+		log.Get().Panic(err)
+	}
+	log.Get().WithFields(map[string]interface{}{
+		"Exist":  exist,
+		"Insert": insert,
+	}).Info("GetAllStockDetail")
 }

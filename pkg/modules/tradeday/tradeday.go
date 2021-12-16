@@ -11,12 +11,11 @@ import (
 
 // InitTradeDay InitTradeDay
 func InitTradeDay() {
+	// save calendar to db and cache
 	err := ImportCalendar()
 	if err != nil {
 		log.Get().Panic(err)
 	}
-
-	// save calendar to cache
 	tradeDayMap, err := dbagent.Get().GetAllTradeDayMap()
 	if err != nil {
 		log.Get().Panic(err)
@@ -28,10 +27,11 @@ func InitTradeDay() {
 	if err != nil {
 		log.Get().Panic(err)
 	}
+	cache.GetCache().Set(cache.KeyTradeDay(), tradeDay)
+
 	log.Get().WithFields(map[string]interface{}{
 		"Date": tradeDay.Format(global.ShortTimeLayout),
 	}).Info("TradeDay")
-	cache.GetCache().Set(cache.KeyTradeDay(), tradeDay)
 }
 
 // GetTradeDay GetTradeDay
@@ -52,10 +52,26 @@ func GetTradeDay() (tradeDay time.Time, err error) {
 // GetNextTradeDayTime GetNextTradeDayTime
 func GetNextTradeDayTime(nowTime time.Time) (tradeDay time.Time, err error) {
 	tmp := time.Date(nowTime.Year(), nowTime.Month(), nowTime.Day(), 0, 0, 0, 0, time.Local)
-	tradeDayMap := cache.GetCache().Get(cache.KeyCalendar())
-	if !tradeDayMap.(map[time.Time]bool)[tmp] {
+	calendar := cache.GetCache().GetCalendar()
+	if !calendar[tmp] {
 		nowTime = nowTime.AddDate(0, 0, 1)
 		return GetNextTradeDayTime(nowTime)
 	}
 	return tmp, err
+}
+
+// GetLastNTradeDayByDate GetLastNTradeDayByDate
+func GetLastNTradeDayByDate(n int, firstDay time.Time) []time.Time {
+	calendar := cache.GetCache().GetCalendar()
+	var tmp []time.Time
+	for {
+		if calendar[firstDay.AddDate(0, 0, -1)] {
+			tmp = append(tmp, firstDay.AddDate(0, 0, -1))
+		}
+		if len(tmp) == n {
+			break
+		}
+		firstDay = firstDay.AddDate(0, 0, -1)
+	}
+	return tmp
 }
