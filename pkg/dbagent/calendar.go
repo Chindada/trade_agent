@@ -11,8 +11,9 @@ import (
 type CalendarDate struct {
 	gorm.Model `json:"-" swaggerignore:"true"`
 
-	Date       time.Time `gorm:"column:date;uniqueIndex"`
-	IsTradeDay bool      `gorm:"column:is_trade_day"`
+	Date time.Time `json:"date,omitempty" yaml:"date" gorm:"column:date"`
+
+	IsTradeDay bool `json:"is_trade_day,omitempty" yaml:"is_trade_day" gorm:"column:is_trade_day"`
 }
 
 // InsertMultiCalendarDate InsertMultiCalendarDate
@@ -46,4 +47,10 @@ func (c *DBAgent) GetAllTradeDayMap() (tradeDayMap map[time.Time]bool, err error
 		tradeDayMap[v.Date] = true
 	}
 	return tradeDayMap, result.Error
+}
+
+// GetCalendarDate GetCalendarDate
+func (c *DBAgent) GetCalendarDate(date time.Time) (dateTime *CalendarDate, err error) {
+	result := c.DB.Model(&CalendarDate{}).Where("date = ?", date).Find(&dateTime)
+	return dateTime, result.Error
 }

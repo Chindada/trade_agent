@@ -59,11 +59,20 @@ func initConnection() {
 		log.Get().Panic(err)
 	}
 	err = newAgent.DB.AutoMigrate(
-		&Stock{},
-		&HistoryTick{},
-		&TradeEvent{},
+		&AnalyzedTick{},
+		&Balance{},
 		&CalendarDate{},
+		&HistoryBidAsk{},
+		&HistoryKbar{},
+		&HistoryTick{},
+		&HistoryClose{},
+		&RealTimeTick{},
+		&Stock{},
 		&Target{},
+		&TradeEvent{},
+		&TradeRecord{},
+		&SimulationResult{},
+		&SimulationCondition{},
 	)
 	if err != nil {
 		log.Get().Panic(err)

@@ -2,7 +2,6 @@ package main
 
 import (
 	"trade_agent/pkg/dbagent"
-	"trade_agent/pkg/modules/analyze"
 	"trade_agent/pkg/modules/future"
 	"trade_agent/pkg/modules/history"
 	"trade_agent/pkg/modules/order"
@@ -28,22 +27,23 @@ func main() {
 
 	// serve http before trade agent module start
 	routers.ServeHTTP()
-
-	// trade agent modules
+	// stuck chan
 	keep := make(chan struct{})
 
-	// start modules
-	tradeevent.InitTradeEvent()
+	// trade agent modules
 	order.InitOrder()
+	tradeevent.InitTradeEvent()
 	tickprocess.InitTickProcess()
+
+	// should before targets
 	subscribe.InitSubscribe()
-	tradeday.InitTradeDay()
 	history.InitHistory()
+
+	tradeday.InitTradeDay()
 	stock.InitStock()
+	future.InitFuture()
 	targets.InitTargets()
 
-	future.InitFuture()
-	analyze.InitAnalyze()
 	simulation.InitSimulation()
 
 	// stuck

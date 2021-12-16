@@ -19,56 +19,56 @@ var (
 // Config Config
 type Config struct {
 	basePath string
-	Server   Server   `yaml:"server"`
-	Database Database `yaml:"database"`
-	Schedule Schedule `yaml:"schedule"`
-	MQTT     MQTT     `yaml:"mqtt"`
-	Trade    Trade    `yaml:"trade"`
+	Server   Server   `json:"server,omitempty" yaml:"server"`
+	Database Database `json:"database,omitempty" yaml:"database"`
+	Schedule Schedule `json:"schedule,omitempty" yaml:"schedule"`
+	MQTT     MQTT     `json:"mqtt,omitempty" yaml:"mqtt"`
+	Trade    Trade    `json:"trade,omitempty" yaml:"trade"`
 }
 
 // Server Server
 type Server struct {
-	RunMode        string `yaml:"run_mode"`
-	HTTPPort       string `yaml:"http_port"`
-	SinopacSRVHost string `yaml:"sinopac_srv_host"`
-	SinopacSRVPort string `yaml:"sinopac_srv_port"`
+	RunMode        string `json:"run_mode,omitempty" yaml:"run_mode"`
+	HTTPPort       string `json:"http_port,omitempty" yaml:"http_port"`
+	SinopacSRVHost string `json:"sinopac_srv_host,omitempty" yaml:"sinopac_srv_host"`
+	SinopacSRVPort string `json:"sinopac_srv_port,omitempty" yaml:"sinopac_srv_port"`
 }
 
 // Database Database
 type Database struct {
-	DBHost     string `yaml:"db_host"`
-	DBPort     string `yaml:"db_port"`
-	DBUser     string `yaml:"db_user"`
-	DBPass     string `yaml:"db_pass"`
-	Database   string `yaml:"database"`
-	DBEncode   string `yaml:"db_encode"`
-	DBTimeZone string `yaml:"db_timezone"`
+	DBHost     string `json:"db_host,omitempty" yaml:"db_host"`
+	DBPort     string `json:"db_port,omitempty" yaml:"db_port"`
+	DBUser     string `json:"db_user,omitempty" yaml:"db_user"`
+	DBPass     string `json:"db_pass,omitempty" yaml:"db_pass"`
+	Database   string `json:"database,omitempty" yaml:"database"`
+	DBEncode   string `json:"db_encode,omitempty" yaml:"db_encode"`
+	DBTimeZone string `json:"db_time_zone,omitempty" yaml:"db_time_zone"`
 }
 
 // MQTT MQTT
 type MQTT struct {
-	Host     string `yaml:"host" json:"host"`
-	Port     string `yaml:"port" json:"port"`
-	User     string `yaml:"user" json:"user"`
-	Password string `yaml:"password" json:"password"`
-	ClientID string `yaml:"client_id" json:"client_id"`
-	CAPath   string `yaml:"ca_path" json:"ca_path"`
-	CertPath string `yaml:"cert_path" json:"cert_path"`
-	KeyPath  string `yaml:"key_path" json:"key_path"`
+	Host     string `json:"host,omitempty" yaml:"host"`
+	Port     string `json:"port,omitempty" yaml:"port"`
+	User     string `json:"user,omitempty" yaml:"user"`
+	Password string `json:"password,omitempty" yaml:"password"`
+	ClientID string `json:"client_id,omitempty" yaml:"client_id"`
+	CAPath   string `json:"ca_path,omitempty" yaml:"ca_path"`
+	CertPath string `json:"cert_path,omitempty" yaml:"cert_path"`
+	KeyPath  string `json:"key_path,omitempty" yaml:"key_path"`
 }
 
 // Trade Trade
 type Trade struct {
-	KbarPeriod      string `yaml:"kbar_period"`
-	TargetCondition string `yaml:"target_condition"`
-	BlackStock      string `yaml:"black_stock"`
-	BlackCategory   string `yaml:"black_category"`
+	KbarPeriod      string `json:"kbar_period,omitempty" yaml:"kbar_period"`
+	TargetCondition string `json:"target_condition,omitempty" yaml:"target_condition"`
+	BlackStock      string `json:"black_stock,omitempty" yaml:"black_stock"`
+	BlackCategory   string `json:"black_category,omitempty" yaml:"black_category"`
 }
 
 // Schedule Schedule
 type Schedule struct {
-	CleaneventCron     string `yaml:"cleanevent_cron"`
-	RestartSinopacCron string `yaml:"restart_sinopac_cron"`
+	CleaneventCron     string `json:"cleanevent_cron,omitempty" yaml:"cleanevent_cron"`
+	RestartSinopacCron string `json:"restart_sinopac_cron,omitempty" yaml:"restart_sinopac_cron"`
 }
 
 // parseConfig parseConfig

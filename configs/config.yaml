@@ -12,7 +12,7 @@ database:
     db_pass: "asdf0000"
     database: "trade_agent_debug"
     db_encode: "utf8"
-    db_timezone: "Asia/Taipei"
+    db_time_zone: "Asia/Taipei"
 # mqtt
 mqtt:
     host: "172.20.10.250"
@@ -27,8 +27,8 @@ mqtt:
 trade:
     kbar_period: 20
     target_condition: '{"limit_price_low":10,"limit_price_high":50,"limit_volume":20000}'
-    black_stock_arr: '["1314","2317","3481","3701"]'
-    black_category_arr: '["17"]'
+    black_stock: '["1314","2317","3481","3701"]'
+    black_category: '["17"]'
 # schedule
 schedule:
     cleanevent_cron: "0 0 4 * * ?"
