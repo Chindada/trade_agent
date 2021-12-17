@@ -31,7 +31,7 @@ func tredeEventCallback(m mqhandler.MQMessage) {
 		log.Get().Errorf("Format Wrong: %s", string(m.Payload()))
 		return
 	}
-	err = dbagent.Get().InsertTradeEvent(*body.ToTradeEvent())
+	err = dbagent.Get().InsertTradeEvent(body.ToTradeEvent())
 	if err != nil {
 		log.Get().Panic(err)
 	}

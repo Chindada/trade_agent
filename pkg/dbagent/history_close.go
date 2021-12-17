@@ -24,3 +24,25 @@ func (c *DBAgent) InsertHistoryClose(record *HistoryClose) error {
 	})
 	return err
 }
+
+// InsertMultiHistoryClose InsertMultiHistoryClose
+func (c *DBAgent) InsertMultiHistoryClose(recordArr []*HistoryClose) error {
+	err := c.DB.Transaction(func(tx *gorm.DB) error {
+		if err := tx.CreateInBatches(&recordArr, multiInsertBatchSize).Error; err != nil {
+			return err
+		}
+		return nil
+	})
+	return err
+}
+
+// DeleteAllHistoryClose DeleteAllHistoryClose
+func (c *DBAgent) DeleteAllHistoryClose() error {
+	err := c.DB.Transaction(func(tx *gorm.DB) error {
+		if err := tx.Not("id = 0").Unscoped().Delete(&HistoryClose{}).Error; err != nil {
+			return err
+		}
+		return nil
+	})
+	return err
+}

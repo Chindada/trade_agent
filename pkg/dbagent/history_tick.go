@@ -28,9 +28,9 @@ type HistoryTick struct {
 }
 
 // InsertHistoryTick InsertHistoryTick
-func (c *DBAgent) InsertHistoryTick(tick HistoryTick) error {
+func (c *DBAgent) InsertHistoryTick(record *HistoryTick) error {
 	err := c.DB.Transaction(func(tx *gorm.DB) error {
-		if err := tx.Create(&tick).Error; err != nil {
+		if err := tx.Create(&record).Error; err != nil {
 			return err
 		}
 		return nil
@@ -39,9 +39,20 @@ func (c *DBAgent) InsertHistoryTick(tick HistoryTick) error {
 }
 
 // InsertMultiHistoryTick InsertMultiHistoryTick
-func (c *DBAgent) InsertMultiHistoryTick(tickArr []*HistoryTick) error {
+func (c *DBAgent) InsertMultiHistoryTick(recordArr []*HistoryTick) error {
 	err := c.DB.Transaction(func(tx *gorm.DB) error {
-		if err := tx.CreateInBatches(&tickArr, multiInsertBatchSize).Error; err != nil {
+		if err := tx.CreateInBatches(&recordArr, multiInsertBatchSize).Error; err != nil {
+			return err
+		}
+		return nil
+	})
+	return err
+}
+
+// DeleteAllHistoryTick DeleteAllHistoryTick
+func (c *DBAgent) DeleteAllHistoryTick() error {
+	err := c.DB.Transaction(func(tx *gorm.DB) error {
+		if err := tx.Not("id = 0").Unscoped().Delete(&HistoryTick{}).Error; err != nil {
 			return err
 		}
 		return nil

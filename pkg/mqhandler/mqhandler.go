@@ -22,9 +22,9 @@ type MQMessage mqtt.Message
 
 // MQSubBody MQSubBody
 type MQSubBody struct {
-	MQTopic  MQTopic    `json:"mq_topic,omitempty" yaml:"mq_topic"`
-	Once     bool       `json:"once,omitempty" yaml:"once"`
-	Callback MQCallback `json:"callback,omitempty" yaml:"callback"`
+	MQTopic  MQTopic
+	Once     bool
+	Callback MQCallback
 }
 
 // MQHandler MQHandler
@@ -116,7 +116,7 @@ func (c *MQHandler) onMessage(mc mqtt.Client, m mqtt.Message) {
 		}
 		log.Get().Warnf("UnSubscribe %s", m.Topic())
 	}
-	callback(m)
+	go callback(m)
 }
 
 // UnSub UnSub

@@ -16,9 +16,20 @@ type TradeEvent struct {
 }
 
 // InsertTradeEvent InsertTradeEvent
-func (c *DBAgent) InsertTradeEvent(event TradeEvent) error {
+func (c *DBAgent) InsertTradeEvent(record *TradeEvent) error {
 	err := c.DB.Transaction(func(tx *gorm.DB) error {
-		if err := tx.Create(&event).Error; err != nil {
+		if err := tx.Create(&record).Error; err != nil {
+			return err
+		}
+		return nil
+	})
+	return err
+}
+
+// InsertMultiTradeEvent InsertMultiTradeEvent
+func (c *DBAgent) InsertMultiTradeEvent(recordArr []*TradeEvent) error {
+	err := c.DB.Transaction(func(tx *gorm.DB) error {
+		if err := tx.CreateInBatches(&recordArr, multiInsertBatchSize).Error; err != nil {
 			return err
 		}
 		return nil
@@ -29,7 +40,7 @@ func (c *DBAgent) InsertTradeEvent(event TradeEvent) error {
 // DeleteAllTradeEvent DeleteAllTradeEvent
 func (c *DBAgent) DeleteAllTradeEvent() error {
 	err := c.DB.Transaction(func(tx *gorm.DB) error {
-		if err := tx.Not("id = 0").Delete(&TradeEvent{}).Error; err != nil {
+		if err := tx.Not("id = 0").Unscoped().Delete(&TradeEvent{}).Error; err != nil {
 			return err
 		}
 		return nil

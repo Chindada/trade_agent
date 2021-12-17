@@ -11,15 +11,36 @@ import (
 type CalendarDate struct {
 	gorm.Model `json:"-" swaggerignore:"true"`
 
-	Date time.Time `json:"date,omitempty" yaml:"date" gorm:"column:date"`
+	Date       time.Time `json:"date,omitempty" yaml:"date" gorm:"column:date"`
+	IsTradeDay bool      `json:"is_trade_day,omitempty" yaml:"is_trade_day" gorm:"column:is_trade_day"`
+}
 
-	IsTradeDay bool `json:"is_trade_day,omitempty" yaml:"is_trade_day" gorm:"column:is_trade_day"`
+// InsertCalendarDate InsertCalendarDate
+func (c *DBAgent) InsertCalendarDate(record *CalendarDate) error {
+	err := c.DB.Transaction(func(tx *gorm.DB) error {
+		if err := tx.Create(&record).Error; err != nil {
+			return err
+		}
+		return nil
+	})
+	return err
 }
 
 // InsertMultiCalendarDate InsertMultiCalendarDate
-func (c *DBAgent) InsertMultiCalendarDate(dateArr []*CalendarDate) error {
+func (c *DBAgent) InsertMultiCalendarDate(recordArr []*CalendarDate) error {
 	err := c.DB.Transaction(func(tx *gorm.DB) error {
-		if err := tx.CreateInBatches(&dateArr, multiInsertBatchSize).Error; err != nil {
+		if err := tx.CreateInBatches(&recordArr, multiInsertBatchSize).Error; err != nil {
+			return err
+		}
+		return nil
+	})
+	return err
+}
+
+// DeleteAllCalendarDate DeleteAllCalendarDate
+func (c *DBAgent) DeleteAllCalendarDate() error {
+	err := c.DB.Transaction(func(tx *gorm.DB) error {
+		if err := tx.Not("id = 0").Unscoped().Delete(&CalendarDate{}).Error; err != nil {
 			return err
 		}
 		return nil

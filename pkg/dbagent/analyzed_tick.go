@@ -27,3 +27,36 @@ type AnalyzedTick struct {
 	High             float64 `json:"high,omitempty" yaml:"high" gorm:"column:high"`
 	Low              float64 `json:"low,omitempty" yaml:"low" gorm:"column:low"`
 }
+
+// InsertAnalyzedTick InsertAnalyzedTick
+func (c *DBAgent) InsertAnalyzedTick(record *AnalyzedTick) error {
+	err := c.DB.Transaction(func(tx *gorm.DB) error {
+		if err := tx.Create(&record).Error; err != nil {
+			return err
+		}
+		return nil
+	})
+	return err
+}
+
+// InsertMultiAnalyzedTick InsertMultiAnalyzedTick
+func (c *DBAgent) InsertMultiAnalyzedTick(recordArr []*AnalyzedTick) error {
+	err := c.DB.Transaction(func(tx *gorm.DB) error {
+		if err := tx.CreateInBatches(&recordArr, multiInsertBatchSize).Error; err != nil {
+			return err
+		}
+		return nil
+	})
+	return err
+}
+
+// DeleteAllAnalyzedTick DeleteAllAnalyzedTick
+func (c *DBAgent) DeleteAllAnalyzedTick() error {
+	err := c.DB.Transaction(func(tx *gorm.DB) error {
+		if err := tx.Not("id = 0").Unscoped().Delete(&AnalyzedTick{}).Error; err != nil {
+			return err
+		}
+		return nil
+	})
+	return err
+}

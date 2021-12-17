@@ -32,6 +32,28 @@ func (c *DBAgent) InsertBalance(record *Balance) error {
 	return err
 }
 
+// InsertMultiBalance InsertMultiBalance
+func (c *DBAgent) InsertMultiBalance(recordArr []*Balance) error {
+	err := c.DB.Transaction(func(tx *gorm.DB) error {
+		if err := tx.CreateInBatches(&recordArr, multiInsertBatchSize).Error; err != nil {
+			return err
+		}
+		return nil
+	})
+	return err
+}
+
+// DeleteAllBalance DeleteAllBalance
+func (c *DBAgent) DeleteAllBalance() error {
+	err := c.DB.Transaction(func(tx *gorm.DB) error {
+		if err := tx.Not("id = 0").Unscoped().Delete(&Balance{}).Error; err != nil {
+			return err
+		}
+		return nil
+	})
+	return err
+}
+
 // InsertOrUpdateBalance InsertOrUpdateBalance
 func (c *DBAgent) InsertOrUpdateBalance(record *Balance) error {
 	err := c.DB.Transaction(func(tx *gorm.DB) error {
@@ -55,32 +77,10 @@ func (c *DBAgent) InsertOrUpdateBalance(record *Balance) error {
 	return err
 }
 
-// InsertMultiBalance InsertMultiBalance
-func (c *DBAgent) InsertMultiBalance(recordArr []*Balance) error {
-	err := c.DB.Transaction(func(tx *gorm.DB) error {
-		if err := tx.CreateInBatches(&recordArr, multiInsertBatchSize).Error; err != nil {
-			return err
-		}
-		return nil
-	})
-	return err
-}
-
 // DeleteMultiBalanceByDate DeleteMultiBalanceByDate
 func (c *DBAgent) DeleteMultiBalanceByDate(date time.Time) error {
 	err := c.DB.Transaction(func(tx *gorm.DB) error {
 		if err := tx.Where("trade_day = ?", date).Unscoped().Delete(&Balance{}).Error; err != nil {
-			return err
-		}
-		return nil
-	})
-	return err
-}
-
-// DeleteAllBalance DeleteAllBalance
-func (c *DBAgent) DeleteAllBalance() error {
-	err := c.DB.Transaction(func(tx *gorm.DB) error {
-		if err := tx.Not("id = 0").Unscoped().Delete(&Balance{}).Error; err != nil {
 			return err
 		}
 		return nil

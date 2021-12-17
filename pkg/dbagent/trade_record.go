@@ -24,3 +24,36 @@ type TradeRecord struct {
 	BuyCost   int64     `json:"buy_cost,omitempty" yaml:"buy_cost" gorm:"column:buy_cost"`
 	TradeTime time.Time `json:"trade_time,omitempty" yaml:"trade_time" gorm:"column:trade_time"`
 }
+
+// InsertTradeRecord InsertTradeRecord
+func (c *DBAgent) InsertTradeRecord(record *TradeRecord) error {
+	err := c.DB.Transaction(func(tx *gorm.DB) error {
+		if err := tx.Create(&record).Error; err != nil {
+			return err
+		}
+		return nil
+	})
+	return err
+}
+
+// InsertMultiTradeRecord InsertMultiTradeRecord
+func (c *DBAgent) InsertMultiTradeRecord(recordArr []*TradeRecord) error {
+	err := c.DB.Transaction(func(tx *gorm.DB) error {
+		if err := tx.CreateInBatches(&recordArr, multiInsertBatchSize).Error; err != nil {
+			return err
+		}
+		return nil
+	})
+	return err
+}
+
+// DeleteAllTradeRecord DeleteAllTradeRecord
+func (c *DBAgent) DeleteAllTradeRecord() error {
+	err := c.DB.Transaction(func(tx *gorm.DB) error {
+		if err := tx.Not("id = 0").Unscoped().Delete(&TradeRecord{}).Error; err != nil {
+			return err
+		}
+		return nil
+	})
+	return err
+}

@@ -26,9 +26,9 @@ type Target struct {
 }
 
 // InsertTarget InsertTarget
-func (c *DBAgent) InsertTarget(target *Target) error {
+func (c *DBAgent) InsertTarget(record *Target) error {
 	err := c.DB.Transaction(func(tx *gorm.DB) error {
-		if err := tx.Create(&target).Error; err != nil {
+		if err := tx.Create(&record).Error; err != nil {
 			return err
 		}
 		return nil
@@ -37,9 +37,20 @@ func (c *DBAgent) InsertTarget(target *Target) error {
 }
 
 // InsertMultiTarget InsertMultiTarget
-func (c *DBAgent) InsertMultiTarget(targetArr []*Target) error {
+func (c *DBAgent) InsertMultiTarget(recordArr []*Target) error {
 	err := c.DB.Transaction(func(tx *gorm.DB) error {
-		if err := tx.CreateInBatches(&targetArr, multiInsertBatchSize).Error; err != nil {
+		if err := tx.CreateInBatches(&recordArr, multiInsertBatchSize).Error; err != nil {
+			return err
+		}
+		return nil
+	})
+	return err
+}
+
+// DeleteAllTarget DeleteAllTarget
+func (c *DBAgent) DeleteAllTarget() error {
+	err := c.DB.Transaction(func(tx *gorm.DB) error {
+		if err := tx.Not("id = 0").Unscoped().Delete(&Target{}).Error; err != nil {
 			return err
 		}
 		return nil

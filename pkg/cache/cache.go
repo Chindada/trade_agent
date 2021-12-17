@@ -9,7 +9,7 @@ import (
 
 // Cache Cache
 type Cache struct {
-	Cache *cache.Cache `json:"cache,omitempty" yaml:"cache"`
+	Cache *cache.Cache
 	lock  sync.RWMutex
 }
 

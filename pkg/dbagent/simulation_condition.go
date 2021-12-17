@@ -21,3 +21,36 @@ type SimulationCondition struct {
 	TicksPeriodCount      int     `json:"ticks_period_count,omitempty" yaml:"ticks_period_count" gorm:"column:ticks_period_count"`
 	VolumePerSecond       int64   `json:"volume_per_second,omitempty" yaml:"volume_per_second" gorm:"column:volume_per_second"`
 }
+
+// InsertSimulationCondition InsertSimulationCondition
+func (c *DBAgent) InsertSimulationCondition(record *SimulationCondition) error {
+	err := c.DB.Transaction(func(tx *gorm.DB) error {
+		if err := tx.Create(&record).Error; err != nil {
+			return err
+		}
+		return nil
+	})
+	return err
+}
+
+// InsertMultiSimulationCondition InsertMultiSimulationCondition
+func (c *DBAgent) InsertMultiSimulationCondition(recordArr []*SimulationCondition) error {
+	err := c.DB.Transaction(func(tx *gorm.DB) error {
+		if err := tx.CreateInBatches(&recordArr, multiInsertBatchSize).Error; err != nil {
+			return err
+		}
+		return nil
+	})
+	return err
+}
+
+// DeleteAllSimulationCondition DeleteAllSimulationCondition
+func (c *DBAgent) DeleteAllSimulationCondition() error {
+	err := c.DB.Transaction(func(tx *gorm.DB) error {
+		if err := tx.Not("id = 0").Unscoped().Delete(&SimulationCondition{}).Error; err != nil {
+			return err
+		}
+		return nil
+	})
+	return err
+}

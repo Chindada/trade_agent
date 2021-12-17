@@ -21,3 +21,36 @@ type HistoryKbar struct {
 	Low    float64 `json:"low,omitempty" yaml:"low" gorm:"column:low"`
 	Volume int64   `json:"volume,omitempty" yaml:"volume" gorm:"column:volume"`
 }
+
+// InsertHistoryKbar InsertHistoryKbar
+func (c *DBAgent) InsertHistoryKbar(record *HistoryKbar) error {
+	err := c.DB.Transaction(func(tx *gorm.DB) error {
+		if err := tx.Create(&record).Error; err != nil {
+			return err
+		}
+		return nil
+	})
+	return err
+}
+
+// InsertMultiHistoryKbar InsertMultiHistoryKbar
+func (c *DBAgent) InsertMultiHistoryKbar(recordArr []*HistoryKbar) error {
+	err := c.DB.Transaction(func(tx *gorm.DB) error {
+		if err := tx.CreateInBatches(&recordArr, multiInsertBatchSize).Error; err != nil {
+			return err
+		}
+		return nil
+	})
+	return err
+}
+
+// DeleteAllHistoryKbar DeleteAllHistoryKbar
+func (c *DBAgent) DeleteAllHistoryKbar() error {
+	err := c.DB.Transaction(func(tx *gorm.DB) error {
+		if err := tx.Not("id = 0").Unscoped().Delete(&HistoryKbar{}).Error; err != nil {
+			return err
+		}
+		return nil
+	})
+	return err
+}

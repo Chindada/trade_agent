@@ -48,3 +48,36 @@ type HistoryBidAsk struct {
 	Suspend     int64   `json:"suspend,omitempty" yaml:"suspend" gorm:"column:suspend"`
 	Simtrade    int64   `json:"simtrade,omitempty" yaml:"simtrade" gorm:"column:simtrade"`
 }
+
+// InsertHistoryBidAsk InsertHistoryBidAsk
+func (c *DBAgent) InsertHistoryBidAsk(record *HistoryBidAsk) error {
+	err := c.DB.Transaction(func(tx *gorm.DB) error {
+		if err := tx.Create(&record).Error; err != nil {
+			return err
+		}
+		return nil
+	})
+	return err
+}
+
+// InsertMultiHistoryBidAsk InsertMultiHistoryBidAsk
+func (c *DBAgent) InsertMultiHistoryBidAsk(recordArr []*HistoryBidAsk) error {
+	err := c.DB.Transaction(func(tx *gorm.DB) error {
+		if err := tx.CreateInBatches(&recordArr, multiInsertBatchSize).Error; err != nil {
+			return err
+		}
+		return nil
+	})
+	return err
+}
+
+// DeleteAllHistoryBidAsk DeleteAllHistoryBidAsk
+func (c *DBAgent) DeleteAllHistoryBidAsk() error {
+	err := c.DB.Transaction(func(tx *gorm.DB) error {
+		if err := tx.Not("id = 0").Unscoped().Delete(&HistoryBidAsk{}).Error; err != nil {
+			return err
+		}
+		return nil
+	})
+	return err
+}

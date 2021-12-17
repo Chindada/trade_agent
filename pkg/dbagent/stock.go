@@ -18,9 +18,9 @@ type Stock struct {
 }
 
 // InsertStock InsertStock
-func (c *DBAgent) InsertStock(stock *Stock) error {
+func (c *DBAgent) InsertStock(record *Stock) error {
 	err := c.DB.Transaction(func(tx *gorm.DB) error {
-		if err := tx.Create(&stock).Error; err != nil {
+		if err := tx.Create(&record).Error; err != nil {
 			return err
 		}
 		return nil
@@ -29,9 +29,20 @@ func (c *DBAgent) InsertStock(stock *Stock) error {
 }
 
 // InsertMultiStock InsertMultiStock
-func (c *DBAgent) InsertMultiStock(stockArr []*Stock) (err error) {
-	err = c.DB.Transaction(func(tx *gorm.DB) error {
-		if err = tx.CreateInBatches(&stockArr, multiInsertBatchSize).Error; err != nil {
+func (c *DBAgent) InsertMultiStock(recordArr []*Stock) error {
+	err := c.DB.Transaction(func(tx *gorm.DB) error {
+		if err := tx.CreateInBatches(&recordArr, multiInsertBatchSize).Error; err != nil {
+			return err
+		}
+		return nil
+	})
+	return err
+}
+
+// DeleteAllStock DeleteAllStock
+func (c *DBAgent) DeleteAllStock() error {
+	err := c.DB.Transaction(func(tx *gorm.DB) error {
+		if err := tx.Not("id = 0").Unscoped().Delete(&Stock{}).Error; err != nil {
 			return err
 		}
 		return nil

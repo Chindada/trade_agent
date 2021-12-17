@@ -46,3 +46,25 @@ func (c *DBAgent) InsertRealTimeTick(record *RealTimeTick) error {
 	})
 	return err
 }
+
+// InsertMultiRealTimeTick InsertMultiRealTimeTick
+func (c *DBAgent) InsertMultiRealTimeTick(recordArr []*RealTimeTick) error {
+	err := c.DB.Transaction(func(tx *gorm.DB) error {
+		if err := tx.CreateInBatches(&recordArr, multiInsertBatchSize).Error; err != nil {
+			return err
+		}
+		return nil
+	})
+	return err
+}
+
+// DeleteAllRealTimeTick DeleteAllRealTimeTick
+func (c *DBAgent) DeleteAllRealTimeTick() error {
+	err := c.DB.Transaction(func(tx *gorm.DB) error {
+		if err := tx.Not("id = 0").Unscoped().Delete(&RealTimeTick{}).Error; err != nil {
+			return err
+		}
+		return nil
+	})
+	return err
+}
