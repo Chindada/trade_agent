@@ -38,12 +38,11 @@ func InitStock() {
 func subStockDeatail() error {
 	handler := mqhandler.Get()
 	wg.Add(1)
-	body := mqhandler.MQSubBody{
+	err := handler.Sub(mqhandler.MQSubBody{
 		MQTopic:  mqhandler.TopicStockDetail(),
 		Once:     true,
 		Callback: stockDetailCallback,
-	}
-	err := handler.Sub(body)
+	})
 	if err != nil {
 		return err
 	}

@@ -31,9 +31,9 @@ func InitSubscribe() {
 	log.Get().Info("Initial Subscribe")
 }
 
-func targetsBusCallback(tmp []*dbagent.Target) error {
+func targetsBusCallback(targetArr []*dbagent.Target) error {
 	var subStockArr []string
-	for _, v := range tmp {
+	for _, v := range targetArr {
 		subStockArr = append(subStockArr, v.Stock.Number)
 	}
 

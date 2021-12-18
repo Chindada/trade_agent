@@ -2,7 +2,6 @@
 package targets
 
 import (
-	"sync"
 	"trade_agent/pkg/cache"
 	"trade_agent/pkg/config"
 	"trade_agent/pkg/dbagent"
@@ -15,11 +14,8 @@ import (
 	"google.golang.org/protobuf/proto"
 )
 
-var wg sync.WaitGroup
-
 // getStockTargets getStockTargets
 func getStockTargets() error {
-	wg.Add(1)
 	handler := mqhandler.Get()
 	err := handler.Sub(mqhandler.MQSubBody{
 		MQTopic:  mqhandler.TopicSnapshotAll(),
@@ -34,13 +30,11 @@ func getStockTargets() error {
 	if err != nil {
 		return err
 	}
-	wg.Wait()
 	return nil
 }
 
 // snapshotAllCallback snapshotAllCallback
 func snapshotAllCallback(m mqhandler.MQMessage) {
-	defer wg.Done()
 	body := pb.SnapshotResponse{}
 	if err := proto.Unmarshal(m.Payload(), &body); err != nil {
 		log.Get().Errorf("Format Wrong: %s", string(m.Payload()))
@@ -87,9 +81,6 @@ func stockTargetFilter(v *pb.SnapshotMessage, cond *config.TargetCond) bool {
 		return false
 	}
 	if v.GetClose() < cond.LimitPriceLow || v.GetClose() > cond.LimitPriceHigh {
-		return false
-	}
-	if !cache.GetCache().GetStock(v.GetCode()).DayTrade {
 		return false
 	}
 	return true

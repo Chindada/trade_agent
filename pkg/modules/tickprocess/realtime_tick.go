@@ -12,7 +12,6 @@ import (
 
 func subRealTimeTick() error {
 	handler := mqhandler.Get()
-	// realtime
 	err := handler.Sub(mqhandler.MQSubBody{
 		MQTopic:  mqhandler.TopicRealTimeTick(),
 		Once:     false,

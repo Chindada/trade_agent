@@ -45,10 +45,12 @@ func tredeEventCallback(m mqhandler.MQMessage) {
 	if err != nil {
 		log.Get().Panic(err)
 	}
-	log.Get().WithFields(map[string]interface{}{
-		"EventCode": body.GetEventCode(),
-		"Event":     body.GetEvent(),
-		"RespCode":  body.GetRespCode(),
-		"Info":      body.GetInfo(),
-	}).Info("TradeEvent")
+	if body.GetEventCode() != 16 {
+		log.Get().WithFields(map[string]interface{}{
+			"EventCode": body.GetEventCode(),
+			"Event":     body.GetEvent(),
+			"RespCode":  body.GetRespCode(),
+			"Info":      body.GetInfo(),
+		}).Warn("TradeEvent")
+	}
 }

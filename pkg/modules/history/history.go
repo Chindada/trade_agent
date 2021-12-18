@@ -21,9 +21,13 @@ func InitHistory() {
 }
 
 func targetsBusCallback(targetArr []*dbagent.Target) error {
+	// get date range for fetch
 	fetchDate := cache.GetCache().GetHistroyRange()
+
+	// update stock close in date range
 	subStockClose(targetArr, fetchDate)
 
+	// check history tick exist or fetch
 	errChan := make(chan error)
 	var w sync.WaitGroup
 	for _, v := range targetArr {
@@ -35,7 +39,7 @@ func targetsBusCallback(targetArr []*dbagent.Target) error {
 				log.Get().Infof("%s %s HistoryTick Already Exist", v.Stock.Number, date.Format(global.ShortTimeLayout))
 				continue
 			}
-
+			// does not exist, fetch.
 			w.Add(1)
 			stock := v.Stock.Number
 			fetchDate := date
