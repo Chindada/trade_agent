@@ -2,6 +2,7 @@ package main
 
 import (
 	"trade_agent/pkg/dbagent"
+	"trade_agent/pkg/modules/cloudevent"
 	"trade_agent/pkg/modules/future"
 	"trade_agent/pkg/modules/history"
 	"trade_agent/pkg/modules/order"
@@ -11,7 +12,6 @@ import (
 	"trade_agent/pkg/modules/targets"
 	"trade_agent/pkg/modules/tickprocess"
 	"trade_agent/pkg/modules/tradeday"
-	"trade_agent/pkg/modules/tradeevent"
 	"trade_agent/pkg/mqhandler"
 	"trade_agent/pkg/routers"
 	"trade_agent/pkg/sinopacapi"
@@ -19,33 +19,46 @@ import (
 )
 
 func main() {
-	// initial basic
+	keep := make(chan struct{})
+
+	// initial core utils
 	dbagent.InitDatabase()
 	mqhandler.InitMQHandler()
 	sinopacapi.InitSinpacAPI()
+
+	// init cron tasks
 	tasks.InitTasks()
 
 	// serve http before trade agent module start
 	routers.ServeHTTP()
-	// stuck chan
-	keep := make(chan struct{})
 
-	// trade agent modules
-	order.InitOrder()
-	tradeevent.InitTradeEvent()
-	tickprocess.InitTickProcess()
-
-	// should before targets
-	subscribe.InitSubscribe()
-	history.InitHistory()
-
+	// fill all basic data
 	tradeday.InitTradeDay()
 	stock.InitStock()
 	future.InitFuture()
-	targets.InitTargets()
 
+	// wait order and simulation result to place order
+	// update all order status looply
+	order.InitOrder()
+
+	// simulation
 	simulation.InitSimulation()
 
-	// stuck
+	// update sino srv event
+	cloudevent.InitCloudEvent()
+
+	// process all tick
+	// include realtime, history tick, kbar
+	tickprocess.InitTickProcess()
+
+	// receive target to subscribe tick, bidask
+	subscribe.InitSubscribe()
+
+	// receive target to fill history data
+	history.InitHistory()
+
+	// find target
+	targets.InitTargets()
+
 	<-keep
 }

@@ -2,9 +2,9 @@
 package tradeday
 
 import (
-	"time"
 	"trade_agent/global"
 	"trade_agent/pkg/cache"
+	"trade_agent/pkg/config"
 	"trade_agent/pkg/dbagent"
 	"trade_agent/pkg/log"
 )
@@ -16,6 +16,7 @@ func InitTradeDay() {
 	if err != nil {
 		log.Get().Panic(err)
 	}
+
 	tradeDayMap, err := dbagent.Get().GetAllTradeDayMap()
 	if err != nil {
 		log.Get().Panic(err)
@@ -27,51 +28,18 @@ func InitTradeDay() {
 	if err != nil {
 		log.Get().Panic(err)
 	}
-	cache.GetCache().Set(cache.KeyTradeDay(), tradeDay)
-
 	log.Get().WithFields(map[string]interface{}{
 		"Date": tradeDay.Format(global.ShortTimeLayout),
 	}).Info("TradeDay")
-}
+	cache.GetCache().Set(cache.KeyTradeDay(), tradeDay)
 
-// GetTradeDay GetTradeDay
-func GetTradeDay() (tradeDay time.Time, err error) {
-	var today time.Time
-	if time.Now().Hour() >= 15 {
-		today = time.Now().AddDate(0, 0, 1)
-	} else {
-		today = time.Now()
-	}
-	tradeDay, err = GetNextTradeDayTime(today)
+	conf, err := config.Get()
 	if err != nil {
-		return tradeDay, err
+		log.Get().Panic(err)
 	}
-	return tradeDay, err
-}
+	fetchPeriod := conf.GetTradeConfig().HistoryPeriod
+	fetchRange := GetLastNTradeDayByDate(fetchPeriod, tradeDay)
+	cache.GetCache().Set(cache.KeyHistroyRange(), fetchRange)
 
-// GetNextTradeDayTime GetNextTradeDayTime
-func GetNextTradeDayTime(nowTime time.Time) (tradeDay time.Time, err error) {
-	tmp := time.Date(nowTime.Year(), nowTime.Month(), nowTime.Day(), 0, 0, 0, 0, time.Local)
-	calendar := cache.GetCache().GetCalendar()
-	if !calendar[tmp] {
-		nowTime = nowTime.AddDate(0, 0, 1)
-		return GetNextTradeDayTime(nowTime)
-	}
-	return tmp, err
-}
-
-// GetLastNTradeDayByDate GetLastNTradeDayByDate
-func GetLastNTradeDayByDate(n int, firstDay time.Time) []time.Time {
-	calendar := cache.GetCache().GetCalendar()
-	var tmp []time.Time
-	for {
-		if calendar[firstDay.AddDate(0, 0, -1)] {
-			tmp = append(tmp, firstDay.AddDate(0, 0, -1))
-		}
-		if len(tmp) == n {
-			break
-		}
-		firstDay = firstDay.AddDate(0, 0, -1)
-	}
-	return tmp
+	log.Get().Info("Initial TradeDay")
 }

@@ -8,7 +8,6 @@ import (
 	"trade_agent/pkg/dbagent"
 	"trade_agent/pkg/eventbus"
 	"trade_agent/pkg/log"
-	"trade_agent/pkg/modules/tradeday"
 	"trade_agent/pkg/sinopacapi"
 )
 
@@ -18,38 +17,47 @@ func InitHistory() {
 	if err != nil {
 		log.Get().Panic(err)
 	}
+	log.Get().Info("Initial History")
 }
 
-func targetsBusCallback(tmp []*dbagent.Target) error {
-	fetchDate := tradeday.GetLastNTradeDayByDate(1, cache.GetCache().GetTradeDay())
-	var stockNumArr []string
-	for _, v := range tmp {
-		stockNumArr = append(stockNumArr, v.Stock.Number)
-	}
-	subStockClose(stockNumArr, fetchDate[0])
+func targetsBusCallback(targetArr []*dbagent.Target) error {
+	fetchDate := cache.GetCache().GetHistroyRange()
+	subStockClose(targetArr, fetchDate)
 
 	errChan := make(chan error)
-	var wg sync.WaitGroup
-	for _, v := range tmp {
-		wg.Add(1)
-		target := *v
-		go func(v dbagent.Target, wg *sync.WaitGroup) {
-			defer wg.Done()
-			err := sinopacapi.Get().FetchEntireTickByStockAndDate(v.Stock.Number, tradeday.GetLastNTradeDayByDate(1, v.TradeDay)[0].Format(global.ShortTimeLayout))
+	var w sync.WaitGroup
+	for _, v := range targetArr {
+		for _, date := range fetchDate {
+			exist, err := dbagent.Get().CheckHistoryTickExistByStockNum(date)
 			if err != nil {
-				errChan <- err
+				return err
+			} else if exist {
+				log.Get().Infof("%s %s HistoryTick Already Exist", v.Stock.Number, date.Format(global.ShortTimeLayout))
+				continue
 			}
-		}(target, &wg)
+
+			w.Add(1)
+			stock := v.Stock.Number
+			fetchDate := date
+			go func(wg *sync.WaitGroup) {
+				defer wg.Done()
+				err := sinopacapi.Get().FetchHistoryTickByStockAndDate(stock, fetchDate.Format(global.ShortTimeLayout))
+				if err != nil {
+					errChan <- err
+				}
+			}(&w)
+		}
 	}
-	wg.Wait()
+	w.Wait()
 	close(errChan)
 	for {
 		err, ok := <-errChan
-		if err != nil {
-			log.Get().Error(err)
-		}
 		if !ok {
 			break
+		}
+		if err != nil {
+			log.Get().Error(err)
+			return err
 		}
 	}
 	return nil

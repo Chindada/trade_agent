@@ -46,3 +46,28 @@ func (c *DBAgent) DeleteAllHistoryClose() error {
 	})
 	return err
 }
+
+// InsertOrUpdateHistoryClose InsertOrUpdateHistoryClose
+func (c *DBAgent) InsertOrUpdateHistoryClose(record *HistoryClose) error {
+	err := c.DB.Transaction(func(tx *gorm.DB) error {
+		var dbRecord HistoryClose
+		result := tx.Model(&HistoryClose{}).
+			Where("close = ?", record.Close).
+			Where("stock_id = ?", record.Stock.ID).
+			Where("calendar_date_id = ?", record.CalendarDate.ID).
+			First(&dbRecord)
+		if result.RowsAffected == 0 {
+			err := c.InsertHistoryClose(record)
+			if err != nil {
+				return err
+			}
+		} else {
+			record.Model = dbRecord.Model
+			if err := tx.Save(&record).Error; err != nil {
+				return err
+			}
+		}
+		return nil
+	})
+	return err
+}

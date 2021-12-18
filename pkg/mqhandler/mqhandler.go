@@ -29,7 +29,7 @@ type MQSubBody struct {
 
 // MQHandler MQHandler
 type MQHandler struct {
-	lock        sync.Mutex
+	lock        sync.RWMutex
 	client      mqtt.Client
 	callbackMap map[string]MQCallback
 	onceMap     map[string]bool
@@ -37,8 +37,8 @@ type MQHandler struct {
 
 // InitMQHandler InitMQHandler
 func InitMQHandler() {
-	log.Get().Info("Initial MQHandler")
 	once.Do(initMQHandler)
+	log.Get().Info("Initial MQHandler")
 }
 
 // Get Get
@@ -72,7 +72,7 @@ func initMQHandler() {
 	callbackMap := make(map[string]MQCallback)
 	onceMap := make(map[string]bool)
 	globalHandler = &MQHandler{
-		lock:        sync.Mutex{},
+		lock:        sync.RWMutex{},
 		client:      newClient,
 		callbackMap: callbackMap,
 		onceMap:     onceMap,
@@ -87,10 +87,12 @@ func (c *MQHandler) Sub(body MQSubBody) error {
 		c.onceMap[string(body.MQTopic)] = true
 	}
 	c.lock.Unlock()
-	token := c.client.Subscribe(string(body.MQTopic), 2, c.onMessage)
-	if token.Wait() && token.Error() != nil {
-		return token.Error()
-	}
+	go func() {
+		token := c.client.Subscribe(string(body.MQTopic), 2, c.onMessage)
+		if token.Wait() && token.Error() != nil {
+			log.Get().Error(token.Error())
+		}
+	}()
 	return nil
 }
 
@@ -104,19 +106,22 @@ func (c *MQHandler) Pub(topic MQTopic, msg interface{}) error {
 }
 
 func (c *MQHandler) onMessage(mc mqtt.Client, m mqtt.Message) {
-	defer c.lock.Unlock()
-	c.lock.Lock()
-	callback := c.callbackMap[m.Topic()]
-	if c.onceMap[m.Topic()] {
+	c.lock.RLock()
+	if f := c.callbackMap[m.Topic()]; f != nil {
+		go f(m)
+	}
+	once := c.onceMap[m.Topic()]
+	c.lock.RUnlock()
+	if once {
+		c.lock.Lock()
 		delete(c.callbackMap, m.Topic())
 		delete(c.onceMap, m.Topic())
+		c.lock.Unlock()
 		err := c.UnSub(m.Topic())
 		if err != nil {
 			log.Get().Error(err)
 		}
-		log.Get().Warnf("UnSubscribe %s", m.Topic())
 	}
-	go callback(m)
 }
 
 // UnSub UnSub
@@ -125,5 +130,6 @@ func (c *MQHandler) UnSub(topic string) error {
 	if token.Wait() && token.Error() != nil {
 		return token.Error()
 	}
+	log.Get().Warnf("UnSubscribe %s", topic)
 	return nil
 }

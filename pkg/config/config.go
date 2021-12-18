@@ -2,6 +2,7 @@
 package config
 
 import (
+	"encoding/json"
 	"io/ioutil"
 	"os"
 	"path/filepath"
@@ -59,7 +60,7 @@ type MQTT struct {
 
 // Trade Trade
 type Trade struct {
-	KbarPeriod      string `json:"kbar_period,omitempty" yaml:"kbar_period"`
+	HistoryPeriod   int64  `json:"history_period,omitempty" yaml:"history_period"`
 	TargetCondition string `json:"target_condition,omitempty" yaml:"target_condition"`
 	BlackStock      string `json:"black_stock,omitempty" yaml:"black_stock"`
 	BlackCategory   string `json:"black_category,omitempty" yaml:"black_category"`
@@ -119,6 +120,23 @@ func (c Config) GetScheduleConfig() Schedule {
 // GetTradeConfig GetTradeConfig
 func (c Config) GetTradeConfig() Trade {
 	return c.Trade
+}
+
+// TargetCond TargetCond
+type TargetCond struct {
+	LimitPriceLow  float64 `json:"limit_price_low,omitempty" yaml:"limit_price_low"`
+	LimitPriceHigh float64 `json:"limit_price_high,omitempty" yaml:"limit_price_high"`
+	LimitVolume    int64   `json:"limit_volume,omitempty" yaml:"limit_volume"`
+}
+
+// GetTradeTargetCondtion GetTradeTargetCondtion
+func (c Config) GetTradeTargetCondtion() *TargetCond {
+	var cond TargetCond
+	err := json.Unmarshal([]byte(c.Trade.TargetCondition), &cond)
+	if err != nil {
+		log.Get().Panic(err)
+	}
+	return &cond
 }
 
 // GetMQConfig GetMQConfig

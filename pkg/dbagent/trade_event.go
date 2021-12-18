@@ -5,8 +5,8 @@ import (
 	"gorm.io/gorm"
 )
 
-// TradeEvent TradeEvent
-type TradeEvent struct {
+// CloudEvent CloudEvent
+type CloudEvent struct {
 	gorm.Model `json:"-" swaggerignore:"true"`
 
 	Event     string `json:"event,omitempty" yaml:"event" gorm:"column:event"`
@@ -15,8 +15,8 @@ type TradeEvent struct {
 	Response  int64  `json:"response,omitempty" yaml:"response" gorm:"column:response"`
 }
 
-// InsertTradeEvent InsertTradeEvent
-func (c *DBAgent) InsertTradeEvent(record *TradeEvent) error {
+// InsertCloudEvent InsertCloudEvent
+func (c *DBAgent) InsertCloudEvent(record *CloudEvent) error {
 	err := c.DB.Transaction(func(tx *gorm.DB) error {
 		if err := tx.Create(&record).Error; err != nil {
 			return err
@@ -26,8 +26,8 @@ func (c *DBAgent) InsertTradeEvent(record *TradeEvent) error {
 	return err
 }
 
-// InsertMultiTradeEvent InsertMultiTradeEvent
-func (c *DBAgent) InsertMultiTradeEvent(recordArr []*TradeEvent) error {
+// InsertMultiCloudEvent InsertMultiCloudEvent
+func (c *DBAgent) InsertMultiCloudEvent(recordArr []*CloudEvent) error {
 	err := c.DB.Transaction(func(tx *gorm.DB) error {
 		if err := tx.CreateInBatches(&recordArr, multiInsertBatchSize).Error; err != nil {
 			return err
@@ -37,10 +37,10 @@ func (c *DBAgent) InsertMultiTradeEvent(recordArr []*TradeEvent) error {
 	return err
 }
 
-// DeleteAllTradeEvent DeleteAllTradeEvent
-func (c *DBAgent) DeleteAllTradeEvent() error {
+// DeleteAllCloudEvent DeleteAllCloudEvent
+func (c *DBAgent) DeleteAllCloudEvent() error {
 	err := c.DB.Transaction(func(tx *gorm.DB) error {
-		if err := tx.Not("id = 0").Unscoped().Delete(&TradeEvent{}).Error; err != nil {
+		if err := tx.Not("id = 0").Unscoped().Delete(&CloudEvent{}).Error; err != nil {
 			return err
 		}
 		return nil

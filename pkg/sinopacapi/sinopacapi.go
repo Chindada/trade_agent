@@ -31,17 +31,8 @@ type Order struct {
 	TradeTime time.Time   `json:"trade_time,omitempty" yaml:"trade_time"`
 }
 
-// Get Get
-func Get() *TradeAgent {
-	if globalClient == nil {
-		log.Get().Panic("Trade Agent was not inititalized")
-	}
-	return globalClient
-}
-
 // InitSinpacAPI InitSinpacAPI
 func InitSinpacAPI() {
-	log.Get().Info("Initial SinopacAPI")
 	conf, err := config.Get()
 	if err != nil {
 		log.Get().Panic(err)
@@ -58,6 +49,15 @@ func InitSinpacAPI() {
 		log.Get().Panic(err)
 	}
 	globalClient = &new
+	log.Get().Info("Initial SinopacAPI")
+}
+
+// Get Get
+func Get() *TradeAgent {
+	if globalClient == nil {
+		log.Get().Panic("Trade Agent was not inititalized")
+	}
+	return globalClient
 }
 
 // AskSinpacMQSRVConnectMQ AskSinpacMQSRVConnectMQ
@@ -66,7 +66,7 @@ func (c *TradeAgent) AskSinpacMQSRVConnectMQ(mqConf config.MQTT) (err error) {
 	resp, err = c.Client.R().
 		SetBody(mqConf).
 		SetResult(&ResponseCommon{}).
-		Post(c.urlPrefix + urlAskSinpacConnectMQ)
+		Post(c.urlPrefix + urlAskSinpacMQSRVConnectMQ)
 	if err != nil {
 		return err
 	} else if resp.StatusCode() != http.StatusOK {
@@ -93,6 +93,23 @@ func (c *TradeAgent) FetchServerKey() (token string, err error) {
 		return token, errors.New(result)
 	}
 	return resp.Result().(*ResponseHealthStatus).ServerToken, err
+}
+
+// RestartSinopacSRV RestartSinopacSRV
+func (c *TradeAgent) RestartSinopacSRV() (err error) {
+	var resp *resty.Response
+	resp, err = c.Client.R().
+		SetResult(&ResponseCommon{}).
+		Get(c.urlPrefix + urlRestartSinopacSRV)
+	if err != nil {
+		return err
+	} else if resp.StatusCode() != http.StatusOK {
+		return errors.New("RestartSinopacSRV API Fail")
+	}
+	if result := resp.Result().(*ResponseCommon).Result; result != StatusSuccuss {
+		return errors.New(result)
+	}
+	return err
 }
 
 // PlaceOrder PlaceOrder
@@ -167,25 +184,8 @@ func (c *TradeAgent) FetchOrderStatus() (err error) {
 	return err
 }
 
-// RestartSinopacSRV RestartSinopacSRV
-func (c *TradeAgent) RestartSinopacSRV() (err error) {
-	var resp *resty.Response
-	resp, err = c.Client.R().
-		SetResult(&ResponseCommon{}).
-		Get(c.urlPrefix + urlRestartSinopacSRV)
-	if err != nil {
-		return err
-	} else if resp.StatusCode() != http.StatusOK {
-		return errors.New("RestartSinopacSRV API Fail")
-	}
-	if result := resp.Result().(*ResponseCommon).Result; result != StatusSuccuss {
-		return errors.New(result)
-	}
-	return err
-}
-
-// FetchStockCloseByStockArrDateArr FetchStockCloseByStockArrDateArr
-func (c *TradeAgent) FetchStockCloseByStockArrDateArr(stockNumArr, dateArr []string) (err error) {
+// FetchHistoryCloseByStockArrDateArr FetchHistoryCloseByStockArrDateArr
+func (c *TradeAgent) FetchHistoryCloseByStockArrDateArr(stockNumArr, dateArr []string) (err error) {
 	stockAndDateArr := FetchLastCloseBody{
 		StockNumArr: stockNumArr,
 		DateArr:     dateArr,
@@ -194,11 +194,11 @@ func (c *TradeAgent) FetchStockCloseByStockArrDateArr(stockNumArr, dateArr []str
 	resp, err = c.Client.R().
 		SetBody(stockAndDateArr).
 		SetResult(&ResponseCommon{}).
-		Post(c.urlPrefix + urlFetchLastCloseByStockArrDateArr)
+		Post(c.urlPrefix + urlFetchHistoryCloseByStockArrDateArr)
 	if err != nil {
 		return err
 	} else if resp.StatusCode() != http.StatusOK {
-		return errors.New("FetchStockCloseByStockArrDateArr API Fail")
+		return errors.New("FetchHistoryCloseByStockArrDateArr API Fail")
 	}
 	if result := resp.Result().(*ResponseCommon).Result; result != StatusSuccuss {
 		return errors.New(result)
@@ -223,8 +223,8 @@ func (c *TradeAgent) FetchAllSnapShot() (err error) {
 	return err
 }
 
-// FetchStockCloseByStockArrAndDate FetchStockCloseByStockArrAndDate
-func (c *TradeAgent) FetchStockCloseByStockArrAndDate(stockNumArr []string, date time.Time) (err error) {
+// FetchHistoryCloseByStockDateArr FetchHistoryCloseByStockDateArr
+func (c *TradeAgent) FetchHistoryCloseByStockDateArr(stockNumArr []string, date time.Time) (err error) {
 	stockArr := FetchLastCountBody{
 		StockNumArr: stockNumArr,
 	}
@@ -233,11 +233,11 @@ func (c *TradeAgent) FetchStockCloseByStockArrAndDate(stockNumArr []string, date
 		SetHeader("X-Date", date.Format(shortTimeLayout)).
 		SetBody(stockArr).
 		SetResult(&ResponseCommon{}).
-		Post(c.urlPrefix + urlFetchStockCloseMapByStockDateArr)
+		Post(c.urlPrefix + urlFetchHistoryCloseByStockDateArr)
 	if err != nil {
 		return err
 	} else if resp.StatusCode() != http.StatusOK {
-		return errors.New("FetchStockCloseByStockArrAndDate API Fail")
+		return errors.New("FetchHistoryCloseByStockDateArr API Fail")
 	}
 	if result := resp.Result().(*ResponseCommon).Result; result != StatusSuccuss {
 		return errors.New(result)
@@ -245,17 +245,17 @@ func (c *TradeAgent) FetchStockCloseByStockArrAndDate(stockNumArr []string, date
 	return err
 }
 
-// FetchTSE001CloseByDate FetchTSE001CloseByDate
-func (c *TradeAgent) FetchTSE001CloseByDate(date time.Time) (err error) {
+// FetchHistoryTSECloseByDate FetchHistoryTSECloseByDate
+func (c *TradeAgent) FetchHistoryTSECloseByDate(date time.Time) (err error) {
 	var resp *resty.Response
 	resp, err = c.Client.R().
 		SetHeader("X-Date", date.Format(shortTimeLayout)).
 		SetResult(&ResponseCommon{}).
-		Post(c.urlPrefix + urlFetchTSE001CloseByDate)
+		Post(c.urlPrefix + urlFetchHistoryTSECloseByDate)
 	if err != nil {
 		return err
 	} else if resp.StatusCode() != http.StatusOK {
-		return errors.New("FetchTSE001CloseByDate API Fail")
+		return errors.New("FetchHistoryTSECloseByDate API Fail")
 	}
 	if result := resp.Result().(*ResponseCommon).Result; result != StatusSuccuss {
 		return errors.New(result)
@@ -282,8 +282,8 @@ func (c *TradeAgent) FetchVolumeRankByDate(date string, count int64) (err error)
 	return err
 }
 
-// FetchKbarByDateRange FetchKbarByDateRange
-func (c *TradeAgent) FetchKbarByDateRange(stockNum string, start, end time.Time) (err error) {
+// FetchHistoryKbarByDateRange FetchHistoryKbarByDateRange
+func (c *TradeAgent) FetchHistoryKbarByDateRange(stockNum string, start, end time.Time) (err error) {
 	stockAndDateArr := FetchKbarBody{
 		StockNum:  stockNum,
 		StartDate: start.Format(shortTimeLayout),
@@ -292,11 +292,11 @@ func (c *TradeAgent) FetchKbarByDateRange(stockNum string, start, end time.Time)
 	resp, err := c.Client.R().
 		SetBody(stockAndDateArr).
 		SetResult(&ResponseCommon{}).
-		Post(c.urlPrefix + urlFetchKbarByDateRange)
+		Post(c.urlPrefix + urlFetchHistoryKbarByDateRange)
 	if err != nil {
 		return err
 	} else if resp.StatusCode() != http.StatusOK {
-		return errors.New("FetchKbarByDateRange API Fail")
+		return errors.New("FetchHistoryKbarByDateRange API Fail")
 	}
 	if result := resp.Result().(*ResponseCommon).Result; result != StatusSuccuss {
 		return errors.New(result)
@@ -304,8 +304,8 @@ func (c *TradeAgent) FetchKbarByDateRange(stockNum string, start, end time.Time)
 	return err
 }
 
-// FetchTSE001KbarByDate FetchTSE001KbarByDate
-func (c *TradeAgent) FetchTSE001KbarByDate(date time.Time) (err error) {
+// FetchHistoryTSEKbarByDate FetchHistoryTSEKbarByDate
+func (c *TradeAgent) FetchHistoryTSEKbarByDate(date time.Time) (err error) {
 	stockAndDateArr := FetchKbarBody{
 		StartDate: date.Format(shortTimeLayout),
 		EndDate:   date.Format(shortTimeLayout),
@@ -313,11 +313,11 @@ func (c *TradeAgent) FetchTSE001KbarByDate(date time.Time) (err error) {
 	resp, err := c.Client.R().
 		SetBody(stockAndDateArr).
 		SetResult(&ResponseCommon{}).
-		Post(c.urlPrefix + urlFetchTSE001KbarByDate)
+		Post(c.urlPrefix + urlFetchHistoryTSEKbarByDate)
 	if err != nil {
 		return err
 	} else if resp.StatusCode() != http.StatusOK {
-		return errors.New("FetchTSEKbarByDateRange API Fail")
+		return errors.New("FetchHistoryTSEKbarByDate API Fail")
 	}
 	if result := resp.Result().(*ResponseCommon).Result; result != StatusSuccuss {
 		return errors.New(result)
@@ -325,8 +325,8 @@ func (c *TradeAgent) FetchTSE001KbarByDate(date time.Time) (err error) {
 	return err
 }
 
-// FetchEntireTickByStockAndDate FetchEntireTickByStockAndDate
-func (c *TradeAgent) FetchEntireTickByStockAndDate(stockNum, date string) (err error) {
+// FetchHistoryTickByStockAndDate FetchHistoryTickByStockAndDate
+func (c *TradeAgent) FetchHistoryTickByStockAndDate(stockNum, date string) (err error) {
 	stockAndDate := FetchBody{
 		StockNum: stockNum,
 		Date:     date,
@@ -335,11 +335,11 @@ func (c *TradeAgent) FetchEntireTickByStockAndDate(stockNum, date string) (err e
 	resp, err = c.Client.R().
 		SetBody(stockAndDate).
 		SetResult(&ResponseCommon{}).
-		Post(c.urlPrefix + urlFetchEntireTickByStockAndDate)
+		Post(c.urlPrefix + urlFetchHistoryTickByStockAndDate)
 	if err != nil {
 		return err
 	} else if resp.StatusCode() != http.StatusOK {
-		return errors.New("FetchEntireTickByStockAndDate API Fail")
+		return errors.New("FetchHistoryTickByStockAndDate API Fail")
 	}
 	if result := resp.Result().(*ResponseCommon).Result; result != StatusSuccuss {
 		return errors.New(result)
@@ -364,8 +364,8 @@ func (c *TradeAgent) FetchAllStockDetail() (err error) {
 	return err
 }
 
-// SubStreamTick SubStreamTick
-func (c *TradeAgent) SubStreamTick(stockArr []string) (err error) {
+// SubRealTimeTick SubRealTimeTick
+func (c *TradeAgent) SubRealTimeTick(stockArr []string) (err error) {
 	stocks := SubscribeBody{
 		StockNumArr: stockArr,
 	}
@@ -373,11 +373,11 @@ func (c *TradeAgent) SubStreamTick(stockArr []string) (err error) {
 	resp, err = c.Client.R().
 		SetBody(stocks).
 		SetResult(&ResponseCommon{}).
-		Post(c.urlPrefix + urlSubStreamTick)
+		Post(c.urlPrefix + urlSubRealTimeTick)
 	if err != nil {
 		return err
 	} else if resp.StatusCode() != http.StatusOK {
-		return errors.New("SubStreamTick API Fail")
+		return errors.New("SubRealTimeTick API Fail")
 	}
 	if result := resp.Result().(*ResponseCommon).Result; result != StatusSuccuss {
 		return errors.New(result)
@@ -410,9 +410,9 @@ func (c *TradeAgent) SubBidAsk(stockArr []string) (err error) {
 func (c *TradeAgent) UnSubscribeAllByType(dataType TickType) (err error) {
 	var url string
 	switch {
-	case dataType == StreamType:
-		url = urlUnSubscribeAllStream
-	case dataType == BidAskType:
+	case dataType == TickTypeStockRealTime:
+		url = urlUnSubscribeAllRealTimeTick
+	case dataType == TickTypeStockBidAsk:
 		url = urlUnSubscribeAllBidAsk
 	}
 	var resp *resty.Response

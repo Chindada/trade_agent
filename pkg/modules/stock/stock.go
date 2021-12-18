@@ -17,6 +17,25 @@ var wg sync.WaitGroup
 
 // InitStock InitStock
 func InitStock() {
+	err := subStockDeatail()
+	if err != nil {
+		log.Get().Panic(err)
+	}
+
+	// add stock detail to cache from db
+	inDBStock, err := dbagent.Get().GetAllStockMap()
+	if err != nil {
+		log.Get().Panic(err)
+	}
+
+	// save stock detail to cahce
+	for key := range inDBStock {
+		cache.GetCache().Set(cache.KeyStockDetail(key), inDBStock[key])
+	}
+	log.Get().Info("Initial Stock")
+}
+
+func subStockDeatail() error {
 	handler := mqhandler.Get()
 	wg.Add(1)
 	body := mqhandler.MQSubBody{
@@ -26,30 +45,22 @@ func InitStock() {
 	}
 	err := handler.Sub(body)
 	if err != nil {
-		log.Get().Panic(err)
+		return err
 	}
 	err = sinopacapi.Get().FetchAllStockDetail()
 	if err != nil {
-		log.Get().Panic(err)
+		return err
 	}
 	// wait stock callback return
 	wg.Wait()
-
-	// add stock detail to cache from db
-	inDBStock, err := dbagent.Get().GetAllStockMap()
-	if err != nil {
-		log.Get().Panic(err)
-	}
-	for key := range inDBStock {
-		cache.GetCache().Set(cache.KeyStockDetail(key), inDBStock[key])
-	}
+	return nil
 }
 
 // process mq back stock deail, check db record to decide to insert, and add to cache
 func stockDetailCallback(m mqhandler.MQMessage) {
 	defer wg.Done()
 	var err error
-	body := pb.StockResponse{}
+	body := pb.StockDetailResponse{}
 	if err = proto.Unmarshal(m.Payload(), &body); err != nil {
 		log.Get().Errorf("Format Wrong: %s", string(m.Payload()))
 		return

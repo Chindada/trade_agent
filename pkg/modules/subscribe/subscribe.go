@@ -10,14 +10,25 @@ import (
 
 // InitSubscribe InitSubscribe
 func InitSubscribe() {
-	err := sinopacapi.Get().UnSubscribeAllByType(sinopacapi.StreamType)
+	// unsubscribe all
+	// realtime tick
+	err := sinopacapi.Get().UnSubscribeAllByType(sinopacapi.TickTypeStockRealTime)
 	if err != nil {
 		log.Get().Panic(err)
 	}
+
+	// bidask
+	err = sinopacapi.Get().UnSubscribeAllByType(sinopacapi.TickTypeStockBidAsk)
+	if err != nil {
+		log.Get().Panic(err)
+	}
+
+	// sub event targets
 	err = eventbus.Get().Sub(eventbus.TopicTargets(), targetsBusCallback)
 	if err != nil {
 		log.Get().Panic(err)
 	}
+	log.Get().Info("Initial Subscribe")
 }
 
 func targetsBusCallback(tmp []*dbagent.Target) error {
@@ -25,7 +36,9 @@ func targetsBusCallback(tmp []*dbagent.Target) error {
 	for _, v := range tmp {
 		subStockArr = append(subStockArr, v.Stock.Number)
 	}
-	err := sinopacapi.Get().SubStreamTick(subStockArr)
+
+	// realtime
+	err := sinopacapi.Get().SubRealTimeTick(subStockArr)
 	if err != nil {
 		log.Get().Panic(err)
 	}

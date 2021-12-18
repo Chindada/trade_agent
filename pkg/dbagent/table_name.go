@@ -18,12 +18,12 @@ func (CalendarDate) TableName() string {
 
 // TableName TableName
 func (Target) TableName() string {
-	return "trade_targets"
+	return "basic_targets"
 }
 
 // TableName TableName
-func (TradeEvent) TableName() string {
-	return "trade_event"
+func (CloudEvent) TableName() string {
+	return "cloud_event"
 }
 
 // TableName TableName
@@ -52,8 +52,8 @@ func (RealTimeTick) TableName() string {
 }
 
 // TableName TableName
-func (TradeRecord) TableName() string {
-	return "trade_record"
+func (OrderStatus) TableName() string {
+	return "order_status"
 }
 
 // TableName TableName

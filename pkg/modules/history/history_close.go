@@ -14,25 +14,33 @@ import (
 	"google.golang.org/protobuf/proto"
 )
 
-func subStockClose(stockNumArr []string, date time.Time) {
+func subStockClose(targetArr []*dbagent.Target, date []time.Time) {
 	handler := mqhandler.Get()
-	body := mqhandler.MQSubBody{
-		MQTopic:  mqhandler.TopicLastcount(),
+	err := handler.Sub(mqhandler.MQSubBody{
+		MQTopic:  mqhandler.TopicLastcountMultiDate(),
 		Once:     false,
 		Callback: stockCloseCallback,
-	}
-	err := handler.Sub(body)
+	})
 	if err != nil {
 		log.Get().Panic(err)
 	}
-	err = sinopacapi.Get().FetchStockCloseByStockArrAndDate(stockNumArr, date)
+
+	var stockNumArr, dateArr []string
+	for _, t := range date {
+		dateArr = append(dateArr, t.Format(global.ShortTimeLayout))
+	}
+	for _, s := range targetArr {
+		stockNumArr = append(stockNumArr, s.Stock.Number)
+	}
+
+	err = sinopacapi.Get().FetchHistoryCloseByStockArrDateArr(stockNumArr, dateArr)
 	if err != nil {
 		log.Get().Panic(err)
 	}
 }
 
 func stockCloseCallback(m mqhandler.MQMessage) {
-	body := pb.LastCountResponse{}
+	body := pb.HistoryCloseResponse{}
 	if err := proto.Unmarshal(m.Payload(), &body); err != nil {
 		log.Get().Errorf("Format Wrong: %s", string(m.Payload()))
 		return
@@ -51,7 +59,7 @@ func stockCloseCallback(m mqhandler.MQMessage) {
 			Stock:        cache.GetCache().GetStock(v.GetCode()),
 			CalendarDate: calendarDate,
 		}
-		if err := dbagent.Get().InsertHistoryClose(tmp); err != nil {
+		if err := dbagent.Get().InsertOrUpdateHistoryClose(tmp); err != nil {
 			log.Get().Panic(err)
 		}
 	}

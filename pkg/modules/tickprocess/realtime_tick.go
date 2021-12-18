@@ -10,14 +10,27 @@ import (
 	"google.golang.org/protobuf/proto"
 )
 
+func subRealTimeTick() error {
+	handler := mqhandler.Get()
+	// realtime
+	err := handler.Sub(mqhandler.MQSubBody{
+		MQTopic:  mqhandler.TopicRealTimeTick(),
+		Once:     false,
+		Callback: realTimeTickCallback,
+	})
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
 func realTimeTickCallback(m mqhandler.MQMessage) {
 	body := pb.RealTimeTickResponse{}
 	if err := proto.Unmarshal(m.Payload(), &body); err != nil {
 		log.Get().Errorf("Format Wrong: %s", string(m.Payload()))
 		return
 	}
-	tick := body.GetTick()
-	if err := dbagent.Get().InsertRealTimeTick(tick.ToRealTimeTick()); err != nil {
+	if err := dbagent.Get().InsertRealTimeTick(body.GetTick().ToRealTimeTick()); err != nil {
 		log.Get().Panic(err)
 	}
 }

@@ -32,8 +32,8 @@ const (
 type TickType int64
 
 const (
-	// StreamType StreamType
-	StreamType TickType = iota + 1
-	// BidAskType BidAskType
-	BidAskType
+	// TickTypeStockRealTime TickTypeStockRealTime
+	TickTypeStockRealTime TickType = iota + 1
+	// TickTypeStockBidAsk TickTypeStockBidAsk
+	TickTypeStockBidAsk
 )

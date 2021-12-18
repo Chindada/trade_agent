@@ -10,6 +10,19 @@ import (
 	"google.golang.org/protobuf/proto"
 )
 
+func subHistroyTick() error {
+	handler := mqhandler.Get()
+	err := handler.Sub(mqhandler.MQSubBody{
+		MQTopic:  mqhandler.TopicHistoryTick(),
+		Once:     false,
+		Callback: historyTickCallback,
+	})
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
 func historyTickCallback(m mqhandler.MQMessage) {
 	body := pb.HistoryTickResponse{}
 	if err := proto.Unmarshal(m.Payload(), &body); err != nil {

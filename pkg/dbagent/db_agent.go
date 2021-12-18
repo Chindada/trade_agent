@@ -30,68 +30,8 @@ var (
 	once        sync.Once
 )
 
-func initConnection() {
-	if globalAgent != nil {
-		return
-	}
-	// logger for gorm
-	dbLogger := gormlogger.New(log.Get(),
-		gormlogger.Config{
-			SlowThreshold:             1000 * time.Millisecond,
-			Colorful:                  false,
-			IgnoreRecordNotFoundError: false,
-			LogLevel:                  gormlogger.Warn,
-		})
-	var err error
-	var conf config.Config
-	if conf, err = config.Get(); err != nil {
-		log.Get().Panic(err)
-	}
-	dbSettings := conf.GetDBConfig()
-	dsn := "host=" + dbSettings.DBHost + " user=" + dbSettings.DBUser +
-		" password=" + dbSettings.DBPass + " dbname=" + dbSettings.Database +
-		" port=" + dbSettings.DBPort + " sslmode=disable" +
-		" TimeZone=" + dbSettings.DBTimeZone
-
-	var newAgent DBAgent
-	newAgent.DB, err = gorm.Open(postgres.Open(dsn), &gorm.Config{Logger: dbLogger, SkipDefaultTransaction: true})
-	if err != nil {
-		log.Get().Panic(err)
-	}
-	err = newAgent.DB.AutoMigrate(
-		&AnalyzedTick{},
-		&Balance{},
-		&CalendarDate{},
-		&HistoryBidAsk{},
-		&HistoryKbar{},
-		&HistoryTick{},
-		&HistoryClose{},
-		&RealTimeTick{},
-		&Stock{},
-		&Target{},
-		&TradeEvent{},
-		&TradeRecord{},
-		&SimulationResult{},
-		&SimulationCondition{},
-	)
-	if err != nil {
-		log.Get().Panic(err)
-	}
-	globalAgent = &newAgent
-}
-
-// Get Get
-func Get() *DBAgent {
-	if globalAgent != nil {
-		return globalAgent
-	}
-	log.Get().Panic("globalAgent was not initailized")
-	return nil
-}
-
 // InitDatabase InitDatabase
 func InitDatabase() {
-	log.Get().Info("Initial Database")
 	conf, err := config.Get()
 	if err != nil {
 		log.Get().Panic(err)
@@ -121,4 +61,64 @@ func InitDatabase() {
 		}
 	}
 	once.Do(initConnection)
+	log.Get().Info("Initial Database")
+}
+
+func initConnection() {
+	if globalAgent != nil {
+		return
+	}
+	// logger for gorm
+	dbLogger := gormlogger.New(log.Get(),
+		gormlogger.Config{
+			SlowThreshold:             1000 * time.Millisecond,
+			Colorful:                  false,
+			IgnoreRecordNotFoundError: true,
+			LogLevel:                  gormlogger.Warn,
+		})
+	var err error
+	var conf config.Config
+	if conf, err = config.Get(); err != nil {
+		log.Get().Panic(err)
+	}
+	dbSettings := conf.GetDBConfig()
+	dsn := "host=" + dbSettings.DBHost + " user=" + dbSettings.DBUser +
+		" password=" + dbSettings.DBPass + " dbname=" + dbSettings.Database +
+		" port=" + dbSettings.DBPort + " sslmode=disable" +
+		" TimeZone=" + dbSettings.DBTimeZone
+
+	var newAgent DBAgent
+	newAgent.DB, err = gorm.Open(postgres.Open(dsn), &gorm.Config{Logger: dbLogger, SkipDefaultTransaction: true})
+	if err != nil {
+		log.Get().Panic(err)
+	}
+	err = newAgent.DB.AutoMigrate(
+		&AnalyzedTick{},
+		&Balance{},
+		&CalendarDate{},
+		&HistoryBidAsk{},
+		&HistoryKbar{},
+		&HistoryTick{},
+		&HistoryClose{},
+		&RealTimeTick{},
+		&Stock{},
+		&Target{},
+		&CloudEvent{},
+		&OrderStatus{},
+		&SimulationResult{},
+		&SimulationCondition{},
+	)
+	if err != nil {
+		log.Get().Panic(err)
+	}
+	globalAgent = &newAgent
+}
+
+// Get Get
+func Get() *DBAgent {
+	if globalAgent != nil {
+		return globalAgent
+	}
+	log.Get().Panic("globalAgent was not initailized")
+	return nil
 }

@@ -6,10 +6,11 @@ import (
 	"trade_agent/global"
 	"trade_agent/pkg/cache"
 	"trade_agent/pkg/dbagent"
+	"trade_agent/pkg/log"
 )
 
 // ToStock ToStock
-func (c *StockMessage) ToStock() *dbagent.Stock {
+func (c *StockDetailMessage) ToStock() *dbagent.Stock {
 	var dayTrade bool
 	if c.GetDayTrade() == "Yes" {
 		dayTrade = true
@@ -76,11 +77,31 @@ func (c *RealTimeTickMessage) ToRealTimeTick() *dbagent.RealTimeTick {
 }
 
 // ToTradeEvent ToTradeEvent
-func (c *EventResponse) ToTradeEvent() *dbagent.TradeEvent {
-	return &dbagent.TradeEvent{
+func (c *EventResponse) ToTradeEvent() *dbagent.CloudEvent {
+	return &dbagent.CloudEvent{
 		Event:     c.GetEvent(),
 		EventCode: c.GetEventCode(),
 		Info:      c.GetInfo(),
 		Response:  c.GetRespCode(),
+	}
+}
+
+// ToOrderStatus ToOrderStatus
+func (c *OrderStatusHistoryMessage) ToOrderStatus() *dbagent.OrderStatus {
+	actionMap := dbagent.ActionListMap
+	statusMap := dbagent.StatusListMap
+	orderTime, err := time.ParseInLocation(global.LongTimeLayout, c.GetOrderTime(), time.Local)
+	if err != nil {
+		log.Get().Error(err)
+		return nil
+	}
+	return &dbagent.OrderStatus{
+		Stock:     cache.GetCache().GetStock(c.GetCode()),
+		Action:    actionMap[c.GetAction()],
+		Price:     c.GetPrice(),
+		Quantity:  c.GetQuantity(),
+		Status:    statusMap[c.GetStatus()],
+		OrderID:   c.GetOrderId(),
+		OrderTime: orderTime,
 	}
 }
