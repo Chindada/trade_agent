@@ -9,8 +9,6 @@ import (
 	"trade_agent/pkg/mqhandler"
 	"trade_agent/pkg/pb"
 	"trade_agent/pkg/sinopacapi"
-
-	"google.golang.org/protobuf/proto"
 )
 
 var wg sync.WaitGroup
@@ -60,10 +58,11 @@ func stockDetailCallback(m mqhandler.MQMessage) {
 	defer wg.Done()
 	var err error
 	body := pb.StockDetailResponse{}
-	if err = proto.Unmarshal(m.Payload(), &body); err != nil {
-		log.Get().Errorf("Format Wrong: %s", string(m.Payload()))
-		return
+	err = body.UnmarshalProto(m.Payload())
+	if err != nil {
+		log.Get().Panic(err)
 	}
+
 	var inDBStock map[string]*dbagent.Stock
 	inDBStock, err = dbagent.Get().GetAllStockMap()
 	if err != nil {

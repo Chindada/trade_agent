@@ -6,8 +6,6 @@ import (
 	"trade_agent/pkg/log"
 	"trade_agent/pkg/mqhandler"
 	"trade_agent/pkg/pb"
-
-	"google.golang.org/protobuf/proto"
 )
 
 func subHistroyTick() error {
@@ -25,10 +23,11 @@ func subHistroyTick() error {
 
 func historyTickCallback(m mqhandler.MQMessage) {
 	body := pb.HistoryTickResponse{}
-	if err := proto.Unmarshal(m.Payload(), &body); err != nil {
-		log.Get().Errorf("Format Wrong: %s", string(m.Payload()))
-		return
+	err := body.UnmarshalProto(m.Payload())
+	if err != nil {
+		log.Get().Panic(err)
 	}
+
 	var saveTick []*dbagent.HistoryTick
 	for _, v := range body.GetData() {
 		saveTick = append(saveTick, v.ToHistoryTick(body.GetStockNum()))
@@ -36,4 +35,8 @@ func historyTickCallback(m mqhandler.MQMessage) {
 	if err := dbagent.Get().InsertMultiHistoryTick(saveTick); err != nil {
 		log.Get().Panic(err)
 	}
+	log.Get().WithFields(map[string]interface{}{
+		"Stock": body.GetStockNum(),
+		"Date":  body.GetDate(),
+	}).Info("Fetching HistoryTick Done")
 }

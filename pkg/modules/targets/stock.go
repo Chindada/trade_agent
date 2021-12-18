@@ -2,6 +2,7 @@
 package targets
 
 import (
+	"sort"
 	"trade_agent/pkg/cache"
 	"trade_agent/pkg/config"
 	"trade_agent/pkg/dbagent"
@@ -10,8 +11,6 @@ import (
 	"trade_agent/pkg/mqhandler"
 	"trade_agent/pkg/pb"
 	"trade_agent/pkg/sinopacapi"
-
-	"google.golang.org/protobuf/proto"
 )
 
 // getStockTargets getStockTargets
@@ -36,10 +35,15 @@ func getStockTargets() error {
 // snapshotAllCallback snapshotAllCallback
 func snapshotAllCallback(m mqhandler.MQMessage) {
 	body := pb.SnapshotResponse{}
-	if err := proto.Unmarshal(m.Payload(), &body); err != nil {
-		log.Get().Errorf("Format Wrong: %s", string(m.Payload()))
-		return
+	err := body.UnmarshalProto(m.Payload())
+	if err != nil {
+		log.Get().Panic(err)
 	}
+
+	sortByVolume := body.GetData()
+	sort.Slice(sortByVolume, func(i, j int) bool {
+		return sortByVolume[i].GetTotalVolume() > sortByVolume[j].GetTotalVolume()
+	})
 
 	conf, err := config.Get()
 	if err != nil {
@@ -48,17 +52,19 @@ func snapshotAllCallback(m mqhandler.MQMessage) {
 	condition := conf.GetTradeTargetCondtion()
 
 	var targetArr []*dbagent.Target
-	for _, v := range body.GetData() {
+	for _, v := range sortByVolume {
 		if stockTargetFilter(v, condition) {
 			tmp := &dbagent.Target{
 				Stock:    cache.GetCache().GetStock(v.GetCode()),
 				TradeDay: cache.GetCache().GetTradeDay(),
 				Volume:   v.GetTotalVolume(),
+				Rank:     len(targetArr) + 1,
 			}
 			targetArr = append(targetArr, tmp)
 			log.Get().WithFields(map[string]interface{}{
 				"Stock":       tmp.Stock.Name,
 				"TotalVolume": tmp.Volume,
+				"Rank":        tmp.Rank,
 			}).Info("Target")
 		}
 	}

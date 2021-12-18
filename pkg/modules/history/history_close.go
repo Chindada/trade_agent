@@ -10,8 +10,6 @@ import (
 	"trade_agent/pkg/mqhandler"
 	"trade_agent/pkg/pb"
 	"trade_agent/pkg/sinopacapi"
-
-	"google.golang.org/protobuf/proto"
 )
 
 func subStockClose(targetArr []*dbagent.Target, date []time.Time) {
@@ -41,10 +39,11 @@ func subStockClose(targetArr []*dbagent.Target, date []time.Time) {
 
 func stockCloseCallback(m mqhandler.MQMessage) {
 	body := pb.HistoryCloseResponse{}
-	if err := proto.Unmarshal(m.Payload(), &body); err != nil {
-		log.Get().Errorf("Format Wrong: %s", string(m.Payload()))
-		return
+	err := body.UnmarshalProto(m.Payload())
+	if err != nil {
+		log.Get().Panic(err)
 	}
+
 	for _, v := range body.GetData() {
 		dateTime, err := time.ParseInLocation(global.ShortTimeLayout, v.GetDate(), time.Local)
 		if err != nil {
@@ -59,6 +58,11 @@ func stockCloseCallback(m mqhandler.MQMessage) {
 			Stock:        cache.GetCache().GetStock(v.GetCode()),
 			CalendarDate: calendarDate,
 		}
+		log.Get().WithFields(map[string]interface{}{
+			"Stock": tmp.Stock.Number,
+			"Date":  tmp.CalendarDate.Date.Format(global.ShortTimeLayout),
+			"Close": tmp.Close,
+		}).Info("History Close")
 		if err := dbagent.Get().InsertOrUpdateHistoryClose(tmp); err != nil {
 			log.Get().Panic(err)
 		}

@@ -15,6 +15,7 @@ type Target struct {
 	StockID  int64     `json:"stock_id,omitempty" yaml:"stock_id" gorm:"column:stock_id"`
 	TradeDay time.Time `json:"trade_day,omitempty" yaml:"trade_day" gorm:"column:trade_day"`
 
+	Rank   int   `json:"rank,omitempty" yaml:"rank" gorm:"column:rank"`
 	Volume int64 `json:"volume,omitempty" yaml:"volume" gorm:"column:volume"`
 }
 

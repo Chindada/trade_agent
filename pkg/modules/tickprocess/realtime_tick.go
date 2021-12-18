@@ -6,8 +6,6 @@ import (
 	"trade_agent/pkg/log"
 	"trade_agent/pkg/mqhandler"
 	"trade_agent/pkg/pb"
-
-	"google.golang.org/protobuf/proto"
 )
 
 func subRealTimeTick() error {
@@ -25,10 +23,11 @@ func subRealTimeTick() error {
 
 func realTimeTickCallback(m mqhandler.MQMessage) {
 	body := pb.RealTimeTickResponse{}
-	if err := proto.Unmarshal(m.Payload(), &body); err != nil {
-		log.Get().Errorf("Format Wrong: %s", string(m.Payload()))
-		return
+	err := body.UnmarshalProto(m.Payload())
+	if err != nil {
+		log.Get().Panic(err)
 	}
+
 	if err := dbagent.Get().InsertRealTimeTick(body.GetTick().ToRealTimeTick()); err != nil {
 		log.Get().Panic(err)
 	}

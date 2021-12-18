@@ -36,7 +36,10 @@ func targetsBusCallback(targetArr []*dbagent.Target) error {
 			if err != nil {
 				return err
 			} else if exist {
-				log.Get().Infof("%s %s HistoryTick Already Exist", v.Stock.Number, date.Format(global.ShortTimeLayout))
+				log.Get().WithFields(map[string]interface{}{
+					"Stock": v.Stock.Number,
+					"Date":  date.Format(global.ShortTimeLayout),
+				}).Info("HistoryTick Already Exist")
 				continue
 			}
 			// does not exist, fetch.
@@ -45,6 +48,10 @@ func targetsBusCallback(targetArr []*dbagent.Target) error {
 			fetchDate := date
 			go func(wg *sync.WaitGroup) {
 				defer wg.Done()
+				log.Get().WithFields(map[string]interface{}{
+					"Stock": stock,
+					"Date":  fetchDate.Format(global.ShortTimeLayout),
+				}).Info("Fetching HistoryTick")
 				err := sinopacapi.Get().FetchHistoryTickByStockAndDate(stock, fetchDate.Format(global.ShortTimeLayout))
 				if err != nil {
 					errChan <- err

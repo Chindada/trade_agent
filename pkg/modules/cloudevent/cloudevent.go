@@ -6,8 +6,6 @@ import (
 	"trade_agent/pkg/log"
 	"trade_agent/pkg/mqhandler"
 	"trade_agent/pkg/pb"
-
-	"google.golang.org/protobuf/proto"
 )
 
 // InitCloudEvent InitCloudEvent
@@ -37,10 +35,11 @@ func updateTradeEvent() error {
 func tredeEventCallback(m mqhandler.MQMessage) {
 	var err error
 	body := pb.EventResponse{}
-	if err = proto.Unmarshal(m.Payload(), &body); err != nil {
-		log.Get().Errorf("Format Wrong: %s", string(m.Payload()))
-		return
+	err = body.UnmarshalProto(m.Payload())
+	if err != nil {
+		log.Get().Panic(err)
 	}
+
 	err = dbagent.Get().InsertCloudEvent(body.ToTradeEvent())
 	if err != nil {
 		log.Get().Panic(err)

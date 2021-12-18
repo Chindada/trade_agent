@@ -105,7 +105,7 @@ func (c *MQHandler) Pub(topic MQTopic, msg interface{}) error {
 	return nil
 }
 
-func (c *MQHandler) onMessage(mc mqtt.Client, m mqtt.Message) {
+func (c *MQHandler) onMessage(_ mqtt.Client, m mqtt.Message) {
 	c.lock.RLock()
 	if f := c.callbackMap[m.Topic()]; f != nil {
 		go f(m)

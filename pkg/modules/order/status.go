@@ -8,8 +8,6 @@ import (
 	"trade_agent/pkg/mqhandler"
 	"trade_agent/pkg/pb"
 	"trade_agent/pkg/sinopacapi"
-
-	"google.golang.org/protobuf/proto"
 )
 
 func updateOrderStatus() error {
@@ -34,15 +32,17 @@ func updateOrderStatus() error {
 
 func orderStausCallback(m mqhandler.MQMessage) {
 	body := pb.OrderStatusHistoryResponse{}
-	if err := proto.Unmarshal(m.Payload(), &body); err != nil {
-		log.Get().Errorf("Format Wrong: %s", string(m.Payload()))
-		return
+	err := body.UnmarshalProto(m.Payload())
+	if err != nil {
+		log.Get().Panic(err)
 	}
+
 	var saveStatus []*dbagent.OrderStatus
 	for _, v := range body.GetData() {
 		saveStatus = append(saveStatus, v.ToOrderStatus())
 	}
-	err := dbagent.Get().InsertOrUpdateMultiOrderStatus(saveStatus)
+
+	err = dbagent.Get().InsertOrUpdateMultiOrderStatus(saveStatus)
 	if err != nil {
 		log.Get().Error(err)
 	}
