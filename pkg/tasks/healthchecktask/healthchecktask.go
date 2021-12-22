@@ -28,6 +28,7 @@ func Run() {
 		}
 	}()
 	defer lock.Unlock()
+	log.Get().Warn("healthchecktask todo")
 	// if err = sinopacapi.GetAgent().RestartSinopacSRV(); err != nil {
 	// 	logger.GetLogger().Panic(err)
 	// }

@@ -12,7 +12,7 @@ import (
 	"trade_agent/pkg/sinopacapi"
 )
 
-func subStockClose(targetArr []*dbagent.Target, date []time.Time) {
+func subStockClose(targetArr []*dbagent.Target, fetchDate []time.Time) error {
 	handler := mqhandler.Get()
 	err := handler.Sub(mqhandler.MQSubBody{
 		MQTopic:  mqhandler.TopicLastcountMultiDate(),
@@ -20,11 +20,11 @@ func subStockClose(targetArr []*dbagent.Target, date []time.Time) {
 		Callback: stockCloseCallback,
 	})
 	if err != nil {
-		log.Get().Panic(err)
+		return err
 	}
 
 	var stockNumArr, dateArr []string
-	for _, t := range date {
+	for _, t := range fetchDate {
 		dateArr = append(dateArr, t.Format(global.ShortTimeLayout))
 	}
 	for _, s := range targetArr {
@@ -33,8 +33,9 @@ func subStockClose(targetArr []*dbagent.Target, date []time.Time) {
 
 	err = sinopacapi.Get().FetchHistoryCloseByStockArrDateArr(stockNumArr, dateArr)
 	if err != nil {
-		log.Get().Panic(err)
+		return err
 	}
+	return err
 }
 
 func stockCloseCallback(m mqhandler.MQMessage) {

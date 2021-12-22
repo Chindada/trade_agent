@@ -33,11 +33,11 @@ func InitTradeDay() {
 	}).Info("TradeDay")
 	cache.GetCache().Set(cache.KeyTradeDay(), tradeDay)
 
-	// more one day to get open close change
 	conf, err := config.Get()
 	if err != nil {
 		log.Get().Panic(err)
 	}
+	// more one day to get open close change
 	fetchPeriod := conf.GetTradeConfig().HistoryPeriod + 1
 	fetchRange := GetLastNTradeDayByDate(fetchPeriod, tradeDay)
 	cache.GetCache().Set(cache.KeyHistroyRange(), fetchRange)

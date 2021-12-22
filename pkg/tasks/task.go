@@ -4,8 +4,8 @@ package tasks
 import (
 	"trade_agent/pkg/config"
 	"trade_agent/pkg/log"
+	"trade_agent/pkg/tasks/cloudeventtask"
 	"trade_agent/pkg/tasks/healthchecktask"
-	"trade_agent/pkg/tasks/tradeeventtask"
 
 	"github.com/robfig/cron"
 )
@@ -23,7 +23,7 @@ func InitTasks() {
 
 	c := cron.New()
 	err = c.AddFunc(schedule.CleaneventCron, func() {
-		tradeeventtask.Run()
+		cloudeventtask.Run()
 	})
 	if err != nil {
 		log.Get().Panic(err)

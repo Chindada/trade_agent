@@ -1,5 +1,5 @@
-// Package tradeeventtask package tradeeventtask
-package tradeeventtask
+// Package cloudeventtask package cloudeventtask
+package cloudeventtask
 
 import (
 	"errors"
@@ -28,6 +28,7 @@ func Run() {
 		}
 	}()
 	defer lock.Unlock()
+	log.Get().Warn("cloudeventtask todo")
 	// if err = tradeeventprocess.CleanEvent(); err != nil {
 	// 	logger.GetLogger().Panic(err)
 	// }
