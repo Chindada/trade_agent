@@ -9,7 +9,15 @@ func InitTickProcess() {
 	if err != nil {
 		log.Get().Panic(err)
 	}
+	err = subRealTimeBidAsk()
+	if err != nil {
+		log.Get().Panic(err)
+	}
 	err = subHistroyTick()
+	if err != nil {
+		log.Get().Panic(err)
+	}
+	err = subHistroyKbar()
 	if err != nil {
 		log.Get().Panic(err)
 	}

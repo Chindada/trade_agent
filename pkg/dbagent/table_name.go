@@ -37,8 +37,8 @@ func (Balance) TableName() string {
 }
 
 // TableName TableName
-func (HistoryBidAsk) TableName() string {
-	return "history_bidask"
+func (RealTimeBidAsk) TableName() string {
+	return "realtime_bidask"
 }
 
 // TableName TableName

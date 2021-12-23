@@ -32,8 +32,9 @@ type RealTimeTick struct {
 	AskSideTotalVol int64   `json:"ask_side_total_vol,omitempty" yaml:"ask_side_total_vol" gorm:"column:ask_side_total_vol"`
 	BidSideTotalCnt int64   `json:"bid_side_total_cnt,omitempty" yaml:"bid_side_total_cnt" gorm:"column:bid_side_total_cnt"`
 	AskSideTotalCnt int64   `json:"ask_side_total_cnt,omitempty" yaml:"ask_side_total_cnt" gorm:"column:ask_side_total_cnt"`
-	Suspend         int64   `json:"suspend,omitempty" yaml:"suspend" gorm:"column:suspend"`
-	Simtrade        int64   `json:"simtrade,omitempty" yaml:"simtrade" gorm:"column:simtrade"`
+
+	Suspend  int64 `json:"suspend,omitempty" yaml:"suspend" gorm:"column:suspend"`
+	Simtrade int64 `json:"simtrade,omitempty" yaml:"simtrade" gorm:"column:simtrade"`
 }
 
 // InsertRealTimeTick InsertRealTimeTick

@@ -96,7 +96,7 @@ func initConnection() {
 		&AnalyzedTick{},
 		&Balance{},
 		&CalendarDate{},
-		&HistoryBidAsk{},
+		&RealTimeBidAsk{},
 		&HistoryKbar{},
 		&HistoryTick{},
 		&HistoryClose{},

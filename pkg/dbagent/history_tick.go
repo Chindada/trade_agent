@@ -22,9 +22,6 @@ type HistoryTick struct {
 	BidVolume int64   `json:"bid_volume,omitempty" yaml:"bid_volume" gorm:"column:bid_volume"`
 	AskPrice  float64 `json:"ask_price,omitempty" yaml:"ask_price" gorm:"column:ask_price"`
 	AskVolume int64   `json:"ask_volume,omitempty" yaml:"ask_volume" gorm:"column:ask_volume"`
-	Open      float64 `json:"open,omitempty" yaml:"open" gorm:"column:open"`
-	High      float64 `json:"high,omitempty" yaml:"high" gorm:"column:high"`
-	Low       float64 `json:"low,omitempty" yaml:"low" gorm:"column:low"`
 }
 
 // InsertHistoryTick InsertHistoryTick

@@ -62,3 +62,9 @@ func (c *DBAgent) DeleteMultiTargetByDate(date time.Time) error {
 	})
 	return err
 }
+
+// GetTargetsByDate GetTargetsByDate
+func (c *DBAgent) GetTargetsByDate(date time.Time) (targetArr []*Target, err error) {
+	result := c.DB.Preload("Stock").Where("trade_day = ?", date).Find(&targetArr)
+	return targetArr, result.Error
+}

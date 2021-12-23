@@ -18,4 +18,4 @@ rm -rf sql_script
 
 # pg_ctl -D ./data/trade_agent -l ./data/trade_agent/logfile stop
 
-mosquitto -c /Users/timhsu/dev_projects/trade_agent_mqtt/configs/local_conf.conf
+mosquitto -c /Users/timhsu/dev_projects/mosquitto/trade_agent_mqtt/configs/local_conf.conf

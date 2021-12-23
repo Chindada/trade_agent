@@ -18,7 +18,7 @@ type SimulationCondition struct {
 	RsiLow                float64 `json:"rsi_low,omitempty" yaml:"rsi_low" gorm:"column:rsi_low"`
 	TicksPeriodThreshold  float64 `json:"ticks_period_threshold,omitempty" yaml:"ticks_period_threshold" gorm:"column:ticks_period_threshold"`
 	TicksPeriodLimit      float64 `json:"ticks_period_limit,omitempty" yaml:"ticks_period_limit" gorm:"column:ticks_period_limit"`
-	TicksPeriodCount      int     `json:"ticks_period_count,omitempty" yaml:"ticks_period_count" gorm:"column:ticks_period_count"`
+	TicksPeriodCount      int64   `json:"ticks_period_count,omitempty" yaml:"ticks_period_count" gorm:"column:ticks_period_count"`
 	VolumePerSecond       int64   `json:"volume_per_second,omitempty" yaml:"volume_per_second" gorm:"column:volume_per_second"`
 }
 

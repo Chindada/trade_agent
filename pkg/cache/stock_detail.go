@@ -20,3 +20,13 @@ func (c *Cache) GetStock(stockNum string) *dbagent.Stock {
 	}
 	return nil
 }
+
+// GetStockID GetStockID
+func (c *Cache) GetStockID(stockNum string) int64 {
+	defer c.lock.RUnlock()
+	c.lock.RLock()
+	if value, ok := c.Cache.Get(KeyStockDetail(stockNum)); ok {
+		return int64(value.(*dbagent.Stock).ID)
+	}
+	return 0
+}

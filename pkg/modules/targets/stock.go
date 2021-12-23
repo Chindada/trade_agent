@@ -2,12 +2,13 @@
 package targets
 
 import (
-	"sort"
+	"trade_agent/global"
 	"trade_agent/pkg/cache"
 	"trade_agent/pkg/config"
 	"trade_agent/pkg/dbagent"
 	"trade_agent/pkg/eventbus"
 	"trade_agent/pkg/log"
+	"trade_agent/pkg/modules/tradeday"
 	"trade_agent/pkg/mqhandler"
 	"trade_agent/pkg/pb"
 	"trade_agent/pkg/sinopacapi"
@@ -17,33 +18,47 @@ import (
 func getStockTargets() error {
 	handler := mqhandler.Get()
 	err := handler.Sub(mqhandler.MQSubBody{
-		MQTopic:  mqhandler.TopicSnapshotAll(),
+		MQTopic:  mqhandler.TopicVolumeRank(),
 		Once:     true,
-		Callback: snapshotAllCallback,
+		Callback: volumeRankCallback,
 	})
 	if err != nil {
 		return err
 	}
+	tradeDay := cache.GetCache().GetTradeDay()
 
-	err = sinopacapi.Get().FetchAllSnapShot()
+	inDBTargets, err := dbagent.Get().GetTargetsByDate(tradeDay)
+	if err != nil {
+		return err
+	}
+	if len(inDBTargets) != 0 {
+		for _, v := range inDBTargets {
+			log.Get().WithFields(map[string]interface{}{
+				"Stock":       v.Stock.Name,
+				"TotalVolume": v.Volume,
+				"Rank":        v.Rank,
+			}).Info("DB Target")
+		}
+		// send to bus
+		eventbus.Get().Pub(eventbus.TopicTargets(), inDBTargets)
+		return nil
+	}
+
+	lastTradeDayArr := tradeday.GetLastNTradeDayByDate(1, tradeDay)
+	err = sinopacapi.Get().FetchVolumeRankByDate(lastTradeDayArr[0].Format(global.ShortTimeLayout), 200)
 	if err != nil {
 		return err
 	}
 	return nil
 }
 
-// snapshotAllCallback snapshotAllCallback
-func snapshotAllCallback(m mqhandler.MQMessage) {
-	body := pb.SnapshotResponse{}
+// volumeRankCallback volumeRankCallback
+func volumeRankCallback(m mqhandler.MQMessage) {
+	body := pb.VolumeRankResponse{}
 	err := body.UnmarshalProto(m.Payload())
 	if err != nil {
 		log.Get().Panic(err)
 	}
-
-	sortByVolume := body.GetData()
-	sort.Slice(sortByVolume, func(i, j int) bool {
-		return sortByVolume[i].GetTotalVolume() > sortByVolume[j].GetTotalVolume()
-	})
 
 	conf, err := config.Get()
 	if err != nil {
@@ -52,7 +67,7 @@ func snapshotAllCallback(m mqhandler.MQMessage) {
 	condition := conf.GetTradeTargetCondtion()
 
 	var targetArr []*dbagent.Target
-	for _, v := range sortByVolume {
+	for _, v := range body.GetData() {
 		if stockTargetFilter(v, condition) {
 			tmp := &dbagent.Target{
 				Stock:    cache.GetCache().GetStock(v.GetCode()),
@@ -82,7 +97,7 @@ func snapshotAllCallback(m mqhandler.MQMessage) {
 	eventbus.Get().Pub(eventbus.TopicTargets(), targetArr)
 }
 
-func stockTargetFilter(v *pb.SnapshotMessage, cond *config.TargetCond) bool {
+func stockTargetFilter(v *pb.VolumeRankMessage, cond *config.TargetCond) bool {
 	if v.GetTotalVolume() < cond.LimitVolume {
 		return false
 	}

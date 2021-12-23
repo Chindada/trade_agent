@@ -123,7 +123,7 @@ func (c *TradeAgent) PlaceOrder(order Order) (res OrderResponse, err error) {
 	case ActionSellFirst:
 		url = urlPlaceOrderSellFirst
 	}
-	body := OrderBody{
+	body := PlaceOrderBody{
 		Stock:    order.StockNum,
 		Price:    order.Price,
 		Quantity: order.Quantity,
@@ -143,7 +143,7 @@ func (c *TradeAgent) PlaceOrder(order Order) (res OrderResponse, err error) {
 
 // CancelOrder CancelOrder
 func (c *TradeAgent) CancelOrder(orderID string) (err error) {
-	order := OrderCancelBody{
+	order := CancelOrderBody{
 		OrderID: orderID,
 	}
 	var resp *resty.Response
@@ -186,7 +186,7 @@ func (c *TradeAgent) FetchOrderStatus() (err error) {
 
 // FetchHistoryCloseByStockArrDateArr FetchHistoryCloseByStockArrDateArr
 func (c *TradeAgent) FetchHistoryCloseByStockArrDateArr(stockNumArr, dateArr []string) (err error) {
-	stockAndDateArr := FetchLastCloseBody{
+	stockAndDateArr := FetchHistoryCloseBody{
 		StockNumArr: stockNumArr,
 		DateArr:     dateArr,
 	}
@@ -224,13 +224,13 @@ func (c *TradeAgent) FetchAllSnapShot() (err error) {
 }
 
 // FetchHistoryCloseByStockDateArr FetchHistoryCloseByStockDateArr
-func (c *TradeAgent) FetchHistoryCloseByStockDateArr(stockNumArr []string, date time.Time) (err error) {
-	stockArr := FetchLastCountBody{
+func (c *TradeAgent) FetchHistoryCloseByStockDateArr(stockNumArr []string, date string) (err error) {
+	stockArr := FetchMultiDateHistoryCloseBody{
 		StockNumArr: stockNumArr,
 	}
 	var resp *resty.Response
 	resp, err = c.Client.R().
-		SetHeader("X-Date", date.Format(shortTimeLayout)).
+		SetHeader("X-Date", date).
 		SetBody(stockArr).
 		SetResult(&ResponseCommon{}).
 		Post(c.urlPrefix + urlFetchHistoryCloseByStockDateArr)
@@ -246,10 +246,10 @@ func (c *TradeAgent) FetchHistoryCloseByStockDateArr(stockNumArr []string, date 
 }
 
 // FetchHistoryTSECloseByDate FetchHistoryTSECloseByDate
-func (c *TradeAgent) FetchHistoryTSECloseByDate(date time.Time) (err error) {
+func (c *TradeAgent) FetchHistoryTSECloseByDate(date string) (err error) {
 	var resp *resty.Response
 	resp, err = c.Client.R().
-		SetHeader("X-Date", date.Format(shortTimeLayout)).
+		SetHeader("X-Date", date).
 		SetResult(&ResponseCommon{}).
 		Post(c.urlPrefix + urlFetchHistoryTSECloseByDate)
 	if err != nil {
@@ -283,11 +283,11 @@ func (c *TradeAgent) FetchVolumeRankByDate(date string, count int64) (err error)
 }
 
 // FetchHistoryKbarByDateRange FetchHistoryKbarByDateRange
-func (c *TradeAgent) FetchHistoryKbarByDateRange(stockNum string, start, end time.Time) (err error) {
-	stockAndDateArr := FetchKbarBody{
+func (c *TradeAgent) FetchHistoryKbarByDateRange(stockNum string, start, end string) (err error) {
+	stockAndDateArr := FetchHistoryKbarBody{
 		StockNum:  stockNum,
-		StartDate: start.Format(shortTimeLayout),
-		EndDate:   end.Format(shortTimeLayout),
+		StartDate: start,
+		EndDate:   end,
 	}
 	resp, err := c.Client.R().
 		SetBody(stockAndDateArr).
@@ -305,10 +305,10 @@ func (c *TradeAgent) FetchHistoryKbarByDateRange(stockNum string, start, end tim
 }
 
 // FetchHistoryTSEKbarByDate FetchHistoryTSEKbarByDate
-func (c *TradeAgent) FetchHistoryTSEKbarByDate(date time.Time) (err error) {
-	stockAndDateArr := FetchKbarBody{
-		StartDate: date.Format(shortTimeLayout),
-		EndDate:   date.Format(shortTimeLayout),
+func (c *TradeAgent) FetchHistoryTSEKbarByDate(date string) (err error) {
+	stockAndDateArr := FetchHistoryKbarBody{
+		StartDate: date,
+		EndDate:   date,
 	}
 	resp, err := c.Client.R().
 		SetBody(stockAndDateArr).
@@ -327,7 +327,7 @@ func (c *TradeAgent) FetchHistoryTSEKbarByDate(date time.Time) (err error) {
 
 // FetchHistoryTickByStockAndDate FetchHistoryTickByStockAndDate
 func (c *TradeAgent) FetchHistoryTickByStockAndDate(stockNum, date string) (err error) {
-	stockAndDate := FetchBody{
+	stockAndDate := FetchHistoryTickBody{
 		StockNum: stockNum,
 		Date:     date,
 	}

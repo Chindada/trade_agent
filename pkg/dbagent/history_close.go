@@ -1,7 +1,9 @@
 // Package dbagent package dbagent
 package dbagent
 
-import "gorm.io/gorm"
+import (
+	"gorm.io/gorm"
+)
 
 // HistoryClose HistoryClose
 type HistoryClose struct {
@@ -70,4 +72,11 @@ func (c *DBAgent) InsertOrUpdateHistoryClose(record *HistoryClose) error {
 		return nil
 	})
 	return err
+}
+
+// GetHistoryCloseByStockAndDate GetHistoryCloseByStockAndDate
+func (c *DBAgent) GetHistoryCloseByStockAndDate(stockID, dateID int64) (close float64, err error) {
+	var tmp HistoryClose
+	result := c.DB.Model(&HistoryClose{}).Where("stock_id = ? AND calendar_date_id = ?", stockID, dateID).Find(&tmp)
+	return tmp.Close, result.Error
 }

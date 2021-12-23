@@ -73,5 +73,4 @@ git add ./docs/docs.go
 git add ./docs/swagger.json
 git add ./docs/swagger.yaml
 
-git clean -fxd
 exit 0

@@ -2,10 +2,6 @@
 package sinopacapi
 
 const (
-	shortTimeLayout string = "2006-01-02"
-)
-
-const (
 	// StatusSuccuss StatusSuccuss
 	StatusSuccuss string = "success"
 	// StatusFail StatusFail

@@ -7,8 +7,8 @@ import (
 	"gorm.io/gorm"
 )
 
-// HistoryBidAsk HistoryBidAsk
-type HistoryBidAsk struct {
+// RealTimeBidAsk RealTimeBidAsk
+type RealTimeBidAsk struct {
 	gorm.Model `json:"-" swaggerignore:"true"`
 
 	Stock    *Stock    `json:"stock,omitempty" yaml:"stock" gorm:"foreignKey:StockID"`
@@ -45,12 +45,13 @@ type HistoryBidAsk struct {
 	AskPrice5   float64 `json:"ask_price_5,omitempty" yaml:"ask_price_5" gorm:"column:ask_price_5"`
 	AskVolume5  int64   `json:"ask_volume_5,omitempty" yaml:"ask_volume_5" gorm:"column:ask_volume_5"`
 	DiffAskVol5 int64   `json:"diff_ask_vol_5,omitempty" yaml:"diff_ask_vol_5" gorm:"column:diff_ask_vol_5"`
-	Suspend     int64   `json:"suspend,omitempty" yaml:"suspend" gorm:"column:suspend"`
-	Simtrade    int64   `json:"simtrade,omitempty" yaml:"simtrade" gorm:"column:simtrade"`
+
+	Suspend  int64 `json:"suspend,omitempty" yaml:"suspend" gorm:"column:suspend"`
+	Simtrade int64 `json:"simtrade,omitempty" yaml:"simtrade" gorm:"column:simtrade"`
 }
 
-// InsertHistoryBidAsk InsertHistoryBidAsk
-func (c *DBAgent) InsertHistoryBidAsk(record *HistoryBidAsk) error {
+// InsertRealTimeBidAsk InsertRealTimeBidAsk
+func (c *DBAgent) InsertRealTimeBidAsk(record *RealTimeBidAsk) error {
 	err := c.DB.Transaction(func(tx *gorm.DB) error {
 		if err := tx.Create(&record).Error; err != nil {
 			return err
@@ -60,8 +61,8 @@ func (c *DBAgent) InsertHistoryBidAsk(record *HistoryBidAsk) error {
 	return err
 }
 
-// InsertMultiHistoryBidAsk InsertMultiHistoryBidAsk
-func (c *DBAgent) InsertMultiHistoryBidAsk(recordArr []*HistoryBidAsk) error {
+// InsertMultiRealTimeBidAsk InsertMultiRealTimeBidAsk
+func (c *DBAgent) InsertMultiRealTimeBidAsk(recordArr []*RealTimeBidAsk) error {
 	err := c.DB.Transaction(func(tx *gorm.DB) error {
 		if err := tx.CreateInBatches(&recordArr, multiInsertBatchSize).Error; err != nil {
 			return err
@@ -71,10 +72,10 @@ func (c *DBAgent) InsertMultiHistoryBidAsk(recordArr []*HistoryBidAsk) error {
 	return err
 }
 
-// DeleteAllHistoryBidAsk DeleteAllHistoryBidAsk
-func (c *DBAgent) DeleteAllHistoryBidAsk() error {
+// DeleteAllRealTimeBidAsk DeleteAllRealTimeBidAsk
+func (c *DBAgent) DeleteAllRealTimeBidAsk() error {
 	err := c.DB.Transaction(func(tx *gorm.DB) error {
-		if err := tx.Not("id = 0").Unscoped().Delete(&HistoryBidAsk{}).Error; err != nil {
+		if err := tx.Not("id = 0").Unscoped().Delete(&RealTimeBidAsk{}).Error; err != nil {
 			return err
 		}
 		return nil

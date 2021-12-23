@@ -23,17 +23,32 @@ func subStockClose(targetArr []*dbagent.Target, fetchDate []time.Time) error {
 		return err
 	}
 
-	var stockNumArr, dateArr []string
 	for _, t := range fetchDate {
-		dateArr = append(dateArr, t.Format(global.ShortTimeLayout))
-	}
-	for _, s := range targetArr {
-		stockNumArr = append(stockNumArr, s.Stock.Number)
-	}
-
-	err = sinopacapi.Get().FetchHistoryCloseByStockArrDateArr(stockNumArr, dateArr)
-	if err != nil {
-		return err
+		var calendarDate *dbagent.CalendarDate
+		calendarDate, err = dbagent.Get().GetCalendarDate(t)
+		if err != nil {
+			log.Get().Panic(err)
+		}
+		for _, s := range targetArr {
+			var close float64
+			if close, err = dbagent.Get().GetHistoryCloseByStockAndDate(cache.GetCache().GetStockID(s.Stock.Number), int64(calendarDate.ID)); err != nil {
+				log.Get().Panic(err)
+			} else if close == 0 {
+				var stockNumArr, dateArr []string
+				dateArr = append(dateArr, t.Format(global.ShortTimeLayout))
+				stockNumArr = append(stockNumArr, s.Stock.Number)
+				err = sinopacapi.Get().FetchHistoryCloseByStockArrDateArr(stockNumArr, dateArr)
+				if err != nil {
+					return err
+				}
+				continue
+			}
+			log.Get().WithFields(map[string]interface{}{
+				"Stock": s.Stock.Number,
+				"Date":  t.Format(global.ShortTimeLayout),
+				"Close": close,
+			}).Info("History Close Already Exist")
+		}
 	}
 	return err
 }

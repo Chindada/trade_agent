@@ -8,12 +8,12 @@ import (
 	"trade_agent/pkg/pb"
 )
 
-func subHistroyTick() error {
+func subHistroyKbar() error {
 	handler := mqhandler.Get()
 	err := handler.Sub(mqhandler.MQSubBody{
-		MQTopic:  mqhandler.TopicHistoryTick(),
+		MQTopic:  mqhandler.TopicHistoryKbar(),
 		Once:     false,
-		Callback: historyTickCallback,
+		Callback: historyKbarCallback,
 	})
 	if err != nil {
 		return err
@@ -21,23 +21,23 @@ func subHistroyTick() error {
 	return nil
 }
 
-func historyTickCallback(m mqhandler.MQMessage) {
-	body := pb.HistoryTickResponse{}
+func historyKbarCallback(m mqhandler.MQMessage) {
+	body := pb.HistoryKbarResponse{}
 	err := body.UnmarshalProto(m.Payload())
 	if err != nil {
 		log.Get().Panic(err)
 	}
 
-	var saveTick []*dbagent.HistoryTick
+	var saveKbar []*dbagent.HistoryKbar
 	for _, v := range body.GetData() {
-		saveTick = append(saveTick, v.ToHistoryTick(body.GetStockNum()))
+		saveKbar = append(saveKbar, v.ToHistoryKbar(body.GetStockNum()))
 	}
 
-	if err := dbagent.Get().InsertMultiHistoryTick(saveTick); err != nil {
+	if err := dbagent.Get().InsertMultiHistoryKbar(saveKbar); err != nil {
 		log.Get().Panic(err)
 	}
 	log.Get().WithFields(map[string]interface{}{
 		"Stock": body.GetStockNum(),
-		"Date":  body.GetDate(),
-	}).Info("Fetching HistoryTick Done")
+		"Date":  body.GetStartDate(),
+	}).Info("Fetching HistoryKbar Done")
 }

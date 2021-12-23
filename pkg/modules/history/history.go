@@ -30,5 +30,9 @@ func targetsBusCallback(targetArr []*dbagent.Target) error {
 	if err != nil {
 		return err
 	}
+	err = subHistoryKbar(targetArr, fetchDate)
+	if err != nil {
+		return err
+	}
 	return nil
 }
