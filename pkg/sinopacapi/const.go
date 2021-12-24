@@ -22,6 +22,8 @@ const (
 	ActionSell
 	// ActionSellFirst ActionSellFirst
 	ActionSellFirst
+	// ActionBuyLater ActionBuyLater
+	ActionBuyLater
 )
 
 // TickType TickType

@@ -37,8 +37,9 @@ type MQHandler struct {
 
 // InitMQHandler InitMQHandler
 func InitMQHandler() {
-	once.Do(initMQHandler)
 	log.Get().Info("Initial MQHandler")
+
+	once.Do(initMQHandler)
 }
 
 // Get Get

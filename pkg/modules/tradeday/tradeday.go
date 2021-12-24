@@ -11,6 +11,8 @@ import (
 
 // InitTradeDay InitTradeDay
 func InitTradeDay() {
+	log.Get().Info("Initial TradeDay")
+
 	// save calendar to db and cache
 	err := ImportCalendar()
 	if err != nil {
@@ -47,6 +49,4 @@ func InitTradeDay() {
 	cache.GetCache().Set(cache.KeyHistroyCloseRange(), closeRange)
 	cache.GetCache().Set(cache.KeyHistroyTickRange(), tickRange)
 	cache.GetCache().Set(cache.KeyHistroyKbarRange(), kbarRange)
-
-	log.Get().Info("Initial TradeDay")
 }

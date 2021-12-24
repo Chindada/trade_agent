@@ -10,11 +10,12 @@ import (
 
 // InitCloudEvent InitCloudEvent
 func InitCloudEvent() {
+	log.Get().Info("Initial CloudEvent")
+
 	err := updateTradeEvent()
 	if err != nil {
 		log.Get().Panic(err)
 	}
-	log.Get().Info("Initial CloudEvent")
 }
 
 // updateTradeEvent updateTradeEvent

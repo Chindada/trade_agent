@@ -10,11 +10,12 @@ import (
 
 // InitHistory InitHistory
 func InitHistory() {
+	log.Get().Info("Initial History")
+
 	err := eventbus.Get().Sub(eventbus.TopicTargets(), targetsBusCallback)
 	if err != nil {
 		log.Get().Panic(err)
 	}
-	log.Get().Info("Initial History")
 }
 
 func targetsBusCallback(targetArr []*dbagent.Target) error {

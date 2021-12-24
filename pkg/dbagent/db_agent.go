@@ -32,6 +32,8 @@ var (
 
 // InitDatabase InitDatabase
 func InitDatabase() {
+	log.Get().Info("Initial Database")
+
 	conf, err := config.Get()
 	if err != nil {
 		log.Get().Panic(err)
@@ -61,7 +63,6 @@ func InitDatabase() {
 		}
 	}
 	once.Do(initConnection)
-	log.Get().Info("Initial Database")
 }
 
 func initConnection() {

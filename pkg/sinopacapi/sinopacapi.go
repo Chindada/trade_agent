@@ -33,6 +33,8 @@ type Order struct {
 
 // InitSinpacAPI InitSinpacAPI
 func InitSinpacAPI() {
+	log.Get().Info("Initial SinopacAPI")
+
 	conf, err := config.Get()
 	if err != nil {
 		log.Get().Panic(err)
@@ -49,7 +51,6 @@ func InitSinpacAPI() {
 		log.Get().Panic(err)
 	}
 	globalClient = &new
-	log.Get().Info("Initial SinopacAPI")
 }
 
 // Get Get
@@ -122,6 +123,8 @@ func (c *TradeAgent) PlaceOrder(order Order) (res OrderResponse, err error) {
 		url = urlPlaceOrderSell
 	case ActionSellFirst:
 		url = urlPlaceOrderSellFirst
+	case ActionBuyLater:
+		url = urlPlaceOrderBuy
 	}
 	body := PlaceOrderBody{
 		Stock:    order.StockNum,

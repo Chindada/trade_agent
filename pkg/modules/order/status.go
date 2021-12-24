@@ -3,6 +3,7 @@ package order
 
 import (
 	"time"
+	"trade_agent/pkg/cache"
 	"trade_agent/pkg/dbagent"
 	"trade_agent/pkg/log"
 	"trade_agent/pkg/mqhandler"
@@ -36,9 +37,31 @@ func orderStausCallback(m mqhandler.MQMessage) {
 	if err != nil {
 		log.Get().Panic(err)
 	}
-
 	var saveStatus []*dbagent.OrderStatus
 	for _, v := range body.GetData() {
+		// check waiting order
+		if waitingOrder := cache.GetCache().GetOrderWaiting(v.GetCode()); waitingOrder != nil && v.GetOrderId() == waitingOrder.OrderID {
+			statusMap := dbagent.StatusListMap
+			switch statusMap[v.GetStatus()] {
+			case 4, 5:
+				cache.GetCache().Set(cache.KeyOrderWaiting(v.GetCode()), nil)
+			case 6:
+				cache.GetCache().Set(cache.KeyOrderWaiting(v.GetCode()), nil)
+				var cacheKey string
+				switch waitingOrder.Action {
+				case sinopacapi.ActionBuy:
+					cacheKey = cache.KeyOrderBuy(waitingOrder.StockNum)
+				case sinopacapi.ActionSell:
+					cacheKey = cache.KeyOrderSell(waitingOrder.StockNum)
+				case sinopacapi.ActionSellFirst:
+					cacheKey = cache.KeyOrderSellFirst(waitingOrder.StockNum)
+				case sinopacapi.ActionBuyLater:
+					cacheKey = cache.KeyOrderBuyLater(waitingOrder.StockNum)
+				}
+				waitingOrder.TradeTime = time.Now()
+				cache.GetCache().Set(cacheKey, waitingOrder)
+			}
+		}
 		saveStatus = append(saveStatus, v.ToOrderStatus())
 	}
 

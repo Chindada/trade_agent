@@ -16,11 +16,12 @@ import (
 
 // InitTargets InitTargets
 func InitTargets() {
+	log.Get().Info("Initial Targets")
+
 	err := getStockTargets()
 	if err != nil {
 		log.Get().Panic(err)
 	}
-	log.Get().Info("Initial Targets")
 }
 
 // getStockTargets getStockTargets

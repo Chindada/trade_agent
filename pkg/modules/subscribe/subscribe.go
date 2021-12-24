@@ -10,6 +10,8 @@ import (
 
 // InitSubscribe InitSubscribe
 func InitSubscribe() {
+	log.Get().Info("Initial Subscribe")
+
 	// unsubscribe all realtime tick
 	err := sinopacapi.Get().UnSubscribeAllByType(sinopacapi.TickTypeStockRealTime)
 	if err != nil {
@@ -22,11 +24,10 @@ func InitSubscribe() {
 	}
 
 	// sub event targets
-	err = eventbus.Get().Sub(eventbus.TopicTargets(), targetsBusCallback)
+	err = eventbus.Get().Sub(eventbus.TopicSubscribeTargets(), targetsBusCallback)
 	if err != nil {
 		log.Get().Panic(err)
 	}
-	log.Get().Info("Initial Subscribe")
 }
 
 func targetsBusCallback(targetArr []*dbagent.Target) error {

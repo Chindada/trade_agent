@@ -11,6 +11,8 @@ import (
 
 // InitTickProcess InitTickProcess
 func InitTickProcess() {
+	log.Get().Info("Initial TickProcess")
+
 	err := eventbus.Get().Sub(eventbus.TopicTargets(), targetsBusCallback)
 	if err != nil {
 		log.Get().Panic(err)
@@ -24,8 +26,6 @@ func InitTickProcess() {
 	if err != nil {
 		log.Get().Panic(err)
 	}
-
-	log.Get().Info("Initial TickProcess")
 }
 
 func targetsBusCallback(targetArr []*dbagent.Target) error {
@@ -46,6 +46,7 @@ func targetsBusCallback(targetArr []*dbagent.Target) error {
 		log.Get().Panic(err)
 	}
 
+	eventbus.Get().Pub(eventbus.TopicSubscribeTargets(), targetArr)
 	return nil
 }
 
@@ -55,7 +56,7 @@ func realTimeTickProcessor(stockNum string) {
 		tick := <-ch
 		log.Get().Info(tick.Stock.Name)
 
-		order := sinopacapi.Order{
+		order := &sinopacapi.Order{
 			StockNum: stockNum,
 			Price:    tick.Close,
 			Quantity: 1,

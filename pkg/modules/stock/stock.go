@@ -15,6 +15,8 @@ var wg sync.WaitGroup
 
 // InitStock InitStock
 func InitStock() {
+	log.Get().Info("Initial Stock")
+
 	err := subStockDeatail()
 	if err != nil {
 		log.Get().Panic(err)
@@ -30,7 +32,6 @@ func InitStock() {
 	for key := range inDBStock {
 		cache.GetCache().Set(cache.KeyStockDetail(key), inDBStock[key])
 	}
-	log.Get().Info("Initial Stock")
 }
 
 func subStockDeatail() error {
