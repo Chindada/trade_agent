@@ -44,6 +44,7 @@ func tredeEventCallback(m mqhandler.MQMessage) {
 	if err != nil {
 		log.Get().Panic(err)
 	}
+
 	if body.GetEventCode() != 16 {
 		log.Get().WithFields(map[string]interface{}{
 			"EventCode": body.GetEventCode(),

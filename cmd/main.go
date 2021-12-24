@@ -45,9 +45,6 @@ func main() {
 	// wait simulation result to process tick
 	tickprocess.InitTickProcess()
 
-	// after history done, start simulation
-	// simulation.InitSimulation()
-
 	// receive target to subscribe tick, bidask
 	// receive target to fill history data
 	subscribe.InitSubscribe()

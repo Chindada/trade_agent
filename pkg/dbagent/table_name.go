@@ -57,21 +57,6 @@ func (OrderStatus) TableName() string {
 }
 
 // TableName TableName
-func (AnalyzedTick) TableName() string {
-	return "analyzed_tick"
-}
-
-// TableName TableName
-func (SimulationResult) TableName() string {
-	return "simulation_result"
-}
-
-// TableName TableName
-func (SimulationCondition) TableName() string {
-	return "simulation_condition"
-}
-
-// TableName TableName
 func (HistoryClose) TableName() string {
 	return "history_close"
 }

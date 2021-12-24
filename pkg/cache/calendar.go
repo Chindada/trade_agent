@@ -5,7 +5,7 @@ import "time"
 
 // KeyCalendar KeyCalendar
 func KeyCalendar() string {
-	return "Calendar"
+	return "KeyCalendar"
 }
 
 // GetCalendar GetCalendar

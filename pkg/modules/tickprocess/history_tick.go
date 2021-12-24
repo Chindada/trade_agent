@@ -36,6 +36,7 @@ func historyTickCallback(m mqhandler.MQMessage) {
 	if err := dbagent.Get().InsertMultiHistoryTick(saveTick); err != nil {
 		log.Get().Panic(err)
 	}
+
 	log.Get().WithFields(map[string]interface{}{
 		"Stock": body.GetStockNum(),
 		"Date":  body.GetDate(),

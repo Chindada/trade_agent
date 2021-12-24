@@ -4,6 +4,7 @@ package order
 import (
 	"trade_agent/pkg/eventbus"
 	"trade_agent/pkg/log"
+	"trade_agent/pkg/sinopacapi"
 )
 
 // InitOrder InitOrder
@@ -12,29 +13,19 @@ func InitOrder() {
 	if err != nil {
 		log.Get().Panic(err)
 	}
-	err = eventbus.Get().Sub(eventbus.TopicStockOrderBuy(), stockOrderBuyCallback)
-	if err != nil {
-		log.Get().Panic(err)
-	}
-	err = eventbus.Get().Sub(eventbus.TopicStockOrderSellFirst(), stockOrderSellFirstCallback)
-	if err != nil {
-		log.Get().Panic(err)
-	}
-	err = eventbus.Get().Sub(eventbus.TopicStockOrderBuyLater(), stockOrderBuyLaterCallback)
+
+	err = eventbus.Get().Sub(eventbus.TopicStockOrder(), orderBuyCallback)
 	if err != nil {
 		log.Get().Panic(err)
 	}
 	log.Get().Info("Initial Order")
 }
 
-func stockOrderBuyCallback() error {
-	return nil
-}
-
-func stockOrderSellFirstCallback() error {
-	return nil
-}
-
-func stockOrderBuyLaterCallback() error {
+func orderBuyCallback(order sinopacapi.Order) error {
+	res, err := sinopacapi.Get().PlaceOrder(order)
+	if err != nil {
+		return err
+	}
+	log.Get().Infof("Order ID %s", res.OrderID)
 	return nil
 }

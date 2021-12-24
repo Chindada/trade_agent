@@ -18,19 +18,20 @@ func InitHistory() {
 }
 
 func targetsBusCallback(targetArr []*dbagent.Target) error {
-	// get date range for fetch
-	fetchDate := cache.GetCache().GetHistroyRange()
+	// save stock close in date range
+	err := subStockClose(targetArr, cache.GetCache().GetHistroyCloseRange())
+	if err != nil {
+		return err
+	}
 
-	// update stock close in date range
-	err := subStockClose(targetArr, fetchDate)
+	// save stock tick in date range
+	err = subHistoryTick(targetArr, cache.GetCache().GetHistroyTickRange())
 	if err != nil {
 		return err
 	}
-	err = subHistoryTick(targetArr, fetchDate)
-	if err != nil {
-		return err
-	}
-	err = subHistoryKbar(targetArr, fetchDate)
+
+	// save stock kbar in date range
+	err = subHistoryKbar(targetArr, cache.GetCache().GetHistroyKbarRange())
 	if err != nil {
 		return err
 	}

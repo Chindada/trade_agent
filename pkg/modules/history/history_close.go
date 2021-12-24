@@ -43,6 +43,7 @@ func subStockClose(targetArr []*dbagent.Target, fetchDate []time.Time) error {
 				}
 				continue
 			}
+			cache.GetCache().Set(cache.KeyStockHistoryClose(s.Stock.Number, t), close)
 			log.Get().WithFields(map[string]interface{}{
 				"Stock": s.Stock.Number,
 				"Date":  t.Format(global.ShortTimeLayout),
@@ -74,6 +75,8 @@ func stockCloseCallback(m mqhandler.MQMessage) {
 			Stock:        cache.GetCache().GetStock(v.GetCode()),
 			CalendarDate: calendarDate,
 		}
+		cache.GetCache().Set(cache.KeyStockHistoryClose(tmp.Stock.Number, tmp.CalendarDate.Date), tmp.Close)
+
 		log.Get().WithFields(map[string]interface{}{
 			"Stock": tmp.Stock.Number,
 			"Date":  tmp.CalendarDate.Date.Format(global.ShortTimeLayout),

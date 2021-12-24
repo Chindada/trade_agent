@@ -8,7 +8,7 @@ import (
 
 // KeyStockDetail KeyStockDetail
 func KeyStockDetail(stockNum string) string {
-	return fmt.Sprintf("StockDetail:%s", stockNum)
+	return fmt.Sprintf("KeyStockDetail:%s", stockNum)
 }
 
 // GetStock GetStock

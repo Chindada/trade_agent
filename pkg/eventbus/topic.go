@@ -6,17 +6,7 @@ func TopicTargets() string {
 	return "Targets"
 }
 
-// TopicStockOrderBuy TopicStockOrderBuy
-func TopicStockOrderBuy() string {
-	return "StockOrderBuy"
-}
-
-// TopicStockOrderSellFirst TopicStockOrderSellFirst
-func TopicStockOrderSellFirst() string {
-	return "StockOrderSellFirst"
-}
-
-// TopicStockOrderBuyLater TopicStockOrderBuyLater
-func TopicStockOrderBuyLater() string {
-	return "StockOrderBuyLater"
+// TopicStockOrder TopicStockOrder
+func TopicStockOrder() string {
+	return "StockOrder"
 }

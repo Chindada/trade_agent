@@ -36,6 +36,7 @@ func historyKbarCallback(m mqhandler.MQMessage) {
 	if err := dbagent.Get().InsertMultiHistoryKbar(saveKbar); err != nil {
 		log.Get().Panic(err)
 	}
+
 	log.Get().WithFields(map[string]interface{}{
 		"Stock": body.GetStockNum(),
 		"Date":  body.GetStartDate(),

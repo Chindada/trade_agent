@@ -93,7 +93,6 @@ func initConnection() {
 		log.Get().Panic(err)
 	}
 	err = newAgent.DB.AutoMigrate(
-		&AnalyzedTick{},
 		&Balance{},
 		&CalendarDate{},
 		&RealTimeBidAsk{},
@@ -105,8 +104,6 @@ func initConnection() {
 		&Target{},
 		&CloudEvent{},
 		&OrderStatus{},
-		&SimulationResult{},
-		&SimulationCondition{},
 	)
 	if err != nil {
 		log.Get().Panic(err)

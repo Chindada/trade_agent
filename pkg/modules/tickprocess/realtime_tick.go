@@ -2,6 +2,7 @@
 package tickprocess
 
 import (
+	"trade_agent/pkg/cache"
 	"trade_agent/pkg/dbagent"
 	"trade_agent/pkg/log"
 	"trade_agent/pkg/mqhandler"
@@ -27,8 +28,16 @@ func realTimeTickCallback(m mqhandler.MQMessage) {
 	if err != nil {
 		log.Get().Panic(err)
 	}
+	// adapter to local struct
+	tick := body.GetTick().ToRealTimeTick()
 
-	if err := dbagent.Get().InsertRealTimeTick(body.GetTick().ToRealTimeTick()); err != nil {
+	// send to channel
+	if ch := cache.GetCache().GetRealTimeTickChannel(tick.Stock.Number); ch != nil {
+		ch <- tick
+	}
+
+	// save to db
+	if err := dbagent.Get().InsertRealTimeTick(tick); err != nil {
 		log.Get().Panic(err)
 	}
 }
