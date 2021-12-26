@@ -1,6 +1,8 @@
 package main
 
 import (
+	"os"
+	"trade_agent/global"
 	"trade_agent/pkg/dbagent"
 	"trade_agent/pkg/modules/cloudevent"
 	"trade_agent/pkg/modules/history"
@@ -17,8 +19,14 @@ import (
 )
 
 func main() {
+	// check if env is production or development
+	deployment := os.Getenv("DEPLOYMENT")
+	if deployment != "docker" {
+		global.Development = true
+	}
+
 	keep := make(chan struct{})
-	// initial core utils
+	// initial core funcs
 	dbagent.InitDatabase()
 	mqhandler.InitMQHandler()
 	sinopacapi.InitSinpacAPI()

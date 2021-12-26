@@ -38,6 +38,7 @@ run:
     # skip-files:
     #   - ".*\\.my\\.go$"
     #   - lib/bad.go
+
     # by default isn't set. If set we pass it to "go list -mod={option}". From "go help modules":
     # If invoked with -mod=readonly, the go command is disallowed from the implicit
     # automatic updating of go.mod described above. Instead, it fails when any changes
@@ -74,6 +75,7 @@ linters-settings:
         # the regex is used to ignore names within pkg. (default "fmt:.*").
         # see https://github.com/kisielk/errcheck#the-deprecated-method for details
         # ignore: fmt:.*,io/ioutil:^Read.*
+
         # path to a file containing a list of functions to exclude from checking
         # see https://github.com/kisielk/errcheck#excluding-functions for details
         # exclude: /path/to/file.txt
@@ -81,9 +83,8 @@ linters-settings:
     # Disable error checking, as errorcheck detects more errors and is more configurable.
     gosec:
         exclude:
-            - G104
+            - "G104"
         excludes:
-            - G204
             - G402
 
     funlen:
@@ -245,7 +246,9 @@ linters:
         - bodyclose
         - depguard
         - dogsled
+        # - dupl
         - errcheck
+        - funlen
         - gocognit
         - goconst
         - gocritic
@@ -258,6 +261,7 @@ linters:
         - govet
         - ineffassign
         - interfacer
+        - misspell
         - nakedret
         - scopelint
         - staticcheck
@@ -268,9 +272,6 @@ linters:
         - unparam
         - unused
         - whitespace
-        - misspell
-        # - dupl
-        # - funlen
     # don't enable:
     # - deadcode
     # - gochecknoglobals
@@ -336,8 +337,10 @@ issues:
     # of integration: much better don't allow issues in new code.
     # Default is false.
     new: false
+
     # Show only new issues created after git revision `REV`
     # This should be passed as flag during individual CI jobs.
     # new-from-rev: REV
+
     # Show only new issues created in git patch with set file path.
     # new-from-patch: path/to/patch/file

@@ -13,6 +13,7 @@ import (
 func InitTickProcess() {
 	log.Get().Info("Initial TickProcess")
 
+	// sub targets to sub mq history tick, kbar, realtime tick, bidask
 	err := eventbus.Get().Sub(eventbus.TopicTargets(), targetsBusCallback)
 	if err != nil {
 		log.Get().Panic(err)
@@ -52,15 +53,19 @@ func targetsBusCallback(targetArr []*dbagent.Target) error {
 
 func realTimeTickProcessor(stockNum string) {
 	ch := cache.GetCache().GetRealTimeTickChannel(stockNum)
+	var tickArr []*dbagent.RealTimeTick
 	for {
 		tick := <-ch
-		log.Get().Info(tick.Stock.Name)
+		action := realTimeTickArrAnalyzer(tick, tickArr)
+		tickArr = append(tickArr, tick)
+		if action == 0 {
+			continue
+		}
 
 		order := &sinopacapi.Order{
 			StockNum: stockNum,
 			Price:    tick.Close,
-			Quantity: 1,
-			Action:   sinopacapi.ActionBuy,
+			Action:   action,
 		}
 		eventbus.Get().Pub(eventbus.TopicStockOrder(), order)
 	}
@@ -68,9 +73,14 @@ func realTimeTickProcessor(stockNum string) {
 
 func realTimeBidAskProcessor(stockNum string) {
 	ch := cache.GetCache().GetRealTimeBidAskChannel(stockNum)
+	var bidAskArr []*dbagent.RealTimeBidAsk
 	for {
-		tick := <-ch
-
-		log.Get().Info(tick.Stock.Name)
+		bidAsk := <-ch
+		status := realTimeBidAskArrAnalyzer(bidAsk, bidAskArr)
+		if status == "" {
+			continue
+		}
+		cache.GetCache().Set(cache.KeyRealTimeBidAskStatus(stockNum), status)
+		bidAskArr = append(bidAskArr, bidAsk)
 	}
 }

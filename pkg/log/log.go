@@ -30,8 +30,7 @@ func initLogger() {
 	basePath := filepath.Dir(ex)
 	// create new instance
 	globalLogger = logrus.New()
-	deployment := os.Getenv(global.EnvDeployment)
-	if deployment == global.DockerDeployment {
+	if !global.Development {
 		globalLogger.SetFormatter(&logrus.JSONFormatter{
 			TimestampFormat: global.LongTimeLayout,
 			PrettyPrint:     false,

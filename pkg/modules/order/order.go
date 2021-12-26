@@ -49,13 +49,16 @@ func orderCallback(order *sinopacapi.Order) error {
 		}
 	}
 
+	// decide quantiy by history data
+	order.Quantity = 1
 	orderRes, err := sinopacapi.Get().PlaceOrder(*order)
 	if err != nil {
 		return err
 	}
 
-	order.OrderID = orderRes.OrderID
-	cache.GetCache().Set(cache.KeyOrderWaiting(order.StockNum), order)
+	if orderID := orderRes.OrderID; orderID != "" {
+		cache.GetCache().Set(cache.KeyOrderWaiting(order.StockNum), order)
+	}
 
 	return nil
 }

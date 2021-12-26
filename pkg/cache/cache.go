@@ -44,11 +44,11 @@ func (c *Cache) Set(key string, value interface{}) {
 }
 
 // Get Get
-func (c *Cache) Get(key string) interface{} {
-	defer c.lock.RUnlock()
-	c.lock.RLock()
-	if value, ok := c.Cache.Get(key); ok {
-		return value
-	}
-	return nil
-}
+// func (c *Cache) Get(key string) interface{} {
+// 	defer c.lock.RUnlock()
+// 	c.lock.RLock()
+// 	if value, ok := c.Cache.Get(key); ok {
+// 		return value
+// 	}
+// 	return nil
+// }
