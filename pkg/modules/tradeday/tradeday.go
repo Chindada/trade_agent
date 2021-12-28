@@ -39,12 +39,10 @@ func InitTradeDay() {
 	if err != nil {
 		log.Get().Panic(err)
 	}
-	// more one day to get open close change
-	fetchPeriod := conf.GetTradeConfig().HistoryPeriod
 
-	closeRange := GetLastNTradeDayByDate(fetchPeriod+1, tradeDay)
-	tickRange := GetLastNTradeDayByDate(fetchPeriod, tradeDay)
-	kbarRange := GetLastNTradeDayByDate(fetchPeriod, tradeDay)
+	closeRange := GetLastNTradeDayByDate(conf.GetTradeConfig().HistoryClosePeriod, tradeDay)
+	tickRange := GetLastNTradeDayByDate(conf.GetTradeConfig().HistoryTickPeriod, tradeDay)
+	kbarRange := GetLastNTradeDayByDate(conf.GetTradeConfig().HistoryKbarPeriod, tradeDay)
 
 	cache.GetCache().Set(cache.KeyHistroyCloseRange(), closeRange)
 	cache.GetCache().Set(cache.KeyHistroyTickRange(), tickRange)

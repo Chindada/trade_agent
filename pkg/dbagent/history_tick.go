@@ -68,3 +68,21 @@ func (c *DBAgent) CheckHistoryTickExistByStockNum(date time.Time) (bool, error) 
 	}
 	return false, nil
 }
+
+// HistoryTickArr HistoryTickArr
+type HistoryTickArr []*HistoryTick
+
+// GetTotalTime GetTotalTime
+func (c HistoryTickArr) GetTotalTime() int64 {
+	if len(c) > 1 {
+		return c[len(c)-1].TickTime.Unix() - c[0].TickTime.Unix()
+	}
+	return 0
+}
+
+// GetHistoryTickByStockIDAndDate GetHistoryTickByStockIDAndDate
+func (c *DBAgent) GetHistoryTickByStockIDAndDate(stockID int64, date time.Time) (HistoryTickArr, error) {
+	var tmp HistoryTickArr
+	err := c.DB.Preload("Stock").Model(&HistoryTick{}).Where("stock_id = ? and tick_time >= ? and tick_time < ?", stockID, date, date.AddDate(0, 0, 1)).Find(&tmp).Error
+	return tmp, err
+}

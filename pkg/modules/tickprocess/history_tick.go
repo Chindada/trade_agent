@@ -28,7 +28,7 @@ func historyTickCallback(m mqhandler.MQMessage) {
 		log.Get().Panic(err)
 	}
 
-	var saveTick []*dbagent.HistoryTick
+	var saveTick dbagent.HistoryTickArr
 	for _, v := range body.GetData() {
 		saveTick = append(saveTick, v.ToHistoryTick(body.GetStockNum()))
 	}
@@ -36,6 +36,9 @@ func historyTickCallback(m mqhandler.MQMessage) {
 	if err := dbagent.Get().InsertMultiHistoryTick(saveTick); err != nil {
 		log.Get().Panic(err)
 	}
+
+	// analyze to cache
+	HistoryTickAnalyzer(saveTick)
 
 	log.Get().WithFields(map[string]interface{}{
 		"Stock": body.GetStockNum(),

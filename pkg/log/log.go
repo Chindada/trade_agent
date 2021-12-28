@@ -30,12 +30,7 @@ func initLogger() {
 	basePath := filepath.Dir(ex)
 	// create new instance
 	globalLogger = logrus.New()
-	if !global.Development {
-		globalLogger.SetFormatter(&logrus.JSONFormatter{
-			TimestampFormat: global.LongTimeLayout,
-			PrettyPrint:     false,
-		})
-	} else {
+	if global.IsDevelopment {
 		globalLogger.SetFormatter(&logrus.TextFormatter{
 			TimestampFormat:  "2006/01/02 15:04:05",
 			FullTimestamp:    true,
@@ -43,6 +38,11 @@ func initLogger() {
 			PadLevelText:     false,
 			ForceColors:      true,
 			ForceQuote:       true,
+		})
+	} else {
+		globalLogger.SetFormatter(&logrus.JSONFormatter{
+			TimestampFormat: global.LongTimeLayout,
+			PrettyPrint:     false,
 		})
 	}
 	// Log.SetReportCaller(true)

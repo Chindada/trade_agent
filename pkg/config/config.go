@@ -7,7 +7,9 @@ import (
 	"os"
 	"path/filepath"
 	"sync"
+	"trade_agent/global"
 	"trade_agent/pkg/log"
+	"trade_agent/pkg/utils"
 
 	"gopkg.in/yaml.v2"
 )
@@ -60,10 +62,12 @@ type MQTT struct {
 
 // Trade Trade
 type Trade struct {
-	HistoryPeriod   int64  `json:"history_period,omitempty" yaml:"history_period"`
-	TargetCondition string `json:"target_condition,omitempty" yaml:"target_condition"`
-	BlackStock      string `json:"black_stock,omitempty" yaml:"black_stock"`
-	BlackCategory   string `json:"black_category,omitempty" yaml:"black_category"`
+	HistoryClosePeriod int64  `json:"history_close_period,omitempty" yaml:"history_close_period"`
+	HistoryTickPeriod  int64  `json:"history_tick_period,omitempty" yaml:"history_tick_period"`
+	HistoryKbarPeriod  int64  `json:"history_kbar_period,omitempty" yaml:"history_kbar_period"`
+	TargetCondition    string `json:"target_condition,omitempty" yaml:"target_condition"`
+	BlackStock         string `json:"black_stock,omitempty" yaml:"black_stock"`
+	BlackCategory      string `json:"black_category,omitempty" yaml:"black_category"`
 }
 
 // Schedule Schedule
@@ -90,6 +94,18 @@ func parseConfig() {
 	if err != nil {
 		log.Get().Panic(err)
 	}
+
+	if global.IsDevelopment {
+		localHost := utils.GetHostIP()
+		globalConfig.MQTT.Host = localHost
+
+		globalConfig.Server.RunMode = "debug"
+		globalConfig.Server.SinopacSRVHost = localHost
+
+		globalConfig.Database.DBHost = localHost
+		globalConfig.Database.Database = "trade_agent_debug"
+	}
+
 	globalConfig.basePath = filepath.Clean(filepath.Dir(ex))
 }
 

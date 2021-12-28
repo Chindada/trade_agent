@@ -84,3 +84,13 @@ func (c *DBAgent) DeleteAllOrderStatus() error {
 	})
 	return err
 }
+
+// GetOrderStatusByDate GetOrderStatusByDate
+func (c *DBAgent) GetOrderStatusByDate(date time.Time) ([]OrderStatus, error) {
+	var tmp []OrderStatus
+	err := c.DB.Preload("Stock").Model(&OrderStatus{}).
+		Order("order_time asc").
+		Where("order_time >= ? and order_time < ?", date, date.AddDate(0, 0, 1)).
+		Find(&tmp).Error
+	return tmp, err
+}

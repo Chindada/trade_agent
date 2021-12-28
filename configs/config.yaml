@@ -2,20 +2,20 @@
 server:
     run_mode: "release"
     http_port: "16670"
-    sinopac_srv_host: "127.0.0.1"
+    sinopac_srv_host: "172.20.10.223"
     sinopac_srv_port: "13333"
 # database
 database:
-    db_host: "127.0.0.1"
+    db_host: "172.20.10.10"
     db_port: "5432"
     db_user: "postgres"
     db_pass: "asdf0000"
-    database: "trade_agent_debug"
+    database: "trade_agent"
     db_encode: "utf8"
     db_time_zone: "Asia/Taipei"
 # mqtt
 mqtt:
-    host: "172.20.10.250"
+    host: "172.20.10.225"
     port: "8887"
     user: "toc"
     password: "asdf0000"
@@ -25,7 +25,9 @@ mqtt:
     key_path: "/configs/certs/client_key.pem"
 # trade
 trade:
-    history_period: 3
+    history_close_period: 6
+    history_tick_period: 3
+    history_kbar_period: 3
     target_condition: '{"limit_price_low":10,"limit_price_high":50,"limit_volume":20000}'
     black_stock: '["1314","2317","3481","3701"]'
     black_category: '["17"]'

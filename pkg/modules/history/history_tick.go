@@ -7,6 +7,7 @@ import (
 	"trade_agent/global"
 	"trade_agent/pkg/dbagent"
 	"trade_agent/pkg/log"
+	"trade_agent/pkg/modules/tickprocess"
 	"trade_agent/pkg/sinopacapi"
 )
 
@@ -26,6 +27,14 @@ func subHistoryTick(targetArr []*dbagent.Target, fetchDate []time.Time) error {
 					"Stock": v.Stock.Number,
 					"Date":  date.Format(global.ShortTimeLayout),
 				}).Info("HistoryTick Already Exist")
+
+				// select from db to analyze to cache
+				var dbHistoryTick dbagent.HistoryTickArr
+				dbHistoryTick, err = dbagent.Get().GetHistoryTickByStockIDAndDate(v.StockID, date)
+				if err != nil {
+					return err
+				}
+				tickprocess.HistoryTickAnalyzer(dbHistoryTick)
 				continue
 			}
 			// does not exist, fetch.

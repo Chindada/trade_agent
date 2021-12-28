@@ -9,13 +9,27 @@ import (
 	"trade_agent/pkg/log"
 )
 
+const (
+	startTradeYear int = 2021
+	endTradeYear   int = 2022
+)
+
 var holidayArr = []string{
+	// 2021
 	"2021-01-01", "2021-02-08", "2021-02-09",
 	"2021-02-10", "2021-02-11", "2021-02-12",
 	"2021-02-15", "2021-02-16", "2021-03-01",
 	"2021-04-02", "2021-04-05", "2021-04-30",
 	"2021-06-14", "2021-09-20", "2021-09-21",
 	"2021-10-11", "2021-12-31",
+
+	// 2022
+	"2022-01-27", "2022-01-28", "2022-01-31",
+	"2022-02-01", "2022-02-02", "2022-02-03",
+	"2022-02-04", "2022-02-05", "2022-02-06",
+	"2022-02-28", "2022-04-04", "2022-04-05",
+	"2022-05-02", "2022-06-03", "2022-09-09",
+	"2022-10-10",
 }
 
 const (
@@ -38,12 +52,12 @@ func ImportCalendar() (err error) {
 	if err != nil {
 		return err
 	}
-	firstDay := time.Date(global.TradeYear, 1, 1, 0, 0, 0, 0, time.Local)
+	firstDay := time.Date(startTradeYear, 1, 1, 0, 0, 0, 0, time.Local)
 	var calendarDateArr []*dbagent.CalendarDate
 	var exist, insert int
 	for {
 		var isTradeDay bool
-		if firstDay.Year() > global.TradeYear {
+		if firstDay.Year() > endTradeYear {
 			break
 		}
 		if firstDay.Weekday() != time.Saturday && firstDay.Weekday() != time.Sunday && !holidayTimeMap[firstDay] {

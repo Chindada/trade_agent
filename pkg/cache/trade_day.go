@@ -7,22 +7,7 @@ import (
 
 // KeyTradeDay KeyTradeDay
 func KeyTradeDay() string {
-	return "TradeDay"
-}
-
-// KeyHistroyCloseRange KeyHistroyCloseRange
-func KeyHistroyCloseRange() string {
-	return "KeyHistroyCloseRange"
-}
-
-// KeyHistroyTickRange KeyHistroyTickRange
-func KeyHistroyTickRange() string {
-	return "KeyHistroyTickRange"
-}
-
-// KeyHistroyKbarRange KeyHistroyKbarRange
-func KeyHistroyKbarRange() string {
-	return "KeyHistroyKbarRange"
+	return "KeyTradeDay"
 }
 
 // GetTradeDay GetTradeDay
@@ -35,6 +20,11 @@ func (c *Cache) GetTradeDay() time.Time {
 	return time.Time{}
 }
 
+// KeyHistroyCloseRange KeyHistroyCloseRange
+func KeyHistroyCloseRange() string {
+	return "KeyHistroyCloseRange"
+}
+
 // GetHistroyCloseRange GetHistroyCloseRange
 func (c *Cache) GetHistroyCloseRange() []time.Time {
 	defer c.lock.RUnlock()
@@ -45,6 +35,11 @@ func (c *Cache) GetHistroyCloseRange() []time.Time {
 	return []time.Time{}
 }
 
+// KeyHistroyTickRange KeyHistroyTickRange
+func KeyHistroyTickRange() string {
+	return "KeyHistroyTickRange"
+}
+
 // GetHistroyTickRange GetHistroyTickRange
 func (c *Cache) GetHistroyTickRange() []time.Time {
 	defer c.lock.RUnlock()
@@ -53,6 +48,11 @@ func (c *Cache) GetHistroyTickRange() []time.Time {
 		return value.([]time.Time)
 	}
 	return []time.Time{}
+}
+
+// KeyHistroyKbarRange KeyHistroyKbarRange
+func KeyHistroyKbarRange() string {
+	return "KeyHistroyKbarRange"
 }
 
 // GetHistroyKbarRange GetHistroyKbarRange

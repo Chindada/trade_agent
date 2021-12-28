@@ -22,7 +22,7 @@ func main() {
 	// check if env is production or development
 	deployment := os.Getenv("DEPLOYMENT")
 	if deployment != "docker" {
-		global.Development = true
+		global.IsDevelopment = true
 	}
 
 	keep := make(chan struct{})

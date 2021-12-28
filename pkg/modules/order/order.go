@@ -59,6 +59,5 @@ func orderCallback(order *sinopacapi.Order) error {
 	if orderID := orderRes.OrderID; orderID != "" {
 		cache.GetCache().Set(cache.KeyOrderWaiting(order.StockNum), order)
 	}
-
 	return nil
 }

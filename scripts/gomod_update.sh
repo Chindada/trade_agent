@@ -3,5 +3,7 @@
 rm go.mod
 rm go.sum
 
+go install github.com/swaggo/swag/cmd/swag@latest
+
 go mod init trade_agent
 go mod tidy

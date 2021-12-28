@@ -9,6 +9,7 @@ import (
 	"trade_agent/pkg/mqhandler"
 	"trade_agent/pkg/pb"
 	"trade_agent/pkg/sinopacapi"
+	"trade_agent/pkg/utils"
 )
 
 func updateOrderStatus() error {
@@ -21,6 +22,7 @@ func updateOrderStatus() error {
 	if err != nil {
 		return err
 	}
+	initTradeBalance()
 	go func() {
 		for range time.Tick(1*time.Second + 500*time.Millisecond) {
 			if err := sinopacapi.Get().FetchOrderStatus(); err != nil {
@@ -37,11 +39,12 @@ func orderStausCallback(m mqhandler.MQMessage) {
 	if err != nil {
 		log.Get().Panic(err)
 	}
+
+	statusMap := dbagent.StatusListMap
 	var saveStatus []*dbagent.OrderStatus
 	for _, v := range body.GetData() {
 		// check waiting order
 		if waitingOrder := cache.GetCache().GetOrderWaiting(v.GetCode()); waitingOrder != nil && v.GetOrderId() == waitingOrder.OrderID {
-			statusMap := dbagent.StatusListMap
 			switch statusMap[v.GetStatus()] {
 			case 4, 5:
 				// order fail or cancel, remove from waiting cache
@@ -50,21 +53,23 @@ func orderStausCallback(m mqhandler.MQMessage) {
 			case 6:
 				// order filled, remove from waiting cache
 				cache.GetCache().Set(cache.KeyOrderWaiting(v.GetCode()), nil)
+				waitingOrder.TradeTime = time.Now()
 
 				// order filled, add to filled cache by action
-				var cacheKey string
 				switch waitingOrder.Action {
 				case sinopacapi.ActionBuy:
-					cacheKey = cache.KeyOrderBuy(waitingOrder.StockNum)
+					cache.GetCache().AppendOrderBuy(waitingOrder)
+					cache.GetCache().AppendOrderForward(waitingOrder)
 				case sinopacapi.ActionSell:
-					cacheKey = cache.KeyOrderSell(waitingOrder.StockNum)
+					cache.GetCache().AppendOrderSell(waitingOrder)
+					cache.GetCache().AppendOrderForward(waitingOrder)
 				case sinopacapi.ActionSellFirst:
-					cacheKey = cache.KeyOrderSellFirst(waitingOrder.StockNum)
+					cache.GetCache().AppendOrderSellFirst(waitingOrder)
+					cache.GetCache().AppendOrderReverse(waitingOrder)
 				case sinopacapi.ActionBuyLater:
-					cacheKey = cache.KeyOrderBuyLater(waitingOrder.StockNum)
+					cache.GetCache().AppendOrderBuyLater(waitingOrder)
+					cache.GetCache().AppendOrderReverse(waitingOrder)
 				}
-				waitingOrder.TradeTime = time.Now()
-				cache.GetCache().Set(cacheKey, waitingOrder)
 			}
 		}
 		saveStatus = append(saveStatus, v.ToOrderStatus())
@@ -73,5 +78,34 @@ func orderStausCallback(m mqhandler.MQMessage) {
 	err = dbagent.Get().InsertOrUpdateMultiOrderStatus(saveStatus)
 	if err != nil {
 		log.Get().Error(err)
+	}
+}
+
+func initTradeBalance() {
+	dbOrderStatus, err := dbagent.Get().GetOrderStatusByDate(cache.GetCache().GetTradeDay())
+	if err != nil {
+		log.Get().Panic(err)
+	}
+
+	tmp := dbagent.Balance{
+		TradeDay: cache.GetCache().GetTradeDay(),
+	}
+
+	for _, order := range dbOrderStatus {
+		if order.Status == 6 {
+			switch order.Action {
+			case 1:
+				tmp.OriginalBalance -= utils.GetStockBuyCost(order.Price, order.Quantity)
+			case 2:
+				tmp.OriginalBalance += utils.GetStockSellCost(order.Price, order.Quantity)
+			}
+			tmp.Discount += utils.GetStockTradeFeeDiscount(order.Price, order.Quantity)
+		}
+	}
+	tmp.Total = tmp.OriginalBalance + tmp.Discount
+
+	err = dbagent.Get().InsertBalance(&tmp)
+	if err != nil {
+		log.Get().Panic(err)
 	}
 }

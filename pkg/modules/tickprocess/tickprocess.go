@@ -76,11 +76,8 @@ func realTimeBidAskProcessor(stockNum string) {
 	var bidAskArr []*dbagent.RealTimeBidAsk
 	for {
 		bidAsk := <-ch
-		status := realTimeBidAskArrAnalyzer(bidAsk, bidAskArr)
-		if status == "" {
-			continue
-		}
-		cache.GetCache().Set(cache.KeyRealTimeBidAskStatus(stockNum), status)
 		bidAskArr = append(bidAskArr, bidAsk)
+		status := realTimeBidAskArrAnalyzer(bidAsk, bidAskArr)
+		cache.GetCache().Set(cache.KeyRealTimeBidAskStatus(stockNum), status)
 	}
 }

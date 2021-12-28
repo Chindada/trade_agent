@@ -8,10 +8,5 @@ const (
 	ShortTimeLayout string = "2006-01-02"
 )
 
-const (
-	// TradeYear TradeYear
-	TradeYear int = 2021
-)
-
-// Development Development
-var Development bool
+// IsDevelopment IsDevelopment
+var IsDevelopment bool
