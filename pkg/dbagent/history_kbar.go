@@ -66,3 +66,11 @@ func (c *DBAgent) CheckHistoryKbarExistByStockNum(date time.Time) (bool, error) 
 	}
 	return false, nil
 }
+
+// HistoryKbarArr HistoryKbarArr
+type HistoryKbarArr []*HistoryKbar
+
+// Analyzer Analyzer
+func (c HistoryKbarArr) Analyzer() string {
+	return ""
+}

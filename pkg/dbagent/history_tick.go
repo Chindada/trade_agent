@@ -80,6 +80,29 @@ func (c HistoryTickArr) GetTotalTime() int64 {
 	return 0
 }
 
+// Analyzer Analyzer
+func (c HistoryTickArr) Analyzer() []int64 {
+	var analyzeTickArr HistoryTickArr
+	var volumeArr []int64
+	for i, tick := range c {
+		if i == 0 {
+			continue
+		}
+		if len(analyzeTickArr) > 1 {
+			if analyzeTickArr.GetTotalTime() > 5 {
+				var volumeSum int64
+				for _, k := range analyzeTickArr {
+					volumeSum += k.Volume
+				}
+				analyzeTickArr = []*HistoryTick{}
+				volumeArr = append(volumeArr, volumeSum)
+			}
+		}
+		analyzeTickArr = append(analyzeTickArr, tick)
+	}
+	return volumeArr
+}
+
 // GetHistoryTickByStockIDAndDate GetHistoryTickByStockIDAndDate
 func (c *DBAgent) GetHistoryTickByStockIDAndDate(stockID int64, date time.Time) (HistoryTickArr, error) {
 	var tmp HistoryTickArr

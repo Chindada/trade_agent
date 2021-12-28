@@ -5,9 +5,9 @@ import (
 	"sync"
 	"time"
 	"trade_agent/global"
+	"trade_agent/pkg/cache"
 	"trade_agent/pkg/dbagent"
 	"trade_agent/pkg/log"
-	"trade_agent/pkg/modules/tickprocess"
 	"trade_agent/pkg/sinopacapi"
 )
 
@@ -34,7 +34,8 @@ func subHistoryTick(targetArr []*dbagent.Target, fetchDate []time.Time) error {
 				if err != nil {
 					return err
 				}
-				tickprocess.HistoryTickAnalyzer(dbHistoryTick)
+				analyzeVolumeArr := dbHistoryTick.Analyzer()
+				cache.GetCache().Set(cache.KeyStockHistoryTickAnalyze(v.Stock.Number), analyzeVolumeArr)
 				continue
 			}
 			// does not exist, fetch.

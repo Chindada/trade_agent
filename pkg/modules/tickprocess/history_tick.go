@@ -2,6 +2,7 @@
 package tickprocess
 
 import (
+	"trade_agent/pkg/cache"
 	"trade_agent/pkg/dbagent"
 	"trade_agent/pkg/log"
 	"trade_agent/pkg/mqhandler"
@@ -38,7 +39,8 @@ func historyTickCallback(m mqhandler.MQMessage) {
 	}
 
 	// analyze to cache
-	HistoryTickAnalyzer(saveTick)
+	analyzeVolumeArr := saveTick.Analyzer()
+	cache.GetCache().Set(cache.KeyStockHistoryTickAnalyze(body.GetStockNum()), analyzeVolumeArr)
 
 	log.Get().WithFields(map[string]interface{}{
 		"Stock": body.GetStockNum(),
