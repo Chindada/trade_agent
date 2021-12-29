@@ -94,3 +94,12 @@ func (c *DBAgent) GetOrderStatusByDate(date time.Time) ([]OrderStatus, error) {
 		Find(&tmp).Error
 	return tmp, err
 }
+
+// GetOrderStatusByOrderID GetOrderStatusByOrderID
+func (c *DBAgent) GetOrderStatusByOrderID(orderID string) (int64, error) {
+	var tmp OrderStatus
+	err := c.DB.Model(&OrderStatus{}).
+		Where("order_id = ?", orderID).
+		Find(&tmp).Error
+	return tmp.Status, err
+}

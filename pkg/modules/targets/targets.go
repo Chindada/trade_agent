@@ -74,7 +74,7 @@ func volumeRankCallback(m mqhandler.MQMessage) {
 	if err != nil {
 		log.Get().Panic(err)
 	}
-	condition := conf.GetTradeTargetCondtion()
+	condition := conf.GetTargetCondtion()
 	tradeDay := cache.GetCache().GetTradeDay()
 	var targetArr []*dbagent.Target
 	for _, v := range body.GetData() {
@@ -107,7 +107,28 @@ func volumeRankCallback(m mqhandler.MQMessage) {
 	eventbus.Get().Pub(eventbus.TopicTargets(), targetArr)
 }
 
-func stockTargetFilter(v *pb.VolumeRankMessage, cond *config.TargetCond) bool {
+func stockTargetFilter(v *pb.VolumeRankMessage, cond config.TargetCond) bool {
+	stock := cache.GetCache().GetStock(v.GetCode())
+	if stock == nil {
+		log.Get().Errorf("Stock %s does not exist in cache", v.GetCode())
+		return false
+	}
+
+	blackCategoryMap := make(map[string]bool)
+	blackStockMap := make(map[string]bool)
+	for _, v := range cond.BlackCategory {
+		blackCategoryMap[v] = true
+	}
+	for _, v := range cond.BlackStock {
+		blackStockMap[v] = true
+	}
+
+	if blackStockMap[v.GetCode()] {
+		return false
+	}
+	if blackCategoryMap[stock.Category] {
+		return false
+	}
 	if v.GetTotalVolume() < cond.LimitVolume {
 		return false
 	}

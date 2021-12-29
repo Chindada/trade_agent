@@ -18,13 +18,15 @@ import (
 	"trade_agent/pkg/tasks"
 )
 
-func main() {
+func init() {
 	// check if env is production or development
 	deployment := os.Getenv("DEPLOYMENT")
 	if deployment != "docker" {
 		global.IsDevelopment = true
 	}
+}
 
+func main() {
 	keep := make(chan struct{})
 	// initial core funcs
 	dbagent.InitDatabase()
@@ -48,14 +50,15 @@ func main() {
 	// update all order status looply
 	order.InitOrder()
 
+	// receive target to subscribe tick, bidask
+	subscribe.InitSubscribe()
+
 	// process all tick
 	// include realtime, history tick, kbar
 	// wait simulation result to process tick
 	tickprocess.InitTickProcess()
 
-	// receive target to subscribe tick, bidask
 	// receive target to fill history data
-	subscribe.InitSubscribe()
 	history.InitHistory()
 
 	// find target

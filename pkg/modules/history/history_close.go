@@ -66,6 +66,7 @@ func stockCloseCallback(m mqhandler.MQMessage) {
 		if err != nil {
 			log.Get().Panic(err)
 		}
+
 		calendarDate, err := dbagent.Get().GetCalendarDate(dateTime)
 		if err != nil {
 			log.Get().Panic(err)
@@ -77,13 +78,14 @@ func stockCloseCallback(m mqhandler.MQMessage) {
 		}
 		cache.GetCache().Set(cache.KeyStockHistoryClose(tmp.Stock.Number, tmp.CalendarDate.Date), tmp.Close)
 
+		if err := dbagent.Get().InsertOrUpdateHistoryClose(tmp); err != nil {
+			log.Get().Panic(err)
+		}
+
 		log.Get().WithFields(map[string]interface{}{
 			"Stock": tmp.Stock.Number,
 			"Date":  tmp.CalendarDate.Date.Format(global.ShortTimeLayout),
 			"Close": tmp.Close,
 		}).Info("History Close")
-		if err := dbagent.Get().InsertOrUpdateHistoryClose(tmp); err != nil {
-			log.Get().Panic(err)
-		}
 	}
 }

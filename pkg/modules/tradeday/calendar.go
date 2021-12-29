@@ -48,10 +48,13 @@ func ImportCalendar() (err error) {
 		}
 		holidayTimeMap[holidayTime] = true
 	}
+
+	// check db calendar
 	inDBCalendarMap, err := dbagent.Get().GetAllCalendarDateMap()
 	if err != nil {
 		return err
 	}
+
 	firstDay := time.Date(startTradeYear, 1, 1, 0, 0, 0, 0, time.Local)
 	var calendarDateArr []*dbagent.CalendarDate
 	var exist, insert int
@@ -76,6 +79,10 @@ func ImportCalendar() (err error) {
 		firstDay = firstDay.AddDate(0, 0, 1)
 	}
 	err = dbagent.Get().InsertMultiCalendarDate(calendarDateArr)
+	if err != nil {
+		return err
+	}
+
 	log.Get().WithFields(map[string]interface{}{
 		"Exist":  exist,
 		"Insert": insert,

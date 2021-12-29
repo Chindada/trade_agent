@@ -12,7 +12,7 @@ import (
 	"trade_agent/pkg/utils"
 )
 
-func updateOrderStatus() error {
+func subOrderStatus() error {
 	handler := mqhandler.Get()
 	err := handler.Sub(mqhandler.MQSubBody{
 		MQTopic:  mqhandler.TopicOrderStatus(),
@@ -22,7 +22,10 @@ func updateOrderStatus() error {
 	if err != nil {
 		return err
 	}
+
+	// initital db order status on trade day
 	initTradeBalance()
+
 	go func() {
 		for range time.Tick(1*time.Second + 500*time.Millisecond) {
 			if err := sinopacapi.Get().FetchOrderStatus(); err != nil {
@@ -40,11 +43,11 @@ func orderStausCallback(m mqhandler.MQMessage) {
 		log.Get().Panic(err)
 	}
 
-	statusMap := dbagent.StatusListMap
 	var saveStatus []*dbagent.OrderStatus
 	for _, v := range body.GetData() {
 		// check waiting order
 		if waitingOrder := cache.GetCache().GetOrderWaiting(v.GetCode()); waitingOrder != nil && v.GetOrderId() == waitingOrder.OrderID {
+			statusMap := dbagent.StatusListMap
 			switch statusMap[v.GetStatus()] {
 			case 4, 5:
 				// order fail or cancel, remove from waiting cache
@@ -53,7 +56,6 @@ func orderStausCallback(m mqhandler.MQMessage) {
 			case 6:
 				// order filled, remove from waiting cache
 				cache.GetCache().Set(cache.KeyOrderWaiting(v.GetCode()), nil)
-				waitingOrder.TradeTime = time.Now()
 
 				// order filled, add to filled cache by action
 				switch waitingOrder.Action {
@@ -87,7 +89,7 @@ func initTradeBalance() {
 		log.Get().Panic(err)
 	}
 
-	tmp := dbagent.Balance{
+	tmp := &dbagent.Balance{
 		TradeDay: cache.GetCache().GetTradeDay(),
 	}
 
@@ -104,7 +106,7 @@ func initTradeBalance() {
 	}
 	tmp.Total = tmp.OriginalBalance + tmp.Discount
 
-	err = dbagent.Get().InsertBalance(&tmp)
+	err = dbagent.Get().InsertBalance(tmp)
 	if err != nil {
 		log.Get().Panic(err)
 	}

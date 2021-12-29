@@ -12,14 +12,14 @@ import (
 func InitCloudEvent() {
 	log.Get().Info("Initial CloudEvent")
 
-	err := updateTradeEvent()
+	err := subTradeEvent()
 	if err != nil {
 		log.Get().Panic(err)
 	}
 }
 
-// updateTradeEvent updateTradeEvent
-func updateTradeEvent() error {
+// subTradeEvent subTradeEvent
+func subTradeEvent() error {
 	handler := mqhandler.Get()
 	err := handler.Sub(mqhandler.MQSubBody{
 		MQTopic:  mqhandler.TopicTradeEvent(),

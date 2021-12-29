@@ -28,9 +28,20 @@ trade:
     history_close_period: 6
     history_tick_period: 3
     history_kbar_period: 3
-    target_condition: '{"limit_price_low":10,"limit_price_high":50,"limit_volume":20000}'
-    black_stock: '["1314","2317","3481","3701"]'
-    black_category: '["17"]'
+    trade_in_wait_time: 15
+    trade_out_wait_time: 30
+# target condition
+target_cond:
+    limit_price_low: 10
+    limit_price_high: 50
+    limit_volume: 20000
+    black_stock:
+        - "1314"
+        - "2317"
+        - "3481"
+        - "3701"
+    black_category:
+        - "17"
 # schedule
 schedule:
     cleanevent_cron: "0 0 4 * * ?"

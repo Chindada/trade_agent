@@ -30,16 +30,16 @@ func InitTradeDay() {
 	if err != nil {
 		log.Get().Panic(err)
 	}
+	// save to cache
+	cache.GetCache().Set(cache.KeyTradeDay(), tradeDay)
 	log.Get().WithFields(map[string]interface{}{
 		"Date": tradeDay.Format(global.ShortTimeLayout),
 	}).Info("TradeDay")
-	cache.GetCache().Set(cache.KeyTradeDay(), tradeDay)
 
 	conf, err := config.Get()
 	if err != nil {
 		log.Get().Panic(err)
 	}
-
 	closeRange := GetLastNTradeDayByDate(conf.GetTradeConfig().HistoryClosePeriod, tradeDay)
 	tickRange := GetLastNTradeDayByDate(conf.GetTradeConfig().HistoryTickPeriod, tradeDay)
 	kbarRange := GetLastNTradeDayByDate(conf.GetTradeConfig().HistoryKbarPeriod, tradeDay)

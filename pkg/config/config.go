@@ -2,7 +2,6 @@
 package config
 
 import (
-	"encoding/json"
 	"io/ioutil"
 	"os"
 	"path/filepath"
@@ -21,12 +20,13 @@ var (
 
 // Config Config
 type Config struct {
-	basePath string
-	Server   Server   `json:"server,omitempty" yaml:"server"`
-	Database Database `json:"database,omitempty" yaml:"database"`
-	Schedule Schedule `json:"schedule,omitempty" yaml:"schedule"`
-	MQTT     MQTT     `json:"mqtt,omitempty" yaml:"mqtt"`
-	Trade    Trade    `json:"trade,omitempty" yaml:"trade"`
+	basePath   string
+	Server     Server     `json:"server,omitempty" yaml:"server"`
+	Database   Database   `json:"database,omitempty" yaml:"database"`
+	Schedule   Schedule   `json:"schedule,omitempty" yaml:"schedule"`
+	MQTT       MQTT       `json:"mqtt,omitempty" yaml:"mqtt"`
+	Trade      Trade      `json:"trade,omitempty" yaml:"trade"`
+	TargetCond TargetCond `json:"target_cond,omitempty" yaml:"target_cond"`
 }
 
 // Server Server
@@ -62,12 +62,20 @@ type MQTT struct {
 
 // Trade Trade
 type Trade struct {
-	HistoryClosePeriod int64  `json:"history_close_period,omitempty" yaml:"history_close_period"`
-	HistoryTickPeriod  int64  `json:"history_tick_period,omitempty" yaml:"history_tick_period"`
-	HistoryKbarPeriod  int64  `json:"history_kbar_period,omitempty" yaml:"history_kbar_period"`
-	TargetCondition    string `json:"target_condition,omitempty" yaml:"target_condition"`
-	BlackStock         string `json:"black_stock,omitempty" yaml:"black_stock"`
-	BlackCategory      string `json:"black_category,omitempty" yaml:"black_category"`
+	HistoryClosePeriod int64 `json:"history_close_period,omitempty" yaml:"history_close_period"`
+	HistoryTickPeriod  int64 `json:"history_tick_period,omitempty" yaml:"history_tick_period"`
+	HistoryKbarPeriod  int64 `json:"history_kbar_period,omitempty" yaml:"history_kbar_period"`
+	TradeInWaitTime    int64 `json:"trade_in_wait_time,omitempty" yaml:"trade_in_wait_time"`
+	TradeOutWaitTime   int64 `json:"trade_out_wait_time,omitempty" yaml:"trade_out_wait_time"`
+}
+
+// TargetCond TargetCond
+type TargetCond struct {
+	LimitPriceLow  float64  `json:"limit_price_low,omitempty" yaml:"limit_price_low"`
+	LimitPriceHigh float64  `json:"limit_price_high,omitempty" yaml:"limit_price_high"`
+	LimitVolume    int64    `json:"limit_volume,omitempty" yaml:"limit_volume"`
+	BlackStock     []string `json:"black_stock,omitempty" yaml:"black_stock"`
+	BlackCategory  []string `json:"black_category,omitempty" yaml:"black_category"`
 }
 
 // Schedule Schedule
@@ -138,21 +146,9 @@ func (c Config) GetTradeConfig() Trade {
 	return c.Trade
 }
 
-// TargetCond TargetCond
-type TargetCond struct {
-	LimitPriceLow  float64 `json:"limit_price_low,omitempty" yaml:"limit_price_low"`
-	LimitPriceHigh float64 `json:"limit_price_high,omitempty" yaml:"limit_price_high"`
-	LimitVolume    int64   `json:"limit_volume,omitempty" yaml:"limit_volume"`
-}
-
-// GetTradeTargetCondtion GetTradeTargetCondtion
-func (c Config) GetTradeTargetCondtion() *TargetCond {
-	var cond TargetCond
-	err := json.Unmarshal([]byte(c.Trade.TargetCondition), &cond)
-	if err != nil {
-		log.Get().Panic(err)
-	}
-	return &cond
+// GetTargetCondtion GetTargetCondtion
+func (c Config) GetTargetCondtion() TargetCond {
+	return c.TargetCond
 }
 
 // GetMQConfig GetMQConfig

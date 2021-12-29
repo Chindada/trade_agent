@@ -74,3 +74,10 @@ type HistoryKbarArr []*HistoryKbar
 func (c HistoryKbarArr) Analyzer() string {
 	return ""
 }
+
+// GetHistoryKbarByStockIDAndDate GetHistoryKbarByStockIDAndDate
+func (c *DBAgent) GetHistoryKbarByStockIDAndDate(stockID int64, date time.Time) (HistoryKbarArr, error) {
+	var tmp HistoryKbarArr
+	err := c.DB.Preload("Stock").Model(&HistoryKbar{}).Where("stock_id = ? and tick_time >= ? and tick_time < ?", stockID, date, date.AddDate(0, 0, 1)).Find(&tmp).Error
+	return tmp, err
+}

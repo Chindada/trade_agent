@@ -76,16 +76,18 @@ func stockDetailCallback(m mqhandler.MQMessage) {
 		// check whether already in db
 		if _, ok := inDBStock[v.GetCode()]; ok {
 			exist++
-			continue
+		} else {
+			saveStock = append(saveStock, v.ToStock())
+			insert++
 		}
-		saveStock = append(saveStock, v.ToStock())
-		insert++
 	}
+
 	// insert
 	err = dbagent.Get().InsertMultiStock(saveStock)
 	if err != nil {
 		log.Get().Panic(err)
 	}
+
 	log.Get().WithFields(map[string]interface{}{
 		"Exist":  exist,
 		"Insert": insert,

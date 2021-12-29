@@ -38,17 +38,7 @@ func initGlobalCache() {
 
 // Set Set
 func (c *Cache) Set(key string, value interface{}) {
-	defer c.lock.Unlock()
 	c.lock.Lock()
 	c.Cache.Set(key, value, 0)
+	c.lock.Unlock()
 }
-
-// Get Get
-// func (c *Cache) Get(key string) interface{} {
-// 	defer c.lock.RUnlock()
-// 	c.lock.RLock()
-// 	if value, ok := c.Cache.Get(key); ok {
-// 		return value
-// 	}
-// 	return nil
-// }

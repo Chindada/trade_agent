@@ -5,6 +5,7 @@ import (
 	"sync"
 	"time"
 	"trade_agent/global"
+	"trade_agent/pkg/cache"
 	"trade_agent/pkg/dbagent"
 	"trade_agent/pkg/log"
 	"trade_agent/pkg/sinopacapi"
@@ -26,6 +27,15 @@ func subHistoryKbar(targetArr []*dbagent.Target, fetchDate []time.Time) error {
 					"Stock": v.Stock.Number,
 					"Date":  date.Format(global.ShortTimeLayout),
 				}).Info("HistoryKbar Already Exist")
+
+				// select from db to analyze to cache
+				var dbHistoryKbar dbagent.HistoryKbarArr
+				dbHistoryKbar, err = dbagent.Get().GetHistoryKbarByStockIDAndDate(v.StockID, date)
+				if err != nil {
+					return err
+				}
+				status := dbHistoryKbar.Analyzer()
+				cache.GetCache().Set(cache.KeyStockHistoryKbarAnalyze(v.Stock.Number), status)
 				continue
 			}
 			// does not exist, fetch.
