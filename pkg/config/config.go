@@ -2,6 +2,7 @@
 package config
 
 import (
+	"fmt"
 	"io/ioutil"
 	"os"
 	"path/filepath"
@@ -26,6 +27,7 @@ type Config struct {
 	Schedule   Schedule   `json:"schedule,omitempty" yaml:"schedule"`
 	MQTT       MQTT       `json:"mqtt,omitempty" yaml:"mqtt"`
 	Trade      Trade      `json:"trade,omitempty" yaml:"trade"`
+	Switch     Switch     `json:"switch,omitempty" yaml:"switch"`
 	TargetCond TargetCond `json:"target_cond,omitempty" yaml:"target_cond"`
 }
 
@@ -67,6 +69,19 @@ type Trade struct {
 	HistoryKbarPeriod  int64 `json:"history_kbar_period,omitempty" yaml:"history_kbar_period"`
 	TradeInWaitTime    int64 `json:"trade_in_wait_time,omitempty" yaml:"trade_in_wait_time"`
 	TradeOutWaitTime   int64 `json:"trade_out_wait_time,omitempty" yaml:"trade_out_wait_time"`
+	HoldMaxTime        int64 `json:"hold_max_time,omitempty" yaml:"hold_max_time"`
+}
+
+// Switch Switch
+type Switch struct {
+	EnableBuy       bool  `json:"enable_buy,omitempty" yaml:"enable_buy"`
+	EnableSell      bool  `json:"enable_sell,omitempty" yaml:"enable_sell"`
+	EnableSellFirst bool  `json:"enable_sell_first,omitempty" yaml:"enable_sell_first"`
+	EnableBuyLater  bool  `json:"enable_buy_later,omitempty" yaml:"enable_buy_later"`
+	MeanTimeForward int64 `json:"mean_time_forward,omitempty" yaml:"mean_time_forward"`
+	MeanTimeReverse int64 `json:"mean_time_reverse,omitempty" yaml:"mean_time_reverse"`
+	ForwardMax      int64 `json:"forward_max,omitempty" yaml:"forward_max"`
+	ReverseMax      int64 `json:"reverse_max,omitempty" yaml:"reverse_max"`
 }
 
 // TargetCond TargetCond
@@ -103,6 +118,7 @@ func parseConfig() {
 		log.Get().Panic(err)
 	}
 
+	// if in development, change some parameters
 	if global.IsDevelopment {
 		localHost := utils.GetHostIP()
 		globalConfig.MQTT.Host = localHost
@@ -111,50 +127,74 @@ func parseConfig() {
 		globalConfig.Server.SinopacSRVHost = localHost
 
 		globalConfig.Database.DBHost = localHost
-		globalConfig.Database.Database = "trade_agent_debug"
+		globalConfig.Database.Database = fmt.Sprintf("%s_debug", globalConfig.Database.Database)
 	}
 
 	globalConfig.basePath = filepath.Clean(filepath.Dir(ex))
-}
-
-// Get Get
-func Get() (config Config, err error) {
-	if globalConfig != nil {
-		return *globalConfig, err
-	}
-	once.Do(parseConfig)
-	return *globalConfig, err
+	globalConfig.MQTT.CAPath = globalConfig.basePath + globalConfig.MQTT.CAPath
+	globalConfig.MQTT.KeyPath = globalConfig.basePath + globalConfig.MQTT.KeyPath
+	globalConfig.MQTT.CertPath = globalConfig.basePath + globalConfig.MQTT.CertPath
 }
 
 // GetServerConfig GetServerConfig
-func (c Config) GetServerConfig() Server {
-	return c.Server
+func GetServerConfig() Server {
+	if globalConfig != nil {
+		return globalConfig.Server
+	}
+	once.Do(parseConfig)
+	return globalConfig.Server
 }
 
 // GetDBConfig GetDBConfig
-func (c Config) GetDBConfig() Database {
-	return c.Database
+func GetDBConfig() Database {
+	if globalConfig != nil {
+		return globalConfig.Database
+	}
+	once.Do(parseConfig)
+	return globalConfig.Database
 }
 
 // GetScheduleConfig GetScheduleConfig
-func (c Config) GetScheduleConfig() Schedule {
-	return c.Schedule
+func GetScheduleConfig() Schedule {
+	if globalConfig != nil {
+		return globalConfig.Schedule
+	}
+	once.Do(parseConfig)
+	return globalConfig.Schedule
 }
 
 // GetTradeConfig GetTradeConfig
-func (c Config) GetTradeConfig() Trade {
-	return c.Trade
+func GetTradeConfig() Trade {
+	if globalConfig != nil {
+		return globalConfig.Trade
+	}
+	once.Do(parseConfig)
+	return globalConfig.Trade
 }
 
-// GetTargetCondtion GetTargetCondtion
-func (c Config) GetTargetCondtion() TargetCond {
-	return c.TargetCond
+// GetSwitchConfig GetSwitchConfig
+func GetSwitchConfig() Switch {
+	if globalConfig != nil {
+		return globalConfig.Switch
+	}
+	once.Do(parseConfig)
+	return globalConfig.Switch
+}
+
+// GetTargetCondConfig GetTargetCondConfig
+func GetTargetCondConfig() TargetCond {
+	if globalConfig != nil {
+		return globalConfig.TargetCond
+	}
+	once.Do(parseConfig)
+	return globalConfig.TargetCond
 }
 
 // GetMQConfig GetMQConfig
-func (c Config) GetMQConfig() MQTT {
-	c.MQTT.CAPath = c.basePath + c.MQTT.CAPath
-	c.MQTT.KeyPath = c.basePath + c.MQTT.KeyPath
-	c.MQTT.CertPath = c.basePath + c.MQTT.CertPath
-	return c.MQTT
+func GetMQConfig() MQTT {
+	if globalConfig != nil {
+		return globalConfig.MQTT
+	}
+	once.Do(parseConfig)
+	return globalConfig.MQTT
 }

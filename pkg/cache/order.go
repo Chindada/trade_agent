@@ -144,6 +144,23 @@ func (c *Cache) GetOrderForward() []*sinopacapi.Order {
 	return []*sinopacapi.Order{}
 }
 
+// GetOrderForwardCountDetail GetOrderForwardCountDetail return remaining unfilled and total
+func (c *Cache) GetOrderForwardCountDetail() (int64, int64) {
+	defer c.lock.RUnlock()
+	c.lock.RLock()
+	var buy, sell int64
+	if value, ok := c.Cache.Get(KeyOrderForward()); ok {
+		for _, v := range value.([]*sinopacapi.Order) {
+			if v.Action == sinopacapi.ActionBuy {
+				buy++
+			} else {
+				sell--
+			}
+		}
+	}
+	return buy - sell, buy
+}
+
 // AppendOrderForward AppendOrderForward
 func (c *Cache) AppendOrderForward(order *sinopacapi.Order) {
 	c.lock.RLock()
@@ -169,6 +186,23 @@ func (c *Cache) GetOrderReverse() []*sinopacapi.Order {
 		return value.([]*sinopacapi.Order)
 	}
 	return []*sinopacapi.Order{}
+}
+
+// GetOrderReverseCountDetail GetOrderReverseCountDetail return remaining unfilled and total
+func (c *Cache) GetOrderReverseCountDetail() (int64, int64) {
+	defer c.lock.RUnlock()
+	c.lock.RLock()
+	var sellFirst, buyLater int64
+	if value, ok := c.Cache.Get(KeyOrderReverse()); ok {
+		for _, v := range value.([]*sinopacapi.Order) {
+			if v.Action == sinopacapi.ActionSellFirst {
+				sellFirst++
+			} else {
+				buyLater--
+			}
+		}
+	}
+	return sellFirst - buyLater, sellFirst
 }
 
 // AppendOrderReverse AppendOrderReverse

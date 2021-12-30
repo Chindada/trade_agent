@@ -34,11 +34,7 @@ var (
 func InitDatabase() {
 	log.Get().Info("Initial Database")
 
-	conf, err := config.Get()
-	if err != nil {
-		log.Get().Panic(err)
-	}
-	dbSettings := conf.GetDBConfig()
+	dbSettings := config.GetDBConfig()
 	db, err := sql.Open(
 		"postgres",
 		"user="+dbSettings.DBUser+" password="+dbSettings.DBPass+" host="+dbSettings.DBHost+" port="+dbSettings.DBPort+" sslmode=disable")
@@ -78,11 +74,7 @@ func initConnection() {
 			LogLevel:                  gormlogger.Warn,
 		})
 	var err error
-	var conf config.Config
-	if conf, err = config.Get(); err != nil {
-		log.Get().Panic(err)
-	}
-	dbSettings := conf.GetDBConfig()
+	dbSettings := config.GetDBConfig()
 	dsn := "host=" + dbSettings.DBHost + " user=" + dbSettings.DBUser +
 		" password=" + dbSettings.DBPass + " dbname=" + dbSettings.Database +
 		" port=" + dbSettings.DBPort + " sslmode=disable" +

@@ -48,9 +48,9 @@ func subHistoryTick(targetArr []*dbagent.Target, fetchDate []time.Time) error {
 					"Stock": stock,
 					"Date":  fetchDate.Format(global.ShortTimeLayout),
 				}).Info("Fetching HistoryTick")
-				err = sinopacapi.Get().FetchHistoryTickByStockAndDate(stock, fetchDate.Format(global.ShortTimeLayout))
+				sinoErr := sinopacapi.Get().FetchHistoryTickByStockAndDate(stock, fetchDate.Format(global.ShortTimeLayout))
 				if err != nil {
-					errChan <- err
+					errChan <- sinoErr
 				}
 			}(&w)
 		}

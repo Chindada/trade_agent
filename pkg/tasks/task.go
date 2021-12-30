@@ -15,13 +15,7 @@ func InitTasks() {
 	log.Get().Info("Initial Tasks")
 
 	var err error
-	var conf config.Config
-
-	conf, err = config.Get()
-	if err != nil {
-		log.Get().Panic(err)
-	}
-	schedule := conf.GetScheduleConfig()
+	schedule := config.GetScheduleConfig()
 
 	c := cron.New()
 	err = c.AddFunc(schedule.CleaneventCron, func() {

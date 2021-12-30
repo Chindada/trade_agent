@@ -56,20 +56,16 @@ func initMQHandler() {
 	if globalHandler != nil {
 		return
 	}
-	var err error
-	var conf config.Config
-	conf, err = config.Get()
+
+	newClient, err := getMQClient(config.GetMQConfig())
 	if err != nil {
 		log.Get().Panic(err)
 	}
-	var newClient mqtt.Client
-	newClient, err = getMQClient(conf.GetMQConfig())
-	if err != nil {
-		log.Get().Panic(err)
-	}
+
 	if newClient == nil {
 		log.Get().Panic("MQTT Connect Fail")
 	}
+
 	callbackMap := make(map[string]MQCallback)
 	onceMap := make(map[string]bool)
 	globalHandler = &MQHandler{

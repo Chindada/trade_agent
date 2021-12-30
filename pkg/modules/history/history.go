@@ -36,5 +36,24 @@ func targetsBusCallback(targetArr []*dbagent.Target) error {
 	if err != nil {
 		return err
 	}
+
+	// fill biasrate cache
+	for _, stock := range targetArr {
+		var closeArr []float64
+		for _, date := range cache.GetCache().GetHistroyCloseRange() {
+			close := cache.GetCache().GetHistoryClose(stock.Stock.Number, date)
+			closeArr = append(closeArr, close)
+		}
+		biasRate, err := getBiasRateByCloseArr(closeArr)
+		if err != nil {
+			return err
+		}
+		cache.GetCache().Set(cache.KeyBiasRate(stock.Stock.Number), biasRate)
+		log.Get().WithFields(map[string]interface{}{
+			"Stock": stock.Stock.Number,
+			"Value": biasRate,
+		}).Info("BiasRate")
+	}
+
 	return nil
 }

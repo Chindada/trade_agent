@@ -45,5 +45,5 @@ func historyTickCallback(m mqhandler.MQMessage) {
 	log.Get().WithFields(map[string]interface{}{
 		"Stock": body.GetStockNum(),
 		"Date":  body.GetDate(),
-	}).Info("Fetching HistoryTick Done")
+	}).Info("HistoryTick Process Done")
 }

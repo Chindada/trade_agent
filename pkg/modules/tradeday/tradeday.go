@@ -36,13 +36,9 @@ func InitTradeDay() {
 		"Date": tradeDay.Format(global.ShortTimeLayout),
 	}).Info("TradeDay")
 
-	conf, err := config.Get()
-	if err != nil {
-		log.Get().Panic(err)
-	}
-	closeRange := GetLastNTradeDayByDate(conf.GetTradeConfig().HistoryClosePeriod, tradeDay)
-	tickRange := GetLastNTradeDayByDate(conf.GetTradeConfig().HistoryTickPeriod, tradeDay)
-	kbarRange := GetLastNTradeDayByDate(conf.GetTradeConfig().HistoryKbarPeriod, tradeDay)
+	closeRange := GetLastNTradeDayByDate(config.GetTradeConfig().HistoryClosePeriod, tradeDay)
+	tickRange := GetLastNTradeDayByDate(config.GetTradeConfig().HistoryTickPeriod, tradeDay)
+	kbarRange := GetLastNTradeDayByDate(config.GetTradeConfig().HistoryKbarPeriod, tradeDay)
 
 	cache.GetCache().Set(cache.KeyHistroyCloseRange(), closeRange)
 	cache.GetCache().Set(cache.KeyHistroyTickRange(), tickRange)

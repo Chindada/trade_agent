@@ -48,9 +48,9 @@ func subHistoryKbar(targetArr []*dbagent.Target, fetchDate []time.Time) error {
 					"Stock": stock,
 					"Date":  fetchDate,
 				}).Info("Fetching HistoryKbar")
-				err = sinopacapi.Get().FetchHistoryKbarByDateRange(stock, fetchDate, fetchDate)
+				sinoErr := sinopacapi.Get().FetchHistoryKbarByDateRange(stock, fetchDate, fetchDate)
 				if err != nil {
-					errChan <- err
+					errChan <- sinoErr
 				}
 			}(&w)
 		}

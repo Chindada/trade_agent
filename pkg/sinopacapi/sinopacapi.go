@@ -35,18 +35,14 @@ type Order struct {
 func InitSinpacAPI() {
 	log.Get().Info("Initial SinopacAPI")
 
-	conf, err := config.Get()
-	if err != nil {
-		log.Get().Panic(err)
-	}
-	serverConf := conf.GetServerConfig()
-	mqConf := conf.GetMQConfig()
+	serverConf := config.GetServerConfig()
+	mqConf := config.GetMQConfig()
 	new := TradeAgent{
 		Client:    restfulclient.Get(),
 		urlPrefix: "http://" + serverConf.SinopacSRVHost + ":" + serverConf.SinopacSRVPort,
 	}
 	// check sinopac mq srv connect to mqtt broker
-	err = new.AskSinpacMQSRVConnectMQ(mqConf)
+	err := new.AskSinpacMQSRVConnectMQ(mqConf)
 	if err != nil {
 		log.Get().Panic(err)
 	}

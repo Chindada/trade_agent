@@ -12,16 +12,12 @@ import (
 // ServeHTTP ServeHTTP
 func ServeHTTP() {
 	go func() {
-		conf, err := config.Get()
-		if err != nil {
-			log.Get().Panic(err)
-		}
-		serverConf := conf.GetServerConfig()
+		serverConf := config.GetServerConfig()
 		gin.SetMode(serverConf.RunMode)
 		g := gin.New()
 		g.Use(corsMiddleware())
 		g.Use(gin.Recovery())
-		err = g.SetTrustedProxies(nil)
+		err := g.SetTrustedProxies(nil)
 		if err != nil {
 			log.Get().Panic(err)
 		}

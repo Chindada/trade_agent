@@ -44,5 +44,5 @@ func historyKbarCallback(m mqhandler.MQMessage) {
 	log.Get().WithFields(map[string]interface{}{
 		"Stock": body.GetStockNum(),
 		"Date":  body.GetStartDate(),
-	}).Info("Fetching HistoryKbar Done")
+	}).Info("HistoryKbar Process Done")
 }

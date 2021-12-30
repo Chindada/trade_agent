@@ -7,7 +7,7 @@ mkdir -p ./data/trade_agent
 
 initdb ./data/trade_agent
 
-gsed -i "$ a host    all    all    172.20.10.0/24    trust" ./data/trade_agent/pg_hba.conf
+gsed -i "$ a host    all    all    0.0.0.0/0    trust" ./data/trade_agent/pg_hba.conf
 gsed -i "$ a listen_addresses = '*'" ./data/trade_agent/postgresql.conf
 
 pg_ctl -D ./data/trade_agent -l ./data/trade_agent/logfile start

@@ -70,11 +70,7 @@ func volumeRankCallback(m mqhandler.MQMessage) {
 		log.Get().Panic(err)
 	}
 
-	conf, err := config.Get()
-	if err != nil {
-		log.Get().Panic(err)
-	}
-	condition := conf.GetTargetCondtion()
+	condition := config.GetTargetCondConfig()
 	tradeDay := cache.GetCache().GetTradeDay()
 	var targetArr []*dbagent.Target
 	for _, v := range body.GetData() {
@@ -110,7 +106,9 @@ func volumeRankCallback(m mqhandler.MQMessage) {
 func stockTargetFilter(v *pb.VolumeRankMessage, cond config.TargetCond) bool {
 	stock := cache.GetCache().GetStock(v.GetCode())
 	if stock == nil {
-		log.Get().Errorf("Stock %s does not exist in cache", v.GetCode())
+		log.Get().WithFields(map[string]interface{}{
+			"Stock": v.GetCode(),
+		}).Error("Stock Cache Error")
 		return false
 	}
 
