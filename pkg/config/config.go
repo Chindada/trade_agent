@@ -4,8 +4,6 @@ package config
 import (
 	"fmt"
 	"io/ioutil"
-	"os"
-	"path/filepath"
 	"sync"
 	"trade_agent/global"
 	"trade_agent/pkg/log"
@@ -104,12 +102,7 @@ func parseConfig() {
 	if globalConfig != nil {
 		return
 	}
-	ex, err := os.Executable()
-	if err != nil {
-		log.Get().Panic(err)
-	}
-	exPath := filepath.Clean(filepath.Dir(ex) + "/configs/config.yaml")
-	yamlFile, err := ioutil.ReadFile(exPath)
+	yamlFile, err := ioutil.ReadFile(global.BasePath + "/configs/config.yaml")
 	if err != nil {
 		log.Get().Panic(err)
 	}
@@ -130,7 +123,7 @@ func parseConfig() {
 		globalConfig.Database.Database = fmt.Sprintf("%s_debug", globalConfig.Database.Database)
 	}
 
-	globalConfig.basePath = filepath.Clean(filepath.Dir(ex))
+	globalConfig.basePath = global.BasePath
 	globalConfig.MQTT.CAPath = globalConfig.basePath + globalConfig.MQTT.CAPath
 	globalConfig.MQTT.KeyPath = globalConfig.basePath + globalConfig.MQTT.KeyPath
 	globalConfig.MQTT.CertPath = globalConfig.basePath + globalConfig.MQTT.CertPath

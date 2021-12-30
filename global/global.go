@@ -8,5 +8,8 @@ const (
 	ShortTimeLayout string = "2006-01-02"
 )
 
+// BasePath BasePath
+var BasePath string
+
 // IsDevelopment IsDevelopment
 var IsDevelopment bool

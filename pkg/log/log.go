@@ -3,7 +3,6 @@ package log
 
 import (
 	"os"
-	"path/filepath"
 	"strings"
 	"sync"
 	"time"
@@ -23,11 +22,7 @@ func initLogger() {
 		return
 	}
 	// Get current path
-	ex, err := os.Executable()
-	if err != nil {
-		panic(err)
-	}
-	basePath := filepath.Dir(ex)
+	basePath := global.BasePath
 	// create new instance
 	globalLogger = logrus.New()
 	if global.IsDevelopment {

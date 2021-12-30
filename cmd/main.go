@@ -2,8 +2,10 @@ package main
 
 import (
 	"os"
+	"path/filepath"
 	"trade_agent/global"
 	"trade_agent/pkg/dbagent"
+	"trade_agent/pkg/log"
 	"trade_agent/pkg/modules/cloudevent"
 	"trade_agent/pkg/modules/history"
 	"trade_agent/pkg/modules/order"
@@ -19,6 +21,13 @@ import (
 )
 
 func init() {
+	// get binary path
+	ex, err := os.Executable()
+	if err != nil {
+		log.Get().Panic(err)
+	}
+	global.BasePath = filepath.Clean(filepath.Dir(ex))
+
 	// check if env is production or development
 	deployment := os.Getenv("DEPLOYMENT")
 	if deployment != "docker" {
