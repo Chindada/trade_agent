@@ -6,60 +6,92 @@ import (
 )
 
 // KeyTradeDay KeyTradeDay
-func KeyTradeDay() string {
-	return "KeyTradeDay"
+func KeyTradeDay() *Key {
+	return &Key{
+		Name: "KeyTradeDay",
+		Type: tradeDay,
+	}
 }
 
 // GetTradeDay GetTradeDay
 func (c *Cache) GetTradeDay() time.Time {
-	defer c.lock.RUnlock()
 	c.lock.RLock()
-	if value, ok := c.Cache.Get(KeyTradeDay()); ok {
+	k := KeyTradeDay()
+	tmp := c.CacheMap[string(k.Type)]
+	c.lock.RUnlock()
+	if tmp == nil {
+		return time.Time{}
+	}
+	if value, ok := tmp.Get(k.Name); ok {
 		return value.(time.Time)
 	}
 	return time.Time{}
 }
 
 // KeyHistroyCloseRange KeyHistroyCloseRange
-func KeyHistroyCloseRange() string {
-	return "KeyHistroyCloseRange"
+func KeyHistroyCloseRange() *Key {
+	return &Key{
+		Name: "KeyHistroyCloseRange",
+		Type: tradeDay,
+	}
 }
 
 // GetHistroyCloseRange GetHistroyCloseRange
 func (c *Cache) GetHistroyCloseRange() []time.Time {
-	defer c.lock.RUnlock()
 	c.lock.RLock()
-	if value, ok := c.Cache.Get(KeyHistroyCloseRange()); ok {
+	k := KeyHistroyCloseRange()
+	tmp := c.CacheMap[string(k.Type)]
+	c.lock.RUnlock()
+	if tmp == nil {
+		return []time.Time{}
+	}
+	if value, ok := tmp.Get(k.Name); ok {
 		return value.([]time.Time)
 	}
 	return []time.Time{}
 }
 
 // KeyHistroyTickRange KeyHistroyTickRange
-func KeyHistroyTickRange() string {
-	return "KeyHistroyTickRange"
+func KeyHistroyTickRange() *Key {
+	return &Key{
+		Name: "KeyHistroyTickRange",
+		Type: tradeDay,
+	}
 }
 
 // GetHistroyTickRange GetHistroyTickRange
 func (c *Cache) GetHistroyTickRange() []time.Time {
-	defer c.lock.RUnlock()
 	c.lock.RLock()
-	if value, ok := c.Cache.Get(KeyHistroyTickRange()); ok {
+	k := KeyHistroyTickRange()
+	tmp := c.CacheMap[string(k.Type)]
+	c.lock.RUnlock()
+	if tmp == nil {
+		return []time.Time{}
+	}
+	if value, ok := tmp.Get(k.Name); ok {
 		return value.([]time.Time)
 	}
 	return []time.Time{}
 }
 
 // KeyHistroyKbarRange KeyHistroyKbarRange
-func KeyHistroyKbarRange() string {
-	return "KeyHistroyKbarRange"
+func KeyHistroyKbarRange() *Key {
+	return &Key{
+		Name: "KeyHistroyKbarRange",
+		Type: tradeDay,
+	}
 }
 
 // GetHistroyKbarRange GetHistroyKbarRange
 func (c *Cache) GetHistroyKbarRange() []time.Time {
-	defer c.lock.RUnlock()
 	c.lock.RLock()
-	if value, ok := c.Cache.Get(KeyHistroyKbarRange()); ok {
+	k := KeyHistroyKbarRange()
+	tmp := c.CacheMap[string(k.Type)]
+	c.lock.RUnlock()
+	if tmp == nil {
+		return []time.Time{}
+	}
+	if value, ok := tmp.Get(k.Name); ok {
 		return value.([]time.Time)
 	}
 	return []time.Time{}

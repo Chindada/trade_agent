@@ -6,15 +6,23 @@ import (
 )
 
 // KeyStockHistoryTickAnalyze KeyStockHistoryTickAnalyze
-func KeyStockHistoryTickAnalyze(stockNum string) string {
-	return fmt.Sprintf("KeyStockHistoryTickAnalyze:%s", stockNum)
+func KeyStockHistoryTickAnalyze(stockNum string) *Key {
+	return &Key{
+		Name: fmt.Sprintf("KeyStockHistoryTickAnalyze:%s", stockNum),
+		Type: historyTick,
+	}
 }
 
 // GetStockHistoryTickAnalyze GetStockHistoryTickAnalyze
 func (c *Cache) GetStockHistoryTickAnalyze(stockNum string) []int64 {
-	defer c.lock.RUnlock()
 	c.lock.RLock()
-	if value, ok := c.Cache.Get(KeyStockHistoryTickAnalyze(stockNum)); ok {
+	k := KeyStockHistoryTickAnalyze(stockNum)
+	tmp := c.CacheMap[string(k.Type)]
+	c.lock.RUnlock()
+	if tmp == nil {
+		return []int64{}
+	}
+	if value, ok := tmp.Get(k.Name); ok {
 		return value.([]int64)
 	}
 	return []int64{}

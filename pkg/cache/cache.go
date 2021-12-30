@@ -9,8 +9,14 @@ import (
 
 // Cache Cache
 type Cache struct {
-	Cache *cache.Cache
-	lock  sync.RWMutex
+	CacheMap map[string]*cache.Cache
+	lock     sync.RWMutex
+}
+
+// Key Key
+type Key struct {
+	Name string  `json:"name,omitempty" yaml:"name"`
+	Type keyType `json:"type,omitempty" yaml:"type"`
 }
 
 var (
@@ -32,13 +38,20 @@ func initGlobalCache() {
 		return
 	}
 	var newCache Cache
-	newCache.Cache = cache.New(0, 0)
+	newCache.CacheMap = make(map[string]*cache.Cache)
 	globalCache = &newCache
 }
 
 // Set Set
-func (c *Cache) Set(key string, value interface{}) {
-	c.lock.Lock()
-	c.Cache.Set(key, value, 0)
-	c.lock.Unlock()
+func (c *Cache) Set(key *Key, value interface{}) {
+	c.lock.RLock()
+	tmp := c.CacheMap[string(key.Type)]
+	c.lock.RUnlock()
+	if tmp == nil {
+		tmp = cache.New(0, 0)
+		c.lock.Lock()
+		c.CacheMap[string(key.Type)] = tmp
+		c.lock.Unlock()
+	}
+	tmp.Set(key.Name, value, 0)
 }

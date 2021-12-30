@@ -7,15 +7,23 @@ import (
 )
 
 // KeyRealTimeTickChannel KeyRealTimeTickChannel
-func KeyRealTimeTickChannel(stockNum string) string {
-	return fmt.Sprintf("KeyRealTimeTickChannel:%s", stockNum)
+func KeyRealTimeTickChannel(stockNum string) *Key {
+	return &Key{
+		Name: fmt.Sprintf("KeyRealTimeTickChannel:%s", stockNum),
+		Type: realTimeTick,
+	}
 }
 
 // GetRealTimeTickChannel GetRealTimeTickChannel
 func (c *Cache) GetRealTimeTickChannel(stockNum string) chan *dbagent.RealTimeTick {
-	defer c.lock.RUnlock()
 	c.lock.RLock()
-	if value, ok := c.Cache.Get(KeyRealTimeTickChannel(stockNum)); ok {
+	k := KeyRealTimeTickChannel(stockNum)
+	tmp := c.CacheMap[string(k.Type)]
+	c.lock.RUnlock()
+	if tmp == nil {
+		return nil
+	}
+	if value, ok := tmp.Get(k.Name); ok {
 		return value.(chan *dbagent.RealTimeTick)
 	}
 	return nil

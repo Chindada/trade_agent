@@ -40,6 +40,8 @@ func orderCallback(order *sinopacapi.Order) error {
 	// check waiting order
 	if waitingOrder := cache.GetCache().GetOrderWaiting(order.StockNum); waitingOrder != nil {
 		return nil
+	} else if !isGoodPoint(order) {
+		return nil
 	}
 
 	switch order.Action {
@@ -138,25 +140,25 @@ func checkSwitch(order *sinopacapi.Order) bool {
 	case sinopacapi.ActionBuy:
 		// get forward remaining orders
 		forwardRemaining, total := cache.GetCache().GetOrderForwardCountDetail()
-		if !tradeSwitch.EnableBuy || forwardRemaining > tradeSwitch.MeanTimeForward || total > tradeSwitch.ForwardMax {
-			return false
+		if tradeSwitch.EnableBuy && forwardRemaining < tradeSwitch.MeanTimeForward && total < tradeSwitch.ForwardMax {
+			return true
 		}
 	case sinopacapi.ActionSell:
-		if !tradeSwitch.EnableSell {
-			return false
+		if tradeSwitch.EnableSell {
+			return true
 		}
 	case sinopacapi.ActionSellFirst:
 		// get reverse remaining orders
 		reverseRemaining, total := cache.GetCache().GetOrderReverseCountDetail()
-		if !tradeSwitch.EnableSellFirst || reverseRemaining > tradeSwitch.MeanTimeReverse || total > tradeSwitch.ReverseMax {
-			return false
+		if tradeSwitch.EnableSellFirst && reverseRemaining < tradeSwitch.MeanTimeReverse && total < tradeSwitch.ReverseMax {
+			return true
 		}
 	case sinopacapi.ActionBuyLater:
-		if !tradeSwitch.EnableBuyLater {
-			return false
+		if tradeSwitch.EnableBuyLater {
+			return true
 		}
 	}
-	return true
+	return false
 }
 
 func getQuantityByBiasRate(order *sinopacapi.Order) int64 {
@@ -175,4 +177,10 @@ func getQuantityByBiasRate(order *sinopacapi.Order) int64 {
 		return 1
 	}
 	return 0
+}
+
+func isGoodPoint(order *sinopacapi.Order) bool {
+	// historyTickStatus := cache.GetCache().GetStockHistoryTickAnalyze(order.StockNum)
+	// historyKbarStatus := cache.GetCache().GetStockHistoryKbarAnalyze(order.StockNum)
+	return false
 }

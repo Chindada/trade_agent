@@ -6,15 +6,23 @@ import (
 )
 
 // KeyStockHistoryKbarAnalyze KeyStockHistoryKbarAnalyze
-func KeyStockHistoryKbarAnalyze(stockNum string) string {
-	return fmt.Sprintf("KeyStockHistoryKbarAnalyze:%s", stockNum)
+func KeyStockHistoryKbarAnalyze(stockNum string) *Key {
+	return &Key{
+		Name: fmt.Sprintf("KeyStockHistoryKbarAnalyze:%s", stockNum),
+		Type: historyKbar,
+	}
 }
 
 // GetStockHistoryKbarAnalyze GetStockHistoryKbarAnalyze
 func (c *Cache) GetStockHistoryKbarAnalyze(stockNum string) string {
-	defer c.lock.RUnlock()
 	c.lock.RLock()
-	if value, ok := c.Cache.Get(KeyStockHistoryKbarAnalyze(stockNum)); ok {
+	k := KeyStockHistoryKbarAnalyze(stockNum)
+	tmp := c.CacheMap[string(k.Type)]
+	c.lock.RUnlock()
+	if tmp == nil {
+		return ""
+	}
+	if value, ok := tmp.Get(k.Name); ok {
 		return value.(string)
 	}
 	return ""

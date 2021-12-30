@@ -7,30 +7,46 @@ import (
 )
 
 // KeyRealTimeBidAskChannel KeyRealTimeBidAskChannel
-func KeyRealTimeBidAskChannel(stockNum string) string {
-	return fmt.Sprintf("KeyRealTimeBidAskChannel:%s", stockNum)
+func KeyRealTimeBidAskChannel(stockNum string) *Key {
+	return &Key{
+		Name: fmt.Sprintf("KeyRealTimeBidAskChannel:%s", stockNum),
+		Type: realTimeBidask,
+	}
 }
 
 // GetRealTimeBidAskChannel GetRealTimeBidAskChannel
 func (c *Cache) GetRealTimeBidAskChannel(stockNum string) chan *dbagent.RealTimeBidAsk {
-	defer c.lock.RUnlock()
 	c.lock.RLock()
-	if value, ok := c.Cache.Get(KeyRealTimeBidAskChannel(stockNum)); ok {
+	k := KeyRealTimeBidAskChannel(stockNum)
+	tmp := c.CacheMap[string(k.Type)]
+	c.lock.RUnlock()
+	if tmp == nil {
+		return nil
+	}
+	if value, ok := tmp.Get(k.Name); ok {
 		return value.(chan *dbagent.RealTimeBidAsk)
 	}
 	return nil
 }
 
 // KeyRealTimeBidAskStatus KeyRealTimeBidAskStatus
-func KeyRealTimeBidAskStatus(stockNum string) string {
-	return fmt.Sprintf("KeyRealTimeBidAskStatus:%s", stockNum)
+func KeyRealTimeBidAskStatus(stockNum string) *Key {
+	return &Key{
+		Name: fmt.Sprintf("KeyRealTimeBidAskStatus:%s", stockNum),
+		Type: realTimeBidask,
+	}
 }
 
 // GetRealTimeBidAskStatus GetRealTimeBidAskStatus
 func (c *Cache) GetRealTimeBidAskStatus(stockNum string) string {
-	defer c.lock.RUnlock()
 	c.lock.RLock()
-	if value, ok := c.Cache.Get(KeyRealTimeBidAskStatus(stockNum)); ok {
+	k := KeyRealTimeBidAskStatus(stockNum)
+	tmp := c.CacheMap[string(k.Type)]
+	c.lock.RUnlock()
+	if tmp == nil {
+		return ""
+	}
+	if value, ok := tmp.Get(k.Name); ok {
 		return value.(string)
 	}
 	return ""

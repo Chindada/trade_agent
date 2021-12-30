@@ -4,15 +4,23 @@ package cache
 import "time"
 
 // KeyCalendar KeyCalendar
-func KeyCalendar() string {
-	return "KeyCalendar"
+func KeyCalendar() *Key {
+	return &Key{
+		Name: "KeyCalendar",
+		Type: calendar,
+	}
 }
 
 // GetCalendar GetCalendar
 func (c *Cache) GetCalendar() map[time.Time]bool {
-	defer c.lock.RUnlock()
 	c.lock.RLock()
-	if value, ok := c.Cache.Get(KeyCalendar()); ok {
+	k := KeyCalendar()
+	tmp := c.CacheMap[string(k.Type)]
+	c.lock.RUnlock()
+	if tmp == nil {
+		return nil
+	}
+	if value, ok := tmp.Get(k.Name); ok {
 		return value.(map[time.Time]bool)
 	}
 	return nil

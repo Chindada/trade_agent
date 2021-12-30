@@ -8,15 +8,23 @@ import (
 )
 
 // KeyStockHistoryClose KeyStockHistoryClose
-func KeyStockHistoryClose(stockNum string, date time.Time) string {
-	return fmt.Sprintf("KeyStockHistoryClose:%s:%s", stockNum, date.Format(global.ShortTimeLayout))
+func KeyStockHistoryClose(stockNum string, date time.Time) *Key {
+	return &Key{
+		Name: fmt.Sprintf("KeyStockHistoryClose:%s:%s", stockNum, date.Format(global.ShortTimeLayout)),
+		Type: historyClose,
+	}
 }
 
 // GetHistoryClose GetHistoryClose
 func (c *Cache) GetHistoryClose(stockNum string, date time.Time) float64 {
-	defer c.lock.RUnlock()
 	c.lock.RLock()
-	if value, ok := c.Cache.Get(KeyStockHistoryClose(stockNum, date)); ok {
+	k := KeyStockHistoryClose(stockNum, date)
+	tmp := c.CacheMap[string(k.Type)]
+	c.lock.RUnlock()
+	if tmp == nil {
+		return 0
+	}
+	if value, ok := tmp.Get(k.Name); ok {
 		return value.(float64)
 	}
 	return 0

@@ -7,15 +7,23 @@ import (
 )
 
 // KeyStockDetail KeyStockDetail
-func KeyStockDetail(stockNum string) string {
-	return fmt.Sprintf("KeyStockDetail:%s", stockNum)
+func KeyStockDetail(stockNum string) *Key {
+	return &Key{
+		Name: fmt.Sprintf("KeyStockDetail:%s", stockNum),
+		Type: stockDetail,
+	}
 }
 
 // GetStock GetStock
 func (c *Cache) GetStock(stockNum string) *dbagent.Stock {
-	defer c.lock.RUnlock()
 	c.lock.RLock()
-	if value, ok := c.Cache.Get(KeyStockDetail(stockNum)); ok {
+	k := KeyStockDetail(stockNum)
+	tmp := c.CacheMap[string(k.Type)]
+	c.lock.RUnlock()
+	if tmp == nil {
+		return nil
+	}
+	if value, ok := tmp.Get(k.Name); ok {
 		return value.(*dbagent.Stock)
 	}
 	return nil
@@ -23,10 +31,5 @@ func (c *Cache) GetStock(stockNum string) *dbagent.Stock {
 
 // GetStockID GetStockID
 func (c *Cache) GetStockID(stockNum string) int64 {
-	defer c.lock.RUnlock()
-	c.lock.RLock()
-	if value, ok := c.Cache.Get(KeyStockDetail(stockNum)); ok {
-		return int64(value.(*dbagent.Stock).ID)
-	}
-	return 0
+	return int64(c.GetStock(stockNum).ID)
 }
