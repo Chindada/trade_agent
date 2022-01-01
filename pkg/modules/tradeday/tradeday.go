@@ -2,6 +2,7 @@
 package tradeday
 
 import (
+	"time"
 	"trade_agent/global"
 	"trade_agent/pkg/cache"
 	"trade_agent/pkg/config"
@@ -36,6 +37,14 @@ func InitTradeDay() {
 		"Date": tradeDay.Format(global.ShortTimeLayout),
 	}).Info("TradeDay")
 
+	tradeConf := config.GetTradeConfig()
+	go func() {
+		for range time.Tick(10 * time.Second) {
+			isOpen := checkIsOpenTime(tradeDay, tradeConf.TradeInEndTime, tradeConf.WaitInOpen)
+			cache.GetCache().Set(cache.KeyIsOpenTime(), isOpen)
+		}
+	}()
+
 	closeRange := GetLastNTradeDayByDate(config.GetTradeConfig().HistoryClosePeriod, tradeDay)
 	tickRange := GetLastNTradeDayByDate(config.GetTradeConfig().HistoryTickPeriod, tradeDay)
 	kbarRange := GetLastNTradeDayByDate(config.GetTradeConfig().HistoryKbarPeriod, tradeDay)
@@ -43,4 +52,12 @@ func InitTradeDay() {
 	cache.GetCache().Set(cache.KeyHistroyCloseRange(), closeRange)
 	cache.GetCache().Set(cache.KeyHistroyTickRange(), tickRange)
 	cache.GetCache().Set(cache.KeyHistroyKbarRange(), kbarRange)
+}
+
+func checkIsOpenTime(tradeDay time.Time, tradInEndTime, waitInOpen int64) bool {
+	starTime := tradeDay.Add(9*time.Hour + time.Duration(waitInOpen)*time.Minute)
+	if time.Now().After(starTime) && time.Now().Before(starTime.Add(time.Duration(tradInEndTime)*time.Hour)) {
+		return true
+	}
+	return false
 }

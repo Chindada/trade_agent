@@ -96,3 +96,26 @@ func (c *Cache) GetHistroyKbarRange() []time.Time {
 	}
 	return []time.Time{}
 }
+
+// KeyIsOpenTime KeyIsOpenTime
+func KeyIsOpenTime() *Key {
+	return &Key{
+		Name: "KeyIsOpen",
+		Type: tradeDay,
+	}
+}
+
+// GetKeyIsOpen GetKeyIsOpen
+func (c *Cache) GetKeyIsOpen() bool {
+	c.lock.RLock()
+	k := KeyIsOpenTime()
+	tmp := c.CacheMap[string(k.Type)]
+	c.lock.RUnlock()
+	if tmp == nil {
+		return false
+	}
+	if value, ok := tmp.Get(k.Name); ok {
+		return value.(bool)
+	}
+	return false
+}

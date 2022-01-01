@@ -68,6 +68,8 @@ type Trade struct {
 	TradeInWaitTime    int64 `json:"trade_in_wait_time,omitempty" yaml:"trade_in_wait_time"`
 	TradeOutWaitTime   int64 `json:"trade_out_wait_time,omitempty" yaml:"trade_out_wait_time"`
 	HoldMaxTime        int64 `json:"hold_max_time,omitempty" yaml:"hold_max_time"`
+	WaitInOpen         int64 `json:"wait_in_open,omitempty" yaml:"wait_in_open"`
+	TradeInEndTime     int64 `json:"trade_in_end_time,omitempty" yaml:"trade_in_end_time"`
 }
 
 // Switch Switch

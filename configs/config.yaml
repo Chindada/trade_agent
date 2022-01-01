@@ -33,6 +33,10 @@ trade:
     trade_in_wait_time: 15
     trade_out_wait_time: 30
     hold_max_time: 3600
+    # unit: minute
+    wait_in_open: 5
+    # unit: hour
+    trade_in_end_time: 1.5
 # switch
 switch:
     enable_buy: true
