@@ -102,7 +102,7 @@ func parseConfig() {
 	if globalConfig != nil {
 		return
 	}
-	yamlFile, err := ioutil.ReadFile(global.BasePath + "/configs/config.yaml")
+	yamlFile, err := ioutil.ReadFile(global.Get().GetBasePath() + "/configs/config.yaml")
 	if err != nil {
 		log.Get().Panic(err)
 	}
@@ -112,7 +112,7 @@ func parseConfig() {
 	}
 
 	// if in development, change some parameters
-	if global.IsDevelopment {
+	if global.Get().GetIsDevelopment() {
 		localHost := utils.GetHostIP()
 		globalConfig.MQTT.Host = localHost
 
@@ -123,7 +123,7 @@ func parseConfig() {
 		globalConfig.Database.Database = fmt.Sprintf("%s_debug", globalConfig.Database.Database)
 	}
 
-	globalConfig.basePath = global.BasePath
+	globalConfig.basePath = global.Get().GetBasePath()
 	globalConfig.MQTT.CAPath = globalConfig.basePath + globalConfig.MQTT.CAPath
 	globalConfig.MQTT.KeyPath = globalConfig.basePath + globalConfig.MQTT.KeyPath
 	globalConfig.MQTT.CertPath = globalConfig.basePath + globalConfig.MQTT.CertPath

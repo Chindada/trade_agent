@@ -78,12 +78,20 @@ func initMQHandler() {
 
 // Sub Sub
 func (c *MQHandler) Sub(body MQSubBody) error {
+	var already bool
 	c.lock.Lock()
-	c.callbackMap[string(body.MQTopic)] = body.Callback
-	if body.Once {
-		c.onceMap[string(body.MQTopic)] = true
+	if c.callbackMap[string(body.MQTopic)] != nil {
+		already = true
+	} else {
+		c.callbackMap[string(body.MQTopic)] = body.Callback
+		if body.Once {
+			c.onceMap[string(body.MQTopic)] = true
+		}
 	}
 	c.lock.Unlock()
+	if already {
+		return nil
+	}
 	go func() {
 		token := c.client.Subscribe(string(body.MQTopic), 2, c.onMessage)
 		if token.Wait() && token.Error() != nil {

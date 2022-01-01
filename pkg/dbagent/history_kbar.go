@@ -55,10 +55,10 @@ func (c *DBAgent) DeleteAllHistoryKbar() error {
 	return err
 }
 
-// CheckHistoryKbarExistByStockNum CheckHistoryKbarExistByStockNum
-func (c *DBAgent) CheckHistoryKbarExistByStockNum(date time.Time) (bool, error) {
+// CheckHistoryKbarExistByStockID CheckHistoryKbarExistByStockID
+func (c *DBAgent) CheckHistoryKbarExistByStockID(stockID int64, date time.Time) (bool, error) {
 	var count int64
-	if err := c.DB.Model(&HistoryKbar{}).Where("tick_time >= ? and tick_time < ?", date, date.AddDate(0, 0, 1)).Count(&count).Error; err != nil {
+	if err := c.DB.Model(&HistoryKbar{}).Where("stock_id = ? and tick_time >= ? and tick_time < ?", stockID, date, date.AddDate(0, 0, 1)).Count(&count).Error; err != nil {
 		return false, err
 	}
 	if count > 0 {

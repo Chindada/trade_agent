@@ -40,7 +40,7 @@ func (c *DBAgent) InsertMultiCloudEvent(recordArr []*CloudEvent) error {
 // DeleteAllCloudEvent DeleteAllCloudEvent
 func (c *DBAgent) DeleteAllCloudEvent() error {
 	err := c.DB.Transaction(func(tx *gorm.DB) error {
-		if err := tx.Not("id = 0").Unscoped().Delete(&CloudEvent{}).Error; err != nil {
+		if err := tx.Not("id = 0").Delete(&CloudEvent{}).Error; err != nil {
 			return err
 		}
 		return nil

@@ -5,6 +5,7 @@ import (
 	"errors"
 	"runtime/debug"
 	"sync"
+	"trade_agent/pkg/dbagent"
 	"trade_agent/pkg/log"
 )
 
@@ -28,8 +29,9 @@ func Run() {
 		}
 	}()
 	defer lock.Unlock()
-	log.Get().Warn("cloudeventtask todo")
-	// if err = tradeeventprocess.CleanEvent(); err != nil {
-	// 	logger.GetLogger().Panic(err)
-	// }
+
+	err = dbagent.Get().DeleteAllCloudEvent()
+	if err != nil {
+		log.Get().Panic(err)
+	}
 }

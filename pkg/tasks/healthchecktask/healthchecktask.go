@@ -6,6 +6,7 @@ import (
 	"runtime/debug"
 	"sync"
 	"trade_agent/pkg/log"
+	"trade_agent/pkg/sinopacapi"
 )
 
 var lock sync.Mutex
@@ -28,8 +29,9 @@ func Run() {
 		}
 	}()
 	defer lock.Unlock()
-	log.Get().Warn("healthchecktask todo")
-	// if err = sinopacapi.GetAgent().RestartSinopacSRV(); err != nil {
-	// 	logger.GetLogger().Panic(err)
-	// }
+
+	err = sinopacapi.Get().RestartSinopacSRV()
+	if err != nil {
+		log.Get().Panic(err)
+	}
 }

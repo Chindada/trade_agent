@@ -2,6 +2,7 @@
 package history
 
 import (
+	"sync"
 	"time"
 	"trade_agent/global"
 	"trade_agent/pkg/cache"
@@ -11,6 +12,8 @@ import (
 	"trade_agent/pkg/pb"
 	"trade_agent/pkg/sinopacapi"
 )
+
+var wg sync.WaitGroup
 
 func subStockClose(targetArr []*dbagent.Target, fetchDate []time.Time) error {
 	handler := mqhandler.Get()
@@ -29,6 +32,7 @@ func subStockClose(targetArr []*dbagent.Target, fetchDate []time.Time) error {
 		if err != nil {
 			log.Get().Panic(err)
 		}
+
 		for _, s := range targetArr {
 			var close float64
 			if close, err = dbagent.Get().GetHistoryCloseByStockAndDate(cache.GetCache().GetStockID(s.Stock.Number), int64(calendarDate.ID)); err != nil {
@@ -37,10 +41,13 @@ func subStockClose(targetArr []*dbagent.Target, fetchDate []time.Time) error {
 				var stockNumArr, dateArr []string
 				dateArr = append(dateArr, t.Format(global.ShortTimeLayout))
 				stockNumArr = append(stockNumArr, s.Stock.Number)
+
+				wg.Add(1)
 				err = sinopacapi.Get().FetchHistoryCloseByStockArrDateArr(stockNumArr, dateArr)
 				if err != nil {
 					return err
 				}
+				wg.Wait()
 				continue
 			}
 			cache.GetCache().Set(cache.KeyStockHistoryClose(s.Stock.Number, t), close)
@@ -55,6 +62,7 @@ func subStockClose(targetArr []*dbagent.Target, fetchDate []time.Time) error {
 }
 
 func stockCloseCallback(m mqhandler.MQMessage) {
+	defer wg.Done()
 	body := pb.HistoryCloseResponse{}
 	err := body.UnmarshalProto(m.Payload())
 	if err != nil {

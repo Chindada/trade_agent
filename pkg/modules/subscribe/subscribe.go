@@ -17,6 +17,7 @@ func InitSubscribe() {
 	if err != nil {
 		log.Get().Panic(err)
 	}
+
 	// unsubscribe all bidask
 	err = sinopacapi.Get().UnSubscribeAllByType(sinopacapi.TickTypeStockBidAsk)
 	if err != nil {
@@ -25,6 +26,12 @@ func InitSubscribe() {
 
 	// sub event targets
 	err = eventbus.Get().Sub(eventbus.TopicSubscribeTargets(), targetsBusCallback)
+	if err != nil {
+		log.Get().Panic(err)
+	}
+
+	// sub event to unsubscribe
+	err = eventbus.Get().Sub(eventbus.TopicUnSubscribeTargets(), unSubTargetsBusCallback)
 	if err != nil {
 		log.Get().Panic(err)
 	}
@@ -48,4 +55,17 @@ func targetsBusCallback(targetArr []*dbagent.Target) error {
 	}
 
 	return nil
+}
+
+func unSubTargetsBusCallback(target *dbagent.Target) {
+	// realtime tick
+	err := sinopacapi.Get().UnSubRealTimeTick([]string{target.Stock.Number})
+	if err != nil {
+		log.Get().Panic(err)
+	}
+	// realtime bidask
+	err = sinopacapi.Get().UnSubBidAsk([]string{target.Stock.Number})
+	if err != nil {
+		log.Get().Panic(err)
+	}
 }

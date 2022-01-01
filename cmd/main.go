@@ -7,6 +7,7 @@ import (
 	"trade_agent/pkg/dbagent"
 	"trade_agent/pkg/log"
 	"trade_agent/pkg/modules/cloudevent"
+	"trade_agent/pkg/modules/healthcheck"
 	"trade_agent/pkg/modules/history"
 	"trade_agent/pkg/modules/order"
 	"trade_agent/pkg/modules/stock"
@@ -26,17 +27,16 @@ func init() {
 	if err != nil {
 		log.Get().Panic(err)
 	}
-	global.BasePath = filepath.Clean(filepath.Dir(ex))
+	global.Get().SetBasePath(filepath.Clean(filepath.Dir(ex)))
 
 	// check if env is production or development
 	deployment := os.Getenv("DEPLOYMENT")
 	if deployment != "docker" {
-		global.IsDevelopment = true
+		global.Get().SetIsDevelopment(true)
 	}
 }
 
 func main() {
-	keep := make(chan struct{})
 	// initial core funcs
 	dbagent.InitDatabase()
 	mqhandler.InitMQHandler()
@@ -72,5 +72,7 @@ func main() {
 
 	// find target
 	targets.InitTargets()
-	<-keep
+
+	// initial health check
+	healthcheck.InitHealthCheck()
 }

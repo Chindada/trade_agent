@@ -22,10 +22,10 @@ func initLogger() {
 		return
 	}
 	// Get current path
-	basePath := global.BasePath
+	basePath := global.Get().GetBasePath()
 	// create new instance
 	globalLogger = logrus.New()
-	if global.IsDevelopment {
+	if global.Get().GetIsDevelopment() {
 		globalLogger.SetFormatter(&logrus.TextFormatter{
 			TimestampFormat:  "2006/01/02 15:04:05",
 			FullTimestamp:    true,

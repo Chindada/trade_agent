@@ -19,6 +19,7 @@ var globalClient *TradeAgent
 type TradeAgent struct {
 	Client    *resty.Client
 	urlPrefix string
+	token     string
 }
 
 // Order Order
@@ -41,11 +42,20 @@ func InitSinpacAPI() {
 		Client:    restfulclient.Get(),
 		urlPrefix: "http://" + serverConf.SinopacSRVHost + ":" + serverConf.SinopacSRVPort,
 	}
+
 	// check sinopac mq srv connect to mqtt broker
 	err := new.AskSinpacMQSRVConnectMQ(mqConf)
 	if err != nil {
 		log.Get().Panic(err)
 	}
+
+	token, err := new.FetchServerToken()
+	if err != nil {
+		log.Get().Panic(err)
+	} else {
+		new.token = token
+	}
+
 	globalClient = &new
 }
 
@@ -55,6 +65,11 @@ func Get() *TradeAgent {
 		log.Get().Panic("Trade Agent was not inititalized")
 	}
 	return globalClient
+}
+
+// GetToken GetToken
+func (c *TradeAgent) GetToken() string {
+	return c.token
 }
 
 // AskSinpacMQSRVConnectMQ AskSinpacMQSRVConnectMQ
@@ -75,8 +90,8 @@ func (c *TradeAgent) AskSinpacMQSRVConnectMQ(mqConf config.MQTT) (err error) {
 	return err
 }
 
-// FetchServerKey FetchServerKey
-func (c *TradeAgent) FetchServerKey() (token string, err error) {
+// FetchServerToken FetchServerToken
+func (c *TradeAgent) FetchServerToken() (token string, err error) {
 	var resp *resty.Response
 	resp, err = c.Client.R().
 		SetResult(&ResponseHealthStatus{}).
@@ -384,6 +399,27 @@ func (c *TradeAgent) SubRealTimeTick(stockArr []string) (err error) {
 	return err
 }
 
+// UnSubRealTimeTick UnSubRealTimeTick
+func (c *TradeAgent) UnSubRealTimeTick(stockArr []string) (err error) {
+	stocks := SubscribeBody{
+		StockNumArr: stockArr,
+	}
+	var resp *resty.Response
+	resp, err = c.Client.R().
+		SetBody(stocks).
+		SetResult(&ResponseCommon{}).
+		Post(c.urlPrefix + urlUnSubRealTimeTickByStock)
+	if err != nil {
+		return err
+	} else if resp.StatusCode() != http.StatusOK {
+		return errors.New("UnSubRealTimeTick API Fail")
+	}
+	if result := resp.Result().(*ResponseCommon).Result; result != StatusSuccuss {
+		return errors.New(result)
+	}
+	return err
+}
+
 // SubBidAsk SubBidAsk
 func (c *TradeAgent) SubBidAsk(stockArr []string) (err error) {
 	stocks := SubscribeBody{
@@ -398,6 +434,27 @@ func (c *TradeAgent) SubBidAsk(stockArr []string) (err error) {
 		return err
 	} else if resp.StatusCode() != http.StatusOK {
 		return errors.New("SubBidAsk API Fail")
+	}
+	if result := resp.Result().(*ResponseCommon).Result; result != StatusSuccuss {
+		return errors.New(result)
+	}
+	return err
+}
+
+// UnSubBidAsk UnSubBidAsk
+func (c *TradeAgent) UnSubBidAsk(stockArr []string) (err error) {
+	stocks := SubscribeBody{
+		StockNumArr: stockArr,
+	}
+	var resp *resty.Response
+	resp, err = c.Client.R().
+		SetBody(stocks).
+		SetResult(&ResponseCommon{}).
+		Post(c.urlPrefix + urlUnSubBidAskByStock)
+	if err != nil {
+		return err
+	} else if resp.StatusCode() != http.StatusOK {
+		return errors.New("UnSubBidAsk API Fail")
 	}
 	if result := resp.Result().(*ResponseCommon).Result; result != StatusSuccuss {
 		return errors.New(result)

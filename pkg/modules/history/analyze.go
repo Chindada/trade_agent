@@ -22,6 +22,5 @@ func getBiasRateByCloseArr(closeArr []float64) (biasRate float64, err error) {
 	if err != nil {
 		return biasRate, err
 	}
-	biasRate = utils.Round(100*(closeArr[len(closeArr)-1]-ma)/ma, 2)
-	return biasRate, err
+	return utils.Round(100*(closeArr[len(closeArr)-1]-ma)/ma, 2), err
 }

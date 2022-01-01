@@ -19,7 +19,7 @@ func subHistoryTick(targetArr []*dbagent.Target, fetchDate []time.Time) error {
 	for _, v := range targetArr {
 		for _, date := range fetchDate {
 			var exist bool
-			exist, err = dbagent.Get().CheckHistoryTickExistByStockNum(date)
+			exist, err = dbagent.Get().CheckHistoryTickExistByStockID(v.StockID, date)
 			if err != nil {
 				return err
 			} else if exist {
