@@ -15,8 +15,9 @@ type Target struct {
 	StockID  int64     `json:"stock_id,omitempty" yaml:"stock_id" gorm:"column:stock_id"`
 	TradeDay time.Time `json:"trade_day,omitempty" yaml:"trade_day" gorm:"column:trade_day"`
 
-	Rank   int   `json:"rank,omitempty" yaml:"rank" gorm:"column:rank"`
-	Volume int64 `json:"volume,omitempty" yaml:"volume" gorm:"column:volume"`
+	Rank        int   `json:"rank,omitempty" yaml:"rank" gorm:"column:rank"`
+	Volume      int64 `json:"volume,omitempty" yaml:"volume" gorm:"column:volume"`
+	RealTimeAdd bool  `json:"real_time_add,omitempty" yaml:"real_time_add" gorm:"column:real_time_add"`
 }
 
 // InsertTarget InsertTarget
@@ -67,4 +68,14 @@ func (c *DBAgent) DeleteMultiTargetByDate(date time.Time) error {
 func (c *DBAgent) GetTargetsByDate(date time.Time) (targetArr []*Target, err error) {
 	result := c.DB.Preload("Stock").Where("trade_day = ?", date).Find(&targetArr)
 	return targetArr, result.Error
+}
+
+// CheckExistTargetsByDateStockID CheckExistTargetsByDateStockID
+func (c *DBAgent) CheckExistTargetsByDateStockID(date time.Time, stockID int64) (bool, error) {
+	var count int64
+	err := c.DB.Model(&Target{}).Where("trade_day = ? and stock_id = ?", date, stockID).Count(&count).Error
+	if count > 0 {
+		return true, err
+	}
+	return false, err
 }

@@ -59,7 +59,9 @@ target_cond:
         - "3701"
     black_category:
         - "17"
+    real_time_targets_count: 10
 # schedule
 schedule:
-    cleanevent_cron: "0 0 4 * * ?"
-    restart_sinopac_cron: "0 20 1,8,15 * * ?"
+    # cron
+    clean_event: "0 0 4 * * ?"
+    restart_sinopac: "0 20 1,8,15 * * ?"

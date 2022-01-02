@@ -97,18 +97,18 @@ func (c *Cache) GetHistroyKbarRange() []time.Time {
 	return []time.Time{}
 }
 
-// KeyIsOpenTime KeyIsOpenTime
-func KeyIsOpenTime() *Key {
+// KeyIsOpenWithEndWaitTime KeyIsOpenWithEndWaitTime
+func KeyIsOpenWithEndWaitTime() *Key {
 	return &Key{
-		Name: "KeyIsOpen",
+		Name: "KeyIsOpenWithEndWaitTime",
 		Type: tradeDay,
 	}
 }
 
-// GetKeyIsOpen GetKeyIsOpen
-func (c *Cache) GetKeyIsOpen() bool {
+// GetIsOpenWithEndWaitTime GetIsOpenWithEndWaitTime
+func (c *Cache) GetIsOpenWithEndWaitTime() bool {
 	c.lock.RLock()
-	k := KeyIsOpenTime()
+	k := KeyIsOpenWithEndWaitTime()
 	tmp := c.CacheMap[string(k.Type)]
 	c.lock.RUnlock()
 	if tmp == nil {

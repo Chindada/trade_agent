@@ -2,6 +2,7 @@
 package targets
 
 import (
+	"time"
 	"trade_agent/global"
 	"trade_agent/pkg/cache"
 	"trade_agent/pkg/config"
@@ -22,6 +23,17 @@ func InitTargets() {
 	if err != nil {
 		log.Get().Panic(err)
 	}
+
+	go func() {
+		for range time.Tick(30 * time.Second) {
+			if cache.GetCache().GetIsOpenWithEndWaitTime() {
+				err = getRealTimeTargets()
+				if err != nil {
+					log.Get().Panic(err)
+				}
+			}
+		}
+	}()
 }
 
 // getStockTargets getStockTargets
@@ -51,6 +63,10 @@ func getStockTargets() error {
 		}
 		// send to bus
 		eventbus.Get().Pub(eventbus.TopicTargets(), inDBTargets)
+		err = handler.UnSub(string(mqhandler.TopicVolumeRank()))
+		if err != nil {
+			return err
+		}
 		return nil
 	}
 
@@ -74,12 +90,25 @@ func volumeRankCallback(m mqhandler.MQMessage) {
 	tradeDay := cache.GetCache().GetTradeDay()
 	var targetArr []*dbagent.Target
 	for _, v := range body.GetData() {
-		if stockTargetFilter(v, condition) {
+		stock := cache.GetCache().GetStock(v.GetCode())
+		if stock == nil {
+			log.Get().WithFields(map[string]interface{}{
+				"Stock": v.GetCode(),
+			}).Error("Stock Cache Error")
+			continue
+		}
+		tmpTarget := stockWithData{
+			stock:       stock,
+			close:       v.GetClose(),
+			totalVolume: v.GetTotalVolume(),
+		}
+		if stockTargetFilter(tmpTarget, condition, false) {
 			tmp := &dbagent.Target{
-				Stock:    cache.GetCache().GetStock(v.GetCode()),
-				TradeDay: tradeDay,
-				Volume:   v.GetTotalVolume(),
-				Rank:     len(targetArr) + 1,
+				Stock:       tmpTarget.stock,
+				TradeDay:    tradeDay,
+				Volume:      tmpTarget.totalVolume,
+				Rank:        len(targetArr) + 1,
+				RealTimeAdd: false,
 			}
 			targetArr = append(targetArr, tmp)
 			log.Get().WithFields(map[string]interface{}{
@@ -101,37 +130,4 @@ func volumeRankCallback(m mqhandler.MQMessage) {
 
 	// send to bus
 	eventbus.Get().Pub(eventbus.TopicTargets(), targetArr)
-}
-
-func stockTargetFilter(v *pb.VolumeRankMessage, cond config.TargetCond) bool {
-	stock := cache.GetCache().GetStock(v.GetCode())
-	if stock == nil {
-		log.Get().WithFields(map[string]interface{}{
-			"Stock": v.GetCode(),
-		}).Error("Stock Cache Error")
-		return false
-	}
-
-	blackCategoryMap := make(map[string]bool)
-	blackStockMap := make(map[string]bool)
-	for _, v := range cond.BlackCategory {
-		blackCategoryMap[v] = true
-	}
-	for _, v := range cond.BlackStock {
-		blackStockMap[v] = true
-	}
-
-	if blackStockMap[v.GetCode()] {
-		return false
-	}
-	if blackCategoryMap[stock.Category] {
-		return false
-	}
-	if v.GetTotalVolume() < cond.LimitVolume {
-		return false
-	}
-	if v.GetClose() < cond.LimitPriceLow || v.GetClose() > cond.LimitPriceHigh {
-		return false
-	}
-	return true
 }

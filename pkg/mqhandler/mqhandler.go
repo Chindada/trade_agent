@@ -80,13 +80,17 @@ func initMQHandler() {
 func (c *MQHandler) Sub(body MQSubBody) error {
 	var already bool
 	c.lock.Lock()
+	// check if already in callback map
 	if c.callbackMap[string(body.MQTopic)] != nil {
 		already = true
 	} else {
 		c.callbackMap[string(body.MQTopic)] = body.Callback
-		if body.Once {
-			c.onceMap[string(body.MQTopic)] = true
-		}
+	}
+	// overwrite once map
+	if body.Once {
+		c.onceMap[string(body.MQTopic)] = true
+	} else {
+		delete(c.onceMap, string(body.MQTopic))
 	}
 	c.lock.Unlock()
 	if already {
@@ -135,6 +139,8 @@ func (c *MQHandler) UnSub(topic string) error {
 	if token.Wait() && token.Error() != nil {
 		return token.Error()
 	}
-	log.Get().Warnf("UnSubscribe %s", topic)
+	log.Get().WithFields(map[string]interface{}{
+		"Topic": topic,
+	}).Warn("UnSubscribe")
 	return nil
 }

@@ -18,14 +18,14 @@ func InitTasks() {
 	schedule := config.GetScheduleConfig()
 
 	c := cron.New()
-	err = c.AddFunc(schedule.CleaneventCron, func() {
+	err = c.AddFunc(schedule.CleanEvent, func() {
 		cloudeventtask.Run()
 	})
 	if err != nil {
 		log.Get().Panic(err)
 	}
 
-	err = c.AddFunc(schedule.RestartSinopacCron, func() {
+	err = c.AddFunc(schedule.RestartSinopac, func() {
 		healthchecktask.Run()
 	})
 	if err != nil {

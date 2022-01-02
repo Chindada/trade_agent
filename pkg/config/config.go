@@ -86,17 +86,18 @@ type Switch struct {
 
 // TargetCond TargetCond
 type TargetCond struct {
-	LimitPriceLow  float64  `json:"limit_price_low,omitempty" yaml:"limit_price_low"`
-	LimitPriceHigh float64  `json:"limit_price_high,omitempty" yaml:"limit_price_high"`
-	LimitVolume    int64    `json:"limit_volume,omitempty" yaml:"limit_volume"`
-	BlackStock     []string `json:"black_stock,omitempty" yaml:"black_stock"`
-	BlackCategory  []string `json:"black_category,omitempty" yaml:"black_category"`
+	LimitPriceLow        float64  `json:"limit_price_low,omitempty" yaml:"limit_price_low"`
+	LimitPriceHigh       float64  `json:"limit_price_high,omitempty" yaml:"limit_price_high"`
+	LimitVolume          int64    `json:"limit_volume,omitempty" yaml:"limit_volume"`
+	BlackStock           []string `json:"black_stock,omitempty" yaml:"black_stock"`
+	BlackCategory        []string `json:"black_category,omitempty" yaml:"black_category"`
+	RealTimeTargetsCount int64    `json:"real_time_targets_count,omitempty" yaml:"real_time_targets_count"`
 }
 
 // Schedule Schedule
 type Schedule struct {
-	CleaneventCron     string `json:"cleanevent_cron,omitempty" yaml:"cleanevent_cron"`
-	RestartSinopacCron string `json:"restart_sinopac_cron,omitempty" yaml:"restart_sinopac_cron"`
+	CleanEvent     string `json:"clean_event,omitempty" yaml:"clean_event"`
+	RestartSinopac string `json:"restart_sinopac,omitempty" yaml:"restart_sinopac"`
 }
 
 // parseConfig parseConfig
