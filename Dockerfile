@@ -26,6 +26,7 @@ RUN apt update -y && \
     apt clean && \
     mkdir trade_agent && \
     mkdir trade_agent/configs && \
+    mkdir trade_agent/configs/certs && \
     mkdir trade_agent/logs && \
     mkdir trade_agent/scripts && \
     rm -rf /var/lib/apt/lists/*
@@ -33,6 +34,8 @@ RUN apt update -y && \
 WORKDIR /trade_agent
 
 COPY --from=build-stage /build_space/cmd/trade_agent ./trade_agent
+COPY --from=build-stage /build_space/configs/config.yaml ./configs/config.yaml
+COPY --from=build-stage /build_space/configs/certs ./configs/certs
 COPY --from=build-stage /build_space/scripts/docker-entrypoint.sh ./scripts/docker-entrypoint.sh
 
 ENTRYPOINT ["/trade_agent/scripts/docker-entrypoint.sh"]
