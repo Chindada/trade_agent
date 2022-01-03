@@ -27,6 +27,7 @@ type Config struct {
 	Trade      Trade      `json:"trade,omitempty" yaml:"trade"`
 	Switch     Switch     `json:"switch,omitempty" yaml:"switch"`
 	TargetCond TargetCond `json:"target_cond,omitempty" yaml:"target_cond"`
+	Analyze    Analyze    `json:"analyze,omitempty" yaml:"analyze"`
 }
 
 // Server Server
@@ -65,11 +66,13 @@ type Trade struct {
 	HistoryClosePeriod int64 `json:"history_close_period,omitempty" yaml:"history_close_period"`
 	HistoryTickPeriod  int64 `json:"history_tick_period,omitempty" yaml:"history_tick_period"`
 	HistoryKbarPeriod  int64 `json:"history_kbar_period,omitempty" yaml:"history_kbar_period"`
-	TradeInWaitTime    int64 `json:"trade_in_wait_time,omitempty" yaml:"trade_in_wait_time"`
-	TradeOutWaitTime   int64 `json:"trade_out_wait_time,omitempty" yaml:"trade_out_wait_time"`
-	HoldMaxTime        int64 `json:"hold_max_time,omitempty" yaml:"hold_max_time"`
-	WaitInOpen         int64 `json:"wait_in_open,omitempty" yaml:"wait_in_open"`
-	TradeInEndTime     int64 `json:"trade_in_end_time,omitempty" yaml:"trade_in_end_time"`
+
+	TradeInWaitTime  int64 `json:"trade_in_wait_time,omitempty" yaml:"trade_in_wait_time"`
+	TradeOutWaitTime int64 `json:"trade_out_wait_time,omitempty" yaml:"trade_out_wait_time"`
+
+	WaitInOpen      int64 `json:"wait_in_open,omitempty" yaml:"wait_in_open"`
+	TradeInEndTime  int64 `json:"trade_in_end_time,omitempty" yaml:"trade_in_end_time"`
+	TradeOutEndTime int64 `json:"trade_out_end_time,omitempty" yaml:"trade_out_end_time"`
 }
 
 // Switch Switch
@@ -98,6 +101,13 @@ type TargetCond struct {
 type Schedule struct {
 	CleanEvent     string `json:"clean_event,omitempty" yaml:"clean_event"`
 	RestartSinopac string `json:"restart_sinopac,omitempty" yaml:"restart_sinopac"`
+}
+
+// Analyze Analyze
+type Analyze struct {
+	CloseChangeRatioLow  float64 `json:"close_change_ratio_low,omitempty" yaml:"close_change_ratio_low"`
+	CloseChangeRatioHigh float64 `json:"close_change_ratio_high,omitempty" yaml:"close_change_ratio_high"`
+	OpenCloseChangeRatio float64 `json:"open_close_change_ratio,omitempty" yaml:"open_close_change_ratio"`
 }
 
 // parseConfig parseConfig
@@ -193,4 +203,13 @@ func GetMQConfig() MQTT {
 	}
 	once.Do(parseConfig)
 	return globalConfig.MQTT
+}
+
+// GetAnalyzeConfig GetAnalyzeConfig
+func GetAnalyzeConfig() Analyze {
+	if globalConfig != nil {
+		return globalConfig.Analyze
+	}
+	once.Do(parseConfig)
+	return globalConfig.Analyze
 }

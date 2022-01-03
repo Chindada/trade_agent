@@ -32,11 +32,11 @@ trade:
     # unit: seccond
     trade_in_wait_time: 15
     trade_out_wait_time: 30
-    hold_max_time: 3600
     # unit: minute
     wait_in_open: 5
-    # unit: hour
-    trade_in_end_time: 1.5
+    # unit: hour(s) from 9:00
+    trade_in_end_time: 1.25 # 10:15
+    trade_out_end_time: 4 # 13:00
 # switch
 switch:
     enable_buy: true
@@ -60,8 +60,7 @@ target_cond:
     black_category:
         - "17"
     real_time_targets_count: 10
-# schedule
+# schedule cron
 schedule:
-    # cron
     clean_event: "0 0 4 * * ?"
     restart_sinopac: "0 20 1,8,15 * * ?"

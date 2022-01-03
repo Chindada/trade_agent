@@ -69,3 +69,45 @@ func (c *DBAgent) DeleteAllRealTimeTick() error {
 	})
 	return err
 }
+
+// RealTimeTickArr RealTimeTickArr
+type RealTimeTickArr []*RealTimeTick
+
+// GetStockNum GetStockNum
+func (c RealTimeTickArr) GetStockNum() string {
+	if len(c) != 0 {
+		return c[0].Stock.Number
+	}
+	return ""
+}
+
+// GetTotalTime GetTotalTime
+func (c RealTimeTickArr) GetTotalTime() float64 {
+	if len(c) > 1 {
+		return (float64(c[len(c)-1].TickTime.UnixNano()) - float64(c[0].TickTime.UnixNano())) / 1000 / 1000 / 1000
+	}
+	return 0
+}
+
+// Analyzer Analyzer
+func (c RealTimeTickArr) Analyzer() []int64 {
+	var analyzeTickArr RealTimeTickArr
+	var volumeArr []int64
+	for i, tick := range c {
+		if i == 0 {
+			continue
+		}
+		if len(analyzeTickArr) > 1 {
+			if analyzeTickArr.GetTotalTime() > 5 {
+				var volumeSum int64
+				for _, k := range analyzeTickArr {
+					volumeSum += k.Volume
+				}
+				analyzeTickArr = RealTimeTickArr{}
+				volumeArr = append(volumeArr, volumeSum)
+			}
+		}
+		analyzeTickArr = append(analyzeTickArr, tick)
+	}
+	return volumeArr
+}

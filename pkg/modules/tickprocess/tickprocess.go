@@ -2,16 +2,26 @@
 package tickprocess
 
 import (
+	"time"
 	"trade_agent/pkg/cache"
+	"trade_agent/pkg/config"
 	"trade_agent/pkg/dbagent"
 	"trade_agent/pkg/eventbus"
 	"trade_agent/pkg/log"
 	"trade_agent/pkg/sinopacapi"
 )
 
+var (
+	simTradeRealTimeTickChannel   = make(chan int)
+	simTradeRealTimeBidAskChannel = make(chan int)
+)
+
 // InitTickProcess InitTickProcess
 func InitTickProcess() {
 	log.Get().Info("Initial TickProcess")
+
+	go simTradeRealTimeTickCollector()
+	go simTradeRealTimeBidAskCollector()
 
 	// sub targets to sub mq history tick, kbar, realtime tick, bidask
 	err := eventbus.Get().Sub(eventbus.TopicTargets(), targetsBusCallback)
@@ -52,16 +62,19 @@ func targetsBusCallback(targetArr []*dbagent.Target) error {
 }
 
 func realTimeTickProcessor(stockNum string) {
+	lastClose := cache.GetCache().GetHistoryClose(stockNum, cache.GetCache().GetHistroyCloseRange()[0])
+	analyzeConf := config.GetAnalyzeConfig()
+
 	ch := cache.GetCache().GetRealTimeTickChannel(stockNum)
-	var tickArr []*dbagent.RealTimeTick
+	var tickArr dbagent.RealTimeTickArr
 	for {
 		tick := <-ch
 		if tick.Simtrade == 1 {
+			simTradeRealTimeTickChannel <- 1
 			continue
 		}
-
-		action := realTimeTickArrAnalyzer(tick, tickArr)
 		tickArr = append(tickArr, tick)
+		action := realTimeTickArrAnalyzer(lastClose, tickArr, analyzeConf)
 		if action == 0 {
 			continue
 		}
@@ -81,11 +94,42 @@ func realTimeBidAskProcessor(stockNum string) {
 	for {
 		bidAsk := <-ch
 		if bidAsk.Simtrade == 1 {
+			simTradeRealTimeBidAskChannel <- 1
 			continue
 		}
 
 		bidAskArr = append(bidAskArr, bidAsk)
 		status := realTimeBidAskArrAnalyzer(bidAsk, bidAskArr)
 		cache.GetCache().Set(cache.KeyRealTimeBidAskStatus(stockNum), status)
+	}
+}
+
+func simTradeRealTimeTickCollector() {
+	printMinute := time.Now().Minute()
+	var count int
+	for {
+		simTrade := <-simTradeRealTimeTickChannel
+		count += simTrade
+		if time.Now().Minute() != printMinute {
+			printMinute = time.Now().Minute()
+			log.Get().WithFields(map[string]interface{}{
+				"Count": count,
+			}).Info("SimTradeTick")
+		}
+	}
+}
+
+func simTradeRealTimeBidAskCollector() {
+	printMinute := time.Now().Minute()
+	var count int
+	for {
+		simTrade := <-simTradeRealTimeBidAskChannel
+		count += simTrade
+		if time.Now().Minute() != printMinute {
+			printMinute = time.Now().Minute()
+			log.Get().WithFields(map[string]interface{}{
+				"Count": count,
+			}).Info("SimTradeBidAsk")
+		}
 	}
 }

@@ -180,7 +180,6 @@ func getQuantityByBiasRate(order *sinopacapi.Order) int64 {
 }
 
 func isGoodPoint(order *sinopacapi.Order) bool {
-	// historyTickStatus := cache.GetCache().GetStockHistoryTickAnalyze(order.StockNum)
 	// historyKbarStatus := cache.GetCache().GetStockHistoryKbarAnalyze(order.StockNum)
 	return false
 }

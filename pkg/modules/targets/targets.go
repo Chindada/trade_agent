@@ -25,7 +25,7 @@ func InitTargets() {
 	}
 
 	go func() {
-		for range time.Tick(30 * time.Second) {
+		for range time.Tick(60 * time.Second) {
 			if cache.GetCache().GetIsOpenWithEndWaitTime() {
 				err = getRealTimeTargets()
 				if err != nil {

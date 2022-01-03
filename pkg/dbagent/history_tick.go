@@ -73,9 +73,9 @@ func (c *DBAgent) CheckHistoryTickExistByStockID(stockID int64, date time.Time) 
 type HistoryTickArr []*HistoryTick
 
 // GetTotalTime GetTotalTime
-func (c HistoryTickArr) GetTotalTime() int64 {
+func (c HistoryTickArr) GetTotalTime() float64 {
 	if len(c) > 1 {
-		return c[len(c)-1].TickTime.Unix() - c[0].TickTime.Unix()
+		return (float64(c[len(c)-1].TickTime.UnixNano()) - float64(c[0].TickTime.UnixNano())) / 1000 / 1000 / 1000
 	}
 	return 0
 }
@@ -94,7 +94,7 @@ func (c HistoryTickArr) Analyzer() []int64 {
 				for _, k := range analyzeTickArr {
 					volumeSum += k.Volume
 				}
-				analyzeTickArr = []*HistoryTick{}
+				analyzeTickArr = HistoryTickArr{}
 				volumeArr = append(volumeArr, volumeSum)
 			}
 		}
