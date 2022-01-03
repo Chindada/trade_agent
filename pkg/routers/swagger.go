@@ -2,8 +2,11 @@
 package routers
 
 import (
+	"fmt"
 	"trade_agent/docs"
+	"trade_agent/global"
 	"trade_agent/pkg/config"
+	"trade_agent/pkg/utils"
 
 	"github.com/gin-gonic/gin"
 	ginSwagger "github.com/swaggo/gin-swagger"
@@ -19,7 +22,13 @@ import (
 // @BasePath /trade-agent
 func addSwagger(router *gin.Engine) {
 	serverConf := config.GetServerConfig()
-	docs.SwaggerInfo.Host = "trade-agent.tocraw.com:" + serverConf.HTTPPort
+	var hostWithPort string
+	if global.Get().GetIsDevelopment() {
+		hostWithPort = fmt.Sprintf("%s:%s", utils.GetHostIP(), serverConf.HTTPPort)
+	} else {
+		hostWithPort = fmt.Sprintf("trade-agent.tocraw.com:%s", serverConf.HTTPPort)
+	}
+	docs.SwaggerInfo.Host = hostWithPort
 	url := ginSwagger.URL("/swagger/doc.json")
 	router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler, url))
 }

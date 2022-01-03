@@ -1,4 +1,28 @@
 basePath: /trade-agent
+definitions:
+  dbagent.Balance:
+    properties:
+      discount:
+        type: integer
+      forward:
+        type: integer
+      original_balance:
+        type: integer
+      reverse:
+        type: integer
+      total:
+        type: integer
+      trade_count:
+        type: integer
+      trade_day:
+        type: string
+    type: object
+  handlers.ErrorResponse:
+    properties:
+      attachment: {}
+      response:
+        type: string
+    type: object
 info:
   contact: {}
   description: API docs for Trade Agent
@@ -7,5 +31,64 @@ info:
     url: http://www.apache.org/licenses/LICENSE-2.0.html
   title: Trade Agent
   version: 2.0.0
-paths: {}
+paths:
+  /balance:
+    delete:
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ""
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/handlers.ErrorResponse'
+      summary: DeletaAllBalance
+      tags:
+      - Balance
+    get:
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/dbagent.Balance'
+            type: array
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/handlers.ErrorResponse'
+      summary: GetAllBalance
+      tags:
+      - Balance
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Body
+        in: body
+        name: body
+        required: true
+        schema:
+          items:
+            $ref: '#/definitions/dbagent.Balance'
+          type: array
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ""
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/handlers.ErrorResponse'
+      summary: ImportBalance
+      tags:
+      - Balance
 swagger: "2.0"

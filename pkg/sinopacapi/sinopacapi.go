@@ -9,6 +9,7 @@ import (
 	"trade_agent/pkg/config"
 	"trade_agent/pkg/log"
 	"trade_agent/pkg/restfulclient"
+	"trade_agent/pkg/utils"
 
 	"github.com/go-resty/resty/v2"
 )
@@ -37,6 +38,12 @@ func InitSinpacAPI() {
 	log.Get().Info("Initial SinopacAPI")
 
 	serverConf := config.GetServerConfig()
+	for {
+		if utils.CheckPortIsOpen(serverConf.SinopacSRVHost, serverConf.SinopacSRVPort) {
+			break
+		}
+		time.Sleep(time.Second)
+	}
 	mqConf := config.GetMQConfig()
 	new := TradeAgent{
 		Client:    restfulclient.Get(),

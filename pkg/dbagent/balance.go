@@ -87,3 +87,10 @@ func (c *DBAgent) DeleteMultiBalanceByDate(date time.Time) error {
 	})
 	return err
 }
+
+// GetAllBalance GetAllBalance
+func (c *DBAgent) GetAllBalance() ([]Balance, error) {
+	var tmp []Balance
+	err := c.DB.Model(&Balance{}).Find(&tmp).Error
+	return tmp, err
+}

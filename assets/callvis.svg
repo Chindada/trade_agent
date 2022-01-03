@@ -31,38 +31,6 @@
 </a>
 </g>
 </g>
-<g id="clust8" class="cluster">
-<title>cluster_trade_agent/pkg/modules/cloudevent</title>
-<g id="a_clust8"><a xlink:href="/?f=trade_agent/pkg/modules/cloudevent" xlink:title="package: trade_agent/pkg/modules/cloudevent">
-<polygon fill="#ffffe0" stroke="#000000" stroke-width=".8" points="138.5038,-127.8 138.5038,-206.8 261.1561,-206.8 261.1561,-127.8 138.5038,-127.8"/>
-<text text-anchor="middle" x="199.83" y="-188.4" font-family="Tahoma bold" font-size="16.00" fill="#000000">cloudevent</text>
-</a>
-</g>
-</g>
-<g id="clust9" class="cluster">
-<title>cluster_trade_agent/pkg/modules/healthcheck</title>
-<g id="a_clust9"><a xlink:href="/?f=trade_agent/pkg/modules/healthcheck" xlink:title="package: trade_agent/pkg/modules/healthcheck">
-<polygon fill="#ffffe0" stroke="#000000" stroke-width=".8" points="135,-214.8 135,-293.8 264.6599,-293.8 264.6599,-214.8 135,-214.8"/>
-<text text-anchor="middle" x="199.83" y="-275.4" font-family="Tahoma bold" font-size="16.00" fill="#000000">healthcheck</text>
-</a>
-</g>
-</g>
-<g id="clust13" class="cluster">
-<title>cluster_trade_agent/pkg/modules/subscribe</title>
-<g id="a_clust13"><a xlink:href="/?f=trade_agent/pkg/modules/subscribe" xlink:title="package: trade_agent/pkg/modules/subscribe">
-<polygon fill="#ffffe0" stroke="#000000" stroke-width=".8" points="145.1055,-562.8 145.1055,-641.8 254.5544,-641.8 254.5544,-562.8 145.1055,-562.8"/>
-<text text-anchor="middle" x="199.83" y="-623.4" font-family="Tahoma bold" font-size="16.00" fill="#000000">subscribe</text>
-</a>
-</g>
-</g>
-<g id="clust15" class="cluster">
-<title>cluster_trade_agent/pkg/modules/tickprocess</title>
-<g id="a_clust15"><a xlink:href="/?f=trade_agent/pkg/modules/tickprocess" xlink:title="package: trade_agent/pkg/modules/tickprocess">
-<polygon fill="#ffffe0" stroke="#000000" stroke-width=".8" points="137.6364,-736.8 137.6364,-815.8 262.0235,-815.8 262.0235,-736.8 137.6364,-736.8"/>
-<text text-anchor="middle" x="199.83" y="-797.4" font-family="Tahoma bold" font-size="16.00" fill="#000000">tickprocess</text>
-</a>
-</g>
-</g>
 <g id="clust16" class="cluster">
 <title>cluster_trade_agent/pkg/modules/tradeday</title>
 <g id="a_clust16"><a xlink:href="/?f=trade_agent/pkg/modules/tradeday" xlink:title="package: trade_agent/pkg/modules/tradeday">
@@ -164,6 +132,38 @@
 <g id="a_clust14"><a xlink:href="/?f=trade_agent/pkg/modules/targets" xlink:title="package: trade_agent/pkg/modules/targets">
 <polygon fill="#ffffe0" stroke="#000000" stroke-width=".8" points="152.5848,-649.8 152.5848,-728.8 247.0751,-728.8 247.0751,-649.8 152.5848,-649.8"/>
 <text text-anchor="middle" x="199.83" y="-710.4" font-family="Tahoma bold" font-size="16.00" fill="#000000">targets</text>
+</a>
+</g>
+</g>
+<g id="clust8" class="cluster">
+<title>cluster_trade_agent/pkg/modules/cloudevent</title>
+<g id="a_clust8"><a xlink:href="/?f=trade_agent/pkg/modules/cloudevent" xlink:title="package: trade_agent/pkg/modules/cloudevent">
+<polygon fill="#ffffe0" stroke="#000000" stroke-width=".8" points="138.5038,-127.8 138.5038,-206.8 261.1561,-206.8 261.1561,-127.8 138.5038,-127.8"/>
+<text text-anchor="middle" x="199.83" y="-188.4" font-family="Tahoma bold" font-size="16.00" fill="#000000">cloudevent</text>
+</a>
+</g>
+</g>
+<g id="clust9" class="cluster">
+<title>cluster_trade_agent/pkg/modules/healthcheck</title>
+<g id="a_clust9"><a xlink:href="/?f=trade_agent/pkg/modules/healthcheck" xlink:title="package: trade_agent/pkg/modules/healthcheck">
+<polygon fill="#ffffe0" stroke="#000000" stroke-width=".8" points="135,-214.8 135,-293.8 264.6599,-293.8 264.6599,-214.8 135,-214.8"/>
+<text text-anchor="middle" x="199.83" y="-275.4" font-family="Tahoma bold" font-size="16.00" fill="#000000">healthcheck</text>
+</a>
+</g>
+</g>
+<g id="clust13" class="cluster">
+<title>cluster_trade_agent/pkg/modules/subscribe</title>
+<g id="a_clust13"><a xlink:href="/?f=trade_agent/pkg/modules/subscribe" xlink:title="package: trade_agent/pkg/modules/subscribe">
+<polygon fill="#ffffe0" stroke="#000000" stroke-width=".8" points="145.1055,-562.8 145.1055,-641.8 254.5544,-641.8 254.5544,-562.8 145.1055,-562.8"/>
+<text text-anchor="middle" x="199.83" y="-623.4" font-family="Tahoma bold" font-size="16.00" fill="#000000">subscribe</text>
+</a>
+</g>
+</g>
+<g id="clust15" class="cluster">
+<title>cluster_trade_agent/pkg/modules/tickprocess</title>
+<g id="a_clust15"><a xlink:href="/?f=trade_agent/pkg/modules/tickprocess" xlink:title="package: trade_agent/pkg/modules/tickprocess">
+<polygon fill="#ffffe0" stroke="#000000" stroke-width=".8" points="137.6364,-736.8 137.6364,-815.8 262.0235,-815.8 262.0235,-736.8 137.6364,-736.8"/>
+<text text-anchor="middle" x="199.83" y="-797.4" font-family="Tahoma bold" font-size="16.00" fill="#000000">tickprocess</text>
 </a>
 </g>
 </g>

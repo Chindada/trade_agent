@@ -50,24 +50,24 @@ git diff-index --check --cached $against --
 
 # Trade Agent Hook
 pg_ctl -D ./data/trade_agent -l ./data/trade_agent/logfile stop
-# go test -race $(go list ./... | grep -v /vendor/) -v > go_test_result
-# if grep FAIL go_test_result
-# then
-#     exit 1
-# fi
+go test -race $(go list ./... | grep -v /vendor/) -v > go_test_result
+if grep FAIL go_test_result
+then
+    exit 1
+fi
 
-# if ! ./scripts/update_callvis.sh
-# then
-#     exit 1
-# fi
+if ! ./scripts/update_callvis.sh
+then
+    exit 1
+fi
 
 if ! ./scripts/swagger_gen.sh
 then
     exit 1
 fi
 
-# git add ./assets/callvis.gv
-# git add ./assets/callvis.svg
+git add ./assets/callvis.gv
+git add ./assets/callvis.svg
 
 git add ./docs/docs.go
 git add ./docs/swagger.json

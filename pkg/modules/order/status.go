@@ -2,6 +2,7 @@
 package order
 
 import (
+	"sync"
 	"time"
 	"trade_agent/pkg/cache"
 	"trade_agent/pkg/dbagent"
@@ -11,6 +12,8 @@ import (
 	"trade_agent/pkg/sinopacapi"
 	"trade_agent/pkg/utils"
 )
+
+var wg sync.WaitGroup
 
 func subOrderStatus() error {
 	handler := mqhandler.Get()
@@ -28,15 +31,18 @@ func subOrderStatus() error {
 
 	go func() {
 		for range time.Tick(1*time.Second + 500*time.Millisecond) {
+			wg.Add(1)
 			if err := sinopacapi.Get().FetchOrderStatus(); err != nil {
 				log.Get().Error(err)
 			}
+			wg.Wait()
 		}
 	}()
 	return nil
 }
 
 func orderStausCallback(m mqhandler.MQMessage) {
+	defer wg.Done()
 	body := pb.OrderStatusHistoryResponse{}
 	err := body.UnmarshalProto(m.Payload())
 	if err != nil {
@@ -93,6 +99,10 @@ func initTradeBalance() {
 		TradeDay: cache.GetCache().GetTradeDay(),
 	}
 
+	if len(dbOrderStatus) == 0 {
+		return
+	}
+
 	for _, order := range dbOrderStatus {
 		if order.Status == 6 {
 			switch order.Action {
@@ -106,7 +116,7 @@ func initTradeBalance() {
 	}
 	tmp.Total = tmp.OriginalBalance + tmp.Discount
 
-	err = dbagent.Get().InsertBalance(tmp)
+	err = dbagent.Get().InsertOrUpdateBalance(tmp)
 	if err != nil {
 		log.Get().Panic(err)
 	}

@@ -2,9 +2,11 @@
 package routers
 
 import (
+	"net/http"
+	"trade_agent/docs"
 	"trade_agent/pkg/config"
 	"trade_agent/pkg/log"
-	"trade_agent/pkg/utils"
+	"trade_agent/pkg/routers/handlers/balance"
 
 	"github.com/gin-gonic/gin"
 )
@@ -23,7 +25,7 @@ func ServeHTTP() {
 		}
 		addSwagger(g)
 		initRouters(g)
-		log.Get().Infof("HTTP Server serve on http://%s:%s/", utils.GetHostIP(), serverConf.HTTPPort)
+		log.Get().Infof("HTTP Server On %s", docs.SwaggerInfo.Host)
 		if err := g.Run(":" + serverConf.HTTPPort); err != nil {
 			log.Get().Panic(err)
 		}
@@ -31,15 +33,20 @@ func ServeHTTP() {
 }
 
 func initRouters(router *gin.Engine) {
-	// mainRoute := router.Group("trade-agent")
+	mainRoute := router.Group("trade-agent")
+	balance.AddHandlers(mainRoute)
 }
 
 func corsMiddleware() gin.HandlerFunc {
 	return func(c *gin.Context) {
+		method := c.Request.Method
 		c.Header("Access-Control-Allow-Origin", "*")
 		c.Header("Access-Control-Allow-Headers", "*")
 		c.Header("Access-Control-Allow-Methods", "GET, OPTIONS, POST, PUT, DELETE")
 		c.Set("content-type", "application/json")
+		if method == "OPTIONS" {
+			c.JSON(http.StatusOK, nil)
+		}
 		c.Next()
 	}
 }

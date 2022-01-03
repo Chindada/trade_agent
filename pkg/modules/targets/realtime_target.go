@@ -74,7 +74,7 @@ func snapShotCallback(m mqhandler.MQMessage) {
 					Stock:       tmpTarget.stock,
 					TradeDay:    tradeDay,
 					Volume:      tmpTarget.totalVolume,
-					Rank:        len(targetArr) + 1,
+					Rank:        len(targetArr) + 1 + 100,
 					RealTimeAdd: true,
 				}
 				targetArr = append(targetArr, tmp)
@@ -90,7 +90,6 @@ func snapShotCallback(m mqhandler.MQMessage) {
 		}
 	}
 	if len(targetArr) == 0 {
-		log.Get().Warn("No RealTime Target")
 		return
 	}
 	if err := dbagent.Get().InsertMultiTarget(targetArr); err != nil {

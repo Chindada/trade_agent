@@ -3,8 +3,10 @@ package mqhandler
 
 import (
 	"sync"
+	"time"
 	"trade_agent/pkg/config"
 	"trade_agent/pkg/log"
+	"trade_agent/pkg/utils"
 
 	mqtt "github.com/eclipse/paho.mqtt.golang"
 )
@@ -57,7 +59,15 @@ func initMQHandler() {
 		return
 	}
 
-	newClient, err := getMQClient(config.GetMQConfig())
+	mqConf := config.GetMQConfig()
+	for {
+		if utils.CheckPortIsOpen(mqConf.Host, mqConf.Port) {
+			break
+		}
+		time.Sleep(time.Second)
+	}
+
+	newClient, err := getMQClient(mqConf)
 	if err != nil {
 		log.Get().Panic(err)
 	}

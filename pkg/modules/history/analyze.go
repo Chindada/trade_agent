@@ -24,3 +24,11 @@ func getBiasRateByCloseArr(closeArr []float64) (biasRate float64, err error) {
 	}
 	return utils.Round(100*(closeArr[len(closeArr)-1]-ma)/ma, 2), err
 }
+
+// func generateRSI(input []float64) (rsi float64, err error) {
+// 	rsiArr := talib.Rsi(input, len(input)-1)
+// 	if len(rsiArr) == 0 {
+// 		return 0, errors.New("no rsi")
+// 	}
+// 	return utils.Round(rsiArr[len(rsiArr)-1], 2), err
+// }
