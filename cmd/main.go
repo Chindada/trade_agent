@@ -41,14 +41,10 @@ func main() {
 	dbagent.InitDatabase()
 	mqhandler.InitMQHandler()
 	sinopacapi.InitSinpacAPI()
-
-	// init cron tasks
 	tasks.InitTasks()
-
-	// serve http before trade agent module start
 	routers.ServeHTTP()
 
-	// fill all basic data first
+	// fill all basic module first
 	tradeday.InitTradeDay()
 	stock.InitStock()
 
@@ -73,6 +69,6 @@ func main() {
 	// find target
 	targets.InitTargets()
 
-	// initial health check
+	// initial health check and lock main here
 	healthcheck.InitHealthCheck()
 }

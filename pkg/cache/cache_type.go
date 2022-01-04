@@ -1,6 +1,7 @@
 // Package cache package cache
 package cache
 
+// keyType keyType
 type keyType string
 
 const (
