@@ -22,6 +22,11 @@ type HistoryKbar struct {
 	Volume int64   `json:"volume,omitempty" yaml:"volume" gorm:"column:volume"`
 }
 
+// TableName TableName
+func (HistoryKbar) TableName() string {
+	return "history_kbar"
+}
+
 // InsertHistoryKbar InsertHistoryKbar
 func (c *DBAgent) InsertHistoryKbar(record *HistoryKbar) error {
 	err := c.DB.Transaction(func(tx *gorm.DB) error {

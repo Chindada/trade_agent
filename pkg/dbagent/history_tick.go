@@ -25,6 +25,11 @@ type HistoryTick struct {
 	AskVolume int64   `json:"ask_volume,omitempty" yaml:"ask_volume" gorm:"column:ask_volume"`
 }
 
+// TableName TableName
+func (HistoryTick) TableName() string {
+	return "history_tick"
+}
+
 // InsertHistoryTick InsertHistoryTick
 func (c *DBAgent) InsertHistoryTick(record *HistoryTick) error {
 	err := c.DB.Transaction(func(tx *gorm.DB) error {

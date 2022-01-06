@@ -22,6 +22,11 @@ type OrderStatus struct {
 	OrderID  string  `json:"order_id,omitempty" yaml:"order_id" gorm:"column:order_id"`
 }
 
+// TableName TableName
+func (OrderStatus) TableName() string {
+	return "order_status"
+}
+
 // ActionListMap ActionListMap
 var ActionListMap = map[string]int64{
 	"Buy":  1,

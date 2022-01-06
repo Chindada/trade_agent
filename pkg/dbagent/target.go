@@ -20,6 +20,11 @@ type Target struct {
 	RealTimeAdd bool  `json:"real_time_add,omitempty" yaml:"real_time_add" gorm:"column:real_time_add"`
 }
 
+// TableName TableName
+func (Target) TableName() string {
+	return "basic_targets"
+}
+
 // InsertTarget InsertTarget
 func (c *DBAgent) InsertTarget(record *Target) error {
 	err := c.DB.Transaction(func(tx *gorm.DB) error {

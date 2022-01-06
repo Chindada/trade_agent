@@ -15,6 +15,11 @@ type CloudEvent struct {
 	Response  int64  `json:"response,omitempty" yaml:"response" gorm:"column:response"`
 }
 
+// TableName TableName
+func (CloudEvent) TableName() string {
+	return "cloud_event"
+}
+
 // InsertCloudEvent InsertCloudEvent
 func (c *DBAgent) InsertCloudEvent(record *CloudEvent) error {
 	err := c.DB.Transaction(func(tx *gorm.DB) error {

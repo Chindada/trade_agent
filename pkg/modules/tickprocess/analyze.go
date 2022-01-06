@@ -14,20 +14,30 @@ func realTimeBidAskArrStatusGenerator(bidAsk *dbagent.RealTimeBidAsk, bidAskArr 
 }
 
 func realTimeTickArrActionGenerator(tickArr dbagent.RealTimeTickArr, conf config.Analyze) sinopacapi.OrderAction {
-	if lastTick := tickArr.GetLastTick(); lastTick == nil {
+	lastTick := tickArr.GetLastTick()
+	if lastTick == nil {
 		return 0
-	} else if lastTick.PctChg < conf.CloseChangeRatioLow || lastTick.PctChg > conf.CloseChangeRatioHigh {
+	}
+	if lastTick.PctChg < conf.CloseChangeRatioLow || lastTick.PctChg > conf.CloseChangeRatioHigh {
 		return 0
 	}
 
 	stockNum := tickArr.GetStockNum()
 	historyTickAnalyze := cache.GetCache().GetStockHistoryTickAnalyze(stockNum)
-	if pr := historyTickAnalyze.GetPRByVolume(tickArr.GetLastPeriodVolume()); pr < conf.VolumePR {
-		return 0
+	pr := historyTickAnalyze.GetPRByVolume(tickArr.GetLastPeriodVolume())
+	// if pr < conf.VolumePR {
+	// 	return 0
+	// }
+	outInRatio := tickArr.GetOutInRatio()
+	tmp := &dbagent.RealTimeTickAnalyze{
+		Stock:      lastTick.Stock,
+		TickTime:   lastTick.TickTime,
+		PR:         pr,
+		OutInRatio: outInRatio,
 	}
+	_ = dbagent.Get().InsertRealTimeTickAnalyze(tmp)
 
 	availableActionMap, preTime := getAvailableAction(stockNum)
-	outInRatio := tickArr.GetOutInRatio()
 	if outInRatio > conf.OutInRatio && availableActionMap[sinopacapi.ActionBuy] {
 		return sinopacapi.ActionBuy
 	}

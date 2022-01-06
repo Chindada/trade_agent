@@ -21,6 +21,11 @@ type Balance struct {
 	Total           int64 `json:"total,omitempty" yaml:"total" gorm:"column:total"`
 }
 
+// TableName TableName
+func (Balance) TableName() string {
+	return "trade_balance"
+}
+
 // InsertBalance InsertBalance
 func (c *DBAgent) InsertBalance(record *Balance) error {
 	err := c.DB.Transaction(func(tx *gorm.DB) error {

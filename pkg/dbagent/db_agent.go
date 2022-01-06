@@ -16,6 +16,11 @@ import (
 	gormlogger "gorm.io/gorm/logger"
 )
 
+// Tabler Tabler
+type Tabler interface {
+	TableName() string
+}
+
 // DBAgent DBAgent
 type DBAgent struct {
 	DB *gorm.DB
@@ -88,15 +93,16 @@ func initConnection() {
 	err = newAgent.DB.AutoMigrate(
 		&Balance{},
 		&CalendarDate{},
-		&RealTimeBidAsk{},
+		&CloudEvent{},
+		&HistoryClose{},
 		&HistoryKbar{},
 		&HistoryTick{},
-		&HistoryClose{},
+		&OrderStatus{},
+		&RealTimeBidAsk{},
+		&RealTimeTickAnalyze{},
 		&RealTimeTick{},
 		&Stock{},
 		&Target{},
-		&CloudEvent{},
-		&OrderStatus{},
 	)
 	if err != nil {
 		log.Get().Panic(err)

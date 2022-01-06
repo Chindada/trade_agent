@@ -17,6 +17,11 @@ type Stock struct {
 	LastCloseChangePct float64 `json:"last_close_change_pct,omitempty" yaml:"last_close_change_pct" gorm:"column:last_close_change_pct"`
 }
 
+// TableName TableName
+func (Stock) TableName() string {
+	return "basic_stock"
+}
+
 // InsertStock InsertStock
 func (c *DBAgent) InsertStock(record *Stock) error {
 	err := c.DB.Transaction(func(tx *gorm.DB) error {

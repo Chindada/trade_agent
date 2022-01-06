@@ -15,6 +15,11 @@ type CalendarDate struct {
 	IsTradeDay bool      `json:"is_trade_day,omitempty" yaml:"is_trade_day" gorm:"column:is_trade_day"`
 }
 
+// TableName TableName
+func (CalendarDate) TableName() string {
+	return "basic_calendar"
+}
+
 // InsertCalendarDate InsertCalendarDate
 func (c *DBAgent) InsertCalendarDate(record *CalendarDate) error {
 	err := c.DB.Transaction(func(tx *gorm.DB) error {

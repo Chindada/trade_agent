@@ -39,6 +39,11 @@ type RealTimeTick struct {
 	Simtrade int64 `json:"simtrade,omitempty" yaml:"simtrade" gorm:"column:simtrade"`
 }
 
+// TableName TableName
+func (RealTimeTick) TableName() string {
+	return "realtime_tick"
+}
+
 // InsertRealTimeTick InsertRealTimeTick
 func (c *DBAgent) InsertRealTimeTick(record *RealTimeTick) error {
 	err := c.DB.Transaction(func(tx *gorm.DB) error {

@@ -50,6 +50,11 @@ type RealTimeBidAsk struct {
 	Simtrade int64 `json:"simtrade,omitempty" yaml:"simtrade" gorm:"column:simtrade"`
 }
 
+// TableName TableName
+func (RealTimeBidAsk) TableName() string {
+	return "realtime_bidask"
+}
+
 // InsertRealTimeBidAsk InsertRealTimeBidAsk
 func (c *DBAgent) InsertRealTimeBidAsk(record *RealTimeBidAsk) error {
 	err := c.DB.Transaction(func(tx *gorm.DB) error {

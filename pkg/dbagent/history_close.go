@@ -16,6 +16,11 @@ type HistoryClose struct {
 	CalendarDateID int64         `json:"calendar_date_id,omitempty" yaml:"calendar_date_id" gorm:"calendar_date_id"`
 }
 
+// TableName TableName
+func (HistoryClose) TableName() string {
+	return "history_close"
+}
+
 // InsertHistoryClose InsertHistoryClose
 func (c *DBAgent) InsertHistoryClose(record *HistoryClose) error {
 	err := c.DB.Transaction(func(tx *gorm.DB) error {
