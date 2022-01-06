@@ -12,16 +12,13 @@ import (
 )
 
 func subHistoryTick(targetArr []*dbagent.Target, fetchDate []time.Time) error {
-	var err error
 	// check history tick exist or fetch
 	errChan := make(chan error)
 	var w sync.WaitGroup
 	for _, v := range targetArr {
 		for _, date := range fetchDate {
-			var exist bool
-			exist, err = dbagent.Get().CheckHistoryTickExistByStockID(v.StockID, date)
-			if err != nil {
-				return err
+			if exist, dbErr := dbagent.Get().CheckHistoryTickExistByStockID(v.StockID, date); dbErr != nil {
+				return dbErr
 			} else if exist {
 				log.Get().WithFields(map[string]interface{}{
 					"Stock": v.Stock.Number,
@@ -29,13 +26,11 @@ func subHistoryTick(targetArr []*dbagent.Target, fetchDate []time.Time) error {
 				}).Info("HistoryTick Already Exist")
 
 				// select from db to analyze to cache
-				var dbHistoryTick dbagent.HistoryTickArr
-				dbHistoryTick, err = dbagent.Get().GetHistoryTickByStockIDAndDate(v.StockID, date)
-				if err != nil {
-					return err
+				if dbHistoryTick, fetchErr := dbagent.Get().GetHistoryTickByStockIDAndDate(v.StockID, date); fetchErr != nil {
+					return fetchErr
+				} else if analyzeVolumeArr := dbHistoryTick.Analyzer(); len(analyzeVolumeArr) != 0 {
+					cache.GetCache().AppendHistoryTickAnalyze(v.Stock.Number, analyzeVolumeArr)
 				}
-				analyzeVolumeArr := dbHistoryTick.Analyzer()
-				cache.GetCache().Set(cache.KeyStockHistoryTickAnalyze(v.Stock.Number), analyzeVolumeArr)
 				continue
 			}
 			// does not exist, fetch.
@@ -48,8 +43,7 @@ func subHistoryTick(targetArr []*dbagent.Target, fetchDate []time.Time) error {
 					"Stock": stock,
 					"Date":  fetchDate.Format(global.ShortTimeLayout),
 				}).Info("Fetching HistoryTick")
-				sinoErr := sinopacapi.Get().FetchHistoryTickByStockAndDate(stock, fetchDate.Format(global.ShortTimeLayout))
-				if sinoErr != nil {
+				if sinoErr := sinopacapi.Get().FetchHistoryTickByStockAndDate(stock, fetchDate.Format(global.ShortTimeLayout)); sinoErr != nil {
 					errChan <- sinoErr
 				}
 			}(&w)
@@ -58,8 +52,7 @@ func subHistoryTick(targetArr []*dbagent.Target, fetchDate []time.Time) error {
 	w.Wait()
 	close(errChan)
 	for {
-		var ok bool
-		err, ok = <-errChan
+		err, ok := <-errChan
 		if !ok {
 			break
 		}
@@ -68,5 +61,5 @@ func subHistoryTick(targetArr []*dbagent.Target, fetchDate []time.Time) error {
 			return err
 		}
 	}
-	return err
+	return nil
 }

@@ -62,7 +62,6 @@ func targetsBusCallback(targetArr []*dbagent.Target) error {
 }
 
 func realTimeTickProcessor(stockNum string) {
-	lastClose := cache.GetCache().GetHistoryClose(stockNum, cache.GetCache().GetHistroyCloseRange()[0])
 	analyzeConf := config.GetAnalyzeConfig()
 
 	ch := cache.GetCache().GetRealTimeTickChannel(stockNum)
@@ -74,15 +73,16 @@ func realTimeTickProcessor(stockNum string) {
 			continue
 		}
 		tickArr = append(tickArr, tick)
-		action := realTimeTickArrAnalyzer(lastClose, tickArr, analyzeConf)
+		action := realTimeTickArrActionGenerator(tickArr, analyzeConf)
 		if action == 0 {
 			continue
 		}
 
 		order := &sinopacapi.Order{
-			StockNum: stockNum,
-			Price:    tick.Close,
-			Action:   action,
+			StockNum:  stockNum,
+			Price:     tick.Close,
+			Action:    action,
+			TradeTime: tick.TickTime,
 		}
 		eventbus.Get().Pub(eventbus.TopicStockOrder(), order)
 	}
@@ -99,7 +99,7 @@ func realTimeBidAskProcessor(stockNum string) {
 		}
 
 		bidAskArr = append(bidAskArr, bidAsk)
-		status := realTimeBidAskArrAnalyzer(bidAsk, bidAskArr)
+		status := realTimeBidAskArrStatusGenerator(bidAsk, bidAskArr)
 		cache.GetCache().Set(cache.KeyRealTimeBidAskStatus(stockNum), status)
 	}
 }

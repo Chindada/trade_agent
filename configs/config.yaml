@@ -28,7 +28,7 @@ trade:
     # unit: day
     history_close_period: 7
     history_tick_period: 3
-    history_kbar_period: 3
+    history_kbar_period: 1
     # unit: seccond
     trade_in_wait_time: 15
     trade_out_wait_time: 30
@@ -39,9 +39,9 @@ trade:
     trade_out_end_time: 4 # 13:00
 # switch
 switch:
-    enable_buy: true
+    enable_buy: false
     enable_sell: true
-    enable_sell_first: true
+    enable_sell_first: false
     enable_buy_later: true
     mean_time_forward: 1
     mean_time_reverse: 1
@@ -64,3 +64,14 @@ target_cond:
 schedule:
     clean_event: "0 0 4 * * ?"
     restart_sinopac: "0 20 1,8,15 * * ?"
+# analyze
+analyze:
+    close_change_ratio_low: -2
+    close_change_ratio_high: 7
+    out_in_ratio: 80
+    in_out_ratio: 10
+    rsi_min_count: 500
+    rsi_high: 0.7
+    rsi_low: 0.3
+    open_close_change_ratio: 5
+    volume_pr: 95

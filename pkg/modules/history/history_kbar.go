@@ -12,14 +12,12 @@ import (
 )
 
 func subHistoryKbar(targetArr []*dbagent.Target, fetchDate []time.Time) error {
-	var err error
 	// check history tick exist or fetch
 	errChan := make(chan error)
 	var w sync.WaitGroup
 	for _, v := range targetArr {
 		for _, date := range fetchDate {
-			var exist bool
-			exist, err = dbagent.Get().CheckHistoryKbarExistByStockID(v.StockID, date)
+			exist, err := dbagent.Get().CheckHistoryKbarExistByStockID(v.StockID, date)
 			if err != nil {
 				return err
 			} else if exist {
@@ -29,10 +27,9 @@ func subHistoryKbar(targetArr []*dbagent.Target, fetchDate []time.Time) error {
 				}).Info("HistoryKbar Already Exist")
 
 				// select from db to analyze to cache
-				var dbHistoryKbar dbagent.HistoryKbarArr
-				dbHistoryKbar, err = dbagent.Get().GetHistoryKbarByStockIDAndDate(v.StockID, date)
-				if err != nil {
-					return err
+				dbHistoryKbar, dbErr := dbagent.Get().GetHistoryKbarByStockIDAndDate(v.StockID, date)
+				if dbErr != nil {
+					return dbErr
 				}
 				status := dbHistoryKbar.Analyzer()
 				cache.GetCache().Set(cache.KeyStockHistoryKbarAnalyze(v.Stock.Number), status)
@@ -58,8 +55,7 @@ func subHistoryKbar(targetArr []*dbagent.Target, fetchDate []time.Time) error {
 	w.Wait()
 	close(errChan)
 	for {
-		var ok bool
-		err, ok = <-errChan
+		err, ok := <-errChan
 		if !ok {
 			break
 		}
@@ -68,5 +64,5 @@ func subHistoryKbar(targetArr []*dbagent.Target, fetchDate []time.Time) error {
 			return err
 		}
 	}
-	return err
+	return nil
 }

@@ -107,6 +107,15 @@ type Schedule struct {
 type Analyze struct {
 	CloseChangeRatioLow  float64 `json:"close_change_ratio_low,omitempty" yaml:"close_change_ratio_low"`
 	CloseChangeRatioHigh float64 `json:"close_change_ratio_high,omitempty" yaml:"close_change_ratio_high"`
+
+	OutInRatio float64 `json:"out_in_ratio,omitempty" yaml:"out_in_ratio"`
+	InOutRatio float64 `json:"in_out_ratio,omitempty" yaml:"in_out_ratio"`
+
+	RSIMinCount int     `json:"rsi_min_count,omitempty" yaml:"rsi_min_count"`
+	RSIHigh     float64 `json:"rsi_high,omitempty" yaml:"rsi_high"`
+	RSILow      float64 `json:"rsi_low,omitempty" yaml:"rsi_low"`
+
+	VolumePR             float64 `json:"volume_pr,omitempty" yaml:"volume_pr"`
 	OpenCloseChangeRatio float64 `json:"open_close_change_ratio,omitempty" yaml:"open_close_change_ratio"`
 }
 
@@ -134,6 +143,9 @@ func parseConfig() {
 
 		globalConfig.Database.DBHost = localHost
 		globalConfig.Database.Database = fmt.Sprintf("%s_debug", globalConfig.Database.Database)
+
+		globalConfig.Switch.EnableBuy = false
+		globalConfig.Switch.EnableSellFirst = false
 	}
 
 	globalConfig.basePath = global.Get().GetBasePath()

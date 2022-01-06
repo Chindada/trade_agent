@@ -15,22 +15,6 @@
 <polygon fill="#e6ecfa" stroke="#000000" stroke-width=".5" points="8,-32.8 8,-1341.8 538.8971,-1341.8 538.8971,-32.8 8,-32.8"/>
 <text text-anchor="middle" x="273.4485" y="-1321.6" font-family="Arial" font-size="18.00" fill="#000000">main</text>
 </g>
-<g id="clust3" class="cluster">
-<title>cluster_os</title>
-<g id="a_clust3"><a xlink:href="/?f=os" xlink:title="package: os">
-<polygon fill="#e0ffe1" stroke="#000000" stroke-width=".8" points="378.5965,-127.8 378.5965,-267.8 473.9605,-267.8 473.9605,-127.8 378.5965,-127.8"/>
-<text text-anchor="middle" x="426.2785" y="-249.4" font-family="Tahoma bold" font-size="16.00" fill="#000000">os</text>
-</a>
-</g>
-</g>
-<g id="clust4" class="cluster">
-<title>cluster_path/filepath</title>
-<g id="a_clust4"><a xlink:href="/?f=path/filepath" xlink:title="package: path/filepath">
-<polygon fill="#e0ffe1" stroke="#000000" stroke-width=".8" points="378.2785,-275.8 378.2785,-415.8 474.2785,-415.8 474.2785,-275.8 378.2785,-275.8"/>
-<text text-anchor="middle" x="426.2785" y="-397.4" font-family="Tahoma bold" font-size="16.00" fill="#000000">path/filepath</text>
-</a>
-</g>
-</g>
 <g id="clust8" class="cluster">
 <title>cluster_trade_agent/pkg/modules/cloudevent</title>
 <g id="a_clust8"><a xlink:href="/?f=trade_agent/pkg/modules/cloudevent" xlink:title="package: trade_agent/pkg/modules/cloudevent">
@@ -60,6 +44,46 @@
 <g id="a_clust15"><a xlink:href="/?f=trade_agent/pkg/modules/tickprocess" xlink:title="package: trade_agent/pkg/modules/tickprocess">
 <polygon fill="#ffffe0" stroke="#000000" stroke-width=".8" points="137.6364,-789.8 137.6364,-868.8 262.0235,-868.8 262.0235,-789.8 137.6364,-789.8"/>
 <text text-anchor="middle" x="199.83" y="-850.4" font-family="Tahoma bold" font-size="16.00" fill="#000000">tickprocess</text>
+</a>
+</g>
+</g>
+<g id="clust16" class="cluster">
+<title>cluster_trade_agent/pkg/modules/tradeday</title>
+<g id="a_clust16"><a xlink:href="/?f=trade_agent/pkg/modules/tradeday" xlink:title="package: trade_agent/pkg/modules/tradeday">
+<polygon fill="#ffffe0" stroke="#000000" stroke-width=".8" points="144.6781,-876.8 144.6781,-955.8 254.9818,-955.8 254.9818,-876.8 144.6781,-876.8"/>
+<text text-anchor="middle" x="199.83" y="-937.4" font-family="Tahoma bold" font-size="16.00" fill="#000000">tradeday</text>
+</a>
+</g>
+</g>
+<g id="clust17" class="cluster">
+<title>cluster_trade_agent/pkg/mqhandler</title>
+<g id="a_clust17"><a xlink:href="/?f=trade_agent/pkg/mqhandler" xlink:title="package: trade_agent/pkg/mqhandler">
+<polygon fill="#ffffe0" stroke="#000000" stroke-width=".8" points="138.078,-963.8 138.078,-1042.8 261.5819,-1042.8 261.5819,-963.8 138.078,-963.8"/>
+<text text-anchor="middle" x="199.83" y="-1024.4" font-family="Tahoma bold" font-size="16.00" fill="#000000">mqhandler</text>
+</a>
+</g>
+</g>
+<g id="clust18" class="cluster">
+<title>cluster_trade_agent/pkg/routers</title>
+<g id="a_clust18"><a xlink:href="/?f=trade_agent/pkg/routers" xlink:title="package: trade_agent/pkg/routers">
+<polygon fill="#ffffe0" stroke="#000000" stroke-width=".8" points="149.5052,-1050.8 149.5052,-1129.8 250.1547,-1129.8 250.1547,-1050.8 149.5052,-1050.8"/>
+<text text-anchor="middle" x="199.83" y="-1111.4" font-family="Tahoma bold" font-size="16.00" fill="#000000">routers</text>
+</a>
+</g>
+</g>
+<g id="clust19" class="cluster">
+<title>cluster_trade_agent/pkg/sinopacapi</title>
+<g id="a_clust19"><a xlink:href="/?f=trade_agent/pkg/sinopacapi" xlink:title="package: trade_agent/pkg/sinopacapi">
+<polygon fill="#ffffe0" stroke="#000000" stroke-width=".8" points="142.0274,-1137.8 142.0274,-1216.8 257.6325,-1216.8 257.6325,-1137.8 142.0274,-1137.8"/>
+<text text-anchor="middle" x="199.83" y="-1198.4" font-family="Tahoma bold" font-size="16.00" fill="#000000">sinopacapi</text>
+</a>
+</g>
+</g>
+<g id="clust20" class="cluster">
+<title>cluster_trade_agent/pkg/tasks</title>
+<g id="a_clust20"><a xlink:href="/?f=trade_agent/pkg/tasks" xlink:title="package: trade_agent/pkg/tasks">
+<polygon fill="#ffffe0" stroke="#000000" stroke-width=".8" points="157.8544,-1224.8 157.8544,-1303.8 241.8055,-1303.8 241.8055,-1224.8 157.8544,-1224.8"/>
+<text text-anchor="middle" x="199.83" y="-1285.4" font-family="Tahoma bold" font-size="16.00" fill="#000000">tasks</text>
 </a>
 </g>
 </g>
@@ -127,43 +151,19 @@
 </a>
 </g>
 </g>
-<g id="clust16" class="cluster">
-<title>cluster_trade_agent/pkg/modules/tradeday</title>
-<g id="a_clust16"><a xlink:href="/?f=trade_agent/pkg/modules/tradeday" xlink:title="package: trade_agent/pkg/modules/tradeday">
-<polygon fill="#ffffe0" stroke="#000000" stroke-width=".8" points="144.6781,-876.8 144.6781,-955.8 254.9818,-955.8 254.9818,-876.8 144.6781,-876.8"/>
-<text text-anchor="middle" x="199.83" y="-937.4" font-family="Tahoma bold" font-size="16.00" fill="#000000">tradeday</text>
+<g id="clust3" class="cluster">
+<title>cluster_os</title>
+<g id="a_clust3"><a xlink:href="/?f=os" xlink:title="package: os">
+<polygon fill="#e0ffe1" stroke="#000000" stroke-width=".8" points="378.5965,-127.8 378.5965,-267.8 473.9605,-267.8 473.9605,-127.8 378.5965,-127.8"/>
+<text text-anchor="middle" x="426.2785" y="-249.4" font-family="Tahoma bold" font-size="16.00" fill="#000000">os</text>
 </a>
 </g>
 </g>
-<g id="clust17" class="cluster">
-<title>cluster_trade_agent/pkg/mqhandler</title>
-<g id="a_clust17"><a xlink:href="/?f=trade_agent/pkg/mqhandler" xlink:title="package: trade_agent/pkg/mqhandler">
-<polygon fill="#ffffe0" stroke="#000000" stroke-width=".8" points="138.078,-963.8 138.078,-1042.8 261.5819,-1042.8 261.5819,-963.8 138.078,-963.8"/>
-<text text-anchor="middle" x="199.83" y="-1024.4" font-family="Tahoma bold" font-size="16.00" fill="#000000">mqhandler</text>
-</a>
-</g>
-</g>
-<g id="clust18" class="cluster">
-<title>cluster_trade_agent/pkg/routers</title>
-<g id="a_clust18"><a xlink:href="/?f=trade_agent/pkg/routers" xlink:title="package: trade_agent/pkg/routers">
-<polygon fill="#ffffe0" stroke="#000000" stroke-width=".8" points="149.5052,-1050.8 149.5052,-1129.8 250.1547,-1129.8 250.1547,-1050.8 149.5052,-1050.8"/>
-<text text-anchor="middle" x="199.83" y="-1111.4" font-family="Tahoma bold" font-size="16.00" fill="#000000">routers</text>
-</a>
-</g>
-</g>
-<g id="clust19" class="cluster">
-<title>cluster_trade_agent/pkg/sinopacapi</title>
-<g id="a_clust19"><a xlink:href="/?f=trade_agent/pkg/sinopacapi" xlink:title="package: trade_agent/pkg/sinopacapi">
-<polygon fill="#ffffe0" stroke="#000000" stroke-width=".8" points="142.0274,-1137.8 142.0274,-1216.8 257.6325,-1216.8 257.6325,-1137.8 142.0274,-1137.8"/>
-<text text-anchor="middle" x="199.83" y="-1198.4" font-family="Tahoma bold" font-size="16.00" fill="#000000">sinopacapi</text>
-</a>
-</g>
-</g>
-<g id="clust20" class="cluster">
-<title>cluster_trade_agent/pkg/tasks</title>
-<g id="a_clust20"><a xlink:href="/?f=trade_agent/pkg/tasks" xlink:title="package: trade_agent/pkg/tasks">
-<polygon fill="#ffffe0" stroke="#000000" stroke-width=".8" points="157.8544,-1224.8 157.8544,-1303.8 241.8055,-1303.8 241.8055,-1224.8 157.8544,-1224.8"/>
-<text text-anchor="middle" x="199.83" y="-1285.4" font-family="Tahoma bold" font-size="16.00" fill="#000000">tasks</text>
+<g id="clust4" class="cluster">
+<title>cluster_path/filepath</title>
+<g id="a_clust4"><a xlink:href="/?f=path/filepath" xlink:title="package: path/filepath">
+<polygon fill="#e0ffe1" stroke="#000000" stroke-width=".8" points="378.2785,-275.8 378.2785,-415.8 474.2785,-415.8 474.2785,-275.8 378.2785,-275.8"/>
+<text text-anchor="middle" x="426.2785" y="-397.4" font-family="Tahoma bold" font-size="16.00" fill="#000000">path/filepath</text>
 </a>
 </g>
 </g>

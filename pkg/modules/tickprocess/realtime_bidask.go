@@ -29,6 +29,11 @@ func realTimeBidAskCallback(m mqhandler.MQMessage) {
 		log.Get().Panic(err)
 	}
 
+	// skip if simtrade
+	if body.GetBidAsk().GetSimtrade() == 1 {
+		return
+	}
+
 	// adapter to local struct
 	bidAsk := body.GetBidAsk().ToRealTimeBidAsk()
 

@@ -28,6 +28,12 @@ func realTimeTickCallback(m mqhandler.MQMessage) {
 	if err != nil {
 		log.Get().Panic(err)
 	}
+
+	// skip if simtrade
+	if body.GetTick().GetSimtrade() == 1 {
+		return
+	}
+
 	// adapter to local struct
 	tick := body.GetTick().ToRealTimeTick()
 

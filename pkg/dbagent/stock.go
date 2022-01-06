@@ -39,6 +39,37 @@ func (c *DBAgent) InsertMultiStock(recordArr []*Stock) error {
 	return err
 }
 
+// InsertOrUpdateMultiStock InsertOrUpdateMultiStock
+func (c *DBAgent) InsertOrUpdateMultiStock(recordArr []*Stock) error {
+	err := c.DB.Transaction(func(tx *gorm.DB) error {
+		for _, stock := range recordArr {
+			tmp := stock
+			if tmp.ID != 0 {
+				if err := tx.Save(&tmp).Error; err != nil {
+					return err
+				}
+			} else {
+				if err := tx.Create(&tmp).Error; err != nil {
+					return err
+				}
+			}
+		}
+		return nil
+	})
+	return err
+}
+
+// UpdateAllStockDayTradeFalse UpdateAllStockDayTradeFalse
+func (c *DBAgent) UpdateAllStockDayTradeFalse() error {
+	err := c.DB.Transaction(func(tx *gorm.DB) error {
+		if err := tx.Model(&Stock{}).Where("id != 0").Updates(Stock{DayTrade: false}).Error; err != nil {
+			return err
+		}
+		return nil
+	})
+	return err
+}
+
 // DeleteAllStock DeleteAllStock
 func (c *DBAgent) DeleteAllStock() error {
 	err := c.DB.Transaction(func(tx *gorm.DB) error {
@@ -55,6 +86,18 @@ func (c *DBAgent) GetAllStockMap() (allStockMap map[string]*Stock, err error) {
 	allStockMap = make(map[string]*Stock)
 	var stockArr []*Stock
 	err = c.DB.Model(&Stock{}).Not("name = ?", "").Order("number").Find(&stockArr).Error
+
+	for _, v := range stockArr {
+		allStockMap[v.Number] = v
+	}
+	return allStockMap, err
+}
+
+// GetAllDayTradeStockMap GetAllDayTradeStockMap
+func (c *DBAgent) GetAllDayTradeStockMap() (allStockMap map[string]*Stock, err error) {
+	allStockMap = make(map[string]*Stock)
+	var stockArr []*Stock
+	err = c.DB.Model(&Stock{}).Where("day_trade = ?", true).Find(&stockArr).Error
 
 	for _, v := range stockArr {
 		allStockMap[v.Number] = v

@@ -91,10 +91,11 @@ func snapShotCallback(m mqhandler.MQMessage) {
 	}
 	if len(targetArr) == 0 {
 		return
-	}
-	if err := dbagent.Get().InsertMultiTarget(targetArr); err != nil {
+	} else if err := dbagent.Get().InsertMultiTarget(targetArr); err != nil {
 		log.Get().Panic(err)
 	}
 	// send to bus
 	eventbus.Get().Pub(eventbus.TopicTargets(), targetArr)
+	// append to cache
+	cache.GetCache().AppendTargets(targetArr)
 }

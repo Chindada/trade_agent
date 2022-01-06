@@ -8,8 +8,13 @@ import (
 	"fmt"
 	"io/ioutil"
 	"math/big"
+	"time"
+	"trade_agent/pkg/cache"
 	"trade_agent/pkg/config"
+	"trade_agent/pkg/eventbus"
 	"trade_agent/pkg/log"
+	"trade_agent/pkg/sinopacapi"
+	"trade_agent/pkg/utils"
 
 	mqtt "github.com/eclipse/paho.mqtt.golang"
 )
@@ -68,6 +73,53 @@ func onConnect(mqConf config.MQTT) func(mqtt.Client) {
 
 func onLost(mqConf config.MQTT) func(mqtt.Client, error) {
 	return func(mqtt.Client, error) {
-		log.Get().Panicf("MQTT Broker on %s:%s Disconnected", mqConf.Host, mqConf.Port)
+		log.Get().Errorf("MQTT Broker on %s:%s Disconnected", mqConf.Host, mqConf.Port)
+		mqConf := config.GetMQConfig()
+		for {
+			if utils.CheckPortIsOpen(mqConf.Host, mqConf.Port) {
+				break
+			}
+			time.Sleep(time.Second)
+		}
+
+		// get new mq connection
+		newClient, err := getMQClient(mqConf)
+		if err != nil {
+			log.Get().Panic(err)
+		}
+
+		// force sinopac mq srv re-connect mqtt broker
+		sinoErr := sinopacapi.Get().AskSinpacMQSRVConnectMQ(mqConf)
+		if sinoErr != nil {
+			log.Get().Panic(sinoErr)
+		}
+
+		Get().client.Disconnect(0)
+		Get().client = newClient
+
+		Get().lock.Lock()
+		// copy old cb map
+		oldCBMap := Get().callbackMap
+		oldOnceMap := Get().onceMap
+		// empty old map
+		Get().callbackMap = make(map[string]MQCallback)
+		Get().onceMap = make(map[string]bool)
+		Get().lock.Unlock()
+
+		for topic, cb := range oldCBMap {
+			err := Get().Sub(MQSubBody{
+				MQTopic:  MQTopic(topic),
+				Once:     oldOnceMap[topic],
+				Callback: cb,
+			})
+			if err != nil {
+				log.Get().Panic("MQTT Resubscribe Fail")
+			}
+		}
+
+		// get target from cache send event to resubscribe target
+		targetArr := cache.GetCache().GetTargets()
+		eventbus.Get().Pub(eventbus.TopicSubscribeTargets(), targetArr)
+		log.Get().Warn("Resubscribe All Done")
 	}
 }

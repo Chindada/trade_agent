@@ -3,6 +3,8 @@ package dbagent
 
 import (
 	"time"
+	"trade_agent/pkg/log"
+	"trade_agent/pkg/utils"
 
 	"gorm.io/gorm"
 )
@@ -75,39 +77,67 @@ type RealTimeTickArr []*RealTimeTick
 
 // GetStockNum GetStockNum
 func (c RealTimeTickArr) GetStockNum() string {
-	if len(c) != 0 {
-		return c[0].Stock.Number
+	if len(c) == 0 {
+		return ""
 	}
-	return ""
+	return c[0].Stock.Number
 }
 
-// GetTotalTime GetTotalTime
-func (c RealTimeTickArr) GetTotalTime() float64 {
-	if len(c) > 1 {
-		return (float64(c[len(c)-1].TickTime.UnixNano()) - float64(c[0].TickTime.UnixNano())) / 1000 / 1000 / 1000
+// GetLastPeriodVolume GetLastPeriodVolume
+func (c RealTimeTickArr) GetLastPeriodVolume() int64 {
+	if len(c) == 0 {
+		return 0
 	}
-	return 0
+
+	startTime := c[len(c)-1].TickTime.UnixNano()
+	var volume int64
+	for i := len(c) - 1; i >= 0; i-- {
+		if startTime-c[i].TickTime.UnixNano() < 5*1000*1000*1000 {
+			volume += c[i].Volume
+		} else {
+			break
+		}
+	}
+	return volume
 }
 
-// Analyzer Analyzer
-func (c RealTimeTickArr) Analyzer() []int64 {
-	var analyzeTickArr RealTimeTickArr
-	var volumeArr []int64
-	for i, tick := range c {
-		if i == 0 {
-			continue
-		}
-		if len(analyzeTickArr) > 1 {
-			if analyzeTickArr.GetTotalTime() > 5 {
-				var volumeSum int64
-				for _, k := range analyzeTickArr {
-					volumeSum += k.Volume
-				}
-				analyzeTickArr = RealTimeTickArr{}
-				volumeArr = append(volumeArr, volumeSum)
-			}
-		}
-		analyzeTickArr = append(analyzeTickArr, tick)
+// GetLastTick GetLastTick
+func (c RealTimeTickArr) GetLastTick() *RealTimeTick {
+	if len(c) == 0 {
+		return nil
 	}
-	return volumeArr
+	return c[len(c)-1]
+}
+
+// GetOutInRatio GetOutInRatio
+func (c RealTimeTickArr) GetOutInRatio() float64 {
+	if len(c) == 0 {
+		return 0
+	}
+	return 100 * float64(c[0].BidSideTotalVol) / float64(c[0].BidSideTotalVol+c[0].AskSideTotalVol)
+}
+
+// GetRSIByTickTime GetRSIByTickTime
+func (c RealTimeTickArr) GetRSIByTickTime(preTime time.Time, count int) float64 {
+	if len(c) == 0 || preTime.Equal(time.Time{}) {
+		return 0
+	}
+
+	var tmp []float64
+	for _, v := range c {
+		if v.TickTime.Equal(preTime) || v.TickTime.After(preTime) {
+			tmp = append(tmp, v.Close)
+		}
+	}
+
+	if len(tmp) < count {
+		return 0
+	}
+
+	rsi, err := utils.GenerateRSI(tmp)
+	if err != nil {
+		log.Get().Error(err)
+		return 0
+	}
+	return rsi
 }

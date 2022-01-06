@@ -39,8 +39,9 @@ func historyTickCallback(m mqhandler.MQMessage) {
 	}
 
 	// analyze to cache
-	analyzeVolumeArr := saveTick.Analyzer()
-	cache.GetCache().Set(cache.KeyStockHistoryTickAnalyze(body.GetStockNum()), analyzeVolumeArr)
+	if analyzeVolumeArr := saveTick.Analyzer(); len(analyzeVolumeArr) != 0 {
+		cache.GetCache().AppendHistoryTickAnalyze(body.GetStockNum(), analyzeVolumeArr)
+	}
 
 	log.Get().WithFields(map[string]interface{}{
 		"Stock": body.GetStockNum(),

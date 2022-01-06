@@ -7,6 +7,7 @@ import (
 	"trade_agent/pkg/dbagent"
 	"trade_agent/pkg/eventbus"
 	"trade_agent/pkg/log"
+	"trade_agent/pkg/utils"
 )
 
 // InitHistory InitHistory
@@ -66,7 +67,7 @@ func calculateBiasRate(targetArr []*dbagent.Target, fetchDate []time.Time) error
 			continue
 		}
 
-		biasRate, err := getBiasRateByCloseArr(closeArr)
+		biasRate, err := utils.GetBiasRateByCloseArr(closeArr)
 		if err != nil {
 			return err
 		}

@@ -15,6 +15,7 @@ var lock sync.Mutex
 func Run() {
 	lock.Lock()
 	var err error
+	defer lock.Unlock()
 	defer func() {
 		if r := recover(); r != nil {
 			switch x := r.(type) {
@@ -28,7 +29,6 @@ func Run() {
 			log.Get().Error(err.Error() + "\n" + string(debug.Stack()))
 		}
 	}()
-	defer lock.Unlock()
 
 	err = sinopacapi.Get().RestartSinopacSRV()
 	if err != nil {

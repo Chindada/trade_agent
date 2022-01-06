@@ -15,4 +15,5 @@ const (
 	realTimeTick   keyType = "real_time_tick"
 	stockDetail    keyType = "stock_detail"
 	tradeDay       keyType = "trade_day"
+	targets        keyType = "targets"
 )
