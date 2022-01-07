@@ -68,10 +68,6 @@ func realTimeTickProcessor(stockNum string) {
 	var tickArr dbagent.RealTimeTickArr
 	for {
 		tick := <-ch
-		if tick.Simtrade == 1 {
-			simTradeRealTimeTickChannel <- 1
-			continue
-		}
 		tickArr = append(tickArr, tick)
 		action := realTimeTickArrActionGenerator(tickArr, analyzeConf)
 		if action == 0 {
@@ -93,11 +89,6 @@ func realTimeBidAskProcessor(stockNum string) {
 	var bidAskArr []*dbagent.RealTimeBidAsk
 	for {
 		bidAsk := <-ch
-		if bidAsk.Simtrade == 1 {
-			simTradeRealTimeBidAskChannel <- 1
-			continue
-		}
-
 		bidAskArr = append(bidAskArr, bidAsk)
 		status := realTimeBidAskArrStatusGenerator(bidAsk, bidAskArr)
 		cache.GetCache().Set(cache.KeyRealTimeBidAskStatus(stockNum), status)

@@ -141,9 +141,10 @@ func (c AnalyzeVolumeArr) GetPRByVolume(volume int64) float64 {
 	sort.Slice(c, func(i, j int) bool {
 		return c[i] > c[j]
 	})
+
 	var position int
 	for i, v := range c {
-		if volume > v {
+		if volume >= v {
 			position = i
 			break
 		}

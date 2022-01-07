@@ -33,5 +33,5 @@ func (c *Cache) GetStockHistoryTickAnalyze(stockNum string) dbagent.AnalyzeVolum
 func (c *Cache) AppendHistoryTickAnalyze(stockNum string, arr dbagent.AnalyzeVolumeArr) {
 	tmp := c.GetStockHistoryTickAnalyze(stockNum)
 	tmp = append(tmp, arr...)
-	c.Set(KeyOrderForward(), tmp)
+	c.Set(KeyStockHistoryTickAnalyze(stockNum), tmp)
 }

@@ -31,6 +31,7 @@ func realTimeBidAskCallback(m mqhandler.MQMessage) {
 
 	// skip if simtrade
 	if body.GetBidAsk().GetSimtrade() == 1 {
+		simTradeRealTimeBidAskChannel <- 1
 		return
 	}
 

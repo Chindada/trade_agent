@@ -31,6 +31,7 @@ func realTimeTickCallback(m mqhandler.MQMessage) {
 
 	// skip if simtrade
 	if body.GetTick().GetSimtrade() == 1 {
+		simTradeRealTimeTickChannel <- 1
 		return
 	}
 
