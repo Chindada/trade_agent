@@ -14,6 +14,12 @@ func KeyRealTimeBidAskChannel(stockNum string) *Key {
 	}
 }
 
+// SetRealTimeBidAskChannel SetRealTimeBidAskChannel
+func (c *Cache) SetRealTimeBidAskChannel(stockNum string, ch chan *dbagent.RealTimeBidAsk) {
+	key := KeyRealTimeBidAskChannel(stockNum)
+	c.getCacheByType(key.Type).Set(key.Name, ch, noExpired)
+}
+
 // GetRealTimeBidAskChannel GetRealTimeBidAskChannel
 func (c *Cache) GetRealTimeBidAskChannel(stockNum string) chan *dbagent.RealTimeBidAsk {
 	c.lock.RLock()
@@ -35,6 +41,12 @@ func KeyRealTimeBidAskStatus(stockNum string) *Key {
 		Name: fmt.Sprintf("KeyRealTimeBidAskStatus:%s", stockNum),
 		Type: realTimeBidask,
 	}
+}
+
+// SetRealTimeBidAskStatus SetRealTimeBidAskStatus
+func (c *Cache) SetRealTimeBidAskStatus(stockNum string, status string) {
+	key := KeyRealTimeBidAskStatus(stockNum)
+	c.getCacheByType(key.Type).Set(key.Name, status, noExpired)
 }
 
 // GetRealTimeBidAskStatus GetRealTimeBidAskStatus

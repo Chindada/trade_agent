@@ -14,6 +14,12 @@ func KeyRealTimeTickChannel(stockNum string) *Key {
 	}
 }
 
+// SetRealTimeTickChannel SetRealTimeTickChannel
+func (c *Cache) SetRealTimeTickChannel(stockNum string, ch chan *dbagent.RealTimeTick) {
+	key := KeyRealTimeTickChannel(stockNum)
+	c.getCacheByType(key.Type).Set(key.Name, ch, noExpired)
+}
+
 // GetRealTimeTickChannel GetRealTimeTickChannel
 func (c *Cache) GetRealTimeTickChannel(stockNum string) chan *dbagent.RealTimeTick {
 	c.lock.RLock()

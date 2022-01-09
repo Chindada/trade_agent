@@ -14,6 +14,12 @@ func KeyStockHistoryTickAnalyze(stockNum string) *Key {
 	}
 }
 
+// SetStockHistoryTickAnalyze SetStockHistoryTickAnalyze
+func (c *Cache) SetStockHistoryTickAnalyze(stockNum string, arr dbagent.AnalyzeVolumeArr) {
+	key := KeyStockHistoryTickAnalyze(stockNum)
+	c.getCacheByType(key.Type).Set(key.Name, arr, noExpired)
+}
+
 // GetStockHistoryTickAnalyze GetStockHistoryTickAnalyze
 func (c *Cache) GetStockHistoryTickAnalyze(stockNum string) dbagent.AnalyzeVolumeArr {
 	c.lock.RLock()
@@ -33,5 +39,5 @@ func (c *Cache) GetStockHistoryTickAnalyze(stockNum string) dbagent.AnalyzeVolum
 func (c *Cache) AppendHistoryTickAnalyze(stockNum string, arr dbagent.AnalyzeVolumeArr) {
 	tmp := c.GetStockHistoryTickAnalyze(stockNum)
 	tmp = append(tmp, arr...)
-	c.Set(KeyStockHistoryTickAnalyze(stockNum), tmp)
+	c.SetStockHistoryTickAnalyze(stockNum, tmp)
 }

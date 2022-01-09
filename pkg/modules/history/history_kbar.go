@@ -32,7 +32,7 @@ func subHistoryKbar(targetArr []*dbagent.Target, fetchDate []time.Time) error {
 					return dbErr
 				}
 				status := dbHistoryKbar.Analyzer()
-				cache.GetCache().Set(cache.KeyStockHistoryKbarAnalyze(v.Stock.Number), status)
+				cache.GetCache().SetStockHistoryKbarAnalyze(v.Stock.Number, status)
 				continue
 			}
 			// does not exist, fetch.

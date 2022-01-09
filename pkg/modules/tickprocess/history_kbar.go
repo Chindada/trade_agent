@@ -39,7 +39,7 @@ func historyKbarCallback(m mqhandler.MQMessage) {
 	}
 
 	if kbarStatus := saveKbar.Analyzer(); kbarStatus != "" {
-		cache.GetCache().Set(cache.KeyStockHistoryKbarAnalyze(body.GetStockNum()), kbarStatus)
+		cache.GetCache().SetStockHistoryKbarAnalyze(body.GetStockNum(), kbarStatus)
 	}
 
 	log.Get().WithFields(map[string]interface{}{

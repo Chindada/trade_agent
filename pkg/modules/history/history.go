@@ -72,7 +72,7 @@ func calculateBiasRate(targetArr []*dbagent.Target, fetchDate []time.Time) error
 			return err
 		}
 
-		cache.GetCache().Set(cache.KeyBiasRate(stock.Stock.Number), biasRate)
+		cache.GetCache().SetBiasRate(stock.Stock.Number, biasRate)
 		log.Get().WithFields(map[string]interface{}{
 			"Stock": stock.Stock.Number,
 			"Value": biasRate,

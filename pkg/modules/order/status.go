@@ -57,11 +57,11 @@ func orderStausCallback(m mqhandler.MQMessage) {
 			switch statusMap[v.GetStatus()] {
 			case 4, 5:
 				// order fail or cancel, remove from waiting cache
-				cache.GetCache().Set(cache.KeyOrderWaiting(v.GetCode()), nil)
+				cache.GetCache().SetOrderWaiting(v.GetCode(), nil)
 
 			case 6:
 				// order filled, remove from waiting cache
-				cache.GetCache().Set(cache.KeyOrderWaiting(v.GetCode()), nil)
+				cache.GetCache().SetOrderWaiting(v.GetCode(), nil)
 
 				// order filled, add to filled cache by action
 				switch waitingOrder.Action {

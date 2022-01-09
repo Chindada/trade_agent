@@ -77,10 +77,11 @@ type Trade struct {
 
 // Switch Switch
 type Switch struct {
-	EnableBuy       bool  `json:"enable_buy,omitempty" yaml:"enable_buy"`
-	EnableSell      bool  `json:"enable_sell,omitempty" yaml:"enable_sell"`
-	EnableSellFirst bool  `json:"enable_sell_first,omitempty" yaml:"enable_sell_first"`
-	EnableBuyLater  bool  `json:"enable_buy_later,omitempty" yaml:"enable_buy_later"`
+	EnableBuy       bool `json:"enable_buy,omitempty" yaml:"enable_buy"`
+	EnableSell      bool `json:"enable_sell,omitempty" yaml:"enable_sell"`
+	EnableSellFirst bool `json:"enable_sell_first,omitempty" yaml:"enable_sell_first"`
+	EnableBuyLater  bool `json:"enable_buy_later,omitempty" yaml:"enable_buy_later"`
+
 	MeanTimeForward int64 `json:"mean_time_forward,omitempty" yaml:"mean_time_forward"`
 	MeanTimeReverse int64 `json:"mean_time_reverse,omitempty" yaml:"mean_time_reverse"`
 	ForwardMax      int64 `json:"forward_max,omitempty" yaml:"forward_max"`

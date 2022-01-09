@@ -25,9 +25,11 @@ func realTimeTickArrActionGenerator(tickArr dbagent.RealTimeTickArr, conf config
 	stockNum := tickArr.GetStockNum()
 	historyTickAnalyze := cache.GetCache().GetStockHistoryTickAnalyze(stockNum)
 	pr := historyTickAnalyze.GetPRByVolume(tickArr.GetLastPeriodVolume())
+	// TODO: for debug, need remove when release
 	// if pr < conf.VolumePR {
 	// 	return 0
 	// }
+
 	outInRatio := tickArr.GetOutInRatio()
 	tmp := &dbagent.RealTimeTickAnalyze{
 		Stock:      lastTick.Stock,

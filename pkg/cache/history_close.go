@@ -15,6 +15,12 @@ func KeyStockHistoryClose(stockNum string, date time.Time) *Key {
 	}
 }
 
+// SetStockHistoryClose SetStockHistoryClose
+func (c *Cache) SetStockHistoryClose(stockNum string, close float64, date time.Time) {
+	key := KeyStockHistoryClose(stockNum, date)
+	c.getCacheByType(key.Type).Set(key.Name, close, noExpired)
+}
+
 // GetHistoryClose GetHistoryClose
 func (c *Cache) GetHistoryClose(stockNum string, date time.Time) float64 {
 	c.lock.RLock()

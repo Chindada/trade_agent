@@ -3,8 +3,14 @@ package cache
 
 import (
 	"sync"
+	"time"
 
 	"github.com/patrickmn/go-cache"
+)
+
+const (
+	noExpired time.Duration = 0
+	noCleanUp time.Duration = 0
 )
 
 // Cache Cache
@@ -42,16 +48,16 @@ func initGlobalCache() {
 	globalCache = &newCache
 }
 
-// Set Set
-func (c *Cache) Set(key *Key, value interface{}) {
+// getCacheByType getCacheByType
+func (c *Cache) getCacheByType(keyType keyType) *cache.Cache {
 	c.lock.RLock()
-	tmp := c.CacheMap[string(key.Type)]
+	tmp := c.CacheMap[string(keyType)]
 	c.lock.RUnlock()
 	if tmp == nil {
-		tmp = cache.New(0, 0)
+		tmp = cache.New(noExpired, noCleanUp)
 		c.lock.Lock()
-		c.CacheMap[string(key.Type)] = tmp
+		c.CacheMap[string(keyType)] = tmp
 		c.lock.Unlock()
 	}
-	tmp.Set(key.Name, value, 0)
+	return tmp
 }

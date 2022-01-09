@@ -13,6 +13,12 @@ func KeyTargets() *Key {
 	}
 }
 
+// SetTargets SetTargets
+func (c *Cache) SetTargets(targetArr []*dbagent.Target) {
+	key := KeyTargets()
+	c.getCacheByType(key.Type).Set(key.Name, targetArr, noExpired)
+}
+
 // GetTargets GetTargets
 func (c *Cache) GetTargets() []*dbagent.Target {
 	c.lock.RLock()
@@ -32,5 +38,5 @@ func (c *Cache) GetTargets() []*dbagent.Target {
 func (c *Cache) AppendTargets(arr []*dbagent.Target) {
 	tmp := c.GetTargets()
 	tmp = append(tmp, arr...)
-	c.Set(KeyTargets(), tmp)
+	c.SetTargets(tmp)
 }

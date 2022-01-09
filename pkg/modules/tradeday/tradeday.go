@@ -24,7 +24,7 @@ func InitTradeDay() {
 	if err != nil {
 		log.Get().Panic(err)
 	}
-	cache.GetCache().Set(cache.KeyCalendar(), tradeDayMap)
+	cache.GetCache().SetCalendar(tradeDayMap)
 
 	// get trade day
 	tradeDay, err := GetTradeDay()
@@ -32,7 +32,7 @@ func InitTradeDay() {
 		log.Get().Panic(err)
 	}
 	// save to cache
-	cache.GetCache().Set(cache.KeyTradeDay(), tradeDay)
+	cache.GetCache().SetTradeDay(tradeDay)
 	log.Get().WithFields(map[string]interface{}{
 		"Date": tradeDay.Format(global.ShortTimeLayout),
 	}).Info("TradeDay")
@@ -42,7 +42,7 @@ func InitTradeDay() {
 	go func() {
 		for range time.Tick(10 * time.Second) {
 			isOpen := checkIsOpenTimeWithEndWaitTime(tradeDay, tradeConf.TradeInEndTime, tradeConf.WaitInOpen)
-			cache.GetCache().Set(cache.KeyIsOpenWithEndWaitTime(), isOpen)
+			cache.GetCache().SetIsOpenWithEndWaitTime(isOpen)
 		}
 	}()
 
@@ -52,9 +52,9 @@ func InitTradeDay() {
 	kbarRange := GetLastNTradeDayByDate(config.GetTradeConfig().HistoryKbarPeriod, tradeDay)
 
 	// save to cahce
-	cache.GetCache().Set(cache.KeyHistroyCloseRange(), closeRange)
-	cache.GetCache().Set(cache.KeyHistroyTickRange(), tickRange)
-	cache.GetCache().Set(cache.KeyHistroyKbarRange(), kbarRange)
+	cache.GetCache().SetHistroyCloseRange(closeRange)
+	cache.GetCache().SetHistroyTickRange(tickRange)
+	cache.GetCache().SetHistroyKbarRange(kbarRange)
 }
 
 func checkIsOpenTimeWithEndWaitTime(tradeDay time.Time, tradInEndTime, waitInOpen int64) bool {

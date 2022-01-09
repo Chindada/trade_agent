@@ -13,6 +13,12 @@ func KeyStockHistoryKbarAnalyze(stockNum string) *Key {
 	}
 }
 
+// SetStockHistoryKbarAnalyze SetStockHistoryKbarAnalyze
+func (c *Cache) SetStockHistoryKbarAnalyze(stockNum string, status string) {
+	key := KeyStockHistoryKbarAnalyze(stockNum)
+	c.getCacheByType(key.Type).Set(key.Name, status, noExpired)
+}
+
 // GetStockHistoryKbarAnalyze GetStockHistoryKbarAnalyze
 func (c *Cache) GetStockHistoryKbarAnalyze(stockNum string) string {
 	c.lock.RLock()

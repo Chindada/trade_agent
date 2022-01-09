@@ -11,6 +11,12 @@ func KeyCalendar() *Key {
 	}
 }
 
+// SetCalendar SetCalendar
+func (c *Cache) SetCalendar(tradeDayMap map[time.Time]bool) {
+	key := KeyCalendar()
+	c.getCacheByType(key.Type).Set(key.Name, tradeDayMap, noExpired)
+}
+
 // GetCalendar GetCalendar
 func (c *Cache) GetCalendar() map[time.Time]bool {
 	c.lock.RLock()

@@ -209,7 +209,7 @@ linters-settings:
         # report any comments starting with keywords, this is useful for TODO or FIXME comments that
         # might be left in the code accidentally and should be resolved before merging
         keywords: # default keywords are TODO, BUG, and FIXME, these can be overwritten by this setting
-            - TODO
+            # - TODO
             - BUG
             - FIXME
             - NOTE

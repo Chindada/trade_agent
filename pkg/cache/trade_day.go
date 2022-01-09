@@ -13,6 +13,12 @@ func KeyTradeDay() *Key {
 	}
 }
 
+// SetTradeDay SetTradeDay
+func (c *Cache) SetTradeDay(tradeDay time.Time) {
+	key := KeyTradeDay()
+	c.getCacheByType(key.Type).Set(key.Name, tradeDay, noExpired)
+}
+
 // GetTradeDay GetTradeDay
 func (c *Cache) GetTradeDay() time.Time {
 	c.lock.RLock()
@@ -34,6 +40,12 @@ func KeyHistroyCloseRange() *Key {
 		Name: "KeyHistroyCloseRange",
 		Type: tradeDay,
 	}
+}
+
+// SetHistroyCloseRange SetHistroyCloseRange
+func (c *Cache) SetHistroyCloseRange(closeRange []time.Time) {
+	key := KeyHistroyCloseRange()
+	c.getCacheByType(key.Type).Set(key.Name, closeRange, noExpired)
 }
 
 // GetHistroyCloseRange GetHistroyCloseRange
@@ -59,6 +71,12 @@ func KeyHistroyTickRange() *Key {
 	}
 }
 
+// SetHistroyTickRange SetHistroyTickRange
+func (c *Cache) SetHistroyTickRange(tickRange []time.Time) {
+	key := KeyHistroyTickRange()
+	c.getCacheByType(key.Type).Set(key.Name, tickRange, noExpired)
+}
+
 // GetHistroyTickRange GetHistroyTickRange
 func (c *Cache) GetHistroyTickRange() []time.Time {
 	c.lock.RLock()
@@ -82,6 +100,12 @@ func KeyHistroyKbarRange() *Key {
 	}
 }
 
+// SetHistroyKbarRange SetHistroyKbarRange
+func (c *Cache) SetHistroyKbarRange(kbarRange []time.Time) {
+	key := KeyHistroyKbarRange()
+	c.getCacheByType(key.Type).Set(key.Name, kbarRange, noExpired)
+}
+
 // GetHistroyKbarRange GetHistroyKbarRange
 func (c *Cache) GetHistroyKbarRange() []time.Time {
 	c.lock.RLock()
@@ -103,6 +127,12 @@ func KeyIsOpenWithEndWaitTime() *Key {
 		Name: "KeyIsOpenWithEndWaitTime",
 		Type: tradeDay,
 	}
+}
+
+// SetIsOpenWithEndWaitTime SetIsOpenWithEndWaitTime
+func (c *Cache) SetIsOpenWithEndWaitTime(isOpen bool) {
+	key := KeyIsOpenWithEndWaitTime()
+	c.getCacheByType(key.Type).Set(key.Name, isOpen, noExpired)
 }
 
 // GetIsOpenWithEndWaitTime GetIsOpenWithEndWaitTime

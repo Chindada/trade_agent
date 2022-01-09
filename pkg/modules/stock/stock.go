@@ -30,7 +30,7 @@ func InitStock() {
 
 	// save stock detail to cahce
 	for key := range inDBStock {
-		cache.GetCache().Set(cache.KeyStockDetail(key), inDBStock[key])
+		cache.GetCache().SetStockDetail(inDBStock[key])
 	}
 }
 

@@ -23,6 +23,9 @@ func InitOrder() {
 		log.Get().Panic(err)
 	}
 
+	// TODO: after trade out end time, find all target's available action, and send order
+	// price come from bidask best price
+
 	err = eventbus.Get().Sub(eventbus.TopicStockOrder(), orderCallback)
 	if err != nil {
 		log.Get().Panic(err)
@@ -56,7 +59,7 @@ func orderCallback(order *sinopacapi.Order) error {
 		return err
 	} else if orderID := orderRes.OrderID; orderID != "" {
 		order.OrderID = orderID
-		cache.GetCache().Set(cache.KeyOrderWaiting(order.StockNum), order)
+		cache.GetCache().SetOrderWaiting(order.StockNum, order)
 
 		// gorutine for check waiting order status
 		go checkWaitingOrder(order)

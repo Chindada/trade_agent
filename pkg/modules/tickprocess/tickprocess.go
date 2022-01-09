@@ -41,10 +41,10 @@ func InitTickProcess() {
 
 func targetsBusCallback(targetArr []*dbagent.Target) error {
 	for _, v := range targetArr {
-		cache.GetCache().Set(cache.KeyRealTimeTickChannel(v.Stock.Number), make(chan *dbagent.RealTimeTick))
+		cache.GetCache().SetRealTimeTickChannel(v.Stock.Number, make(chan *dbagent.RealTimeTick))
 		go realTimeTickProcessor(v.Stock.Number)
 
-		cache.GetCache().Set(cache.KeyRealTimeBidAskChannel(v.Stock.Number), make(chan *dbagent.RealTimeBidAsk))
+		cache.GetCache().SetRealTimeBidAskChannel(v.Stock.Number, make(chan *dbagent.RealTimeBidAsk))
 		go realTimeBidAskProcessor(v.Stock.Number)
 	}
 
@@ -91,7 +91,7 @@ func realTimeBidAskProcessor(stockNum string) {
 		bidAsk := <-ch
 		bidAskArr = append(bidAskArr, bidAsk)
 		status := realTimeBidAskArrStatusGenerator(bidAsk, bidAskArr)
-		cache.GetCache().Set(cache.KeyRealTimeBidAskStatus(stockNum), status)
+		cache.GetCache().SetRealTimeBidAskStatus(stockNum, status)
 	}
 }
 
