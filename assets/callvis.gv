@@ -20,35 +20,35 @@ labelloc="t";
 labeljust="c";
 fontsize="18";
         
-        "trade_agent/cmd.main" [ label="main" penwidth="0.5" fillcolor="lightblue" ]
-        "trade_agent/cmd.init#1" [ label="init#1" penwidth="0.5" fillcolor="lightblue" ]
+        "trade_agent/cmd.init#1" [ fillcolor="lightblue" label="init#1" penwidth="0.5" ]
         "trade_agent/cmd.init" [ fillcolor="lightblue" label="init" penwidth="0.5" ]
+        "trade_agent/cmd.main" [ fillcolor="lightblue" label="main" penwidth="0.5" ]
         
         subgraph "cluster_github.com/sirupsen/logrus" {
-        fillcolor="lightyellow";
+        penwidth="0.8";
+fontsize="16";
 fontname="Tahoma bold";
+tooltip="package: github.com/sirupsen/logrus";
 style="filled";
+fillcolor="lightyellow";
 rank="sink";
 label="logrus";
 URL="/?f=github.com/sirupsen/logrus";
-tooltip="package: github.com/sirupsen/logrus";
-penwidth="0.8";
-fontsize="16";
         
         "(*github.com/sirupsen/logrus.Logger).Panic" [ fillcolor="moccasin" label="(*Logger).Panic" penwidth="1.5" ]
         
     }
 
         subgraph "cluster_os" {
-        fontsize="16";
-style="filled";
-fontname="Tahoma bold";
-label="os";
-tooltip="package: os";
-penwidth="0.8";
-fillcolor="#E0FFE1";
+        fillcolor="#E0FFE1";
 rank="sink";
 URL="/?f=os";
+penwidth="0.8";
+style="filled";
+label="os";
+tooltip="package: os";
+fontsize="16";
+fontname="Tahoma bold";
         
         "os.Executable" [ fillcolor="#adedad" label="Executable" penwidth="1.5" ]
         "os.Getenv" [ fillcolor="#adedad" label="Getenv" penwidth="1.5" ]
@@ -59,104 +59,104 @@ URL="/?f=os";
         tooltip="package: path/filepath";
 penwidth="0.8";
 fontsize="16";
-label="path/filepath";
-rank="sink";
-URL="/?f=path/filepath";
 style="filled";
 fillcolor="#E0FFE1";
 fontname="Tahoma bold";
+rank="sink";
+label="path/filepath";
+URL="/?f=path/filepath";
         
-        "path/filepath.Dir" [ label="Dir" penwidth="1.5" fillcolor="#adedad" ]
-        "path/filepath.Clean" [ fillcolor="#adedad" label="Clean" penwidth="1.5" ]
+        "path/filepath.Dir" [ fillcolor="#adedad" label="Dir" penwidth="1.5" ]
+        "path/filepath.Clean" [ penwidth="1.5" fillcolor="#adedad" label="Clean" ]
         
     }
 
         subgraph "cluster_trade_agent/global" {
-        penwidth="0.8";
+        fontsize="16";
+style="filled";
 fillcolor="lightyellow";
 fontname="Tahoma bold";
 rank="sink";
-tooltip="package: trade_agent/global";
-fontsize="16";
-style="filled";
-label="global";
 URL="/?f=trade_agent/global";
+penwidth="0.8";
+label="global";
+tooltip="package: trade_agent/global";
         
         "trade_agent/global.Get" [ fillcolor="moccasin" label="Get" penwidth="1.5" ]
         "(*trade_agent/global.Setting).SetBasePath" [ fillcolor="moccasin" label="(*Setting).SetBasePath" penwidth="1.5" ]
-        "(*trade_agent/global.Setting).SetIsDevelopment" [ label="(*Setting).SetIsDevelopment" penwidth="1.5" fillcolor="moccasin" ]
+        "(*trade_agent/global.Setting).SetIsDevelopment" [ fillcolor="moccasin" label="(*Setting).SetIsDevelopment" penwidth="1.5" ]
         
     }
 
         subgraph "cluster_trade_agent/pkg/dbagent" {
-        rank="sink";
+        tooltip="package: trade_agent/pkg/dbagent";
 URL="/?f=trade_agent/pkg/dbagent";
-tooltip="package: trade_agent/pkg/dbagent";
-penwidth="0.8";
 fontsize="16";
+style="filled";
 fillcolor="lightyellow";
 fontname="Tahoma bold";
-style="filled";
+rank="sink";
 label="dbagent";
+penwidth="0.8";
         
-        "trade_agent/pkg/dbagent.InitDatabase" [ penwidth="1.5" fillcolor="moccasin" label="InitDatabase" ]
+        "trade_agent/pkg/dbagent.InitDatabase" [ fillcolor="moccasin" label="InitDatabase" penwidth="1.5" ]
         
     }
 
         subgraph "cluster_trade_agent/pkg/log" {
         fontsize="16";
-style="filled";
-rank="sink";
+URL="/?f=trade_agent/pkg/log";
 penwidth="0.8";
+style="filled";
 fillcolor="lightyellow";
 fontname="Tahoma bold";
+rank="sink";
 label="log";
-URL="/?f=trade_agent/pkg/log";
 tooltip="package: trade_agent/pkg/log";
         
-        "trade_agent/pkg/log.Get" [ label="Get" penwidth="1.5" fillcolor="moccasin" ]
+        "trade_agent/pkg/log.Get" [ fillcolor="moccasin" label="Get" penwidth="1.5" ]
         
     }
 
         subgraph "cluster_trade_agent/pkg/modules/cloudevent" {
-        style="filled";
-fillcolor="lightyellow";
-rank="sink";
-penwidth="0.8";
-fontname="Tahoma bold";
+        fillcolor="lightyellow";
 label="cloudevent";
+penwidth="0.8";
+fontsize="16";
+style="filled";
+fontname="Tahoma bold";
+rank="sink";
 URL="/?f=trade_agent/pkg/modules/cloudevent";
 tooltip="package: trade_agent/pkg/modules/cloudevent";
-fontsize="16";
         
-        "trade_agent/pkg/modules/cloudevent.InitCloudEvent" [ penwidth="1.5" fillcolor="moccasin" label="InitCloudEvent" ]
+        "trade_agent/pkg/modules/cloudevent.InitCloudEvent" [ label="InitCloudEvent" penwidth="1.5" fillcolor="moccasin" ]
         
     }
 
         subgraph "cluster_trade_agent/pkg/modules/healthcheck" {
-        penwidth="0.8";
-fillcolor="lightyellow";
-fontname="Tahoma bold";
-rank="sink";
+        rank="sink";
 label="healthcheck";
+penwidth="0.8";
 fontsize="16";
-style="filled";
-URL="/?f=trade_agent/pkg/modules/healthcheck";
+fontname="Tahoma bold";
 tooltip="package: trade_agent/pkg/modules/healthcheck";
+style="filled";
+fillcolor="lightyellow";
+URL="/?f=trade_agent/pkg/modules/healthcheck";
         
         "trade_agent/pkg/modules/healthcheck.InitHealthCheck" [ fillcolor="moccasin" label="InitHealthCheck" penwidth="1.5" ]
         
     }
 
         subgraph "cluster_trade_agent/pkg/modules/history" {
-        label="history";
+        fontsize="16";
+URL="/?f=trade_agent/pkg/modules/history";
 tooltip="package: trade_agent/pkg/modules/history";
+penwidth="0.8";
 fillcolor="lightyellow";
 fontname="Tahoma bold";
 rank="sink";
-URL="/?f=trade_agent/pkg/modules/history";
-penwidth="0.8";
-fontsize="16";
+label="history";
 style="filled";
         
         "trade_agent/pkg/modules/history.InitHistory" [ fillcolor="moccasin" label="InitHistory" penwidth="1.5" ]
@@ -164,150 +164,150 @@ style="filled";
     }
 
         subgraph "cluster_trade_agent/pkg/modules/order" {
-        tooltip="package: trade_agent/pkg/modules/order";
-penwidth="0.8";
-fillcolor="lightyellow";
-fontname="Tahoma bold";
-label="order";
-URL="/?f=trade_agent/pkg/modules/order";
-fontsize="16";
-style="filled";
+        fontname="Tahoma bold";
 rank="sink";
+URL="/?f=trade_agent/pkg/modules/order";
+tooltip="package: trade_agent/pkg/modules/order";
+penwidth="0.8";
+style="filled";
+fillcolor="lightyellow";
+label="order";
+fontsize="16";
         
-        "trade_agent/pkg/modules/order.InitOrder" [ penwidth="1.5" fillcolor="moccasin" label="InitOrder" ]
+        "trade_agent/pkg/modules/order.InitOrder" [ fillcolor="moccasin" label="InitOrder" penwidth="1.5" ]
         
     }
 
         subgraph "cluster_trade_agent/pkg/modules/stock" {
-        fontname="Tahoma bold";
+        style="filled";
+tooltip="package: trade_agent/pkg/modules/stock";
+fontsize="16";
+fillcolor="lightyellow";
+fontname="Tahoma bold";
 rank="sink";
 label="stock";
 URL="/?f=trade_agent/pkg/modules/stock";
 penwidth="0.8";
-fontsize="16";
-style="filled";
-fillcolor="lightyellow";
-tooltip="package: trade_agent/pkg/modules/stock";
         
-        "trade_agent/pkg/modules/stock.InitStock" [ fillcolor="moccasin" label="InitStock" penwidth="1.5" ]
+        "trade_agent/pkg/modules/stock.InitStock" [ label="InitStock" penwidth="1.5" fillcolor="moccasin" ]
         
     }
 
         subgraph "cluster_trade_agent/pkg/modules/subscribe" {
-        style="filled";
-fillcolor="lightyellow";
+        penwidth="0.8";
 fontname="Tahoma bold";
-rank="sink";
 URL="/?f=trade_agent/pkg/modules/subscribe";
-fontsize="16";
 label="subscribe";
 tooltip="package: trade_agent/pkg/modules/subscribe";
-penwidth="0.8";
+fontsize="16";
+style="filled";
+fillcolor="lightyellow";
+rank="sink";
         
         "trade_agent/pkg/modules/subscribe.InitSubscribe" [ fillcolor="moccasin" label="InitSubscribe" penwidth="1.5" ]
         
     }
 
         subgraph "cluster_trade_agent/pkg/modules/targets" {
-        rank="sink";
-URL="/?f=trade_agent/pkg/modules/targets";
-penwidth="0.8";
+        tooltip="package: trade_agent/pkg/modules/targets";
+fontsize="16";
 style="filled";
+fillcolor="lightyellow";
 fontname="Tahoma bold";
 label="targets";
-tooltip="package: trade_agent/pkg/modules/targets";
-fontsize="16";
-fillcolor="lightyellow";
+URL="/?f=trade_agent/pkg/modules/targets";
+penwidth="0.8";
+rank="sink";
         
-        "trade_agent/pkg/modules/targets.InitTargets" [ fillcolor="moccasin" label="InitTargets" penwidth="1.5" ]
+        "trade_agent/pkg/modules/targets.InitTargets" [ label="InitTargets" penwidth="1.5" fillcolor="moccasin" ]
         
     }
 
         subgraph "cluster_trade_agent/pkg/modules/tickprocess" {
         label="tickprocess";
-penwidth="0.8";
-fillcolor="lightyellow";
-fontname="Tahoma bold";
-URL="/?f=trade_agent/pkg/modules/tickprocess";
 tooltip="package: trade_agent/pkg/modules/tickprocess";
 fontsize="16";
 style="filled";
+fillcolor="lightyellow";
+fontname="Tahoma bold";
 rank="sink";
+URL="/?f=trade_agent/pkg/modules/tickprocess";
+penwidth="0.8";
         
-        "trade_agent/pkg/modules/tickprocess.InitTickProcess" [ penwidth="1.5" fillcolor="moccasin" label="InitTickProcess" ]
+        "trade_agent/pkg/modules/tickprocess.InitTickProcess" [ fillcolor="moccasin" label="InitTickProcess" penwidth="1.5" ]
         
     }
 
         subgraph "cluster_trade_agent/pkg/modules/tradeday" {
-        tooltip="package: trade_agent/pkg/modules/tradeday";
-fontsize="16";
+        penwidth="0.8";
+style="filled";
 fontname="Tahoma bold";
 rank="sink";
 label="tradeday";
 URL="/?f=trade_agent/pkg/modules/tradeday";
-penwidth="0.8";
-style="filled";
+tooltip="package: trade_agent/pkg/modules/tradeday";
+fontsize="16";
 fillcolor="lightyellow";
         
-        "trade_agent/pkg/modules/tradeday.InitTradeDay" [ label="InitTradeDay" penwidth="1.5" fillcolor="moccasin" ]
+        "trade_agent/pkg/modules/tradeday.InitTradeDay" [ penwidth="1.5" fillcolor="moccasin" label="InitTradeDay" ]
         
     }
 
         subgraph "cluster_trade_agent/pkg/mqhandler" {
-        style="filled";
-fontname="Tahoma bold";
-label="mqhandler";
+        tooltip="package: trade_agent/pkg/mqhandler";
 penwidth="0.8";
 fontsize="16";
-fillcolor="lightyellow";
+label="mqhandler";
 rank="sink";
 URL="/?f=trade_agent/pkg/mqhandler";
-tooltip="package: trade_agent/pkg/mqhandler";
+style="filled";
+fillcolor="lightyellow";
+fontname="Tahoma bold";
         
-        "trade_agent/pkg/mqhandler.InitMQHandler" [ fillcolor="moccasin" label="InitMQHandler" penwidth="1.5" ]
+        "trade_agent/pkg/mqhandler.InitMQHandler" [ penwidth="1.5" fillcolor="moccasin" label="InitMQHandler" ]
         
     }
 
         subgraph "cluster_trade_agent/pkg/routers" {
-        style="filled";
-fontname="Tahoma bold";
-rank="sink";
+        fontsize="16";
+style="filled";
 label="routers";
 URL="/?f=trade_agent/pkg/routers";
-tooltip="package: trade_agent/pkg/routers";
 penwidth="0.8";
-fontsize="16";
 fillcolor="lightyellow";
+fontname="Tahoma bold";
+rank="sink";
+tooltip="package: trade_agent/pkg/routers";
         
         "trade_agent/pkg/routers.ServeHTTP" [ fillcolor="moccasin" label="ServeHTTP" penwidth="1.5" ]
         
     }
 
         subgraph "cluster_trade_agent/pkg/sinopacapi" {
-        tooltip="package: trade_agent/pkg/sinopacapi";
-fontsize="16";
-style="filled";
-fillcolor="lightyellow";
-label="sinopacapi";
-penwidth="0.8";
+        style="filled";
 fontname="Tahoma bold";
-rank="sink";
 URL="/?f=trade_agent/pkg/sinopacapi";
+tooltip="package: trade_agent/pkg/sinopacapi";
+penwidth="0.8";
+fontsize="16";
+fillcolor="lightyellow";
+rank="sink";
+label="sinopacapi";
         
-        "trade_agent/pkg/sinopacapi.InitSinpacAPI" [ fillcolor="moccasin" label="InitSinpacAPI" penwidth="1.5" ]
+        "trade_agent/pkg/sinopacapi.InitSinpacAPI" [ label="InitSinpacAPI" penwidth="1.5" fillcolor="moccasin" ]
         
     }
 
         subgraph "cluster_trade_agent/pkg/tasks" {
-        fontsize="16";
+        label="tasks";
+penwidth="0.8";
 style="filled";
 fillcolor="lightyellow";
-fontname="Tahoma bold";
 rank="sink";
+fontsize="16";
+fontname="Tahoma bold";
 URL="/?f=trade_agent/pkg/tasks";
 tooltip="package: trade_agent/pkg/tasks";
-penwidth="0.8";
-label="tasks";
         
         "trade_agent/pkg/tasks.InitTasks" [ fillcolor="moccasin" label="InitTasks" penwidth="1.5" ]
         
@@ -315,6 +315,16 @@ label="tasks";
 
     }
 
+    "trade_agent/cmd.init#1" -> "os.Executable" [ color="saddlebrown" ]
+    "trade_agent/cmd.init#1" -> "trade_agent/pkg/log.Get" [ color="saddlebrown" ]
+    "trade_agent/cmd.init#1" -> "(*github.com/sirupsen/logrus.Logger).Panic" [ color="saddlebrown" ]
+    "trade_agent/cmd.init#1" -> "trade_agent/global.Get" [ color="saddlebrown" ]
+    "trade_agent/cmd.init#1" -> "path/filepath.Dir" [ color="saddlebrown" ]
+    "trade_agent/cmd.init#1" -> "path/filepath.Clean" [ color="saddlebrown" ]
+    "trade_agent/cmd.init#1" -> "(*trade_agent/global.Setting).SetBasePath" [ color="saddlebrown" ]
+    "trade_agent/cmd.init#1" -> "os.Getenv" [ color="saddlebrown" ]
+    "trade_agent/cmd.init#1" -> "(*trade_agent/global.Setting).SetIsDevelopment" [ color="saddlebrown" ]
+    "trade_agent/cmd.init" -> "trade_agent/cmd.init#1" [  ]
     "trade_agent/cmd.main" -> "trade_agent/pkg/dbagent.InitDatabase" [ color="saddlebrown" ]
     "trade_agent/cmd.main" -> "trade_agent/pkg/mqhandler.InitMQHandler" [ color="saddlebrown" ]
     "trade_agent/cmd.main" -> "trade_agent/pkg/sinopacapi.InitSinpacAPI" [ color="saddlebrown" ]
@@ -329,14 +339,4 @@ label="tasks";
     "trade_agent/cmd.main" -> "trade_agent/pkg/modules/history.InitHistory" [ color="saddlebrown" ]
     "trade_agent/cmd.main" -> "trade_agent/pkg/modules/targets.InitTargets" [ color="saddlebrown" ]
     "trade_agent/cmd.main" -> "trade_agent/pkg/modules/healthcheck.InitHealthCheck" [ color="saddlebrown" ]
-    "trade_agent/cmd.init#1" -> "os.Executable" [ color="saddlebrown" ]
-    "trade_agent/cmd.init#1" -> "trade_agent/pkg/log.Get" [ color="saddlebrown" ]
-    "trade_agent/cmd.init#1" -> "(*github.com/sirupsen/logrus.Logger).Panic" [ color="saddlebrown" ]
-    "trade_agent/cmd.init#1" -> "trade_agent/global.Get" [ color="saddlebrown" ]
-    "trade_agent/cmd.init#1" -> "path/filepath.Dir" [ color="saddlebrown" ]
-    "trade_agent/cmd.init#1" -> "path/filepath.Clean" [ color="saddlebrown" ]
-    "trade_agent/cmd.init#1" -> "(*trade_agent/global.Setting).SetBasePath" [ color="saddlebrown" ]
-    "trade_agent/cmd.init#1" -> "os.Getenv" [ color="saddlebrown" ]
-    "trade_agent/cmd.init#1" -> "(*trade_agent/global.Setting).SetIsDevelopment" [ color="saddlebrown" ]
-    "trade_agent/cmd.init" -> "trade_agent/cmd.init#1" [  ]
 }
