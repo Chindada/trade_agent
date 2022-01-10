@@ -3,6 +3,7 @@ package tickprocess
 
 import (
 	"trade_agent/pkg/cache"
+	"trade_agent/pkg/config"
 	"trade_agent/pkg/dbagent"
 	"trade_agent/pkg/log"
 	"trade_agent/pkg/mqhandler"
@@ -39,7 +40,8 @@ func historyTickCallback(m mqhandler.MQMessage) {
 	}
 
 	// analyze to cache
-	if analyzeVolumeArr := saveTick.Analyzer(); len(analyzeVolumeArr) != 0 {
+	analyzeConf := config.GetAnalyzeConfig()
+	if analyzeVolumeArr := saveTick.Analyzer(analyzeConf.TickAnalyzeMinPeriod, analyzeConf.TickAnalyzeMaxPeriod); len(analyzeVolumeArr) != 0 {
 		cache.GetCache().AppendHistoryTickAnalyze(body.GetStockNum(), analyzeVolumeArr)
 	}
 

@@ -6,6 +6,7 @@ import (
 	"time"
 	"trade_agent/global"
 	"trade_agent/pkg/cache"
+	"trade_agent/pkg/config"
 	"trade_agent/pkg/dbagent"
 	"trade_agent/pkg/log"
 	"trade_agent/pkg/sinopacapi"
@@ -26,9 +27,10 @@ func subHistoryTick(targetArr []*dbagent.Target, fetchDate []time.Time) error {
 				}).Info("HistoryTick Already Exist")
 
 				// select from db to analyze to cache
+				analyzeConf := config.GetAnalyzeConfig()
 				if dbHistoryTick, fetchErr := dbagent.Get().GetHistoryTickByStockIDAndDate(v.StockID, date); fetchErr != nil {
 					return fetchErr
-				} else if analyzeVolumeArr := dbHistoryTick.Analyzer(); len(analyzeVolumeArr) != 0 {
+				} else if analyzeVolumeArr := dbHistoryTick.Analyzer(analyzeConf.TickAnalyzeMinPeriod, analyzeConf.TickAnalyzeMaxPeriod); len(analyzeVolumeArr) != 0 {
 					cache.GetCache().AppendHistoryTickAnalyze(v.Stock.Number, analyzeVolumeArr)
 				}
 				continue

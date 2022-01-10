@@ -109,6 +109,9 @@ type Analyze struct {
 	CloseChangeRatioLow  float64 `json:"close_change_ratio_low,omitempty" yaml:"close_change_ratio_low"`
 	CloseChangeRatioHigh float64 `json:"close_change_ratio_high,omitempty" yaml:"close_change_ratio_high"`
 
+	TickAnalyzeMinPeriod int64 `json:"tick_analyze_period,omitempty" yaml:"tick_analyze_period"`
+	TickAnalyzeMaxPeriod int64 `json:"tick_analyze_max_period,omitempty" yaml:"tick_analyze_max_period"`
+
 	OutInRatio float64 `json:"out_in_ratio,omitempty" yaml:"out_in_ratio"`
 	InOutRatio float64 `json:"in_out_ratio,omitempty" yaml:"in_out_ratio"`
 

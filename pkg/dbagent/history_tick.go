@@ -98,7 +98,7 @@ func (c HistoryTickArr) GetTotalTime() float64 {
 }
 
 // Analyzer Analyzer
-func (c HistoryTickArr) Analyzer() AnalyzeVolumeArr {
+func (c HistoryTickArr) Analyzer(minSec, maxSec int64) AnalyzeVolumeArr {
 	if len(c) < 2 {
 		return AnalyzeVolumeArr{}
 	}
@@ -115,16 +115,16 @@ func (c HistoryTickArr) Analyzer() AnalyzeVolumeArr {
 		period := tick.TickTime.UnixNano() - startTime
 		analyzeTickArr = append(analyzeTickArr, tick)
 		switch {
-		case period < 5*1000*1000*1000:
+		case period < minSec*1000*1000*1000:
 			continue
-		case period >= 5*1000*1000*1000 && period <= 6*1000*1000*1000:
+		case period >= minSec*1000*1000*1000 && period <= maxSec*1000*1000*1000:
 			var volumeSum int64
 			for _, k := range analyzeTickArr {
 				volumeSum += k.Volume
 			}
 			analyzeTickArr = HistoryTickArr{}
 			volumeArr = append(volumeArr, volumeSum)
-		case period > 6*1000*1000*1000:
+		case period > maxSec*1000*1000*1000:
 			analyzeTickArr = HistoryTickArr{tick}
 		}
 		startTime = tick.TickTime.UnixNano()

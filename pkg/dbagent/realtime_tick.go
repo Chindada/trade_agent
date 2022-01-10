@@ -88,21 +88,37 @@ func (c RealTimeTickArr) GetStockNum() string {
 	return c[0].Stock.Number
 }
 
-// GetLastPeriodVolume GetLastPeriodVolume
-func (c RealTimeTickArr) GetLastPeriodVolume() int64 {
+// GetLastNSecondArr GetLastNSecondArr
+func (c RealTimeTickArr) GetLastNSecondArr(n int64) RealTimeTickArr {
 	if len(c) == 0 {
-		return 0
+		return RealTimeTickArr{}
 	}
 
 	startTime := c[len(c)-1].TickTime.UnixNano()
-	var volume int64
-	for i := len(c) - 1; i >= 0; i-- {
-		if startTime-c[i].TickTime.UnixNano() < 5*1000*1000*1000 {
-			volume += c[i].Volume
+	tmp := RealTimeTickArr{}
+
+	// skip if i == 0, the volume will be too large
+	for i := len(c) - 1; i > 0; i-- {
+		if startTime-c[i].TickTime.UnixNano() < n*1000*1000*1000 {
+			tmp = append(tmp, c[i])
 		} else {
 			break
 		}
 	}
+	return tmp
+}
+
+// GetTotalVolume GetTotalVolume
+func (c RealTimeTickArr) GetTotalVolume() int64 {
+	if len(c) == 0 {
+		return 0
+	}
+
+	var volume int64
+	for _, v := range c {
+		volume += v.Volume
+	}
+
 	return volume
 }
 
@@ -119,7 +135,18 @@ func (c RealTimeTickArr) GetOutInRatio() float64 {
 	if len(c) == 0 {
 		return 0
 	}
-	return 100 * float64(c[0].BidSideTotalVol) / float64(c[0].BidSideTotalVol+c[0].AskSideTotalVol)
+
+	var outVolume, inVolume int64
+	for _, v := range c {
+		switch v.TickType {
+		case 1:
+			outVolume += v.Volume
+		case 2:
+			inVolume += v.Volume
+		}
+	}
+
+	return 100 * float64(outVolume) / float64(outVolume+inVolume)
 }
 
 // GetRSIByTickTime GetRSIByTickTime
