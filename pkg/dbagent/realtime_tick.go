@@ -90,22 +90,27 @@ func (c RealTimeTickArr) GetStockNum() string {
 
 // GetLastNSecondArr GetLastNSecondArr
 func (c RealTimeTickArr) GetLastNSecondArr(n int64) RealTimeTickArr {
-	if len(c) == 0 {
+	if len(c) < 2 {
 		return RealTimeTickArr{}
 	}
 
 	startTime := c[len(c)-1].TickTime.UnixNano()
-	tmp := RealTimeTickArr{}
 
 	// skip if i == 0, the volume will be too large
+	var cut int
 	for i := len(c) - 1; i > 0; i-- {
 		if startTime-c[i].TickTime.UnixNano() < n*1000*1000*1000 {
-			tmp = append(tmp, c[i])
+			continue
 		} else {
+			cut = i - 1
 			break
 		}
 	}
-	return tmp
+
+	if cut == 0 {
+		return RealTimeTickArr{}
+	}
+	return c[cut:]
 }
 
 // GetTotalVolume GetTotalVolume

@@ -9,6 +9,7 @@ import (
 	"trade_agent/pkg/eventbus"
 	"trade_agent/pkg/log"
 	"trade_agent/pkg/sinopacapi"
+	"trade_agent/pkg/utils"
 )
 
 var (
@@ -63,15 +64,39 @@ func targetsBusCallback(targetArr []*dbagent.Target) error {
 
 func realTimeTickProcessor(stockNum string) {
 	analyzeConf := config.GetAnalyzeConfig()
-
 	ch := cache.GetCache().GetRealTimeTickChannel(stockNum)
+
 	var tickArr dbagent.RealTimeTickArr
+	var lastPeriodEndTime time.Time
 	for {
 		tick := <-ch
 		tickArr = append(tickArr, tick)
-		action := realTimeTickArrActionGenerator(tickArr, analyzeConf)
-		if action == 0 {
+
+		// save realtime tick close to cache
+		cache.GetCache().SetRealTimeTickClose(stockNum, tick.Close)
+
+		if lastPeriodEndTime.Equal(time.Time{}) {
+			lastPeriodEndTime = tick.TickTime
 			continue
+		}
+
+		lastPeriodArr := tickArr.GetLastNSecondArr(analyzeConf.TickAnalyzeMinPeriod)
+		if len(lastPeriodArr) < 2 {
+			continue
+		}
+
+		if tick.TickTime.Before(lastPeriodEndTime.Add(time.Duration(analyzeConf.TickAnalyzeMinPeriod) * time.Second)) {
+			continue
+		} else {
+			lastPeriodEndTime = lastPeriodArr.GetLastTick().TickTime
+		}
+
+		realTimeBalancePct, emerAction := getRealTimeBalancePct(stockNum, tick.Close)
+		action := realTimeTickArrActionGenerator(tickArr, lastPeriodArr, analyzeConf)
+		if action == 0 && realTimeBalancePct < 2 {
+			continue
+		} else {
+			action = emerAction
 		}
 
 		order := &sinopacapi.Order{
@@ -80,6 +105,8 @@ func realTimeTickProcessor(stockNum string) {
 			Action:    action,
 			TradeTime: tick.TickTime,
 		}
+
+		// send order event
 		eventbus.Get().Pub(eventbus.TopicStockOrder(), order)
 	}
 }
@@ -123,4 +150,35 @@ func simTradeRealTimeBidAskCollector() {
 			}).Info("SimTradeBidAsk")
 		}
 	}
+}
+
+func getRealTimeBalancePct(stockNum string, close float64) (float64, sinopacapi.OrderAction) {
+	historyOrderBuy := cache.GetCache().GetOrderBuy(stockNum)
+	historyOrderSell := cache.GetCache().GetOrderSell(stockNum)
+	restOrderCount := len(historyOrderBuy) - len(historyOrderSell)
+	if restOrderCount != 0 {
+		for i := len(historyOrderSell); i <= len(historyOrderSell)-1+restOrderCount; i++ {
+			lastOrder := historyOrderBuy[i]
+			buyCost := utils.GetStockBuyCost(lastOrder.Price, lastOrder.Quantity)
+			sellCost := utils.GetStockSellCost(close, lastOrder.Quantity)
+			if buyCost > sellCost {
+				return 100 * float64(buyCost-sellCost) / float64(buyCost), sinopacapi.ActionSell
+			}
+		}
+	}
+
+	historyOrderSellFirst := cache.GetCache().GetOrderSellFirst(stockNum)
+	historyOrderBuyLater := cache.GetCache().GetOrderBuyLater(stockNum)
+	restOrderCount = len(historyOrderSellFirst) - len(historyOrderBuyLater)
+	if restOrderCount != 0 {
+		for i := len(historyOrderBuyLater); i <= len(historyOrderBuyLater)-1+restOrderCount; i++ {
+			lastOrder := historyOrderSellFirst[i]
+			sellFirstCost := utils.GetStockSellCost(lastOrder.Price, lastOrder.Quantity)
+			buyLaterCost := utils.GetStockBuyCost(close, lastOrder.Quantity)
+			if sellFirstCost < buyLaterCost {
+				return 100 * float64(buyLaterCost-sellFirstCost) / float64(sellFirstCost), sinopacapi.ActionBuyLater
+			}
+		}
+	}
+	return 0, 0
 }

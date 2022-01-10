@@ -10,7 +10,7 @@ import (
 func KeyOrderWaiting(stockNum string) *Key {
 	return &Key{
 		Name: fmt.Sprintf("KeyOrderWaiting:%s", stockNum),
-		Type: order,
+		Type: waitingOrder,
 	}
 }
 
@@ -39,7 +39,7 @@ func (c *Cache) GetOrderWaiting(stockNum string) *sinopacapi.Order {
 func KeyOrderBuy(stockNum string) *Key {
 	return &Key{
 		Name: fmt.Sprintf("KeyOrderBuy:%s", stockNum),
-		Type: order,
+		Type: buyOrder,
 	}
 }
 
@@ -75,7 +75,7 @@ func (c *Cache) AppendOrderBuy(order *sinopacapi.Order) {
 func KeyOrderSell(stockNum string) *Key {
 	return &Key{
 		Name: fmt.Sprintf("KeyOrderSell:%s", stockNum),
-		Type: order,
+		Type: sellOrder,
 	}
 }
 
@@ -111,7 +111,7 @@ func (c *Cache) AppendOrderSell(order *sinopacapi.Order) {
 func KeyOrderSellFirst(stockNum string) *Key {
 	return &Key{
 		Name: fmt.Sprintf("KeyOrderSellFirst:%s", stockNum),
-		Type: order,
+		Type: sellFirstOrder,
 	}
 }
 
@@ -147,7 +147,7 @@ func (c *Cache) AppendOrderSellFirst(order *sinopacapi.Order) {
 func KeyOrderBuyLater(stockNum string) *Key {
 	return &Key{
 		Name: fmt.Sprintf("KeyOrderBuyLater:%s", stockNum),
-		Type: order,
+		Type: buyLaterOrder,
 	}
 }
 
@@ -183,7 +183,7 @@ func (c *Cache) AppendOrderBuyLater(order *sinopacapi.Order) {
 func KeyOrderForward() *Key {
 	return &Key{
 		Name: "KeyOrderForward",
-		Type: order,
+		Type: forwardOrder,
 	}
 }
 
@@ -232,7 +232,7 @@ func (c *Cache) AppendOrderForward(order *sinopacapi.Order) {
 func KeyOrderReverse() *Key {
 	return &Key{
 		Name: "KeyOrderReverse",
-		Type: order,
+		Type: reverseOrder,
 	}
 }
 

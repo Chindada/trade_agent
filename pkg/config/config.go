@@ -108,19 +108,18 @@ type Schedule struct {
 type Analyze struct {
 	CloseChangeRatioLow  float64 `json:"close_change_ratio_low,omitempty" yaml:"close_change_ratio_low"`
 	CloseChangeRatioHigh float64 `json:"close_change_ratio_high,omitempty" yaml:"close_change_ratio_high"`
+	OpenCloseChangeRatio float64 `json:"open_close_change_ratio,omitempty" yaml:"open_close_change_ratio"`
+	OutInRatio           float64 `json:"out_in_ratio,omitempty" yaml:"out_in_ratio"`
+	InOutRatio           float64 `json:"in_out_ratio,omitempty" yaml:"in_out_ratio"`
+	VolumePR             float64 `json:"volume_pr,omitempty" yaml:"volume_pr"`
 
 	TickAnalyzeMinPeriod int64 `json:"tick_analyze_period,omitempty" yaml:"tick_analyze_period"`
 	TickAnalyzeMaxPeriod int64 `json:"tick_analyze_max_period,omitempty" yaml:"tick_analyze_max_period"`
 
-	OutInRatio float64 `json:"out_in_ratio,omitempty" yaml:"out_in_ratio"`
-	InOutRatio float64 `json:"in_out_ratio,omitempty" yaml:"in_out_ratio"`
+	RSIMinCount int `json:"rsi_min_count,omitempty" yaml:"rsi_min_count"`
 
-	RSIMinCount int     `json:"rsi_min_count,omitempty" yaml:"rsi_min_count"`
-	RSIHigh     float64 `json:"rsi_high,omitempty" yaml:"rsi_high"`
-	RSILow      float64 `json:"rsi_low,omitempty" yaml:"rsi_low"`
-
-	VolumePR             float64 `json:"volume_pr,omitempty" yaml:"volume_pr"`
-	OpenCloseChangeRatio float64 `json:"open_close_change_ratio,omitempty" yaml:"open_close_change_ratio"`
+	RSIHigh float64 `json:"rsi_high,omitempty" yaml:"rsi_high"`
+	RSILow  float64 `json:"rsi_low,omitempty" yaml:"rsi_low"`
 }
 
 // parseConfig parseConfig

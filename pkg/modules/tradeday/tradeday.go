@@ -10,6 +10,10 @@ import (
 	"trade_agent/pkg/log"
 )
 
+const (
+	openTime time.Duration = 9 * time.Hour
+)
+
 // InitTradeDay InitTradeDay
 func InitTradeDay() {
 	log.Get().Info("Initial TradeDay")
@@ -20,25 +24,33 @@ func InitTradeDay() {
 		log.Get().Panic(err)
 	}
 
+	// get trade config
+	tradeConf := config.GetTradeConfig()
+
+	// save trade day map to cache
 	tradeDayMap, err := dbagent.Get().GetAllTradeDayMap()
 	if err != nil {
 		log.Get().Panic(err)
 	}
 	cache.GetCache().SetCalendar(tradeDayMap)
 
-	// get trade day
+	// get trade day and save to cache
 	tradeDay, err := GetTradeDay()
 	if err != nil {
 		log.Get().Panic(err)
 	}
-	// save to cache
 	cache.GetCache().SetTradeDay(tradeDay)
+
+	// trade out time
+	tradeOutEndTime := tradeDay.Add(openTime).Add(time.Duration(tradeConf.TradeOutEndTime) * time.Hour)
+	cache.GetCache().SetTradeDayTradeOutEndTime(tradeOutEndTime)
+
 	log.Get().WithFields(map[string]interface{}{
-		"Date": tradeDay.Format(global.ShortTimeLayout),
+		"Date":            tradeDay.Format(global.ShortTimeLayout),
+		"TradeOutEndTime": tradeOutEndTime.Format(global.LongTimeLayout),
 	}).Info("TradeDay")
 
 	// every 10 seconds to check if now is open time
-	tradeConf := config.GetTradeConfig()
 	go func() {
 		for range time.Tick(10 * time.Second) {
 			isOpen := checkIsOpenTimeWithEndWaitTime(tradeDay, tradeConf.TradeInEndTime, tradeConf.WaitInOpen)
@@ -58,7 +70,7 @@ func InitTradeDay() {
 }
 
 func checkIsOpenTimeWithEndWaitTime(tradeDay time.Time, tradInEndTime, waitInOpen int64) bool {
-	starTime := tradeDay.Add(9*time.Hour + time.Duration(waitInOpen)*time.Minute)
+	starTime := tradeDay.Add(openTime + time.Duration(waitInOpen)*time.Minute)
 	if time.Now().After(starTime) && time.Now().Before(starTime.Add(time.Duration(tradInEndTime)*time.Hour)) {
 		return true
 	}

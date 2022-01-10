@@ -66,14 +66,18 @@ schedule:
     restart_sinopac: "0 20 1,8,15 * * ?"
 # analyze
 analyze:
+    # unit: %
     close_change_ratio_low: -2
     close_change_ratio_high: 7
-    tick_analyze_period: 5
-    tick_analyze_max_period: 6
+    open_close_change_ratio: 5
     out_in_ratio: 80
     in_out_ratio: 10
+    volume_pr: 99
+    # unit: seccond
+    tick_analyze_period: 5
+    tick_analyze_max_period: 5.5
+    # unit: times
     rsi_min_count: 500
+    # rsi range: 0~1
     rsi_high: 0.7
     rsi_low: 0.3
-    open_close_change_ratio: 5
-    volume_pr: 95

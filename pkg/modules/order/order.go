@@ -23,8 +23,9 @@ func InitOrder() {
 		log.Get().Panic(err)
 	}
 
-	// TODO: after trade out end time, find all target's available action, and send order
+	// find all target's available action, and send order
 	// price come from bidask best price
+	go clearAllUnFinished()
 
 	err = eventbus.Get().Sub(eventbus.TopicStockOrder(), orderCallback)
 	if err != nil {
@@ -158,4 +159,42 @@ func getQuantityByBiasRate(order *sinopacapi.Order) int64 {
 func isGoodPoint(order *sinopacapi.Order) bool {
 	// historyKbarStatus := cache.GetCache().GetStockHistoryKbarAnalyze(order.StockNum)
 	return true
+}
+
+// clearAllUnFinished clearAllUnFinished
+func clearAllUnFinished() {
+	tradeOutEndTime := cache.GetCache().GetTradeDayTradeOutEndTime()
+	for {
+		if time.Now().Before(tradeOutEndTime) {
+			continue
+		}
+
+		targetArr := cache.GetCache().GetTargets()
+		for _, t := range targetArr {
+			historyOrderBuy := cache.GetCache().GetOrderBuy(t.Stock.Number)
+			historyOrderSell := cache.GetCache().GetOrderSell(t.Stock.Number)
+			if len(historyOrderBuy) > len(historyOrderSell) {
+				order := &sinopacapi.Order{
+					StockNum:  t.Stock.Number,
+					Price:     cache.GetCache().GetRealTimeTickClose(t.Stock.Number),
+					Action:    sinopacapi.ActionSell,
+					TradeTime: time.Now(),
+				}
+				eventbus.Get().Pub(eventbus.TopicStockOrder(), order)
+			}
+
+			historyOrderSellFirst := cache.GetCache().GetOrderSellFirst(t.Stock.Number)
+			historyOrderBuyLater := cache.GetCache().GetOrderBuyLater(t.Stock.Number)
+			if len(historyOrderSellFirst) > len(historyOrderBuyLater) {
+				order := &sinopacapi.Order{
+					StockNum:  t.Stock.Number,
+					Price:     cache.GetCache().GetRealTimeTickClose(t.Stock.Number),
+					Action:    sinopacapi.ActionBuyLater,
+					TradeTime: time.Now(),
+				}
+				eventbus.Get().Pub(eventbus.TopicStockOrder(), order)
+			}
+		}
+		time.Sleep(15 * time.Second)
+	}
 }

@@ -13,7 +13,7 @@ func realTimeBidAskArrStatusGenerator(bidAsk *dbagent.RealTimeBidAsk, bidAskArr 
 	return ""
 }
 
-func realTimeTickArrActionGenerator(tickArr dbagent.RealTimeTickArr, conf config.Analyze) sinopacapi.OrderAction {
+func realTimeTickArrActionGenerator(tickArr, lastPeriodArr dbagent.RealTimeTickArr, conf config.Analyze) sinopacapi.OrderAction {
 	lastTick := tickArr.GetLastTick()
 	if lastTick == nil {
 		return 0
@@ -23,8 +23,6 @@ func realTimeTickArrActionGenerator(tickArr dbagent.RealTimeTickArr, conf config
 	}
 
 	stockNum := tickArr.GetStockNum()
-	lastPeriodArr := tickArr.GetLastNSecondArr(conf.TickAnalyzeMinPeriod)
-
 	historyTickAnalyze := cache.GetCache().GetStockHistoryTickAnalyze(stockNum)
 	pr := historyTickAnalyze.GetPRByVolume(lastPeriodArr.GetTotalVolume())
 	// TODO: for debug, need remove when release
@@ -37,6 +35,7 @@ func realTimeTickArrActionGenerator(tickArr dbagent.RealTimeTickArr, conf config
 		Stock:      lastTick.Stock,
 		TickTime:   lastTick.TickTime,
 		PR:         pr,
+		Close:      lastTick.Close,
 		OutInRatio: outInRatio,
 	}
 	_ = dbagent.Get().InsertRealTimeTickAnalyze(tmp)

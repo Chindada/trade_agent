@@ -34,3 +34,32 @@ func (c *Cache) GetRealTimeTickChannel(stockNum string) chan *dbagent.RealTimeTi
 	}
 	return nil
 }
+
+// KeyRealTimeTickClose KeyRealTimeTickClose
+func KeyRealTimeTickClose(stockNum string) *Key {
+	return &Key{
+		Name: fmt.Sprintf("KeyRealTimeTickClose:%s", stockNum),
+		Type: keyTypeRealTimeClose(stockNum),
+	}
+}
+
+// SetRealTimeTickClose SetRealTimeTickClose
+func (c *Cache) SetRealTimeTickClose(stockNum string, close float64) {
+	key := KeyRealTimeTickClose(stockNum)
+	c.getCacheByType(key.Type).Set(key.Name, close, noExpired)
+}
+
+// GetRealTimeTickClose GetRealTimeTickClose
+func (c *Cache) GetRealTimeTickClose(stockNum string) float64 {
+	c.lock.RLock()
+	k := KeyRealTimeTickClose(stockNum)
+	tmp := c.CacheMap[string(k.Type)]
+	c.lock.RUnlock()
+	if tmp == nil {
+		return 0
+	}
+	if value, ok := tmp.Get(k.Name); ok {
+		return value.(float64)
+	}
+	return 0
+}

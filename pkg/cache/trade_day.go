@@ -149,3 +149,32 @@ func (c *Cache) GetIsOpenWithEndWaitTime() bool {
 	}
 	return false
 }
+
+// KeyTradeDayTradeOutEndTime KeyTradeDayTradeOutEndTime
+func KeyTradeDayTradeOutEndTime() *Key {
+	return &Key{
+		Name: "KeyTradeDayTradeOutEndTime",
+		Type: tradeDay,
+	}
+}
+
+// SetTradeDayTradeOutEndTime SetTradeDayTradeOutEndTime
+func (c *Cache) SetTradeDayTradeOutEndTime(tradeDayTradeOutEndTime time.Time) {
+	key := KeyTradeDayTradeOutEndTime()
+	c.getCacheByType(key.Type).Set(key.Name, tradeDayTradeOutEndTime, noExpired)
+}
+
+// GetTradeDayTradeOutEndTime GetTradeDayTradeOutEndTime
+func (c *Cache) GetTradeDayTradeOutEndTime() time.Time {
+	c.lock.RLock()
+	k := KeyTradeDayTradeOutEndTime()
+	tmp := c.CacheMap[string(k.Type)]
+	c.lock.RUnlock()
+	if tmp == nil {
+		return time.Time{}
+	}
+	if value, ok := tmp.Get(k.Name); ok {
+		return value.(time.Time)
+	}
+	return time.Time{}
+}
