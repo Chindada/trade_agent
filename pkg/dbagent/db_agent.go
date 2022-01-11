@@ -3,6 +3,7 @@ package dbagent
 
 import (
 	"database/sql"
+	"fmt"
 	"sync"
 	"time"
 	"trade_agent/pkg/config"
@@ -40,9 +41,15 @@ func InitDatabase() {
 	log.Get().Info("Initial Database")
 
 	dbSettings := config.GetDBConfig()
-	db, err := sql.Open(
-		"postgres",
-		"user="+dbSettings.DBUser+" password="+dbSettings.DBPass+" host="+dbSettings.DBHost+" port="+dbSettings.DBPort+" sslmode=disable")
+	dsn := fmt.Sprintf(
+		"user=%s password=%s host=%s port=%s sslmode=disable TimeZone=%s",
+		dbSettings.DBUser,
+		dbSettings.DBPass,
+		dbSettings.DBHost,
+		dbSettings.DBPort,
+		dbSettings.DBTimeZone,
+	)
+	db, err := sql.Open("postgres", dsn)
 	if err != nil {
 		log.Get().Panic(err)
 	}
@@ -52,13 +59,13 @@ func InitDatabase() {
 		}
 	}()
 	var exist bool
-	statement := "SELECT EXISTS(SELECT datname FROM pg_catalog.pg_database WHERE datname = '" + dbSettings.Database + "')"
+	statement := fmt.Sprintf("SELECT EXISTS(SELECT datname FROM pg_catalog.pg_database WHERE datname = '%s')", dbSettings.Database)
 	err = db.QueryRow(statement).Scan(&exist)
 	if err != nil {
 		log.Get().Panic(err)
 	}
 	if !exist {
-		_, err = db.Exec("CREATE DATABASE " + dbSettings.Database + ";")
+		_, err = db.Exec(fmt.Sprintf("CREATE DATABASE %s", dbSettings.Database))
 		if err != nil {
 			log.Get().Panic(err)
 		}
@@ -73,17 +80,22 @@ func initConnection() {
 	// logger for gorm
 	dbLogger := gormlogger.New(log.Get(),
 		gormlogger.Config{
-			SlowThreshold:             1000 * time.Millisecond,
+			SlowThreshold:             1500 * time.Millisecond,
 			Colorful:                  false,
 			IgnoreRecordNotFoundError: true,
 			LogLevel:                  gormlogger.Warn,
 		})
 	var err error
 	dbSettings := config.GetDBConfig()
-	dsn := "host=" + dbSettings.DBHost + " user=" + dbSettings.DBUser +
-		" password=" + dbSettings.DBPass + " dbname=" + dbSettings.Database +
-		" port=" + dbSettings.DBPort + " sslmode=disable" +
-		" TimeZone=" + dbSettings.DBTimeZone
+	dsn := fmt.Sprintf(
+		"user=%s password=%s dbname=%s host=%s port=%s sslmode=disable TimeZone=%s",
+		dbSettings.DBUser,
+		dbSettings.DBPass,
+		dbSettings.Database,
+		dbSettings.DBHost,
+		dbSettings.DBPort,
+		dbSettings.DBTimeZone,
+	)
 
 	var newAgent DBAgent
 	newAgent.DB, err = gorm.Open(postgres.Open(dsn), &gorm.Config{Logger: dbLogger, SkipDefaultTransaction: true})

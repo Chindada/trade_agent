@@ -11,7 +11,6 @@ database:
     db_user: "postgres"
     db_pass: "asdf0000"
     database: "trade_agent"
-    db_encode: "utf8"
     db_time_zone: "Asia/Taipei"
 # mqtt
 mqtt:
@@ -39,7 +38,7 @@ trade:
     trade_out_end_time: 4 # 13:00
 # switch
 switch:
-    enable_buy: false
+    # enable_buy: false
     enable_sell: true
     enable_sell_first: false
     enable_buy_later: true

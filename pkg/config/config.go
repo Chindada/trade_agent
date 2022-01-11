@@ -45,7 +45,6 @@ type Database struct {
 	DBUser     string `json:"db_user,omitempty" yaml:"db_user"`
 	DBPass     string `json:"db_pass,omitempty" yaml:"db_pass"`
 	Database   string `json:"database,omitempty" yaml:"database"`
-	DBEncode   string `json:"db_encode,omitempty" yaml:"db_encode"`
 	DBTimeZone string `json:"db_time_zone,omitempty" yaml:"db_time_zone"`
 }
 
@@ -155,6 +154,8 @@ func parseConfig() {
 	globalConfig.MQTT.CAPath = globalConfig.basePath + globalConfig.MQTT.CAPath
 	globalConfig.MQTT.KeyPath = globalConfig.basePath + globalConfig.MQTT.KeyPath
 	globalConfig.MQTT.CertPath = globalConfig.basePath + globalConfig.MQTT.CertPath
+
+	checkConfigIsEmpty(*globalConfig)
 }
 
 // GetServerConfig GetServerConfig

@@ -1,9 +1,16 @@
 # CHANGELOG
 
-## Unreleased (2022-01-03)
+## Unreleased (2022-01-11)
 
 ### New feature
 
+- **order**: add clear unfinished, split high frequency cache, modify realtime tick analyze([`25f14e7`](https://gitlab.tocraw.com/root/trade_agent/commit/25f14e71ceb5d408a2bba4d9f63b1768f1293db5)) (@TimHsu@M1BP-20211221)
+- **anaylze**: config add analyze period min,max, fix outinratio always first tick([`63b30c1`](https://gitlab.tocraw.com/root/trade_agent/commit/63b30c1dc3a790ddacdfcc83655205501d62a46f)) (@TimHsu@M1BP-20211221)
+- **cache**: add all cache a setter([`f351749`](https://gitlab.tocraw.com/root/trade_agent/commit/f351749bbb7244e7a6190b0577648d32b98ee119)) (@TimHsu@M1BP-20211221)
+- **analyze**: temp save pr outinratio to db([`06faf73`](https://gitlab.tocraw.com/root/trade_agent/commit/06faf7305476a32deeeacb861bf27b6bacdcac0a)) (@TimHsu@M1BP-20211221)
+- **analyze**: realtime tick action generator alpha, make sure stock is day trade([`211ce79`](https://gitlab.tocraw.com/root/trade_agent/commit/211ce79bba3fa98690a865551a8ad7d16d882bea)) (@TimHsu@M1BP-20211221)
+- **ci**: change from manual to auto deployment([`6e57169`](https://gitlab.tocraw.com/root/trade_agent/commit/6e57169c2815f00b0842398de3fdb9717ddda615)) (@TimHsu@M1BP-20211221)
+- **enhancement**: add check port or lock, balance api handlers([`e53e30d`](https://gitlab.tocraw.com/root/trade_agent/commit/e53e30d1483f3ebc55cba480f380567ed71d9025)) (@TimHsu@M1BP-20211221)
 - **analyze**: add analyze config, fix total time to nano, realtime target change to every 60 second([`2ad058c`](https://gitlab.tocraw.com/root/trade_agent/commit/2ad058c2c745bab805f4b61b6ebf1257d9147f1b)) (@TimHsu@M1BP-20211221)
 - **target**: add every 30 second add target in open time([`788274a`](https://gitlab.tocraw.com/root/trade_agent/commit/788274a9152d3115a1db77b54dd4171f22ab2fc0)) (@TimHsu@M1BP-20211221)
 - **tradeday**: add check is open and save to cache([`bef64b0`](https://gitlab.tocraw.com/root/trade_agent/commit/bef64b00dea3c7190991ea7d419724b8b5ca0918)) (@TimHsu@M1BP-20211221)
@@ -30,6 +37,10 @@
 
 ### Bugs fixed
 
+- **order**: fix sleep after continue cause cpu high, save last period volume([`e0909f4`](https://gitlab.tocraw.com/root/trade_agent/commit/e0909f414f46dd6b849840e0792c65678bf8769f)) (@TimHsu@M1BP-20211221)
+- **config**: fix missing tick_analyze_period, tick_analyze_max_period([`1cf4bfc`](https://gitlab.tocraw.com/root/trade_agent/commit/1cf4bfcab16603c8b2ea7cd2222ede31497d1105)) (@TimHsu@M1BP-20211221)
+- **cache**: fix wrong key in history tick analyze, move simtrade position([`740aa6b`](https://gitlab.tocraw.com/root/trade_agent/commit/740aa6b5f521f914c84dcd08bcd341859e6a2732)) (@TimHsu@M1BP-20211221)
+- **ci**: fix missing files copy in dockerfile([`33dd6dc`](https://gitlab.tocraw.com/root/trade_agent/commit/33dd6dcf68adcb827d86fc98d853041ba95e7750)) (@TimHsu@M1BP-20211221)
 - **swagger**: fix error remove docs([`bfa8433`](https://gitlab.tocraw.com/root/trade_agent/commit/bfa8433faab5243b28e32112db5220e842d572a2)) (@TimHsu@M1BP-20211221)
 - **layout**: rename some easy name, remove wait group in target([`832620b`](https://gitlab.tocraw.com/root/trade_agent/commit/832620bdb12fdc7a48bd03d62e7be71bee17d550)) (@TimHsu@M1BP-20210907)
 - **panic**: fix missing file by wrong git clean fxd([`145af44`](https://gitlab.tocraw.com/root/trade_agent/commit/145af44f08dd7df82b6e7a5b752f2e19ac6bce4f)) (@TimHsu@M1BP-20210907)
