@@ -59,7 +59,7 @@ func initMQHandler() {
 		return
 	}
 
-	mqConf := config.GetMQConfig()
+	mqConf := config.GetMQTTConfig()
 	for {
 		if utils.CheckPortIsOpen(mqConf.Host, mqConf.Port) {
 			break

@@ -44,7 +44,7 @@ func InitSinpacAPI() {
 		}
 		time.Sleep(time.Second)
 	}
-	mqConf := config.GetMQConfig()
+	mqConf := config.GetMQTTConfig()
 	new := TradeAgent{
 		Client:    restfulclient.Get(),
 		urlPrefix: "http://" + serverConf.SinopacSRVHost + ":" + serverConf.SinopacSRVPort,

@@ -45,6 +45,14 @@ func targetsBusCallback(targetArr []*dbagent.Target) error {
 		return err
 	}
 
+	for _, v := range targetArr {
+		historyTickAnalyzeArr := cache.GetCache().GetStockHistoryTickAnalyze(v.Stock.Number)
+		log.Get().WithFields(map[string]interface{}{
+			"Stock":  v.Stock.Number,
+			"Length": len(historyTickAnalyzeArr),
+		}).Info("HistoryTickAnalyzeArr")
+	}
+
 	return nil
 }
 

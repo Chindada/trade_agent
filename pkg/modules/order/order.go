@@ -117,21 +117,21 @@ func checkSwitch(order *sinopacapi.Order) bool {
 	case sinopacapi.ActionBuy:
 		// get forward remaining orders
 		forwardRemaining, total := cache.GetCache().GetOrderForwardCountDetail()
-		if tradeSwitch.EnableBuy && forwardRemaining < tradeSwitch.MeanTimeForward && total < tradeSwitch.ForwardMax && isOpen {
+		if tradeSwitch.Buy && forwardRemaining < tradeSwitch.MeanTimeForward && total < tradeSwitch.ForwardMax && isOpen {
 			return true
 		}
 	case sinopacapi.ActionSell:
-		if tradeSwitch.EnableSell {
+		if tradeSwitch.Sell {
 			return true
 		}
 	case sinopacapi.ActionSellFirst:
 		// get reverse remaining orders
 		reverseRemaining, total := cache.GetCache().GetOrderReverseCountDetail()
-		if tradeSwitch.EnableSellFirst && reverseRemaining < tradeSwitch.MeanTimeReverse && total < tradeSwitch.ReverseMax && isOpen {
+		if tradeSwitch.SellFirst && reverseRemaining < tradeSwitch.MeanTimeReverse && total < tradeSwitch.ReverseMax && isOpen {
 			return true
 		}
 	case sinopacapi.ActionBuyLater:
-		if tradeSwitch.EnableBuyLater {
+		if tradeSwitch.BuyLater {
 			return true
 		}
 	}

@@ -1,68 +1,71 @@
 # server
 server:
-    run_mode: "release"
-    http_port: "16670"
-    sinopac_srv_host: "172.20.10.223"
-    sinopac_srv_port: "13333"
+    run_mode: release
+    http_port: 16670
+    sinopac_srv_host: 172.20.10.223
+    sinopac_srv_port: 13333
+
 # database
 database:
-    db_host: "172.20.10.10"
-    db_port: "5432"
-    db_user: "postgres"
-    db_pass: "asdf0000"
-    database: "trade_agent"
-    db_time_zone: "Asia/Taipei"
+    host: 172.20.10.10
+    port: 5432
+    user: postgres
+    passwd: asdf0000
+    database: trade_agent
+    time_zone: Asia/Taipei
+
 # mqtt
 mqtt:
-    host: "172.20.10.225"
-    port: "8887"
-    user: "toc"
-    password: "asdf0000"
-    client_id: "trade-agent"
-    ca_path: "/configs/certs/ca_crt.pem"
-    cert_path: "/configs/certs/client_crt.pem"
-    key_path: "/configs/certs/client_key.pem"
+    host: 172.20.10.225
+    port: 8887
+    user: toc
+    passwd: asdf0000
+    client_id: trade-agent
+    ca_path: /configs/certs/ca_crt.pem
+    cert_path: /configs/certs/client_crt.pem
+    key_path: /configs/certs/client_key.pem
+
+# switch
+switch:
+    buy: false
+    sell: true
+    sell_first: false
+    buy_later: true
+
+    mean_time_forward: 1
+    mean_time_reverse: 1
+    forward_max: 3
+    reverse_max: 3
+
 # trade
 trade:
     # unit: day
     history_close_period: 7
     history_tick_period: 3
     history_kbar_period: 1
+    # unit: minute
+    open_wait_time: 5
     # unit: seccond
     trade_in_wait_time: 15
     trade_out_wait_time: 30
-    # unit: minute
-    wait_in_open: 5
     # unit: hour(s) from 9:00
     trade_in_end_time: 1.25 # 10:15
     trade_out_end_time: 4 # 13:00
-# switch
-switch:
-    # enable_buy: false
-    enable_sell: true
-    enable_sell_first: false
-    enable_buy_later: true
-    mean_time_forward: 1
-    mean_time_reverse: 1
-    forward_max: 3
-    reverse_max: 3
+
 # target condition
 target_cond:
     limit_price_low: 10
     limit_price_high: 50
     limit_volume: 20000
     black_stock:
-        - "1314"
-        - "2317"
-        - "3481"
-        - "3701"
+        - 1314
+        - 2317
+        - 3481
+        - 3701
     black_category:
-        - "17"
+        - 17
     real_time_targets_count: 10
-# schedule cron
-schedule:
-    clean_event: "0 0 4 * * ?"
-    restart_sinopac: "0 20 1,8,15 * * ?"
+
 # analyze
 analyze:
     # unit: %
@@ -73,10 +76,15 @@ analyze:
     in_out_ratio: 10
     volume_pr: 99
     # unit: seccond
-    tick_analyze_period: 5
+    tick_analyze_min_period: 5
     tick_analyze_max_period: 5.5
     # unit: times
     rsi_min_count: 500
     # rsi range: 0~1
     rsi_high: 0.7
     rsi_low: 0.3
+
+# schedule cron
+schedule:
+    clean_event: 0 0 4 * * ?
+    restart_sinopac: 0 20 1,8,15 * * ?

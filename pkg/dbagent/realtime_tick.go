@@ -89,7 +89,7 @@ func (c RealTimeTickArr) GetStockNum() string {
 }
 
 // GetLastNSecondArr GetLastNSecondArr
-func (c RealTimeTickArr) GetLastNSecondArr(n int64) RealTimeTickArr {
+func (c RealTimeTickArr) GetLastNSecondArr(n float64) RealTimeTickArr {
 	if len(c) < 2 {
 		return RealTimeTickArr{}
 	}
@@ -99,7 +99,7 @@ func (c RealTimeTickArr) GetLastNSecondArr(n int64) RealTimeTickArr {
 	// skip if i == 0, the volume will be too large
 	var cut int
 	for i := len(c) - 1; i > 0; i-- {
-		if startTime-c[i].TickTime.UnixNano() < n*1000*1000*1000 {
+		if float64(startTime-c[i].TickTime.UnixNano()) < n*1000*1000*1000 {
 			continue
 		} else {
 			cut = i - 1

@@ -40,14 +40,14 @@ var (
 func InitDatabase() {
 	log.Get().Info("Initial Database")
 
-	dbSettings := config.GetDBConfig()
+	dbSettings := config.GetDatabaseConfig()
 	dsn := fmt.Sprintf(
 		"user=%s password=%s host=%s port=%s sslmode=disable TimeZone=%s",
-		dbSettings.DBUser,
-		dbSettings.DBPass,
-		dbSettings.DBHost,
-		dbSettings.DBPort,
-		dbSettings.DBTimeZone,
+		dbSettings.User,
+		dbSettings.Passwd,
+		dbSettings.Host,
+		dbSettings.Port,
+		dbSettings.TimeZone,
 	)
 	db, err := sql.Open("postgres", dsn)
 	if err != nil {
@@ -86,15 +86,15 @@ func initConnection() {
 			LogLevel:                  gormlogger.Warn,
 		})
 	var err error
-	dbSettings := config.GetDBConfig()
+	dbSettings := config.GetDatabaseConfig()
 	dsn := fmt.Sprintf(
 		"user=%s password=%s dbname=%s host=%s port=%s sslmode=disable TimeZone=%s",
-		dbSettings.DBUser,
-		dbSettings.DBPass,
+		dbSettings.User,
+		dbSettings.Passwd,
 		dbSettings.Database,
-		dbSettings.DBHost,
-		dbSettings.DBPort,
-		dbSettings.DBTimeZone,
+		dbSettings.Host,
+		dbSettings.Port,
+		dbSettings.TimeZone,
 	)
 
 	var newAgent DBAgent

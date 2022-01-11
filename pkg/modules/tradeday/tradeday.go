@@ -53,7 +53,7 @@ func InitTradeDay() {
 	// every 10 seconds to check if now is open time
 	go func() {
 		for range time.Tick(10 * time.Second) {
-			isOpen := checkIsOpenTimeWithEndWaitTime(tradeDay, tradeConf.TradeInEndTime, tradeConf.WaitInOpen)
+			isOpen := checkIsOpenTimeWithEndWaitTime(tradeDay, tradeConf.TradeInEndTime, tradeConf.OpenWaitTime)
 			cache.GetCache().SetIsOpenWithEndWaitTime(isOpen)
 		}
 	}()
@@ -69,7 +69,7 @@ func InitTradeDay() {
 	cache.GetCache().SetHistroyKbarRange(kbarRange)
 }
 
-func checkIsOpenTimeWithEndWaitTime(tradeDay time.Time, tradInEndTime, waitInOpen int64) bool {
+func checkIsOpenTimeWithEndWaitTime(tradeDay time.Time, tradInEndTime, waitInOpen float64) bool {
 	starTime := tradeDay.Add(openTime + time.Duration(waitInOpen)*time.Minute)
 	if time.Now().After(starTime) && time.Now().Before(starTime.Add(time.Duration(tradInEndTime)*time.Hour)) {
 		return true
