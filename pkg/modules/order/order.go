@@ -165,6 +165,7 @@ func isGoodPoint(order *sinopacapi.Order) bool {
 func clearAllUnFinished() {
 	tradeOutEndTime := cache.GetCache().GetTradeDayTradeOutEndTime()
 	for {
+		time.Sleep(15 * time.Second)
 		if time.Now().Before(tradeOutEndTime) {
 			continue
 		}
@@ -195,6 +196,5 @@ func clearAllUnFinished() {
 				eventbus.Get().Pub(eventbus.TopicStockOrder(), order)
 			}
 		}
-		time.Sleep(15 * time.Second)
 	}
 }

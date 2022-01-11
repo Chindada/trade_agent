@@ -6,6 +6,7 @@ import (
 	"trade_agent/pkg/cache"
 	"trade_agent/pkg/config"
 	"trade_agent/pkg/dbagent"
+	"trade_agent/pkg/log"
 	"trade_agent/pkg/sinopacapi"
 )
 
@@ -24,7 +25,8 @@ func realTimeTickArrActionGenerator(tickArr, lastPeriodArr dbagent.RealTimeTickA
 
 	stockNum := tickArr.GetStockNum()
 	historyTickAnalyze := cache.GetCache().GetStockHistoryTickAnalyze(stockNum)
-	pr := historyTickAnalyze.GetPRByVolume(lastPeriodArr.GetTotalVolume())
+	lastVolume := lastPeriodArr.GetTotalVolume()
+	pr := historyTickAnalyze.GetPRByVolume(lastVolume)
 	// TODO: for debug, need remove when release
 	// if pr < conf.VolumePR {
 	// 	return 0
@@ -36,14 +38,19 @@ func realTimeTickArrActionGenerator(tickArr, lastPeriodArr dbagent.RealTimeTickA
 		TickTime:   lastTick.TickTime,
 		PR:         pr,
 		Close:      lastTick.Close,
+		Volume:     lastVolume,
 		OutInRatio: outInRatio,
 	}
-	_ = dbagent.Get().InsertRealTimeTickAnalyze(tmp)
+	err := dbagent.Get().InsertRealTimeTickAnalyze(tmp)
+	if err != nil {
+		log.Get().Panic(err)
+	}
 
 	availableActionMap, preTime := getAvailableAction(stockNum)
 	if outInRatio > conf.OutInRatio && availableActionMap[sinopacapi.ActionBuy] {
 		return sinopacapi.ActionBuy
 	}
+
 	if 100-outInRatio < conf.InOutRatio && availableActionMap[sinopacapi.ActionSellFirst] {
 		return sinopacapi.ActionSellFirst
 	}

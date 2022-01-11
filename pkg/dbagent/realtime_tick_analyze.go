@@ -17,6 +17,7 @@ type RealTimeTickAnalyze struct {
 
 	Close      float64 `json:"close,omitempty" yaml:"close" gorm:"column:close"`
 	PR         float64 `json:"pr,omitempty" yaml:"pr" gorm:"column:pr"`
+	Volume     int64   `json:"volume,omitempty" yaml:"volume" gorm:"column:volume"`
 	OutInRatio float64 `json:"out_in_ratio,omitempty" yaml:"out_in_ratio" gorm:"column:out_in_ratio"`
 }
 
