@@ -4,6 +4,7 @@ package config
 import (
 	"fmt"
 	"io/ioutil"
+	"path/filepath"
 	"sync"
 	"trade_agent/global"
 	"trade_agent/pkg/log"
@@ -125,7 +126,13 @@ func parseConfig() {
 	if globalConfig != nil {
 		return
 	}
-	yamlFile, err := ioutil.ReadFile(global.Get().GetBasePath() + "/configs/config.yaml")
+
+	basePath := global.Get().GetBasePath()
+	if basePath == "" {
+		basePath = global.GetRuntimePath()
+	}
+
+	yamlFile, err := ioutil.ReadFile(filepath.Clean(filepath.Join(basePath, "/configs/config.yaml")))
 	if err != nil {
 		log.Get().Panic(err)
 	}
@@ -149,10 +156,10 @@ func parseConfig() {
 		globalConfig.Switch.SellFirst = false
 	}
 
-	globalConfig.basePath = global.Get().GetBasePath()
-	globalConfig.MQTT.CAPath = globalConfig.basePath + globalConfig.MQTT.CAPath
-	globalConfig.MQTT.KeyPath = globalConfig.basePath + globalConfig.MQTT.KeyPath
-	globalConfig.MQTT.CertPath = globalConfig.basePath + globalConfig.MQTT.CertPath
+	globalConfig.basePath = basePath
+	globalConfig.MQTT.CAPath = filepath.Join(globalConfig.basePath, globalConfig.MQTT.CAPath)
+	globalConfig.MQTT.KeyPath = filepath.Join(globalConfig.basePath, globalConfig.MQTT.KeyPath)
+	globalConfig.MQTT.CertPath = filepath.Join(globalConfig.basePath, globalConfig.MQTT.CertPath)
 
 	checkConfigIsEmpty(*globalConfig)
 }

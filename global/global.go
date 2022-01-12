@@ -1,7 +1,11 @@
 // Package global package global
 package global
 
-import "sync"
+import (
+	"path/filepath"
+	"runtime"
+	"sync"
+)
 
 const (
 	// LongTimeLayout LongTimeLayout
@@ -18,6 +22,19 @@ type Setting struct {
 }
 
 var globalSetting *Setting
+
+// GetRuntimePath GetRuntimePath
+func GetRuntimePath() string {
+	// get runtime path
+	_, file, _, ok := runtime.Caller(0)
+	if !ok {
+		panic("Get runtime path fail")
+	}
+
+	// set base path to runtime path's parent path
+	runtimePath := filepath.Dir(file)
+	return filepath.Join(runtimePath, "..")
+}
 
 // Get Get
 func Get() *Setting {

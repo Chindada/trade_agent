@@ -3,6 +3,7 @@ package log
 
 import (
 	"os"
+	"path/filepath"
 	"strings"
 	"sync"
 	"time"
@@ -21,8 +22,13 @@ func initLogger() {
 	if globalLogger != nil {
 		return
 	}
+
 	// Get current path
 	basePath := global.Get().GetBasePath()
+	if basePath == "" {
+		basePath = global.GetRuntimePath()
+	}
+
 	// create new instance
 	globalLogger = logrus.New()
 	if global.Get().GetIsDevelopment() {
@@ -46,13 +52,13 @@ func initLogger() {
 	globalLogger.SetLevel(logrus.TraceLevel)
 	globalLogger.SetOutput(os.Stdout)
 	pathMap := lfshook.PathMap{
-		logrus.PanicLevel: basePath + "/logs/" + folderName + "/panic.json",
-		logrus.FatalLevel: basePath + "/logs/" + folderName + "/fetal.json",
-		logrus.ErrorLevel: basePath + "/logs/" + folderName + "/error.json",
-		logrus.WarnLevel:  basePath + "/logs/" + folderName + "/warn.json",
-		logrus.InfoLevel:  basePath + "/logs/" + folderName + "/info.json",
-		logrus.DebugLevel: basePath + "/logs/" + folderName + "/debug.json",
-		logrus.TraceLevel: basePath + "/logs/" + folderName + "/error.json",
+		logrus.PanicLevel: filepath.Join(basePath, "/logs/", folderName, "/panic.json"),
+		logrus.FatalLevel: filepath.Join(basePath, "/logs/", folderName, "/fetal.json"),
+		logrus.ErrorLevel: filepath.Join(basePath, "/logs/", folderName, "/error.json"),
+		logrus.WarnLevel:  filepath.Join(basePath, "/logs/", folderName, "/warn.json"),
+		logrus.InfoLevel:  filepath.Join(basePath, "/logs/", folderName, "/info.json"),
+		logrus.DebugLevel: filepath.Join(basePath, "/logs/", folderName, "/debug.json"),
+		logrus.TraceLevel: filepath.Join(basePath, "/logs/", folderName, "/error.json"),
 	}
 	globalLogger.Hooks.Add(lfshook.NewHook(
 		pathMap,
