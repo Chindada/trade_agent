@@ -10,6 +10,8 @@ const (
 	StatusCancelOrderNotFound string = "cancel order not found"
 	// StatusAlreadyCanceled StatusAlreadyCanceled
 	StatusAlreadyCanceled string = "order already be canceled"
+	// FetchOrderStatusFail FetchOrderStatusFail
+	FetchOrderStatusFail = "fetch order status fail"
 )
 
 // OrderAction OrderAction

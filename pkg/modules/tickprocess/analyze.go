@@ -6,7 +6,6 @@ import (
 	"trade_agent/pkg/cache"
 	"trade_agent/pkg/config"
 	"trade_agent/pkg/dbagent"
-	"trade_agent/pkg/log"
 	"trade_agent/pkg/sinopacapi"
 )
 
@@ -18,34 +17,17 @@ func realTimeTickArrActionGenerator(tickArr, lastPeriodArr dbagent.RealTimeTickA
 	lastTick := tickArr.GetLastTick()
 	if lastTick == nil {
 		return 0
-	}
-	if lastTick.PctChg < conf.CloseChangeRatioLow || lastTick.PctChg > conf.CloseChangeRatioHigh {
+	} else if lastTick.PctChg < conf.CloseChangeRatioLow || lastTick.PctChg > conf.CloseChangeRatioHigh {
 		return 0
 	}
 
 	stockNum := tickArr.GetStockNum()
 	historyTickAnalyze := cache.GetCache().GetStockHistoryTickAnalyze(stockNum)
-	lastVolume := lastPeriodArr.GetTotalVolume()
-	pr := historyTickAnalyze.GetPRByVolume(lastVolume)
-	// TODO: for debug, need remove when release
-	// if pr < conf.VolumePR {
-	// 	return 0
-	// }
+	if pr := historyTickAnalyze.GetPRByVolume(lastPeriodArr.GetTotalVolume()); pr < conf.VolumePRLow || pr > conf.VolumePRHigh {
+		return 0
+	}
 
 	outInRatio := lastPeriodArr.GetOutInRatio()
-	tmp := &dbagent.RealTimeTickAnalyze{
-		Stock:      lastTick.Stock,
-		TickTime:   lastTick.TickTime,
-		PR:         pr,
-		Close:      lastTick.Close,
-		Volume:     lastVolume,
-		OutInRatio: outInRatio,
-	}
-	err := dbagent.Get().InsertRealTimeTickAnalyze(tmp)
-	if err != nil {
-		log.Get().Panic(err)
-	}
-
 	availableActionMap, preTime := getAvailableAction(stockNum)
 	if outInRatio > conf.OutInRatio && availableActionMap[sinopacapi.ActionBuy] {
 		return sinopacapi.ActionBuy
@@ -59,15 +41,16 @@ func realTimeTickArrActionGenerator(tickArr, lastPeriodArr dbagent.RealTimeTickA
 	if rsi == 0 {
 		return 0
 	}
+	return getTradeOutAction(availableActionMap, conf, rsi)
+}
 
+func getTradeOutAction(availableActionMap map[sinopacapi.OrderAction]bool, conf config.Analyze, rsi float64) sinopacapi.OrderAction {
 	if availableActionMap[sinopacapi.ActionSell] && rsi > conf.RSIHigh {
 		return sinopacapi.ActionSell
 	}
-
 	if availableActionMap[sinopacapi.ActionBuyLater] && rsi < conf.RSILow {
 		return sinopacapi.ActionBuyLater
 	}
-
 	return 0
 }
 
@@ -77,19 +60,23 @@ func getAvailableAction(stockNum string) (map[sinopacapi.OrderAction]bool, time.
 
 	historyOrderBuy := cache.GetCache().GetOrderBuy(stockNum)
 	historyOrderSell := cache.GetCache().GetOrderSell(stockNum)
-	if len(historyOrderBuy) > len(historyOrderSell) {
-		tmp[sinopacapi.ActionSell] = true
-		preTime = historyOrderBuy[len(historyOrderBuy)-1].TradeTime
-	} else {
-		tmp[sinopacapi.ActionBuy] = true
-	}
+	forwardRest := len(historyOrderBuy) - len(historyOrderSell)
 
 	historyOrderSellFirst := cache.GetCache().GetOrderSellFirst(stockNum)
 	historyOrderBuyLater := cache.GetCache().GetOrderBuyLater(stockNum)
-	if len(historyOrderSellFirst) > len(historyOrderBuyLater) {
+	reverseRest := len(historyOrderSellFirst) - len(historyOrderBuyLater)
+
+	if forwardRest != 0 {
+		tmp[sinopacapi.ActionSell] = true
+		preTime = historyOrderBuy[len(historyOrderBuy)-forwardRest].TradeTime
+	} else if reverseRest == 0 {
+		tmp[sinopacapi.ActionBuy] = true
+	}
+
+	if reverseRest != 0 {
 		tmp[sinopacapi.ActionBuyLater] = true
-		preTime = historyOrderSellFirst[len(historyOrderSellFirst)-1].TradeTime
-	} else {
+		preTime = historyOrderSellFirst[len(historyOrderSellFirst)-reverseRest].TradeTime
+	} else if forwardRest == 0 {
 		tmp[sinopacapi.ActionSellFirst] = true
 	}
 

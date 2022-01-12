@@ -8,8 +8,8 @@ type PlaceOrderBody struct {
 	Quantity int64   `json:"quantity,omitempty" yaml:"quantity"`
 }
 
-// CancelOrderBody CancelOrderBody
-type CancelOrderBody struct {
+// OrderIDBody OrderIDBody
+type OrderIDBody struct {
 	OrderID string `json:"order_id,omitempty" yaml:"order_id"`
 }
 
@@ -17,11 +17,6 @@ type CancelOrderBody struct {
 type FetchHistoryCloseBody struct {
 	StockNumArr []string `json:"stock_num_arr,omitempty" yaml:"stock_num_arr"`
 	DateArr     []string `json:"date_arr,omitempty" yaml:"date_arr"`
-}
-
-// FetchMultiDateHistoryCloseBody FetchMultiDateHistoryCloseBody
-type FetchMultiDateHistoryCloseBody struct {
-	StockNumArr []string `json:"stock_num_arr,omitempty" yaml:"stock_num_arr"`
 }
 
 // FetchHistoryKbarBody FetchHistoryKbarBody
@@ -37,7 +32,7 @@ type FetchHistoryTickBody struct {
 	Date     string `json:"date,omitempty" yaml:"date"`
 }
 
-// SubscribeBody SubscribeBody
-type SubscribeBody struct {
+// StockNumArrBody StockNumArrBody
+type StockNumArrBody struct {
 	StockNumArr []string `json:"stock_num_arr,omitempty" yaml:"stock_num_arr"`
 }

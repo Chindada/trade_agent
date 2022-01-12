@@ -79,6 +79,7 @@ func orderStausCallback(m mqhandler.MQMessage) {
 					cache.GetCache().AppendOrderReverse(waitingOrder)
 				}
 			}
+			displayOrderResult(v.ToOrderStatus())
 		}
 		saveStatus = append(saveStatus, v.ToOrderStatus())
 	}

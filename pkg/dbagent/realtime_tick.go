@@ -156,7 +156,7 @@ func (c RealTimeTickArr) GetOutInRatio() float64 {
 
 // GetRSIByTickTime GetRSIByTickTime
 func (c RealTimeTickArr) GetRSIByTickTime(preTime time.Time, count int) float64 {
-	if len(c) == 0 || preTime.Equal(time.Time{}) {
+	if len(c) == 0 || preTime.IsZero() {
 		return 0
 	}
 

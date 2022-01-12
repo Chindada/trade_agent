@@ -164,7 +164,7 @@ func (c *TradeAgent) PlaceOrder(order Order) (res OrderResponse, err error) {
 
 // CancelOrder CancelOrder
 func (c *TradeAgent) CancelOrder(orderID string) (err error) {
-	order := CancelOrderBody{
+	order := OrderIDBody{
 		OrderID: orderID,
 	}
 	var resp *resty.Response
@@ -186,6 +186,28 @@ func (c *TradeAgent) CancelOrder(orderID string) (err error) {
 		return errors.New(StatusCancelOrderNotFound)
 	}
 	return err
+}
+
+// FetchOrderStatusByOrderID FetchOrderStatusByOrderID
+func (c *TradeAgent) FetchOrderStatusByOrderID(orderID string) (status string, err error) {
+	order := OrderIDBody{
+		OrderID: orderID,
+	}
+	var resp *resty.Response
+	resp, err = c.Client.R().
+		SetBody(order).
+		SetResult(&OrderResponse{}).
+		Post(c.urlPrefix + urlFetchOrderStatusByOrderID)
+	if err != nil {
+		return status, err
+	} else if resp.StatusCode() != http.StatusOK {
+		return status, errors.New("FetchOrderStatusByOrderID API Fail")
+	}
+
+	if id := resp.Result().(*OrderResponse).OrderID; id == "" {
+		return status, errors.New(FetchOrderStatusFail)
+	}
+	return resp.Result().(*OrderResponse).Status, err
 }
 
 // FetchOrderStatus FetchOrderStatus
@@ -246,7 +268,7 @@ func (c *TradeAgent) FetchAllSnapShot() (err error) {
 
 // FetchHistoryCloseByStockDateArr FetchHistoryCloseByStockDateArr
 func (c *TradeAgent) FetchHistoryCloseByStockDateArr(stockNumArr []string, date string) (err error) {
-	stockArr := FetchMultiDateHistoryCloseBody{
+	stockArr := StockNumArrBody{
 		StockNumArr: stockNumArr,
 	}
 	var resp *resty.Response
@@ -387,7 +409,7 @@ func (c *TradeAgent) FetchAllStockDetail() (err error) {
 
 // SubRealTimeTick SubRealTimeTick
 func (c *TradeAgent) SubRealTimeTick(stockArr []string) (err error) {
-	stocks := SubscribeBody{
+	stocks := StockNumArrBody{
 		StockNumArr: stockArr,
 	}
 	var resp *resty.Response
@@ -408,7 +430,7 @@ func (c *TradeAgent) SubRealTimeTick(stockArr []string) (err error) {
 
 // UnSubRealTimeTick UnSubRealTimeTick
 func (c *TradeAgent) UnSubRealTimeTick(stockArr []string) (err error) {
-	stocks := SubscribeBody{
+	stocks := StockNumArrBody{
 		StockNumArr: stockArr,
 	}
 	var resp *resty.Response
@@ -429,7 +451,7 @@ func (c *TradeAgent) UnSubRealTimeTick(stockArr []string) (err error) {
 
 // SubBidAsk SubBidAsk
 func (c *TradeAgent) SubBidAsk(stockArr []string) (err error) {
-	stocks := SubscribeBody{
+	stocks := StockNumArrBody{
 		StockNumArr: stockArr,
 	}
 	var resp *resty.Response
@@ -450,7 +472,7 @@ func (c *TradeAgent) SubBidAsk(stockArr []string) (err error) {
 
 // UnSubBidAsk UnSubBidAsk
 func (c *TradeAgent) UnSubBidAsk(stockArr []string) (err error) {
-	stocks := SubscribeBody{
+	stocks := StockNumArrBody{
 		StockNumArr: stockArr,
 	}
 	var resp *resty.Response

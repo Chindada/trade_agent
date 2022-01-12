@@ -75,7 +75,7 @@ func realTimeTickProcessor(stockNum string) {
 		// save realtime tick close to cache
 		cache.GetCache().SetRealTimeTickClose(stockNum, tick.Close)
 
-		if lastPeriodEndTime.Equal(time.Time{}) {
+		if lastPeriodEndTime.IsZero() {
 			lastPeriodEndTime = tick.TickTime
 			continue
 		}

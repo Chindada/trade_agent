@@ -4,9 +4,7 @@ package sinopacapi
 const (
 	urlFetchAllStockDetail                string = "/sinopac-mq-srv/basic/stock-detail"
 	urlFetchAllSnapShot                   string = "/sinopac-mq-srv/real-time/all-snapshot"
-	urlFetchTSESnapShot                   string = "/sinopac-mq-srv/real-time/snapshot/tse"
 	urlFetchHistoryTickByStockAndDate     string = "/sinopac-mq-srv/history/tick"
-	urlFetchHistoryTSETickByDate          string = "/sinopac-mq-srv/history/tick/tse"
 	urlFetchHistoryKbarByDateRange        string = "/sinopac-mq-srv/history/kbar"
 	urlFetchHistoryTSEKbarByDate          string = "/sinopac-mq-srv/history/kbar/tse"
 	urlFetchHistoryCloseByStockDateArr    string = "/sinopac-mq-srv/history/close"
@@ -24,8 +22,11 @@ const (
 	urlPlaceOrderSellFirst                string = "/sinopac-mq-srv/trade/sell_first"
 	urlCancelOrder                        string = "/sinopac-mq-srv/trade/cancel"
 	urlFetchOrderStatus                   string = "/sinopac-mq-srv/trade/status"
-	urlFetchOrderStatusHistory            string = "/sinopac-mq-srv/trade/status-history"
+	urlFetchOrderStatusByOrderID          string = "/sinopac-mq-srv/trade/order/status"
 	urlFetchServerKey                     string = "/sinopac-mq-srv/system/healthcheck"
 	urlAskSinpacMQSRVConnectMQ            string = "/sinopac-mq-srv/system/mq-connect"
 	urlRestartSinopacSRV                  string = "/sinopac-mq-srv/system/restart"
+	// urlFetchTSESnapShot                   string = "/sinopac-mq-srv/real-time/snapshot/tse"
+	// urlFetchHistoryTSETickByDate          string = "/sinopac-mq-srv/history/tick/tse"
+	// urlFetchOrderStatusHistory            string = "/sinopac-mq-srv/trade/status-history"
 )
