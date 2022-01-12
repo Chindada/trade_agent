@@ -10,7 +10,7 @@ import (
 func KeyRealTimeTickChannel(stockNum string) *Key {
 	return &Key{
 		Name: fmt.Sprintf("KeyRealTimeTickChannel:%s", stockNum),
-		Type: realTimeTick,
+		Type: realTimeTickChannel,
 	}
 }
 

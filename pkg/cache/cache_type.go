@@ -3,34 +3,41 @@ package cache
 
 import "fmt"
 
-type keyType string
+type cacheType string
 
 const (
-	biasRate     keyType = "bias_rate"
-	calendar     keyType = "calendar"
-	historyClose keyType = "history_close"
-	historyKbar  keyType = "history_kbar"
-	historyTick  keyType = "history_tick"
+	calendar    cacheType = "calendar"
+	targets     cacheType = "targets"
+	stockDetail cacheType = "stock_detail"
+	tradeDay    cacheType = "trade_day"
 
-	buyOrder       keyType = "buyOrder"
-	sellOrder      keyType = "sellOrder"
-	sellFirstOrder keyType = "sellFirstOrder"
-	buyLaterOrder  keyType = "buyLaterOrder"
-	waitingOrder   keyType = "waitingOrder"
-	forwardOrder   keyType = "forwardOrder"
-	reverseOrder   keyType = "reverseOrder"
+	biasRate     cacheType = "bias_rate"
+	historyClose cacheType = "history_close"
 
-	realTimeBidask keyType = "rea_time_bidask"
-	realTimeTick   keyType = "real_time_tick"
-	stockDetail    keyType = "stock_detail"
-	tradeDay       keyType = "trade_day"
-	targets        keyType = "targets"
+	buyOrder       cacheType = "buyOrder"
+	sellOrder      cacheType = "sellOrder"
+	sellFirstOrder cacheType = "sellFirstOrder"
+	buyLaterOrder  cacheType = "buyLaterOrder"
+	waitingOrder   cacheType = "waitingOrder"
+	forwardOrder   cacheType = "forwardOrder"
+	reverseOrder   cacheType = "reverseOrder"
+
+	realTimeBidaskChannel cacheType = "rea_time_bidask_channel"
+	realTimeTickChannel   cacheType = "real_time_tick_channel"
 )
 
-func keyTypeRealTimeClose(stockNum string) keyType {
-	return keyType(fmt.Sprintf("keyTypeRealTimeClose:%s", stockNum))
+func keyTypeRealTimeClose(stockNum string) cacheType {
+	return cacheType(fmt.Sprintf("keyTypeRealTimeClose:%s", stockNum))
 }
 
-func keyTypeHistoryTickAnalyze(stockNum string) keyType {
-	return keyType(fmt.Sprintf("keyTypeHistoryTickAnalyze:%s", stockNum))
+func keyTypeRealTimeBidAskStatus(stockNum string) cacheType {
+	return cacheType(fmt.Sprintf("keyTypeRealTimeBidAskStatus:%s", stockNum))
+}
+
+func keyTypeHistoryTickAnalyze(stockNum string) cacheType {
+	return cacheType(fmt.Sprintf("keyTypeHistoryTickAnalyze:%s", stockNum))
+}
+
+func keyTypeHistoryKbarAnalyze(stockNum string) cacheType {
+	return cacheType(fmt.Sprintf("keyTypeHistoryKbarAnalyze:%s", stockNum))
 }

@@ -10,7 +10,7 @@ import (
 func KeyRealTimeBidAskChannel(stockNum string) *Key {
 	return &Key{
 		Name: fmt.Sprintf("KeyRealTimeBidAskChannel:%s", stockNum),
-		Type: realTimeBidask,
+		Type: realTimeBidaskChannel,
 	}
 }
 
@@ -39,7 +39,7 @@ func (c *Cache) GetRealTimeBidAskChannel(stockNum string) chan *dbagent.RealTime
 func KeyRealTimeBidAskStatus(stockNum string) *Key {
 	return &Key{
 		Name: fmt.Sprintf("KeyRealTimeBidAskStatus:%s", stockNum),
-		Type: realTimeBidask,
+		Type: keyTypeRealTimeBidAskStatus(stockNum),
 	}
 }
 

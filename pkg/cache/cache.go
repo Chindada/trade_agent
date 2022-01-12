@@ -21,8 +21,8 @@ type Cache struct {
 
 // Key Key
 type Key struct {
-	Name string  `json:"name,omitempty" yaml:"name"`
-	Type keyType `json:"type,omitempty" yaml:"type"`
+	Name string    `json:"name,omitempty" yaml:"name"`
+	Type cacheType `json:"type,omitempty" yaml:"type"`
 }
 
 var (
@@ -49,14 +49,14 @@ func initGlobalCache() {
 }
 
 // getCacheByType getCacheByType
-func (c *Cache) getCacheByType(keyType keyType) *cache.Cache {
+func (c *Cache) getCacheByType(cacheType cacheType) *cache.Cache {
 	c.lock.RLock()
-	tmp := c.CacheMap[string(keyType)]
+	tmp := c.CacheMap[string(cacheType)]
 	c.lock.RUnlock()
 	if tmp == nil {
 		tmp = cache.New(noExpired, noCleanUp)
 		c.lock.Lock()
-		c.CacheMap[string(keyType)] = tmp
+		c.CacheMap[string(cacheType)] = tmp
 		c.lock.Unlock()
 	}
 	return tmp

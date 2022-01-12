@@ -9,7 +9,7 @@ import (
 func KeyStockHistoryKbarAnalyze(stockNum string) *Key {
 	return &Key{
 		Name: fmt.Sprintf("KeyStockHistoryKbarAnalyze:%s", stockNum),
-		Type: historyKbar,
+		Type: keyTypeHistoryKbarAnalyze(stockNum),
 	}
 }
 

@@ -74,7 +74,8 @@ analyze:
     open_close_change_ratio: 5
     out_in_ratio: 80
     in_out_ratio: 10
-    volume_pr: 99
+    volume_pr_low: 85
+    volume_pr_high: 95
     # unit: seccond
     tick_analyze_min_period: 5
     tick_analyze_max_period: 5.5
