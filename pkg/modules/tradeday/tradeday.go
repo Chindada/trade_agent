@@ -45,6 +45,10 @@ func InitTradeDay() {
 	tradeOutEndTime := tradeDay.Add(openTime).Add(time.Duration(tradeConf.TradeOutEndTime) * time.Hour)
 	cache.GetCache().SetTradeDayTradeOutEndTime(tradeOutEndTime)
 
+	// trade day end time
+	tradeDayEndTime := tradeDay.Add(openTime).Add(time.Duration(tradeConf.TotalOpenTime) * time.Hour)
+	cache.GetCache().SetTradeDayOpenEndTime(tradeDayEndTime)
+
 	log.Get().WithFields(map[string]interface{}{
 		"Date":            tradeDay.Format(global.ShortTimeLayout),
 		"TradeOutEndTime": tradeOutEndTime.Format(global.LongTimeLayout),
@@ -53,8 +57,8 @@ func InitTradeDay() {
 	// every 10 seconds to check if now is open time
 	go func() {
 		for range time.Tick(10 * time.Second) {
-			isOpen := checkIsOpenTimeWithEndWaitTime(tradeDay, tradeConf.TradeInEndTime, tradeConf.OpenWaitTime)
-			cache.GetCache().SetIsOpenWithEndWaitTime(isOpen)
+			allowTrade := checkIsAllowTrade(tradeDay, tradeConf.HoldTimeFromOpen, tradeConf.TradeInEndTime)
+			cache.GetCache().SetIsAllowTrade(allowTrade)
 		}
 	}()
 
@@ -69,8 +73,8 @@ func InitTradeDay() {
 	cache.GetCache().SetHistroyKbarRange(kbarRange)
 }
 
-func checkIsOpenTimeWithEndWaitTime(tradeDay time.Time, tradInEndTime, waitInOpen float64) bool {
-	starTime := tradeDay.Add(openTime + time.Duration(waitInOpen)*time.Minute)
+func checkIsAllowTrade(tradeDay time.Time, holdTimeFromOpen, tradInEndTime float64) bool {
+	starTime := tradeDay.Add(openTime).Add(time.Duration(holdTimeFromOpen) * time.Minute)
 	if time.Now().After(starTime) && time.Now().Before(starTime.Add(time.Duration(tradInEndTime)*time.Hour)) {
 		return true
 	}

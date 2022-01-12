@@ -1,9 +1,17 @@
 # CHANGELOG
 
-## Unreleased (2022-01-11)
+## Unreleased (2022-01-12)
 
 ### New feature
 
+- **cache**: split high frequency usage to different type, add volume pr high([`9b611aa`](https://gitlab.tocraw.com/root/trade_agent/commit/9b611aa0a6474fbd740aa1db50e437d8692db558)) (@TimHsu@M1BP-20211221)
+- **test**: add runtime path to add test file([`93bee1d`](https://gitlab.tocraw.com/root/trade_agent/commit/93bee1d674c38b6d4aab346c0f66df8dccd2507e)) (@TimHsu@M1BP-20211221)
+
+## v1.0.0-alpha (2022-01-11)
+
+### New feature
+
+- **config**: add check config file value, modify db agent dsn string([`4fdbe15`](https://gitlab.tocraw.com/root/trade_agent/commit/4fdbe15eea36e1e81ca60104f208c495abd86d49)) (@TimHsu@M1BP-20211221)
 - **order**: add clear unfinished, split high frequency cache, modify realtime tick analyze([`25f14e7`](https://gitlab.tocraw.com/root/trade_agent/commit/25f14e71ceb5d408a2bba4d9f63b1768f1293db5)) (@TimHsu@M1BP-20211221)
 - **anaylze**: config add analyze period min,max, fix outinratio always first tick([`63b30c1`](https://gitlab.tocraw.com/root/trade_agent/commit/63b30c1dc3a790ddacdfcc83655205501d62a46f)) (@TimHsu@M1BP-20211221)
 - **cache**: add all cache a setter([`f351749`](https://gitlab.tocraw.com/root/trade_agent/commit/f351749bbb7244e7a6190b0577648d32b98ee119)) (@TimHsu@M1BP-20211221)
@@ -37,6 +45,7 @@
 
 ### Bugs fixed
 
+- **config**: fix wrong type in some field, modify config checker, rename some confit struct([`17d9f3d`](https://gitlab.tocraw.com/root/trade_agent/commit/17d9f3d828ce9ed7b202e0bac9d733509ed570aa)) (@TimHsu@M1BP-20211221)
 - **order**: fix sleep after continue cause cpu high, save last period volume([`e0909f4`](https://gitlab.tocraw.com/root/trade_agent/commit/e0909f414f46dd6b849840e0792c65678bf8769f)) (@TimHsu@M1BP-20211221)
 - **config**: fix missing tick_analyze_period, tick_analyze_max_period([`1cf4bfc`](https://gitlab.tocraw.com/root/trade_agent/commit/1cf4bfcab16603c8b2ea7cd2222ede31497d1105)) (@TimHsu@M1BP-20211221)
 - **cache**: fix wrong key in history tick analyze, move simtrade position([`740aa6b`](https://gitlab.tocraw.com/root/trade_agent/commit/740aa6b5f521f914c84dcd08bcd341859e6a2732)) (@TimHsu@M1BP-20211221)

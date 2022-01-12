@@ -22,14 +22,8 @@ func (c *Cache) SetRealTimeTickChannel(stockNum string, ch chan *dbagent.RealTim
 
 // GetRealTimeTickChannel GetRealTimeTickChannel
 func (c *Cache) GetRealTimeTickChannel(stockNum string) chan *dbagent.RealTimeTick {
-	c.lock.RLock()
 	k := KeyRealTimeTickChannel(stockNum)
-	tmp := c.CacheMap[string(k.Type)]
-	c.lock.RUnlock()
-	if tmp == nil {
-		return nil
-	}
-	if value, ok := tmp.Get(k.Name); ok {
+	if value, ok := c.getCacheByType(k.Type).Get(k.Name); ok {
 		return value.(chan *dbagent.RealTimeTick)
 	}
 	return nil
@@ -51,14 +45,8 @@ func (c *Cache) SetRealTimeTickClose(stockNum string, close float64) {
 
 // GetRealTimeTickClose GetRealTimeTickClose
 func (c *Cache) GetRealTimeTickClose(stockNum string) float64 {
-	c.lock.RLock()
 	k := KeyRealTimeTickClose(stockNum)
-	tmp := c.CacheMap[string(k.Type)]
-	c.lock.RUnlock()
-	if tmp == nil {
-		return 0
-	}
-	if value, ok := tmp.Get(k.Name); ok {
+	if value, ok := c.getCacheByType(k.Type).Get(k.Name); ok {
 		return value.(float64)
 	}
 	return 0

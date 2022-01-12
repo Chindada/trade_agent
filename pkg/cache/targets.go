@@ -21,14 +21,8 @@ func (c *Cache) SetTargets(targetArr []*dbagent.Target) {
 
 // GetTargets GetTargets
 func (c *Cache) GetTargets() []*dbagent.Target {
-	c.lock.RLock()
 	k := KeyTargets()
-	tmp := c.CacheMap[string(k.Type)]
-	c.lock.RUnlock()
-	if tmp == nil {
-		return nil
-	}
-	if value, ok := tmp.Get(k.Name); ok {
+	if value, ok := c.getCacheByType(k.Type).Get(k.Name); ok {
 		return value.([]*dbagent.Target)
 	}
 	return nil

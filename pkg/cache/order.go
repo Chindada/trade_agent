@@ -22,14 +22,8 @@ func (c *Cache) SetOrderWaiting(stockNum string, order *sinopacapi.Order) {
 
 // GetOrderWaiting GetOrderWaiting
 func (c *Cache) GetOrderWaiting(stockNum string) *sinopacapi.Order {
-	c.lock.RLock()
 	k := KeyOrderWaiting(stockNum)
-	tmp := c.CacheMap[string(k.Type)]
-	c.lock.RUnlock()
-	if tmp == nil {
-		return nil
-	}
-	if value, ok := tmp.Get(k.Name); ok {
+	if value, ok := c.getCacheByType(k.Type).Get(k.Name); ok {
 		return value.(*sinopacapi.Order)
 	}
 	return nil
@@ -51,14 +45,8 @@ func (c *Cache) SetOrderBuy(stockNum string, orderArr []*sinopacapi.Order) {
 
 // GetOrderBuy GetOrderBuy
 func (c *Cache) GetOrderBuy(stockNum string) []*sinopacapi.Order {
-	c.lock.RLock()
 	k := KeyOrderBuy(stockNum)
-	tmp := c.CacheMap[string(k.Type)]
-	c.lock.RUnlock()
-	if tmp == nil {
-		return []*sinopacapi.Order{}
-	}
-	if value, ok := tmp.Get(k.Name); ok {
+	if value, ok := c.getCacheByType(k.Type).Get(k.Name); ok {
 		return value.([]*sinopacapi.Order)
 	}
 	return []*sinopacapi.Order{}
@@ -87,14 +75,8 @@ func (c *Cache) SetOrderSell(stockNum string, orderArr []*sinopacapi.Order) {
 
 // GetOrderSell GetOrderSell
 func (c *Cache) GetOrderSell(stockNum string) []*sinopacapi.Order {
-	c.lock.RLock()
 	k := KeyOrderSell(stockNum)
-	tmp := c.CacheMap[string(k.Type)]
-	c.lock.RUnlock()
-	if tmp == nil {
-		return []*sinopacapi.Order{}
-	}
-	if value, ok := tmp.Get(k.Name); ok {
+	if value, ok := c.getCacheByType(k.Type).Get(k.Name); ok {
 		return value.([]*sinopacapi.Order)
 	}
 	return []*sinopacapi.Order{}
@@ -123,14 +105,8 @@ func (c *Cache) SetOrderSellFirst(stockNum string, orderArr []*sinopacapi.Order)
 
 // GetOrderSellFirst GetOrderSellFirst
 func (c *Cache) GetOrderSellFirst(stockNum string) []*sinopacapi.Order {
-	c.lock.RLock()
 	k := KeyOrderSellFirst(stockNum)
-	tmp := c.CacheMap[string(k.Type)]
-	c.lock.RUnlock()
-	if tmp == nil {
-		return []*sinopacapi.Order{}
-	}
-	if value, ok := tmp.Get(k.Name); ok {
+	if value, ok := c.getCacheByType(k.Type).Get(k.Name); ok {
 		return value.([]*sinopacapi.Order)
 	}
 	return []*sinopacapi.Order{}
@@ -159,14 +135,8 @@ func (c *Cache) SetOrderBuyLater(stockNum string, orderArr []*sinopacapi.Order) 
 
 // GetOrderBuyLater GetOrderBuyLater
 func (c *Cache) GetOrderBuyLater(stockNum string) []*sinopacapi.Order {
-	c.lock.RLock()
 	k := KeyOrderBuyLater(stockNum)
-	tmp := c.CacheMap[string(k.Type)]
-	c.lock.RUnlock()
-	if tmp == nil {
-		return []*sinopacapi.Order{}
-	}
-	if value, ok := tmp.Get(k.Name); ok {
+	if value, ok := c.getCacheByType(k.Type).Get(k.Name); ok {
 		return value.([]*sinopacapi.Order)
 	}
 	return []*sinopacapi.Order{}
@@ -195,14 +165,8 @@ func (c *Cache) SetOrderForward(orderArr []*sinopacapi.Order) {
 
 // GetOrderForward GetOrderForward
 func (c *Cache) GetOrderForward() []*sinopacapi.Order {
-	c.lock.RLock()
 	k := KeyOrderForward()
-	tmp := c.CacheMap[string(k.Type)]
-	c.lock.RUnlock()
-	if tmp == nil {
-		return []*sinopacapi.Order{}
-	}
-	if value, ok := tmp.Get(k.Name); ok {
+	if value, ok := c.getCacheByType(k.Type).Get(k.Name); ok {
 		return value.([]*sinopacapi.Order)
 	}
 	return []*sinopacapi.Order{}
@@ -244,14 +208,8 @@ func (c *Cache) SetOrderReverse(orderArr []*sinopacapi.Order) {
 
 // GetOrderReverse GetOrderReverse
 func (c *Cache) GetOrderReverse() []*sinopacapi.Order {
-	c.lock.RLock()
 	k := KeyOrderReverse()
-	tmp := c.CacheMap[string(k.Type)]
-	c.lock.RUnlock()
-	if tmp == nil {
-		return []*sinopacapi.Order{}
-	}
-	if value, ok := tmp.Get(k.Name); ok {
+	if value, ok := c.getCacheByType(k.Type).Get(k.Name); ok {
 		return value.([]*sinopacapi.Order)
 	}
 	return []*sinopacapi.Order{}

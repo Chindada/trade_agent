@@ -60,7 +60,7 @@
 
 #### DBAgent
 
-### Trade Agent Module
+### Order Module
 
 ![callvis](./assets/callvis.svg "callvis")
 

@@ -40,11 +40,13 @@ switch:
 # trade
 trade:
     # unit: day
-    history_close_period: 7
-    history_tick_period: 3
-    history_kbar_period: 1
+    history_close_period: 14
+    history_tick_period: 7
+    history_kbar_period: 7
     # unit: minute
-    open_wait_time: 5
+    hold_time_from_open: 5
+    # unit: hours
+    total_open_time: 4.5
     # unit: seccond
     trade_in_wait_time: 15
     trade_out_wait_time: 30

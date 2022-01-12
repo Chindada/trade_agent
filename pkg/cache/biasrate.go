@@ -21,14 +21,8 @@ func (c *Cache) SetBiasRate(stockNum string, biasRate float64) {
 
 // GetBiasRate GetBiasRate
 func (c *Cache) GetBiasRate(stockNum string) float64 {
-	c.lock.RLock()
 	k := KeyBiasRate(stockNum)
-	tmp := c.CacheMap[string(k.Type)]
-	c.lock.RUnlock()
-	if tmp == nil {
-		return 0
-	}
-	if value, ok := tmp.Get(k.Name); ok {
+	if value, ok := c.getCacheByType(k.Type).Get(k.Name); ok {
 		return value.(float64)
 	}
 	return 0

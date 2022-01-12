@@ -112,12 +112,12 @@ func checkCancelStatus(orderID string) bool {
 
 func checkSwitch(order *sinopacapi.Order) bool {
 	tradeSwitch := config.GetSwitchConfig()
-	isOpen := cache.GetCache().GetIsOpenWithEndWaitTime()
+	isAllowTrade := cache.GetCache().GetIsAllowTrade()
 	switch order.Action {
 	case sinopacapi.ActionBuy:
 		// get forward remaining orders
 		forwardRemaining, total := cache.GetCache().GetOrderForwardCountDetail()
-		if tradeSwitch.Buy && forwardRemaining < tradeSwitch.MeanTimeForward && total < tradeSwitch.ForwardMax && isOpen {
+		if tradeSwitch.Buy && forwardRemaining < tradeSwitch.MeanTimeForward && total < tradeSwitch.ForwardMax && isAllowTrade {
 			return true
 		}
 	case sinopacapi.ActionSell:
@@ -127,7 +127,7 @@ func checkSwitch(order *sinopacapi.Order) bool {
 	case sinopacapi.ActionSellFirst:
 		// get reverse remaining orders
 		reverseRemaining, total := cache.GetCache().GetOrderReverseCountDetail()
-		if tradeSwitch.SellFirst && reverseRemaining < tradeSwitch.MeanTimeReverse && total < tradeSwitch.ReverseMax && isOpen {
+		if tradeSwitch.SellFirst && reverseRemaining < tradeSwitch.MeanTimeReverse && total < tradeSwitch.ReverseMax && isAllowTrade {
 			return true
 		}
 	case sinopacapi.ActionBuyLater:
@@ -164,9 +164,10 @@ func isGoodPoint(order *sinopacapi.Order) bool {
 // clearAllUnFinished clearAllUnFinished
 func clearAllUnFinished() {
 	tradeOutEndTime := cache.GetCache().GetTradeDayTradeOutEndTime()
+	tradeDayEndTime := cache.GetCache().GetTradeDayOpenEndTime()
 	for {
 		time.Sleep(15 * time.Second)
-		if time.Now().Before(tradeOutEndTime) {
+		if time.Now().Before(tradeOutEndTime) && time.Now().Before(tradeDayEndTime) {
 			continue
 		}
 

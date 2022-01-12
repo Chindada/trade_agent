@@ -21,14 +21,8 @@ func (c *Cache) SetStockHistoryKbarAnalyze(stockNum string, status string) {
 
 // GetStockHistoryKbarAnalyze GetStockHistoryKbarAnalyze
 func (c *Cache) GetStockHistoryKbarAnalyze(stockNum string) string {
-	c.lock.RLock()
 	k := KeyStockHistoryKbarAnalyze(stockNum)
-	tmp := c.CacheMap[string(k.Type)]
-	c.lock.RUnlock()
-	if tmp == nil {
-		return ""
-	}
-	if value, ok := tmp.Get(k.Name); ok {
+	if value, ok := c.getCacheByType(k.Type).Get(k.Name); ok {
 		return value.(string)
 	}
 	return ""

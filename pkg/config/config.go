@@ -80,11 +80,14 @@ type Trade struct {
 	HistoryTickPeriod  int64 `json:"history_tick_period,omitempty" yaml:"history_tick_period"`
 	HistoryKbarPeriod  int64 `json:"history_kbar_period,omitempty" yaml:"history_kbar_period"`
 
-	OpenWaitTime     float64 `json:"open_wait_time,omitempty" yaml:"open_wait_time"`
-	TradeInWaitTime  int64   `json:"trade_in_wait_time,omitempty" yaml:"trade_in_wait_time"`
-	TradeOutWaitTime int64   `json:"trade_out_wait_time,omitempty" yaml:"trade_out_wait_time"`
-	TradeInEndTime   float64 `json:"trade_in_end_time,omitempty" yaml:"trade_in_end_time"`
-	TradeOutEndTime  float64 `json:"trade_out_end_time,omitempty" yaml:"trade_out_end_time"`
+	HoldTimeFromOpen float64 `json:"hold_time_from_open,omitempty" yaml:"hold_time_from_open"`
+	TotalOpenTime    float64 `json:"total_open_time,omitempty" yaml:"total_open_time"`
+
+	TradeInWaitTime  int64 `json:"trade_in_wait_time,omitempty" yaml:"trade_in_wait_time"`
+	TradeOutWaitTime int64 `json:"trade_out_wait_time,omitempty" yaml:"trade_out_wait_time"`
+
+	TradeInEndTime  float64 `json:"trade_in_end_time,omitempty" yaml:"trade_in_end_time"`
+	TradeOutEndTime float64 `json:"trade_out_end_time,omitempty" yaml:"trade_out_end_time"`
 }
 
 // TargetCond TargetCond

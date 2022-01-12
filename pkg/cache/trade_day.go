@@ -21,14 +21,31 @@ func (c *Cache) SetTradeDay(tradeDay time.Time) {
 
 // GetTradeDay GetTradeDay
 func (c *Cache) GetTradeDay() time.Time {
-	c.lock.RLock()
 	k := KeyTradeDay()
-	tmp := c.CacheMap[string(k.Type)]
-	c.lock.RUnlock()
-	if tmp == nil {
-		return time.Time{}
+	if value, ok := c.getCacheByType(k.Type).Get(k.Name); ok {
+		return value.(time.Time)
 	}
-	if value, ok := tmp.Get(k.Name); ok {
+	return time.Time{}
+}
+
+// KeyTradeDayOpenEndTime KeyTradeDayOpenEndTime
+func KeyTradeDayOpenEndTime() *Key {
+	return &Key{
+		Name: "KeyTradeDayOpenEndTime",
+		Type: tradeDay,
+	}
+}
+
+// SetTradeDayOpenEndTime SetTradeDayOpenEndTime
+func (c *Cache) SetTradeDayOpenEndTime(tradeDay time.Time) {
+	key := KeyTradeDayOpenEndTime()
+	c.getCacheByType(key.Type).Set(key.Name, tradeDay, noExpired)
+}
+
+// GetTradeDayOpenEndTime GetTradeDayOpenEndTime
+func (c *Cache) GetTradeDayOpenEndTime() time.Time {
+	k := KeyTradeDayOpenEndTime()
+	if value, ok := c.getCacheByType(k.Type).Get(k.Name); ok {
 		return value.(time.Time)
 	}
 	return time.Time{}
@@ -50,14 +67,8 @@ func (c *Cache) SetHistroyCloseRange(closeRange []time.Time) {
 
 // GetHistroyCloseRange GetHistroyCloseRange
 func (c *Cache) GetHistroyCloseRange() []time.Time {
-	c.lock.RLock()
 	k := KeyHistroyCloseRange()
-	tmp := c.CacheMap[string(k.Type)]
-	c.lock.RUnlock()
-	if tmp == nil {
-		return []time.Time{}
-	}
-	if value, ok := tmp.Get(k.Name); ok {
+	if value, ok := c.getCacheByType(k.Type).Get(k.Name); ok {
 		return value.([]time.Time)
 	}
 	return []time.Time{}
@@ -79,14 +90,8 @@ func (c *Cache) SetHistroyTickRange(tickRange []time.Time) {
 
 // GetHistroyTickRange GetHistroyTickRange
 func (c *Cache) GetHistroyTickRange() []time.Time {
-	c.lock.RLock()
 	k := KeyHistroyTickRange()
-	tmp := c.CacheMap[string(k.Type)]
-	c.lock.RUnlock()
-	if tmp == nil {
-		return []time.Time{}
-	}
-	if value, ok := tmp.Get(k.Name); ok {
+	if value, ok := c.getCacheByType(k.Type).Get(k.Name); ok {
 		return value.([]time.Time)
 	}
 	return []time.Time{}
@@ -108,43 +113,31 @@ func (c *Cache) SetHistroyKbarRange(kbarRange []time.Time) {
 
 // GetHistroyKbarRange GetHistroyKbarRange
 func (c *Cache) GetHistroyKbarRange() []time.Time {
-	c.lock.RLock()
 	k := KeyHistroyKbarRange()
-	tmp := c.CacheMap[string(k.Type)]
-	c.lock.RUnlock()
-	if tmp == nil {
-		return []time.Time{}
-	}
-	if value, ok := tmp.Get(k.Name); ok {
+	if value, ok := c.getCacheByType(k.Type).Get(k.Name); ok {
 		return value.([]time.Time)
 	}
 	return []time.Time{}
 }
 
-// KeyIsOpenWithEndWaitTime KeyIsOpenWithEndWaitTime
-func KeyIsOpenWithEndWaitTime() *Key {
+// KeyIsAllowTrade KeyIsAllowTrade
+func KeyIsAllowTrade() *Key {
 	return &Key{
-		Name: "KeyIsOpenWithEndWaitTime",
+		Name: "KeyIsAllowTrade",
 		Type: tradeDay,
 	}
 }
 
-// SetIsOpenWithEndWaitTime SetIsOpenWithEndWaitTime
-func (c *Cache) SetIsOpenWithEndWaitTime(isOpen bool) {
-	key := KeyIsOpenWithEndWaitTime()
-	c.getCacheByType(key.Type).Set(key.Name, isOpen, noExpired)
+// SetIsAllowTrade SetIsAllowTrade
+func (c *Cache) SetIsAllowTrade(isAllowTrade bool) {
+	key := KeyIsAllowTrade()
+	c.getCacheByType(key.Type).Set(key.Name, isAllowTrade, noExpired)
 }
 
-// GetIsOpenWithEndWaitTime GetIsOpenWithEndWaitTime
-func (c *Cache) GetIsOpenWithEndWaitTime() bool {
-	c.lock.RLock()
-	k := KeyIsOpenWithEndWaitTime()
-	tmp := c.CacheMap[string(k.Type)]
-	c.lock.RUnlock()
-	if tmp == nil {
-		return false
-	}
-	if value, ok := tmp.Get(k.Name); ok {
+// GetIsAllowTrade GetIsAllowTrade
+func (c *Cache) GetIsAllowTrade() bool {
+	k := KeyIsAllowTrade()
+	if value, ok := c.getCacheByType(k.Type).Get(k.Name); ok {
 		return value.(bool)
 	}
 	return false
@@ -166,14 +159,8 @@ func (c *Cache) SetTradeDayTradeOutEndTime(tradeDayTradeOutEndTime time.Time) {
 
 // GetTradeDayTradeOutEndTime GetTradeDayTradeOutEndTime
 func (c *Cache) GetTradeDayTradeOutEndTime() time.Time {
-	c.lock.RLock()
 	k := KeyTradeDayTradeOutEndTime()
-	tmp := c.CacheMap[string(k.Type)]
-	c.lock.RUnlock()
-	if tmp == nil {
-		return time.Time{}
-	}
-	if value, ok := tmp.Get(k.Name); ok {
+	if value, ok := c.getCacheByType(k.Type).Get(k.Name); ok {
 		return value.(time.Time)
 	}
 	return time.Time{}

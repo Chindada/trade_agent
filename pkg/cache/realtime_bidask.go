@@ -22,14 +22,8 @@ func (c *Cache) SetRealTimeBidAskChannel(stockNum string, ch chan *dbagent.RealT
 
 // GetRealTimeBidAskChannel GetRealTimeBidAskChannel
 func (c *Cache) GetRealTimeBidAskChannel(stockNum string) chan *dbagent.RealTimeBidAsk {
-	c.lock.RLock()
 	k := KeyRealTimeBidAskChannel(stockNum)
-	tmp := c.CacheMap[string(k.Type)]
-	c.lock.RUnlock()
-	if tmp == nil {
-		return nil
-	}
-	if value, ok := tmp.Get(k.Name); ok {
+	if value, ok := c.getCacheByType(k.Type).Get(k.Name); ok {
 		return value.(chan *dbagent.RealTimeBidAsk)
 	}
 	return nil
@@ -51,14 +45,8 @@ func (c *Cache) SetRealTimeBidAskStatus(stockNum string, status string) {
 
 // GetRealTimeBidAskStatus GetRealTimeBidAskStatus
 func (c *Cache) GetRealTimeBidAskStatus(stockNum string) string {
-	c.lock.RLock()
 	k := KeyRealTimeBidAskStatus(stockNum)
-	tmp := c.CacheMap[string(k.Type)]
-	c.lock.RUnlock()
-	if tmp == nil {
-		return ""
-	}
-	if value, ok := tmp.Get(k.Name); ok {
+	if value, ok := c.getCacheByType(k.Type).Get(k.Name); ok {
 		return value.(string)
 	}
 	return ""

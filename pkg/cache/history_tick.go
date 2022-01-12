@@ -22,14 +22,8 @@ func (c *Cache) SetStockHistoryTickAnalyze(stockNum string, arr dbagent.AnalyzeV
 
 // GetStockHistoryTickAnalyze GetStockHistoryTickAnalyze
 func (c *Cache) GetStockHistoryTickAnalyze(stockNum string) dbagent.AnalyzeVolumeArr {
-	c.lock.RLock()
 	k := KeyStockHistoryTickAnalyze(stockNum)
-	tmp := c.CacheMap[string(k.Type)]
-	c.lock.RUnlock()
-	if tmp == nil {
-		return dbagent.AnalyzeVolumeArr{}
-	}
-	if value, ok := tmp.Get(k.Name); ok {
+	if value, ok := c.getCacheByType(k.Type).Get(k.Name); ok {
 		return value.(dbagent.AnalyzeVolumeArr)
 	}
 	return dbagent.AnalyzeVolumeArr{}

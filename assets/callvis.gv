@@ -11,105 +11,313 @@ digraph gocallvis {
     nodesep="0.35";
 
     node [shape="ellipse" style="filled" fillcolor="honeydew" fontname="Verdana" penwidth="1.0" margin="0.05,0.0"];
-    edge [minlen="2"]
+    edge [minlen="5"]
 
     subgraph "cluster_focus" {
-        labeljust="c";
-fontsize="18";
-bgcolor="#e6ecfa";
-label="main";
+        bgcolor="#e6ecfa";
+label="order";
 labelloc="t";
+labeljust="c";
+fontsize="18";
         
-        "trade_agent/cmd.init#1" [ fillcolor="lightblue" label="init#1" penwidth="0.5" ]
-        "trade_agent/cmd.init" [ label="init" penwidth="0.5" fillcolor="lightblue" ]
-        "trade_agent/cmd.main" [ label="main" penwidth="0.5" fillcolor="lightblue" ]
+        "trade_agent/pkg/modules/order.orderStausCallback" [ label="orderStausCallback" penwidth="0.5" fillcolor="lightblue" ]
+        "trade_agent/pkg/modules/order.InitOrder" [ fillcolor="lightblue" label="InitOrder" penwidth="1.5" ]
+        "trade_agent/pkg/modules/order.subOrderStatus" [ fillcolor="lightblue" label="subOrderStatus" penwidth="0.5" ]
+        "trade_agent/pkg/modules/order.initTradeBalance" [ fillcolor="lightblue" label="initTradeBalance" penwidth="0.5" ]
+        "trade_agent/pkg/modules/order.subOrderStatus$1" [ fillcolor="lightblue" label="subOrderStatus$1" style="dotted,filled" ]
+        "trade_agent/pkg/modules/order.clearAllUnFinished" [ fillcolor="lightblue" label="clearAllUnFinished" penwidth="0.5" ]
+        "trade_agent/pkg/modules/order.getQuantityByBiasRate" [ fillcolor="lightblue" label="getQuantityByBiasRate" penwidth="0.5" ]
+        "trade_agent/pkg/modules/order.checkSwitch" [ fillcolor="lightblue" label="checkSwitch" penwidth="0.5" ]
+        "trade_agent/pkg/modules/order.checkWaitingOrder" [ fillcolor="lightblue" label="checkWaitingOrder" penwidth="0.5" ]
+        "trade_agent/pkg/modules/order.checkCancelStatus" [ fillcolor="lightblue" label="checkCancelStatus" penwidth="0.5" ]
+        "trade_agent/pkg/modules/order.orderCallback" [ fillcolor="lightblue" label="orderCallback" penwidth="0.5" ]
+        "trade_agent/pkg/modules/order.isGoodPoint" [ fillcolor="lightblue" label="isGoodPoint" penwidth="0.5" ]
         
+        subgraph "cluster_github.com/eclipse/paho.mqtt.golang" {
+        label="mqtt";
+URL="/?f=github.com/eclipse/paho.mqtt.golang";
+tooltip="package: github.com/eclipse/paho.mqtt.golang";
+penwidth="0.8";
+fontsize="16";
+style="filled";
+fillcolor="lightyellow";
+fontname="Tahoma bold";
+rank="sink";
+        
+        
+        subgraph "cluster_*github.com/eclipse/paho.mqtt.golang.message" {
+        label="(*message)";
+tooltip="type: *github.com/eclipse/paho.mqtt.golang.message";
+penwidth="0.5";
+fontsize="15";
+fontcolor="#222222";
+labelloc="b";
+style="rounded,filled";
+fillcolor="wheat2";
+        
+        "(*github.com/eclipse/paho.mqtt.golang.message).Payload" [ fillcolor="moccasin" label="Payload" penwidth="1.5" ]
+        
+    }
+
+    }
+
         subgraph "cluster_github.com/sirupsen/logrus" {
-        style="filled";
-label="logrus";
-tooltip="package: github.com/sirupsen/logrus";
-penwidth="0.8";
-fontsize="16";
-fillcolor="lightyellow";
-fontname="Tahoma bold";
-rank="sink";
-URL="/?f=github.com/sirupsen/logrus";
-        
-        "(*github.com/sirupsen/logrus.Logger).Panic" [ fillcolor="moccasin" label="(*Logger).Panic" penwidth="1.5" ]
-        
-    }
-
-        subgraph "cluster_os" {
-        label="os";
-penwidth="0.8";
-fontsize="16";
-rank="sink";
-URL="/?f=os";
-tooltip="package: os";
-style="filled";
-fillcolor="#E0FFE1";
-fontname="Tahoma bold";
-        
-        "os.Executable" [ fillcolor="#adedad" label="Executable" penwidth="1.5" ]
-        "os.Getenv" [ fillcolor="#adedad" label="Getenv" penwidth="1.5" ]
-        
-    }
-
-        subgraph "cluster_path/filepath" {
-        fontname="Tahoma bold";
-URL="/?f=path/filepath";
-penwidth="0.8";
-style="filled";
-fillcolor="#E0FFE1";
-rank="sink";
-label="path/filepath";
-tooltip="package: path/filepath";
-fontsize="16";
-        
-        "path/filepath.Dir" [ fillcolor="#adedad" label="Dir" penwidth="1.5" ]
-        "path/filepath.Clean" [ fillcolor="#adedad" label="Clean" penwidth="1.5" ]
-        
-    }
-
-        subgraph "cluster_trade_agent/global" {
         penwidth="0.8";
-URL="/?f=trade_agent/global";
-fontname="Tahoma bold";
-rank="sink";
-label="global";
-tooltip="package: trade_agent/global";
 fontsize="16";
 style="filled";
 fillcolor="lightyellow";
+fontname="Tahoma bold";
+URL="/?f=github.com/sirupsen/logrus";
+tooltip="package: github.com/sirupsen/logrus";
+rank="sink";
+label="logrus";
         
-        "trade_agent/global.Get" [ fillcolor="moccasin" label="Get" penwidth="1.5" ]
-        "(*trade_agent/global.Setting).SetBasePath" [ label="(*Setting).SetBasePath" penwidth="1.5" fillcolor="moccasin" ]
-        "(*trade_agent/global.Setting).SetIsDevelopment" [ fillcolor="moccasin" label="(*Setting).SetIsDevelopment" penwidth="1.5" ]
+        
+        subgraph "cluster_*github.com/sirupsen/logrus.Logger" {
+        fontsize="15";
+fontcolor="#222222";
+labelloc="b";
+style="rounded,filled";
+fillcolor="wheat2";
+label="(*Logger)";
+tooltip="type: *github.com/sirupsen/logrus.Logger";
+penwidth="0.5";
+        
+        "(*github.com/sirupsen/logrus.Logger).Panic" [ fillcolor="moccasin" label="Panic" penwidth="1.5" ]
+        "(*github.com/sirupsen/logrus.Logger).Error" [ fillcolor="moccasin" label="Error" penwidth="1.5" ]
+        "(*github.com/sirupsen/logrus.Logger).Info" [ fillcolor="moccasin" label="Info" penwidth="1.5" ]
+        
+    }
+
+    }
+
+        subgraph "cluster_sync" {
+        fontsize="16";
+style="filled";
+label="sync";
+URL="/?f=sync";
+tooltip="package: sync";
+penwidth="0.8";
+fillcolor="#E0FFE1";
+fontname="Tahoma bold";
+rank="sink";
+        
+        
+        subgraph "cluster_*sync.Mutex" {
+        labelloc="b";
+style="rounded,filled";
+fillcolor="#c2e3c2";
+label="(*Mutex)";
+tooltip="type: *sync.Mutex";
+penwidth="0.5";
+fontsize="15";
+fontcolor="#222222";
+        
+        "(*sync.Mutex).Unlock" [ penwidth="1.5" fillcolor="#adedad" label="Unlock" ]
+        "(*sync.Mutex).Lock" [ fillcolor="#adedad" label="Lock" penwidth="1.5" ]
+        
+    }
+
+        subgraph "cluster_*sync.WaitGroup" {
+        fontsize="15";
+fontcolor="#222222";
+labelloc="b";
+style="rounded,filled";
+fillcolor="#c2e3c2";
+label="(*WaitGroup)";
+tooltip="type: *sync.WaitGroup";
+penwidth="0.5";
+        
+        "(*sync.WaitGroup).Done" [ fillcolor="#adedad" label="Done" penwidth="1.5" ]
+        "(*sync.WaitGroup).Add" [ fillcolor="#adedad" label="Add" penwidth="1.5" ]
+        "(*sync.WaitGroup).Wait" [ label="Wait" penwidth="1.5" fillcolor="#adedad" ]
+        
+    }
+
+    }
+
+        subgraph "cluster_time" {
+        fillcolor="#E0FFE1";
+rank="sink";
+URL="/?f=time";
+tooltip="package: time";
+penwidth="0.8";
+style="filled";
+label="time";
+fontsize="16";
+fontname="Tahoma bold";
+        
+        "time.Tick" [ fillcolor="#adedad" label="Tick" penwidth="1.5" ]
+        "time.Sleep" [ fillcolor="#adedad" label="Sleep" penwidth="1.5" ]
+        "time.Now" [ fillcolor="#adedad" label="Now" penwidth="1.5" ]
+        
+        subgraph "cluster_time.Time" {
+        fontcolor="#222222";
+labelloc="b";
+style="rounded,filled";
+fillcolor="#c2e3c2";
+label="(Time)";
+tooltip="type: time.Time";
+penwidth="0.5";
+fontsize="15";
+        
+        "(time.Time).Before" [ fillcolor="#adedad" label="Before" penwidth="1.5" ]
+        "(time.Time).Add" [ fillcolor="#adedad" label="Add" penwidth="1.5" ]
+        
+    }
+
+    }
+
+        subgraph "cluster_trade_agent/cmd" {
+        penwidth="0.8";
+label="main";
+fontsize="16";
+style="filled";
+fillcolor="lightyellow";
+fontname="Tahoma bold";
+rank="sink";
+URL="/?f=trade_agent/cmd";
+tooltip="package: trade_agent/cmd";
+        
+        "trade_agent/cmd.main" [ fillcolor="moccasin" label="main" penwidth="0.5" ]
+        
+    }
+
+        subgraph "cluster_trade_agent/pkg/cache" {
+        penwidth="0.8";
+style="filled";
+fontname="Tahoma bold";
+rank="sink";
+label="cache";
+URL="/?f=trade_agent/pkg/cache";
+fontsize="16";
+fillcolor="lightyellow";
+tooltip="package: trade_agent/pkg/cache";
+        
+        "trade_agent/pkg/cache.GetCache" [ fillcolor="moccasin" label="GetCache" penwidth="1.5" ]
+        
+        subgraph "cluster_*trade_agent/pkg/cache.Cache" {
+        penwidth="0.5";
+fontsize="15";
+fontcolor="#222222";
+labelloc="b";
+style="rounded,filled";
+fillcolor="wheat2";
+label="(*Cache)";
+tooltip="type: *trade_agent/pkg/cache.Cache";
+        
+        "(*trade_agent/pkg/cache.Cache).GetOrderWaiting" [ fillcolor="moccasin" label="GetOrderWaiting" penwidth="1.5" ]
+        "(*trade_agent/pkg/cache.Cache).SetOrderWaiting" [ fillcolor="moccasin" label="SetOrderWaiting" penwidth="1.5" ]
+        "(*trade_agent/pkg/cache.Cache).AppendOrderBuy" [ fillcolor="moccasin" label="AppendOrderBuy" penwidth="1.5" ]
+        "(*trade_agent/pkg/cache.Cache).AppendOrderForward" [ fillcolor="moccasin" label="AppendOrderForward" penwidth="1.5" ]
+        "(*trade_agent/pkg/cache.Cache).AppendOrderSell" [ fillcolor="moccasin" label="AppendOrderSell" penwidth="1.5" ]
+        "(*trade_agent/pkg/cache.Cache).AppendOrderSellFirst" [ fillcolor="moccasin" label="AppendOrderSellFirst" penwidth="1.5" ]
+        "(*trade_agent/pkg/cache.Cache).AppendOrderReverse" [ label="AppendOrderReverse" penwidth="1.5" fillcolor="moccasin" ]
+        "(*trade_agent/pkg/cache.Cache).AppendOrderBuyLater" [ fillcolor="moccasin" label="AppendOrderBuyLater" penwidth="1.5" ]
+        "(*trade_agent/pkg/cache.Cache).GetTradeDay" [ fillcolor="moccasin" label="GetTradeDay" penwidth="1.5" ]
+        "(*trade_agent/pkg/cache.Cache).GetTradeDayTradeOutEndTime" [ fillcolor="moccasin" label="GetTradeDayTradeOutEndTime" penwidth="1.5" ]
+        "(*trade_agent/pkg/cache.Cache).GetTradeDayOpenEndTime" [ fillcolor="moccasin" label="GetTradeDayOpenEndTime" penwidth="1.5" ]
+        "(*trade_agent/pkg/cache.Cache).GetTargets" [ fillcolor="moccasin" label="GetTargets" penwidth="1.5" ]
+        "(*trade_agent/pkg/cache.Cache).GetOrderBuy" [ fillcolor="moccasin" label="GetOrderBuy" penwidth="1.5" ]
+        "(*trade_agent/pkg/cache.Cache).GetOrderSell" [ fillcolor="moccasin" label="GetOrderSell" penwidth="1.5" ]
+        "(*trade_agent/pkg/cache.Cache).GetRealTimeTickClose" [ penwidth="1.5" fillcolor="moccasin" label="GetRealTimeTickClose" ]
+        "(*trade_agent/pkg/cache.Cache).GetOrderSellFirst" [ fillcolor="moccasin" label="GetOrderSellFirst" penwidth="1.5" ]
+        "(*trade_agent/pkg/cache.Cache).GetOrderBuyLater" [ fillcolor="moccasin" label="GetOrderBuyLater" penwidth="1.5" ]
+        "(*trade_agent/pkg/cache.Cache).GetBiasRate" [ penwidth="1.5" fillcolor="moccasin" label="GetBiasRate" ]
+        "(*trade_agent/pkg/cache.Cache).GetIsAllowTrade" [ fillcolor="moccasin" label="GetIsAllowTrade" penwidth="1.5" ]
+        "(*trade_agent/pkg/cache.Cache).GetOrderForwardCountDetail" [ fillcolor="moccasin" label="GetOrderForwardCountDetail" penwidth="1.5" ]
+        "(*trade_agent/pkg/cache.Cache).GetOrderReverseCountDetail" [ fillcolor="moccasin" label="GetOrderReverseCountDetail" penwidth="1.5" ]
+        
+    }
+
+    }
+
+        subgraph "cluster_trade_agent/pkg/config" {
+        penwidth="0.8";
+fillcolor="lightyellow";
+fontname="Tahoma bold";
+rank="sink";
+label="config";
+URL="/?f=trade_agent/pkg/config";
+fontsize="16";
+style="filled";
+tooltip="package: trade_agent/pkg/config";
+        
+        "trade_agent/pkg/config.GetSwitchConfig" [ fillcolor="moccasin" label="GetSwitchConfig" penwidth="1.5" ]
+        "trade_agent/pkg/config.GetTradeConfig" [ fillcolor="moccasin" label="GetTradeConfig" penwidth="1.5" ]
         
     }
 
         subgraph "cluster_trade_agent/pkg/dbagent" {
-        fontsize="16";
-fontname="Tahoma bold";
-rank="sink";
+        fontname="Tahoma bold";
 URL="/?f=trade_agent/pkg/dbagent";
 tooltip="package: trade_agent/pkg/dbagent";
-penwidth="0.8";
 style="filled";
 fillcolor="lightyellow";
+rank="sink";
 label="dbagent";
+penwidth="0.8";
+fontsize="16";
         
-        "trade_agent/pkg/dbagent.InitDatabase" [ fillcolor="moccasin" label="InitDatabase" penwidth="1.5" ]
+        "trade_agent/pkg/dbagent.Get" [ fillcolor="moccasin" label="Get" penwidth="1.5" ]
+        
+        subgraph "cluster_*trade_agent/pkg/dbagent.DBAgent" {
+        penwidth="0.5";
+fontsize="15";
+fontcolor="#222222";
+labelloc="b";
+style="rounded,filled";
+fillcolor="wheat2";
+label="(*DBAgent)";
+tooltip="type: *trade_agent/pkg/dbagent.DBAgent";
+        
+        "(*trade_agent/pkg/dbagent.DBAgent).InsertOrUpdateMultiOrderStatus" [ fillcolor="moccasin" label="InsertOrUpdateMultiOrderStatus" penwidth="1.5" ]
+        "(*trade_agent/pkg/dbagent.DBAgent).GetOrderStatusByDate" [ fillcolor="moccasin" label="GetOrderStatusByDate" penwidth="1.5" ]
+        "(*trade_agent/pkg/dbagent.DBAgent).InsertOrUpdateBalance" [ fillcolor="moccasin" label="InsertOrUpdateBalance" penwidth="1.5" ]
+        "(*trade_agent/pkg/dbagent.DBAgent).GetOrderStatusByOrderID" [ fillcolor="moccasin" label="GetOrderStatusByOrderID" penwidth="1.5" ]
         
     }
 
-        subgraph "cluster_trade_agent/pkg/log" {
-        fontsize="16";
+    }
+
+        subgraph "cluster_trade_agent/pkg/eventbus" {
+        style="filled";
+fillcolor="lightyellow";
+label="eventbus";
+URL="/?f=trade_agent/pkg/eventbus";
+tooltip="package: trade_agent/pkg/eventbus";
+penwidth="0.8";
+fontname="Tahoma bold";
 rank="sink";
+fontsize="16";
+        
+        "trade_agent/pkg/eventbus.Get" [ label="Get" penwidth="1.5" fillcolor="moccasin" ]
+        "trade_agent/pkg/eventbus.TopicStockOrder" [ fillcolor="moccasin" label="TopicStockOrder" penwidth="1.5" ]
+        
+        subgraph "cluster_*trade_agent/pkg/eventbus.BusAgent" {
+        fontcolor="#222222";
+labelloc="b";
+style="rounded,filled";
+fillcolor="wheat2";
+label="(*BusAgent)";
+tooltip="type: *trade_agent/pkg/eventbus.BusAgent";
+penwidth="0.5";
+fontsize="15";
+        
+        "(*trade_agent/pkg/eventbus.BusAgent).Pub" [ fillcolor="moccasin" label="Pub" penwidth="1.5" ]
+        "(*trade_agent/pkg/eventbus.BusAgent).Sub" [ fillcolor="moccasin" label="Sub" penwidth="1.5" ]
+        
+    }
+
+    }
+
+        subgraph "cluster_trade_agent/pkg/log" {
+        rank="sink";
 label="log";
 URL="/?f=trade_agent/pkg/log";
 tooltip="package: trade_agent/pkg/log";
 penwidth="0.8";
+fontsize="16";
 style="filled";
 fillcolor="lightyellow";
 fontname="Tahoma bold";
@@ -118,225 +326,234 @@ fontname="Tahoma bold";
         
     }
 
-        subgraph "cluster_trade_agent/pkg/modules/cloudevent" {
-        label="cloudevent";
-URL="/?f=trade_agent/pkg/modules/cloudevent";
-tooltip="package: trade_agent/pkg/modules/cloudevent";
-fontsize="16";
-style="filled";
-fontname="Tahoma bold";
-penwidth="0.8";
-fillcolor="lightyellow";
-rank="sink";
-        
-        "trade_agent/pkg/modules/cloudevent.InitCloudEvent" [ fillcolor="moccasin" label="InitCloudEvent" penwidth="1.5" ]
-        
-    }
-
-        subgraph "cluster_trade_agent/pkg/modules/healthcheck" {
-        style="filled";
-fontname="Tahoma bold";
-rank="sink";
-label="healthcheck";
-tooltip="package: trade_agent/pkg/modules/healthcheck";
-penwidth="0.8";
-fontsize="16";
-fillcolor="lightyellow";
-URL="/?f=trade_agent/pkg/modules/healthcheck";
-        
-        "trade_agent/pkg/modules/healthcheck.InitHealthCheck" [ label="InitHealthCheck" penwidth="1.5" fillcolor="moccasin" ]
-        
-    }
-
-        subgraph "cluster_trade_agent/pkg/modules/history" {
-        URL="/?f=trade_agent/pkg/modules/history";
-fillcolor="lightyellow";
-rank="sink";
-label="history";
-fontname="Tahoma bold";
-tooltip="package: trade_agent/pkg/modules/history";
-penwidth="0.8";
-fontsize="16";
-style="filled";
-        
-        "trade_agent/pkg/modules/history.InitHistory" [ label="InitHistory" penwidth="1.5" fillcolor="moccasin" ]
-        
-    }
-
-        subgraph "cluster_trade_agent/pkg/modules/order" {
+        subgraph "cluster_trade_agent/pkg/mqhandler" {
         fontname="Tahoma bold";
 rank="sink";
-label="order";
-URL="/?f=trade_agent/pkg/modules/order";
-tooltip="package: trade_agent/pkg/modules/order";
-penwidth="0.8";
-style="filled";
-fontsize="16";
-fillcolor="lightyellow";
-        
-        "trade_agent/pkg/modules/order.InitOrder" [ fillcolor="moccasin" label="InitOrder" penwidth="1.5" ]
-        
-    }
-
-        subgraph "cluster_trade_agent/pkg/modules/stock" {
-        fontsize="16";
-fontname="Tahoma bold";
-rank="sink";
-label="stock";
-URL="/?f=trade_agent/pkg/modules/stock";
-tooltip="package: trade_agent/pkg/modules/stock";
-penwidth="0.8";
-style="filled";
-fillcolor="lightyellow";
-        
-        "trade_agent/pkg/modules/stock.InitStock" [ fillcolor="moccasin" label="InitStock" penwidth="1.5" ]
-        
-    }
-
-        subgraph "cluster_trade_agent/pkg/modules/subscribe" {
-        style="filled";
-fillcolor="lightyellow";
-fontname="Tahoma bold";
-rank="sink";
-URL="/?f=trade_agent/pkg/modules/subscribe";
-tooltip="package: trade_agent/pkg/modules/subscribe";
-penwidth="0.8";
-fontsize="16";
-label="subscribe";
-        
-        "trade_agent/pkg/modules/subscribe.InitSubscribe" [ penwidth="1.5" fillcolor="moccasin" label="InitSubscribe" ]
-        
-    }
-
-        subgraph "cluster_trade_agent/pkg/modules/targets" {
-        penwidth="0.8";
-fontsize="16";
-style="filled";
-fontname="Tahoma bold";
-label="targets";
-fillcolor="lightyellow";
-rank="sink";
-URL="/?f=trade_agent/pkg/modules/targets";
-tooltip="package: trade_agent/pkg/modules/targets";
-        
-        "trade_agent/pkg/modules/targets.InitTargets" [ fillcolor="moccasin" label="InitTargets" penwidth="1.5" ]
-        
-    }
-
-        subgraph "cluster_trade_agent/pkg/modules/tickprocess" {
-        tooltip="package: trade_agent/pkg/modules/tickprocess";
-penwidth="0.8";
-fontsize="16";
-style="filled";
-label="tickprocess";
-fillcolor="lightyellow";
-fontname="Tahoma bold";
-rank="sink";
-URL="/?f=trade_agent/pkg/modules/tickprocess";
-        
-        "trade_agent/pkg/modules/tickprocess.InitTickProcess" [ fillcolor="moccasin" label="InitTickProcess" penwidth="1.5" ]
-        
-    }
-
-        subgraph "cluster_trade_agent/pkg/modules/tradeday" {
-        rank="sink";
-URL="/?f=trade_agent/pkg/modules/tradeday";
-fontsize="16";
-style="filled";
-fillcolor="lightyellow";
-fontname="Tahoma bold";
-penwidth="0.8";
-label="tradeday";
-tooltip="package: trade_agent/pkg/modules/tradeday";
-        
-        "trade_agent/pkg/modules/tradeday.InitTradeDay" [ fillcolor="moccasin" label="InitTradeDay" penwidth="1.5" ]
-        
-    }
-
-        subgraph "cluster_trade_agent/pkg/mqhandler" {
-        penwidth="0.8";
-fontsize="16";
-rank="sink";
-URL="/?f=trade_agent/pkg/mqhandler";
-tooltip="package: trade_agent/pkg/mqhandler";
-style="filled";
-fillcolor="lightyellow";
-fontname="Tahoma bold";
 label="mqhandler";
+URL="/?f=trade_agent/pkg/mqhandler";
+penwidth="0.8";
+fontsize="16";
+style="filled";
+fillcolor="lightyellow";
+tooltip="package: trade_agent/pkg/mqhandler";
         
-        "trade_agent/pkg/mqhandler.InitMQHandler" [ fillcolor="moccasin" label="InitMQHandler" penwidth="1.5" ]
+        "trade_agent/pkg/mqhandler.Get" [ fillcolor="moccasin" label="Get" penwidth="1.5" ]
+        "trade_agent/pkg/mqhandler.TopicOrderStatus" [ fillcolor="moccasin" label="TopicOrderStatus" penwidth="1.5" ]
+        
+        subgraph "cluster_*trade_agent/pkg/mqhandler.MQHandler" {
+        label="(*MQHandler)";
+tooltip="type: *trade_agent/pkg/mqhandler.MQHandler";
+penwidth="0.5";
+fontsize="15";
+fontcolor="#222222";
+labelloc="b";
+style="rounded,filled";
+fillcolor="wheat2";
+        
+        "(*trade_agent/pkg/mqhandler.MQHandler).onMessage" [ fillcolor="moccasin" label="onMessage" penwidth="0.5" ]
+        "(*trade_agent/pkg/mqhandler.MQHandler).Sub" [ fillcolor="moccasin" label="Sub" penwidth="1.5" ]
         
     }
 
-        subgraph "cluster_trade_agent/pkg/routers" {
-        penwidth="0.8";
-fontsize="16";
-fillcolor="lightyellow";
+    }
+
+        subgraph "cluster_trade_agent/pkg/pb" {
+        fillcolor="lightyellow";
 rank="sink";
+tooltip="package: trade_agent/pkg/pb";
+fontsize="16";
 style="filled";
 fontname="Tahoma bold";
-label="routers";
-URL="/?f=trade_agent/pkg/routers";
-tooltip="package: trade_agent/pkg/routers";
+label="pb";
+URL="/?f=trade_agent/pkg/pb";
+penwidth="0.8";
         
-        "trade_agent/pkg/routers.ServeHTTP" [ label="ServeHTTP" penwidth="1.5" fillcolor="moccasin" ]
         
+        subgraph "cluster_*trade_agent/pkg/pb.OrderStatusHistoryMessage" {
+        label="(*OrderStatusHistoryMessage)";
+tooltip="type: *trade_agent/pkg/pb.OrderStatusHistoryMessage";
+penwidth="0.5";
+fontsize="15";
+fontcolor="#222222";
+labelloc="b";
+style="rounded,filled";
+fillcolor="wheat2";
+        
+        "(*trade_agent/pkg/pb.OrderStatusHistoryMessage).GetCode" [ fillcolor="moccasin" label="GetCode" penwidth="1.5" ]
+        "(*trade_agent/pkg/pb.OrderStatusHistoryMessage).GetStatus" [ fillcolor="moccasin" label="GetStatus" penwidth="1.5" ]
+        "(*trade_agent/pkg/pb.OrderStatusHistoryMessage).ToOrderStatus" [ fillcolor="moccasin" label="ToOrderStatus" penwidth="1.5" ]
+        "(*trade_agent/pkg/pb.OrderStatusHistoryMessage).GetOrderId" [ label="GetOrderId" penwidth="1.5" fillcolor="moccasin" ]
+        
+    }
+
+        subgraph "cluster_*trade_agent/pkg/pb.OrderStatusHistoryResponse" {
+        fillcolor="wheat2";
+label="(*OrderStatusHistoryResponse)";
+tooltip="type: *trade_agent/pkg/pb.OrderStatusHistoryResponse";
+penwidth="0.5";
+fontsize="15";
+fontcolor="#222222";
+labelloc="b";
+style="rounded,filled";
+        
+        "(*trade_agent/pkg/pb.OrderStatusHistoryResponse).UnmarshalProto" [ fillcolor="moccasin" label="UnmarshalProto" penwidth="1.5" ]
+        "(*trade_agent/pkg/pb.OrderStatusHistoryResponse).GetData" [ penwidth="1.5" fillcolor="moccasin" label="GetData" ]
+        
+    }
+
     }
 
         subgraph "cluster_trade_agent/pkg/sinopacapi" {
-        penwidth="0.8";
+        URL="/?f=trade_agent/pkg/sinopacapi";
 fontsize="16";
+fillcolor="lightyellow";
 fontname="Tahoma bold";
 rank="sink";
-label="sinopacapi";
-URL="/?f=trade_agent/pkg/sinopacapi";
+penwidth="0.8";
 style="filled";
-fillcolor="lightyellow";
+label="sinopacapi";
 tooltip="package: trade_agent/pkg/sinopacapi";
         
-        "trade_agent/pkg/sinopacapi.InitSinpacAPI" [ fillcolor="moccasin" label="InitSinpacAPI" penwidth="1.5" ]
+        "trade_agent/pkg/sinopacapi.Get" [ fillcolor="moccasin" label="Get" penwidth="1.5" ]
+        
+        subgraph "cluster_*trade_agent/pkg/sinopacapi.TradeAgent" {
+        label="(*TradeAgent)";
+tooltip="type: *trade_agent/pkg/sinopacapi.TradeAgent";
+penwidth="0.5";
+fontsize="15";
+fontcolor="#222222";
+labelloc="b";
+style="rounded,filled";
+fillcolor="wheat2";
+        
+        "(*trade_agent/pkg/sinopacapi.TradeAgent).FetchOrderStatus" [ fillcolor="moccasin" label="FetchOrderStatus" penwidth="1.5" ]
+        "(*trade_agent/pkg/sinopacapi.TradeAgent).CancelOrder" [ fillcolor="moccasin" label="CancelOrder" penwidth="1.5" ]
+        "(*trade_agent/pkg/sinopacapi.TradeAgent).PlaceOrder" [ label="PlaceOrder" penwidth="1.5" fillcolor="moccasin" ]
         
     }
 
-        subgraph "cluster_trade_agent/pkg/tasks" {
-        label="tasks";
-URL="/?f=trade_agent/pkg/tasks";
-style="filled";
+    }
+
+        subgraph "cluster_trade_agent/pkg/utils" {
+        penwidth="0.8";
 fontsize="16";
 fillcolor="lightyellow";
+style="filled";
 fontname="Tahoma bold";
 rank="sink";
-tooltip="package: trade_agent/pkg/tasks";
-penwidth="0.8";
+label="utils";
+URL="/?f=trade_agent/pkg/utils";
+tooltip="package: trade_agent/pkg/utils";
         
-        "trade_agent/pkg/tasks.InitTasks" [ fillcolor="moccasin" label="InitTasks" penwidth="1.5" ]
+        "trade_agent/pkg/utils.GetStockTradeFeeDiscount" [ fillcolor="moccasin" label="GetStockTradeFeeDiscount" penwidth="1.5" ]
+        "trade_agent/pkg/utils.GetStockBuyCost" [ penwidth="1.5" fillcolor="moccasin" label="GetStockBuyCost" ]
+        "trade_agent/pkg/utils.GetStockSellCost" [ fillcolor="moccasin" label="GetStockSellCost" penwidth="1.5" ]
         
     }
 
     }
 
-    "trade_agent/cmd.init#1" -> "os.Executable" [ color="saddlebrown" ]
-    "trade_agent/cmd.init#1" -> "trade_agent/pkg/log.Get" [ color="saddlebrown" ]
-    "trade_agent/cmd.init#1" -> "(*github.com/sirupsen/logrus.Logger).Panic" [ color="saddlebrown" ]
-    "trade_agent/cmd.init#1" -> "trade_agent/global.Get" [ color="saddlebrown" ]
-    "trade_agent/cmd.init#1" -> "path/filepath.Dir" [ color="saddlebrown" ]
-    "trade_agent/cmd.init#1" -> "path/filepath.Clean" [ color="saddlebrown" ]
-    "trade_agent/cmd.init#1" -> "(*trade_agent/global.Setting).SetBasePath" [ color="saddlebrown" ]
-    "trade_agent/cmd.init#1" -> "os.Getenv" [ color="saddlebrown" ]
-    "trade_agent/cmd.init#1" -> "(*trade_agent/global.Setting).SetIsDevelopment" [ color="saddlebrown" ]
-    "trade_agent/cmd.init" -> "trade_agent/cmd.init#1" [  ]
-    "trade_agent/cmd.main" -> "trade_agent/pkg/dbagent.InitDatabase" [ color="saddlebrown" ]
-    "trade_agent/cmd.main" -> "trade_agent/pkg/mqhandler.InitMQHandler" [ color="saddlebrown" ]
-    "trade_agent/cmd.main" -> "trade_agent/pkg/sinopacapi.InitSinpacAPI" [ color="saddlebrown" ]
-    "trade_agent/cmd.main" -> "trade_agent/pkg/tasks.InitTasks" [ color="saddlebrown" ]
-    "trade_agent/cmd.main" -> "trade_agent/pkg/routers.ServeHTTP" [ color="saddlebrown" ]
-    "trade_agent/cmd.main" -> "trade_agent/pkg/modules/tradeday.InitTradeDay" [ color="saddlebrown" ]
-    "trade_agent/cmd.main" -> "trade_agent/pkg/modules/stock.InitStock" [ color="saddlebrown" ]
-    "trade_agent/cmd.main" -> "trade_agent/pkg/modules/cloudevent.InitCloudEvent" [ color="saddlebrown" ]
+    "trade_agent/pkg/modules/order.orderStausCallback" -> "(*sync.WaitGroup).Done" [ arrowhead="normalnoneodiamond" color="saddlebrown" ]
+    "trade_agent/pkg/modules/order.orderStausCallback" -> "(*trade_agent/pkg/pb.OrderStatusHistoryResponse).UnmarshalProto" [ color="saddlebrown" ]
+    "trade_agent/pkg/modules/order.orderStausCallback" -> "trade_agent/pkg/log.Get" [ color="saddlebrown" ]
+    "trade_agent/pkg/modules/order.orderStausCallback" -> "(*github.com/sirupsen/logrus.Logger).Panic" [ color="saddlebrown" ]
+    "trade_agent/pkg/modules/order.orderStausCallback" -> "(*trade_agent/pkg/pb.OrderStatusHistoryResponse).GetData" [ color="saddlebrown" ]
+    "trade_agent/pkg/modules/order.orderStausCallback" -> "trade_agent/pkg/cache.GetCache" [ color="saddlebrown" ]
+    "trade_agent/pkg/modules/order.orderStausCallback" -> "(*trade_agent/pkg/pb.OrderStatusHistoryMessage).GetCode" [ color="saddlebrown" ]
+    "trade_agent/pkg/modules/order.orderStausCallback" -> "(*trade_agent/pkg/cache.Cache).GetOrderWaiting" [ color="saddlebrown" ]
+    "trade_agent/pkg/modules/order.orderStausCallback" -> "trade_agent/pkg/dbagent.Get" [ color="saddlebrown" ]
+    "trade_agent/pkg/modules/order.orderStausCallback" -> "(*trade_agent/pkg/dbagent.DBAgent).InsertOrUpdateMultiOrderStatus" [ color="saddlebrown" ]
+    "trade_agent/pkg/modules/order.orderStausCallback" -> "(*trade_agent/pkg/pb.OrderStatusHistoryMessage).GetStatus" [ color="saddlebrown" ]
+    "trade_agent/pkg/modules/order.orderStausCallback" -> "(*trade_agent/pkg/pb.OrderStatusHistoryMessage).ToOrderStatus" [ color="saddlebrown" ]
+    "trade_agent/pkg/modules/order.orderStausCallback" -> "(*trade_agent/pkg/pb.OrderStatusHistoryMessage).GetOrderId" [ color="saddlebrown" ]
+    "trade_agent/pkg/modules/order.orderStausCallback" -> "(*trade_agent/pkg/cache.Cache).SetOrderWaiting" [ color="saddlebrown" ]
+    "trade_agent/pkg/modules/order.orderStausCallback" -> "(*trade_agent/pkg/cache.Cache).AppendOrderBuy" [ color="saddlebrown" ]
+    "trade_agent/pkg/modules/order.orderStausCallback" -> "(*trade_agent/pkg/cache.Cache).AppendOrderForward" [ color="saddlebrown" ]
+    "trade_agent/pkg/modules/order.orderStausCallback" -> "(*trade_agent/pkg/cache.Cache).AppendOrderSell" [ color="saddlebrown" ]
+    "trade_agent/pkg/modules/order.orderStausCallback" -> "(*trade_agent/pkg/cache.Cache).AppendOrderSellFirst" [ color="saddlebrown" ]
+    "trade_agent/pkg/modules/order.orderStausCallback" -> "(*trade_agent/pkg/cache.Cache).AppendOrderReverse" [ color="saddlebrown" ]
+    "trade_agent/pkg/modules/order.orderStausCallback" -> "(*trade_agent/pkg/cache.Cache).AppendOrderBuyLater" [ color="saddlebrown" ]
+    "trade_agent/pkg/modules/order.orderStausCallback" -> "(*github.com/sirupsen/logrus.Logger).Error" [ color="saddlebrown" ]
+    "trade_agent/pkg/modules/order.orderStausCallback" -> "(*github.com/eclipse/paho.mqtt.golang.message).Payload" [ style="dashed" color="saddlebrown" ]
+    "(*trade_agent/pkg/mqhandler.MQHandler).onMessage" -> "trade_agent/pkg/modules/order.orderStausCallback" [ style="dashed" arrowhead="normalnoneodot" color="saddlebrown" ]
+    "trade_agent/pkg/modules/order.InitOrder" -> "trade_agent/pkg/log.Get" [ color="saddlebrown" ]
+    "trade_agent/pkg/modules/order.InitOrder" -> "(*github.com/sirupsen/logrus.Logger).Info" [ color="saddlebrown" ]
+    "trade_agent/pkg/modules/order.subOrderStatus" -> "trade_agent/pkg/mqhandler.Get" [ color="saddlebrown" ]
+    "trade_agent/pkg/modules/order.subOrderStatus" -> "trade_agent/pkg/mqhandler.TopicOrderStatus" [ color="saddlebrown" ]
+    "trade_agent/pkg/modules/order.subOrderStatus" -> "(*trade_agent/pkg/mqhandler.MQHandler).Sub" [ color="saddlebrown" ]
+    "trade_agent/pkg/modules/order.initTradeBalance" -> "trade_agent/pkg/dbagent.Get" [ color="saddlebrown" ]
+    "trade_agent/pkg/modules/order.initTradeBalance" -> "trade_agent/pkg/cache.GetCache" [ color="saddlebrown" ]
+    "trade_agent/pkg/modules/order.initTradeBalance" -> "(*trade_agent/pkg/cache.Cache).GetTradeDay" [ color="saddlebrown" ]
+    "trade_agent/pkg/modules/order.initTradeBalance" -> "(*trade_agent/pkg/dbagent.DBAgent).GetOrderStatusByDate" [ color="saddlebrown" ]
+    "trade_agent/pkg/modules/order.initTradeBalance" -> "trade_agent/pkg/log.Get" [ color="saddlebrown" ]
+    "trade_agent/pkg/modules/order.initTradeBalance" -> "(*github.com/sirupsen/logrus.Logger).Panic" [ color="saddlebrown" ]
+    "trade_agent/pkg/modules/order.initTradeBalance" -> "(*trade_agent/pkg/dbagent.DBAgent).InsertOrUpdateBalance" [ color="saddlebrown" ]
+    "trade_agent/pkg/modules/order.initTradeBalance" -> "trade_agent/pkg/utils.GetStockTradeFeeDiscount" [ color="saddlebrown" ]
+    "trade_agent/pkg/modules/order.initTradeBalance" -> "trade_agent/pkg/utils.GetStockBuyCost" [ color="saddlebrown" ]
+    "trade_agent/pkg/modules/order.initTradeBalance" -> "trade_agent/pkg/utils.GetStockSellCost" [ color="saddlebrown" ]
+    "trade_agent/pkg/modules/order.subOrderStatus" -> "trade_agent/pkg/modules/order.initTradeBalance" [  ]
+    "trade_agent/pkg/modules/order.subOrderStatus$1" -> "time.Tick" [ color="saddlebrown" ]
+    "trade_agent/pkg/modules/order.subOrderStatus$1" -> "(*sync.WaitGroup).Add" [ color="saddlebrown" ]
+    "trade_agent/pkg/modules/order.subOrderStatus$1" -> "trade_agent/pkg/sinopacapi.Get" [ color="saddlebrown" ]
+    "trade_agent/pkg/modules/order.subOrderStatus$1" -> "(*trade_agent/pkg/sinopacapi.TradeAgent).FetchOrderStatus" [ color="saddlebrown" ]
+    "trade_agent/pkg/modules/order.subOrderStatus$1" -> "trade_agent/pkg/log.Get" [ color="saddlebrown" ]
+    "trade_agent/pkg/modules/order.subOrderStatus$1" -> "(*github.com/sirupsen/logrus.Logger).Error" [ color="saddlebrown" ]
+    "trade_agent/pkg/modules/order.subOrderStatus$1" -> "(*sync.WaitGroup).Wait" [ color="saddlebrown" ]
+    "trade_agent/pkg/modules/order.subOrderStatus" -> "trade_agent/pkg/modules/order.subOrderStatus$1" [ arrowhead="normalnoneodot" ]
+    "trade_agent/pkg/modules/order.InitOrder" -> "trade_agent/pkg/modules/order.subOrderStatus" [  ]
+    "trade_agent/pkg/modules/order.InitOrder" -> "(*github.com/sirupsen/logrus.Logger).Panic" [ color="saddlebrown" ]
+    "trade_agent/pkg/modules/order.clearAllUnFinished" -> "trade_agent/pkg/cache.GetCache" [ color="saddlebrown" ]
+    "trade_agent/pkg/modules/order.clearAllUnFinished" -> "(*trade_agent/pkg/cache.Cache).GetTradeDayTradeOutEndTime" [ color="saddlebrown" ]
+    "trade_agent/pkg/modules/order.clearAllUnFinished" -> "(*trade_agent/pkg/cache.Cache).GetTradeDayOpenEndTime" [ color="saddlebrown" ]
+    "trade_agent/pkg/modules/order.clearAllUnFinished" -> "time.Sleep" [ color="saddlebrown" ]
+    "trade_agent/pkg/modules/order.clearAllUnFinished" -> "time.Now" [ color="saddlebrown" ]
+    "trade_agent/pkg/modules/order.clearAllUnFinished" -> "(time.Time).Before" [ color="saddlebrown" ]
+    "trade_agent/pkg/modules/order.clearAllUnFinished" -> "(*trade_agent/pkg/cache.Cache).GetTargets" [ color="saddlebrown" ]
+    "trade_agent/pkg/modules/order.clearAllUnFinished" -> "(*trade_agent/pkg/cache.Cache).GetOrderBuy" [ color="saddlebrown" ]
+    "trade_agent/pkg/modules/order.clearAllUnFinished" -> "(*trade_agent/pkg/cache.Cache).GetOrderSell" [ color="saddlebrown" ]
+    "trade_agent/pkg/modules/order.clearAllUnFinished" -> "(*trade_agent/pkg/cache.Cache).GetRealTimeTickClose" [ color="saddlebrown" ]
+    "trade_agent/pkg/modules/order.clearAllUnFinished" -> "trade_agent/pkg/eventbus.Get" [ color="saddlebrown" ]
+    "trade_agent/pkg/modules/order.clearAllUnFinished" -> "trade_agent/pkg/eventbus.TopicStockOrder" [ color="saddlebrown" ]
+    "trade_agent/pkg/modules/order.clearAllUnFinished" -> "(*trade_agent/pkg/eventbus.BusAgent).Pub" [ color="saddlebrown" ]
+    "trade_agent/pkg/modules/order.clearAllUnFinished" -> "(*trade_agent/pkg/cache.Cache).GetOrderSellFirst" [ color="saddlebrown" ]
+    "trade_agent/pkg/modules/order.clearAllUnFinished" -> "(*trade_agent/pkg/cache.Cache).GetOrderBuyLater" [ color="saddlebrown" ]
+    "trade_agent/pkg/modules/order.InitOrder" -> "trade_agent/pkg/modules/order.clearAllUnFinished" [ arrowhead="normalnoneodot" ]
+    "trade_agent/pkg/modules/order.InitOrder" -> "trade_agent/pkg/eventbus.Get" [ color="saddlebrown" ]
+    "trade_agent/pkg/modules/order.InitOrder" -> "trade_agent/pkg/eventbus.TopicStockOrder" [ color="saddlebrown" ]
+    "trade_agent/pkg/modules/order.InitOrder" -> "(*trade_agent/pkg/eventbus.BusAgent).Sub" [ color="saddlebrown" ]
     "trade_agent/cmd.main" -> "trade_agent/pkg/modules/order.InitOrder" [ color="saddlebrown" ]
-    "trade_agent/cmd.main" -> "trade_agent/pkg/modules/subscribe.InitSubscribe" [ color="saddlebrown" ]
-    "trade_agent/cmd.main" -> "trade_agent/pkg/modules/tickprocess.InitTickProcess" [ color="saddlebrown" ]
-    "trade_agent/cmd.main" -> "trade_agent/pkg/modules/history.InitHistory" [ color="saddlebrown" ]
-    "trade_agent/cmd.main" -> "trade_agent/pkg/modules/targets.InitTargets" [ color="saddlebrown" ]
-    "trade_agent/cmd.main" -> "trade_agent/pkg/modules/healthcheck.InitHealthCheck" [ color="saddlebrown" ]
+    "trade_agent/pkg/modules/order.getQuantityByBiasRate" -> "trade_agent/pkg/cache.GetCache" [ color="saddlebrown" ]
+    "trade_agent/pkg/modules/order.getQuantityByBiasRate" -> "(*trade_agent/pkg/cache.Cache).GetBiasRate" [ color="saddlebrown" ]
+    "trade_agent/pkg/modules/order.checkSwitch" -> "trade_agent/pkg/config.GetSwitchConfig" [ color="saddlebrown" ]
+    "trade_agent/pkg/modules/order.checkSwitch" -> "trade_agent/pkg/cache.GetCache" [ color="saddlebrown" ]
+    "trade_agent/pkg/modules/order.checkSwitch" -> "(*trade_agent/pkg/cache.Cache).GetIsAllowTrade" [ color="saddlebrown" ]
+    "trade_agent/pkg/modules/order.checkSwitch" -> "(*trade_agent/pkg/cache.Cache).GetOrderForwardCountDetail" [ color="saddlebrown" ]
+    "trade_agent/pkg/modules/order.checkSwitch" -> "(*trade_agent/pkg/cache.Cache).GetOrderReverseCountDetail" [ color="saddlebrown" ]
+    "trade_agent/pkg/modules/order.checkWaitingOrder" -> "trade_agent/pkg/config.GetTradeConfig" [ color="saddlebrown" ]
+    "trade_agent/pkg/modules/order.checkWaitingOrder" -> "(time.Time).Add" [ color="saddlebrown" ]
+    "trade_agent/pkg/modules/order.checkWaitingOrder" -> "time.Now" [ color="saddlebrown" ]
+    "trade_agent/pkg/modules/order.checkWaitingOrder" -> "(time.Time).Before" [ color="saddlebrown" ]
+    "trade_agent/pkg/modules/order.checkWaitingOrder" -> "trade_agent/pkg/dbagent.Get" [ color="saddlebrown" ]
+    "trade_agent/pkg/modules/order.checkWaitingOrder" -> "(*trade_agent/pkg/dbagent.DBAgent).GetOrderStatusByOrderID" [ color="saddlebrown" ]
+    "trade_agent/pkg/modules/order.checkWaitingOrder" -> "time.Sleep" [ color="saddlebrown" ]
+    "trade_agent/pkg/modules/order.checkWaitingOrder" -> "trade_agent/pkg/log.Get" [ color="saddlebrown" ]
+    "trade_agent/pkg/modules/order.checkWaitingOrder" -> "(*github.com/sirupsen/logrus.Logger).Panic" [ color="saddlebrown" ]
+    "trade_agent/pkg/modules/order.checkWaitingOrder" -> "trade_agent/pkg/sinopacapi.Get" [ color="saddlebrown" ]
+    "trade_agent/pkg/modules/order.checkWaitingOrder" -> "(*trade_agent/pkg/sinopacapi.TradeAgent).CancelOrder" [ color="saddlebrown" ]
+    "trade_agent/pkg/modules/order.checkCancelStatus" -> "trade_agent/pkg/dbagent.Get" [ color="saddlebrown" ]
+    "trade_agent/pkg/modules/order.checkCancelStatus" -> "(*trade_agent/pkg/dbagent.DBAgent).GetOrderStatusByOrderID" [ color="saddlebrown" ]
+    "trade_agent/pkg/modules/order.checkCancelStatus" -> "trade_agent/pkg/log.Get" [ color="saddlebrown" ]
+    "trade_agent/pkg/modules/order.checkCancelStatus" -> "(*github.com/sirupsen/logrus.Logger).Panic" [ color="saddlebrown" ]
+    "trade_agent/pkg/modules/order.checkWaitingOrder" -> "trade_agent/pkg/modules/order.checkCancelStatus" [  ]
+    "trade_agent/pkg/modules/order.orderCallback" -> "(*sync.Mutex).Unlock" [ arrowhead="normalnoneodiamond" color="saddlebrown" ]
+    "trade_agent/pkg/modules/order.orderCallback" -> "(*sync.Mutex).Lock" [ color="saddlebrown" ]
+    "trade_agent/pkg/modules/order.orderCallback" -> "trade_agent/pkg/modules/order.checkSwitch" [  ]
+    "trade_agent/pkg/modules/order.orderCallback" -> "trade_agent/pkg/cache.GetCache" [ color="saddlebrown" ]
+    "trade_agent/pkg/modules/order.orderCallback" -> "(*trade_agent/pkg/cache.Cache).GetOrderWaiting" [ color="saddlebrown" ]
+    "trade_agent/pkg/modules/order.orderCallback" -> "trade_agent/pkg/modules/order.isGoodPoint" [  ]
+    "trade_agent/pkg/modules/order.orderCallback" -> "trade_agent/pkg/modules/order.getQuantityByBiasRate" [  ]
+    "trade_agent/pkg/modules/order.orderCallback" -> "trade_agent/pkg/sinopacapi.Get" [ color="saddlebrown" ]
+    "trade_agent/pkg/modules/order.orderCallback" -> "(*trade_agent/pkg/sinopacapi.TradeAgent).PlaceOrder" [ color="saddlebrown" ]
+    "trade_agent/pkg/modules/order.orderCallback" -> "(*trade_agent/pkg/cache.Cache).SetOrderWaiting" [ color="saddlebrown" ]
+    "trade_agent/pkg/modules/order.orderCallback" -> "trade_agent/pkg/modules/order.checkWaitingOrder" [ arrowhead="normalnoneodot" ]
 }

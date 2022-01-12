@@ -26,7 +26,7 @@ func InitTargets() {
 
 	go func() {
 		for range time.Tick(60 * time.Second) {
-			if cache.GetCache().GetIsOpenWithEndWaitTime() {
+			if cache.GetCache().GetIsAllowTrade() {
 				err = getRealTimeTargets()
 				if err != nil {
 					log.Get().Panic(err)
@@ -86,6 +86,12 @@ func volumeRankCallback(m mqhandler.MQMessage) {
 	err := body.UnmarshalProto(m.Payload())
 	if err != nil {
 		log.Get().Panic(err)
+	}
+
+	if len(body.GetData()) == 0 {
+		stuck := make(chan struct{})
+		log.Get().Warn("No targets")
+		<-stuck
 	}
 
 	condition := config.GetTargetCondConfig()
