@@ -26,6 +26,7 @@ type Config struct {
 	MQTT       MQTT       `json:"mqtt,omitempty" yaml:"mqtt"`
 	Switch     Switch     `json:"switch,omitempty" yaml:"switch"`
 	Trade      Trade      `json:"trade,omitempty" yaml:"trade"`
+	Quota      Quota      `json:"quota,omitempty" yaml:"quota"`
 	TargetCond TargetCond `json:"target_cond,omitempty" yaml:"target_cond"`
 	Analyze    Analyze    `json:"analyze,omitempty" yaml:"analyze"`
 	Schedule   Schedule   `json:"schedule,omitempty" yaml:"schedule"`
@@ -92,6 +93,14 @@ type Trade struct {
 	TradeOutEndTime float64 `json:"trade_out_end_time,omitempty" yaml:"trade_out_end_time"`
 }
 
+// Quota Quota
+type Quota struct {
+	TradeQuota    int64   `json:"trade_quota,omitempty" yaml:"trade_quota"`
+	TradeFeeRatio float64 `json:"trade_fee_ratio,omitempty" yaml:"trade_fee_ratio"`
+	FeeDiscount   float64 `json:"fee_discount,omitempty" yaml:"fee_discount"`
+	TradeTaxRatio float64 `json:"trade_tax_ratio,omitempty" yaml:"trade_tax_ratio"`
+}
+
 // TargetCond TargetCond
 type TargetCond struct {
 	LimitPriceLow        float64  `json:"limit_price_low,omitempty" yaml:"limit_price_low"`
@@ -120,6 +129,8 @@ type Analyze struct {
 
 	RSIHigh float64 `json:"rsi_high,omitempty" yaml:"rsi_high"`
 	RSILow  float64 `json:"rsi_low,omitempty" yaml:"rsi_low"`
+
+	MaxLoss float64 `json:"max_loss,omitempty" yaml:"max_loss"`
 }
 
 // Schedule Schedule
@@ -214,6 +225,15 @@ func GetTradeConfig() Trade {
 	}
 	once.Do(parseConfig)
 	return globalConfig.Trade
+}
+
+// GetQuotaConfig GetQuotaConfig
+func GetQuotaConfig() Quota {
+	if globalConfig != nil {
+		return globalConfig.Quota
+	}
+	once.Do(parseConfig)
+	return globalConfig.Quota
 }
 
 // GetTargetCondConfig GetTargetCondConfig

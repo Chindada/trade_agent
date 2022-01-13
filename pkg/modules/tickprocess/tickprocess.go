@@ -81,7 +81,7 @@ func realTimeTickProcessor(stockNum string) {
 		}
 
 		lastPeriodArr := tickArr.GetLastNSecondArr(analyzeConf.TickAnalyzeMinPeriod)
-		if len(lastPeriodArr) < 2 {
+		if float64(len(lastPeriodArr)) < analyzeConf.MaxLoss {
 			continue
 		}
 
