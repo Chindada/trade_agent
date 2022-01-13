@@ -18,9 +18,10 @@ var globalClient *TradeAgent
 
 // TradeAgent TradeAgent
 type TradeAgent struct {
-	Client    *resty.Client
-	urlPrefix string
-	token     string
+	Client     *resty.Client
+	urlPrefix  string
+	token      string
+	simulation bool
 }
 
 // Order Order
@@ -44,11 +45,13 @@ func InitSinpacAPI() {
 		}
 		time.Sleep(time.Second)
 	}
+
 	mqConf := config.GetMQTTConfig()
 	new := TradeAgent{
 		Client:    restfulclient.Get(),
 		urlPrefix: "http://" + serverConf.SinopacSRVHost + ":" + serverConf.SinopacSRVPort,
 	}
+	new.simulation = config.GetSwitchConfig().Simulation
 
 	// check sinopac mq srv connect to mqtt broker
 	err := new.AskSinpacMQSRVConnectMQ(mqConf)
@@ -150,7 +153,12 @@ func (c *TradeAgent) PlaceOrder(order Order) (res OrderResponse, err error) {
 		Quantity: order.Quantity,
 	}
 	var resp *resty.Response
+	simulation := "0"
+	if c.simulation {
+		simulation = "1"
+	}
 	resp, err = c.Client.R().
+		SetHeader("X-Simulate", simulation).
 		SetBody(body).
 		SetResult(&OrderResponse{}).
 		Post(c.urlPrefix + url)
@@ -168,7 +176,12 @@ func (c *TradeAgent) CancelOrder(orderID string) (err error) {
 		OrderID: orderID,
 	}
 	var resp *resty.Response
+	simulation := "0"
+	if c.simulation {
+		simulation = "1"
+	}
 	resp, err = c.Client.R().
+		SetHeader("X-Simulate", simulation).
 		SetBody(order).
 		SetResult(&ResponseCommon{}).
 		Post(c.urlPrefix + urlCancelOrder)
@@ -194,7 +207,12 @@ func (c *TradeAgent) FetchOrderStatusByOrderID(orderID string) (status string, e
 		OrderID: orderID,
 	}
 	var resp *resty.Response
+	simulation := "0"
+	if c.simulation {
+		simulation = "1"
+	}
 	resp, err = c.Client.R().
+		SetHeader("X-Simulate", simulation).
 		SetBody(order).
 		SetResult(&OrderResponse{}).
 		Post(c.urlPrefix + urlFetchOrderStatusByOrderID)
@@ -213,7 +231,12 @@ func (c *TradeAgent) FetchOrderStatusByOrderID(orderID string) (status string, e
 // FetchOrderStatus FetchOrderStatus
 func (c *TradeAgent) FetchOrderStatus() (err error) {
 	var resp *resty.Response
+	simulation := "0"
+	if c.simulation {
+		simulation = "1"
+	}
 	resp, err = c.Client.R().
+		SetHeader("X-Simulate", simulation).
 		SetResult(&ResponseCommon{}).
 		Get(c.urlPrefix + urlFetchOrderStatus)
 	if err != nil {

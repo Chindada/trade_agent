@@ -27,9 +27,11 @@ mqtt:
 
 # switch
 switch:
-    buy: false
+    simulation: true
+
+    buy: true
     sell: true
-    sell_first: false
+    sell_first: true
     buy_later: true
 
     mean_time_forward: 1
@@ -41,8 +43,8 @@ switch:
 trade:
     # unit: day
     history_close_period: 14
-    history_tick_period: 7
-    history_kbar_period: 7
+    history_tick_period: 8
+    history_kbar_period: 8
     # unit: minute
     hold_time_from_open: 5
     # unit: hours
@@ -84,7 +86,7 @@ analyze:
     tick_analyze_min_period: 5
     tick_analyze_max_period: 5.5
     # unit: times
-    rsi_min_count: 300
+    rsi_min_count: 600
     # rsi range: 0~1
     rsi_high: 0.7
     rsi_low: 0.3

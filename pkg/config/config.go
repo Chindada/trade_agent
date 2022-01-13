@@ -63,6 +63,8 @@ type MQTT struct {
 
 // Switch Switch
 type Switch struct {
+	Simulation bool `json:"simulation,omitempty" yaml:"simulation"`
+
 	Buy       bool `json:"buy,omitempty" yaml:"buy"`
 	Sell      bool `json:"sell,omitempty" yaml:"sell"`
 	SellFirst bool `json:"sell_first,omitempty" yaml:"sell_first"`

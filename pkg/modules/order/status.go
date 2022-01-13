@@ -13,7 +13,7 @@ import (
 	"trade_agent/pkg/utils"
 )
 
-var wg sync.WaitGroup
+var mu sync.Mutex
 
 func subOrderStatus() error {
 	handler := mqhandler.Get()
@@ -26,23 +26,28 @@ func subOrderStatus() error {
 		return err
 	}
 
-	// initital db order status on trade day
-	initTradeBalance()
+	go func() {
+		// on start up update once, then every minute update
+		updateTradeBalance()
+
+		for range time.Tick(time.Minute) {
+			updateTradeBalance()
+		}
+	}()
 
 	go func() {
 		for range time.Tick(1*time.Second + 500*time.Millisecond) {
-			wg.Add(1)
 			if err := sinopacapi.Get().FetchOrderStatus(); err != nil {
 				log.Get().Error(err)
 			}
-			wg.Wait()
 		}
 	}()
 	return nil
 }
 
 func orderStausCallback(m mqhandler.MQMessage) {
-	defer wg.Done()
+	defer mu.Unlock()
+	mu.Lock()
 	body := pb.OrderStatusHistoryResponse{}
 	err := body.UnmarshalProto(m.Payload())
 	if err != nil {
@@ -90,7 +95,7 @@ func orderStausCallback(m mqhandler.MQMessage) {
 	}
 }
 
-func initTradeBalance() {
+func updateTradeBalance() {
 	dbOrderStatus, err := dbagent.Get().GetOrderStatusByDate(cache.GetCache().GetTradeDay())
 	if err != nil {
 		log.Get().Panic(err)

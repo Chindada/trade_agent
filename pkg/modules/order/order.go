@@ -36,6 +36,7 @@ func InitOrder() {
 func orderCallback(order *sinopacapi.Order) {
 	defer orderLock.Unlock()
 	orderLock.Lock()
+
 	// check by config switch
 	if !checkSwitch(order) {
 		return
@@ -97,7 +98,9 @@ func checkWaitingOrder(order *sinopacapi.Order) {
 	statusMap := dbagent.StatusListMap
 	status, err := sinopacapi.Get().FetchOrderStatusByOrderID(order.OrderID)
 	if err != nil {
-		log.Get().Panic(err)
+		log.Get().Error(err)
+		go checkWaitingOrder(order)
+		return
 	}
 
 	if statusMap[status] != 4 && statusMap[status] != 5 && statusMap[status] != 6 {
@@ -105,7 +108,7 @@ func checkWaitingOrder(order *sinopacapi.Order) {
 		if err != nil {
 			log.Get().Error(err)
 			if isOrderNotCanceld(order.OrderID) {
-				checkWaitingOrder(order)
+				go checkWaitingOrder(order)
 			}
 		}
 	}
@@ -116,7 +119,7 @@ func isOrderNotCanceld(orderID string) bool {
 	status, err := sinopacapi.Get().FetchOrderStatusByOrderID(orderID)
 	if err != nil {
 		log.Get().Error(err)
-		return false
+		return true
 	}
 	if statusMap[status] == 4 || statusMap[status] == 5 || statusMap[status] == 6 {
 		return false

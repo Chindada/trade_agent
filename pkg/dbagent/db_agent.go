@@ -111,7 +111,6 @@ func initConnection() {
 		&HistoryTick{},
 		&OrderStatus{},
 		&RealTimeBidAsk{},
-		&RealTimeTickAnalyze{},
 		&RealTimeTick{},
 		&Stock{},
 		&Target{},

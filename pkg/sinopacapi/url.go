@@ -28,5 +28,4 @@ const (
 	urlRestartSinopacSRV                  string = "/sinopac-mq-srv/system/restart"
 	// urlFetchTSESnapShot                   string = "/sinopac-mq-srv/real-time/snapshot/tse"
 	// urlFetchHistoryTSETickByDate          string = "/sinopac-mq-srv/history/tick/tse"
-	// urlFetchOrderStatusHistory            string = "/sinopac-mq-srv/trade/status-history"
 )
