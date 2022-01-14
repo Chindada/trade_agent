@@ -96,9 +96,9 @@ type Trade struct {
 // Quota Quota
 type Quota struct {
 	TradeQuota    int64   `json:"trade_quota,omitempty" yaml:"trade_quota"`
+	TradeTaxRatio float64 `json:"trade_tax_ratio,omitempty" yaml:"trade_tax_ratio"`
 	TradeFeeRatio float64 `json:"trade_fee_ratio,omitempty" yaml:"trade_fee_ratio"`
 	FeeDiscount   float64 `json:"fee_discount,omitempty" yaml:"fee_discount"`
-	TradeTaxRatio float64 `json:"trade_tax_ratio,omitempty" yaml:"trade_tax_ratio"`
 }
 
 // TargetCond TargetCond
@@ -170,8 +170,7 @@ func parseConfig() {
 		globalConfig.Database.Host = localHost
 		globalConfig.Database.Database = fmt.Sprintf("%s_debug", globalConfig.Database.Database)
 
-		globalConfig.Switch.Buy = false
-		globalConfig.Switch.SellFirst = false
+		globalConfig.Switch.Simulation = true
 	}
 
 	globalConfig.basePath = basePath

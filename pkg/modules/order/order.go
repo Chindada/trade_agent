@@ -10,6 +10,7 @@ import (
 	"trade_agent/pkg/eventbus"
 	"trade_agent/pkg/log"
 	"trade_agent/pkg/sinopacapi"
+	"trade_agent/pkg/sinopacapi/sinopacerr"
 )
 
 var orderLock sync.Mutex
@@ -61,6 +62,13 @@ func orderCallback(order *sinopacapi.Order) {
 		if err != nil {
 			log.Get().Error(err)
 		}
+
+		if err.Error() == sinopacerr.QuotaIsNotEnough {
+			config.TurnTradeInSwitchOFF()
+			log.Get().Warn("Quota Is Not Enough, Turn trade in switch off")
+			return
+		}
+
 		log.Get().WithFields(map[string]interface{}{
 			"Stock":  order.StockNum,
 			"Action": order.Action,
@@ -69,6 +77,7 @@ func orderCallback(order *sinopacapi.Order) {
 	}
 
 	if orderID := orderRes.OrderID; orderID != "" {
+		sinopacapi.Get().SetOrderToQuota(*order, true)
 		order.OrderID = orderID
 		cache.GetCache().SetOrderWaiting(order.StockNum, order)
 

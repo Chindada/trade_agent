@@ -10,7 +10,6 @@ import (
 	"trade_agent/pkg/mqhandler"
 	"trade_agent/pkg/pb"
 	"trade_agent/pkg/sinopacapi"
-	"trade_agent/pkg/utils"
 )
 
 var mu sync.Mutex
@@ -63,6 +62,7 @@ func orderStausCallback(m mqhandler.MQMessage) {
 			case 4, 5:
 				// order fail or cancel, remove from waiting cache
 				cache.GetCache().SetOrderWaiting(v.GetCode(), nil)
+				sinopacapi.Get().SetOrderToQuota(*waitingOrder, false)
 
 			case 6:
 				// order filled, remove from waiting cache
@@ -113,11 +113,11 @@ func updateTradeBalance() {
 		if order.Status == 6 {
 			switch order.Action {
 			case 1:
-				tmp.OriginalBalance -= utils.GetStockBuyCost(order.Price, order.Quantity)
+				tmp.OriginalBalance -= sinopacapi.GetStockBuyCost(order.Price, order.Quantity)
 			case 2:
-				tmp.OriginalBalance += utils.GetStockSellCost(order.Price, order.Quantity)
+				tmp.OriginalBalance += sinopacapi.GetStockSellCost(order.Price, order.Quantity)
 			}
-			tmp.Discount += utils.GetStockTradeFeeDiscount(order.Price, order.Quantity)
+			tmp.Discount += sinopacapi.GetStockTradeFeeDiscount(order.Price, order.Quantity)
 		}
 	}
 	tmp.Total = tmp.OriginalBalance + tmp.Discount

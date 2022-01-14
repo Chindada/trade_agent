@@ -5,10 +5,12 @@ import (
 	"errors"
 	"net/http"
 	"strconv"
+	"sync"
 	"time"
 	"trade_agent/pkg/config"
 	"trade_agent/pkg/log"
 	"trade_agent/pkg/restfulclient"
+	"trade_agent/pkg/sinopacapi/sinopacerr"
 	"trade_agent/pkg/utils"
 
 	"github.com/go-resty/resty/v2"
@@ -22,6 +24,9 @@ type TradeAgent struct {
 	urlPrefix  string
 	token      string
 	simulation bool
+
+	tradeQuota int64
+	mu         sync.Mutex
 }
 
 // Order Order
@@ -47,26 +52,35 @@ func InitSinpacAPI() {
 	}
 
 	mqConf := config.GetMQTTConfig()
-	new := TradeAgent{
+	newClient := TradeAgent{
 		Client:    restfulclient.Get(),
 		urlPrefix: "http://" + serverConf.SinopacSRVHost + ":" + serverConf.SinopacSRVPort,
 	}
-	new.simulation = config.GetSwitchConfig().Simulation
+	newClient.simulation = config.GetSwitchConfig().Simulation
+
+	quotaConf := config.GetQuotaConfig()
+	tradeTaxRatio = quotaConf.TradeTaxRatio
+	tradeFeeRatio = quotaConf.TradeFeeRatio
+	feeDiscount = quotaConf.FeeDiscount
+
+	newClient.mu.Lock()
+	newClient.tradeQuota = quotaConf.TradeQuota
+	newClient.mu.Unlock()
 
 	// check sinopac mq srv connect to mqtt broker
-	err := new.AskSinpacMQSRVConnectMQ(mqConf)
+	err := newClient.AskSinpacMQSRVConnectMQ(mqConf)
 	if err != nil {
 		log.Get().Panic(err)
 	}
 
-	token, err := new.FetchServerToken()
+	token, err := newClient.FetchServerToken()
 	if err != nil {
 		log.Get().Panic(err)
 	} else {
-		new.token = token
+		newClient.token = token
 	}
 
-	globalClient = &new
+	globalClient = &newClient
 }
 
 // Get Get
@@ -137,16 +151,24 @@ func (c *TradeAgent) RestartSinopacSRV() (err error) {
 // PlaceOrder PlaceOrder
 func (c *TradeAgent) PlaceOrder(order Order) (res OrderResponse, err error) {
 	var url string
+	var cost int64
 	switch order.Action {
 	case ActionBuy:
 		url = urlPlaceOrderBuy
+		cost = GetStockBuyCost(order.Price, order.Quantity)
 	case ActionSell:
 		url = urlPlaceOrderSell
 	case ActionSellFirst:
 		url = urlPlaceOrderSellFirst
+		cost = GetStockSellCost(order.Price, order.Quantity)
 	case ActionBuyLater:
 		url = urlPlaceOrderBuy
 	}
+
+	if c.tradeQuota < cost {
+		return res, sinopacerr.ErrQuotaIsNotEnough()
+	}
+
 	body := PlaceOrderBody{
 		Stock:    order.StockNum,
 		Price:    order.Price,

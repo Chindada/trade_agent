@@ -1,25 +1,29 @@
 // Package taerror package taerror
 package taerror
 
-import "fmt"
+import (
+	"fmt"
+	"trade_agent/pkg/log"
+)
 
 // TAError TAError
 type TAError struct {
-	ErrorCode int64  `json:"error_code,omitempty" yaml:"error_code"`
-	Message   string `json:"message,omitempty" yaml:"message"`
-	Err       error  `json:"err,omitempty" yaml:"err"`
+	ErrorCode int   `json:"error_code,omitempty" yaml:"error_code"`
+	Err       error `json:"err,omitempty" yaml:"err"`
 }
 
 // Error Error
 func (c *TAError) Error() string {
-	return c.Message
+	return c.Err.Error()
 }
 
 // ErrProtoFormatWrong ErrProtoFormatWrong
 func ErrProtoFormatWrong(message []byte, err error) *TAError {
+	code := -101
+	protoErr := fmt.Errorf("format wrong: %s", string(message))
+	log.Get().Errorf("ErrorCode: %d, Error: %s, %s", code, protoErr.Error(), err.Error())
 	return &TAError{
-		ErrorCode: -101,
-		Message:   fmt.Sprintf("Format Wrong: %s", string(message)),
-		Err:       err,
+		ErrorCode: code,
+		Err:       protoErr,
 	}
 }

@@ -9,7 +9,6 @@ import (
 	"trade_agent/pkg/eventbus"
 	"trade_agent/pkg/log"
 	"trade_agent/pkg/sinopacapi"
-	"trade_agent/pkg/utils"
 )
 
 var (
@@ -159,8 +158,8 @@ func getRealTimeBalancePct(stockNum string, close float64) (float64, sinopacapi.
 	if restOrderCount != 0 {
 		for i := len(historyOrderSell); i <= len(historyOrderSell)-1+restOrderCount; i++ {
 			lastOrder := historyOrderBuy[i]
-			buyCost := utils.GetStockBuyCost(lastOrder.Price, lastOrder.Quantity)
-			sellCost := utils.GetStockSellCost(close, lastOrder.Quantity)
+			buyCost := sinopacapi.GetStockBuyCost(lastOrder.Price, lastOrder.Quantity)
+			sellCost := sinopacapi.GetStockSellCost(close, lastOrder.Quantity)
 			if buyCost > sellCost {
 				return 100 * float64(buyCost-sellCost) / float64(buyCost), sinopacapi.ActionSell
 			}
@@ -173,8 +172,8 @@ func getRealTimeBalancePct(stockNum string, close float64) (float64, sinopacapi.
 	if restOrderCount != 0 {
 		for i := len(historyOrderBuyLater); i <= len(historyOrderBuyLater)-1+restOrderCount; i++ {
 			lastOrder := historyOrderSellFirst[i]
-			sellFirstCost := utils.GetStockSellCost(lastOrder.Price, lastOrder.Quantity)
-			buyLaterCost := utils.GetStockBuyCost(close, lastOrder.Quantity)
+			sellFirstCost := sinopacapi.GetStockSellCost(lastOrder.Price, lastOrder.Quantity)
+			buyLaterCost := sinopacapi.GetStockBuyCost(close, lastOrder.Quantity)
 			if sellFirstCost < buyLaterCost {
 				return 100 * float64(buyLaterCost-sellFirstCost) / float64(sellFirstCost), sinopacapi.ActionBuyLater
 			}
