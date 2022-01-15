@@ -3,6 +3,7 @@ package history
 
 import (
 	"time"
+	"trade_agent/global"
 	"trade_agent/pkg/cache"
 	"trade_agent/pkg/dbagent"
 	"trade_agent/pkg/eventbus"
@@ -62,6 +63,7 @@ func calculateBiasRate(targetArr []*dbagent.Target, fetchDate []time.Time) error
 		for _, date := range fetchDate {
 			close := cache.GetCache().GetHistoryClose(stock.Stock.Number, date)
 			if close == 0 {
+				log.Get().Warnf("%s on %s close is 0", stock.Stock.Number, date.Format(global.ShortTimeLayout))
 				continue
 			}
 			closeArr = append(closeArr, close)

@@ -15,11 +15,13 @@ import (
 	"trade_agent/pkg/sinopacapi"
 )
 
+var lastNTradeDayTarget int64 = 1
+
 // InitTargets InitTargets
 func InitTargets() {
 	log.Get().Info("Initial Targets")
 
-	err := getStockTargets()
+	err := getStockTargets(lastNTradeDayTarget)
 	if err != nil {
 		log.Get().Panic(err)
 	}
@@ -37,7 +39,7 @@ func InitTargets() {
 }
 
 // getStockTargets getStockTargets
-func getStockTargets() error {
+func getStockTargets(n int64) error {
 	handler := mqhandler.Get()
 	err := handler.Sub(mqhandler.MQSubBody{
 		MQTopic:  mqhandler.TopicVolumeRank(),
@@ -72,7 +74,7 @@ func getStockTargets() error {
 		return nil
 	}
 
-	lastTradeDay := tradeday.GetLastNTradeDayByDate(1, tradeDay)[0]
+	lastTradeDay := tradeday.GetLastNTradeDayByDate(n, tradeDay)[n-1]
 	err = sinopacapi.Get().FetchVolumeRankByDate(lastTradeDay.Format(global.ShortTimeLayout), 200)
 	if err != nil {
 		return err
@@ -87,11 +89,13 @@ func volumeRankCallback(m mqhandler.MQMessage) {
 	if err != nil {
 		log.Get().Panic(err)
 	}
-
 	if len(body.GetData()) == 0 {
-		stuck := make(chan struct{})
-		log.Get().Warn("No targets")
-		<-stuck
+		lastNTradeDayTarget++
+		err = getStockTargets(lastNTradeDayTarget)
+		if err != nil {
+			log.Get().Panic(err)
+		}
+		return
 	}
 
 	condition := config.GetTargetCondConfig()
