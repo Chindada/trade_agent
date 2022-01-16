@@ -16,7 +16,7 @@ func TopicSnapshotAll() MQTopic {
 
 // TopicSnapshotTSE TopicSnapshotTSE
 func TopicSnapshotTSE() MQTopic {
-	return "internal/snapshot_all"
+	return "internal/snapshot_tse"
 }
 
 // TopicHistoryTick TopicHistoryTick
@@ -47,11 +47,6 @@ func TopicVolumeRank() MQTopic {
 // TopicOrderStatus TopicOrderStatus
 func TopicOrderStatus() MQTopic {
 	return "internal/order_status"
-}
-
-// TopicOrderStatusHistory TopicOrderStatusHistory
-func TopicOrderStatusHistory() MQTopic {
-	return "internal/order_status_history"
 }
 
 // TopicRealTimeTick TopicRealTimeTick

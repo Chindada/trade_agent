@@ -22,6 +22,10 @@ func realTimeTickArrActionGenerator(tickArr, lastPeriodArr dbagent.RealTimeTickA
 	}
 
 	stockNum := tickArr.GetStockNum()
+	if stockNum == "" {
+		return 0
+	}
+
 	historyTickAnalyze := cache.GetCache().GetStockHistoryTickAnalyze(stockNum)
 	if pr := historyTickAnalyze.GetPRByVolume(lastPeriodArr.GetTotalVolume()); pr < conf.VolumePRLow || pr > conf.VolumePRHigh {
 		return 0

@@ -92,7 +92,7 @@ func realTimeTickProcessor(stockNum string) {
 
 		realTimeBalancePct, emerAction := getRealTimeBalancePct(stockNum, tick.Close)
 		action := realTimeTickArrActionGenerator(tickArr, lastPeriodArr, analyzeConf)
-		if action == 0 && realTimeBalancePct < 2 {
+		if action == 0 && realTimeBalancePct < analyzeConf.MaxLoss {
 			continue
 		} else {
 			action = emerAction
