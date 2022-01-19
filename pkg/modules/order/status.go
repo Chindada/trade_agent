@@ -62,7 +62,9 @@ func orderStausCallback(m mqhandler.MQMessage) {
 			case 4, 5:
 				// order fail or cancel, remove from waiting cache
 				cache.GetCache().SetOrderWaiting(v.GetCode(), nil)
+				// quota back
 				sinopacapi.Get().SetOrderToQuota(*waitingOrder, false)
+				displayOrderResult(v.ToOrderStatus())
 
 			case 6:
 				// order filled, remove from waiting cache
@@ -83,8 +85,8 @@ func orderStausCallback(m mqhandler.MQMessage) {
 					cache.GetCache().AppendOrderBuyLater(waitingOrder)
 					cache.GetCache().AppendOrderReverse(waitingOrder)
 				}
+				displayOrderResult(v.ToOrderStatus())
 			}
-			displayOrderResult(v.ToOrderStatus())
 		}
 		saveStatus = append(saveStatus, v.ToOrderStatus())
 	}

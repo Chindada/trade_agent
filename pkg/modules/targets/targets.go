@@ -27,7 +27,7 @@ func InitTargets() {
 	}
 
 	go func() {
-		for range time.Tick(60 * time.Second) {
+		for range time.NewTicker(60 * time.Second).C {
 			if cache.GetCache().GetIsAllowTrade() {
 				err = getRealTimeTargets()
 				if err != nil {

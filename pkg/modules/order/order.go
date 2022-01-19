@@ -46,16 +46,12 @@ func orderCallback(order *sinopacapi.Order) {
 	// check waiting order, if still waiting, return
 	if waitingOrder := cache.GetCache().GetOrderWaiting(order.StockNum); waitingOrder != nil {
 		return
-	} else if !isGoodPoint(order) {
-		return
 	}
 
 	// decide quantiy by history data
-	quantity := getQuantityByBiasRate(order)
-	if quantity == 0 {
+	if order.Quantity = getQuantityByBiasRate(order); order.Quantity == 0 {
 		return
 	}
-	order.Quantity = quantity
 
 	orderRes, err := sinopacapi.Get().PlaceOrder(*order)
 	if err != nil {
@@ -69,21 +65,23 @@ func orderCallback(order *sinopacapi.Order) {
 		return
 	}
 
-	if orderRes.Status == sinopacapi.StatusFail {
+	if orderRes.Status == sinopacapi.StatusFail || orderRes.OrderID == "" {
 		log.Get().WithFields(map[string]interface{}{
 			"Stock":  order.StockNum,
 			"Action": order.Action,
 		}).Error("PlaceOrder Fail")
+		return
 	}
 
-	if orderID := orderRes.OrderID; orderID != "" {
-		sinopacapi.Get().SetOrderToQuota(*order, true)
-		order.OrderID = orderID
-		cache.GetCache().SetOrderWaiting(order.StockNum, order)
+	// set order to quota
+	sinopacapi.Get().SetOrderToQuota(*order, true)
 
-		// gorutine for check waiting order status
-		go checkWaitingOrder(order)
-	}
+	// assign order id
+	order.OrderID = orderRes.OrderID
+	cache.GetCache().SetOrderWaiting(order.StockNum, order)
+
+	// gorutine for check waiting order status
+	go checkWaitingOrder(order)
 }
 
 func checkWaitingOrder(order *sinopacapi.Order) {
@@ -105,25 +103,25 @@ func checkWaitingOrder(order *sinopacapi.Order) {
 	}
 
 	statusMap := dbagent.StatusListMap
-	status, err := sinopacapi.Get().FetchOrderStatusByOrderID(order.OrderID)
+	originalStatus, err := sinopacapi.Get().FetchOrderStatusByOrderID(order.OrderID)
 	if err != nil {
 		log.Get().Error(err)
 		go checkWaitingOrder(order)
 		return
 	}
 
-	if statusMap[status] != 4 && statusMap[status] != 5 && statusMap[status] != 6 {
+	if statusMap[originalStatus] != 4 && statusMap[originalStatus] != 5 && statusMap[originalStatus] != 6 {
 		err = sinopacapi.Get().CancelOrder(order.OrderID)
 		if err != nil {
 			log.Get().Error(err)
-			if isOrderNotCanceld(order.OrderID) {
+			if isOrderNeedCancelAgain(order.OrderID) {
 				go checkWaitingOrder(order)
 			}
 		}
 	}
 }
 
-func isOrderNotCanceld(orderID string) bool {
+func isOrderNeedCancelAgain(orderID string) bool {
 	statusMap := dbagent.StatusListMap
 	status, err := sinopacapi.Get().FetchOrderStatusByOrderID(orderID)
 	if err != nil {
@@ -179,11 +177,6 @@ func getQuantityByBiasRate(order *sinopacapi.Order) int64 {
 		return 1
 	}
 	return 0
-}
-
-func isGoodPoint(order *sinopacapi.Order) bool {
-	// historyKbarStatus := cache.GetCache().GetStockHistoryKbarAnalyze(order.StockNum)
-	return true
 }
 
 // clearAllUnFinished clearAllUnFinished

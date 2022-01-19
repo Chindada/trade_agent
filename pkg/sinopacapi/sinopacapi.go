@@ -225,9 +225,6 @@ func (c *TradeAgent) CancelOrder(orderID string) (err error) {
 
 // FetchOrderStatusByOrderID FetchOrderStatusByOrderID
 func (c *TradeAgent) FetchOrderStatusByOrderID(orderID string) (status string, err error) {
-	order := OrderIDBody{
-		OrderID: orderID,
-	}
 	var resp *resty.Response
 	simulation := "0"
 	if c.simulation {
@@ -235,9 +232,9 @@ func (c *TradeAgent) FetchOrderStatusByOrderID(orderID string) (status string, e
 	}
 	resp, err = c.Client.R().
 		SetHeader("X-Simulate", simulation).
-		SetBody(order).
+		SetHeader("X-Order-ID", orderID).
 		SetResult(&OrderResponse{}).
-		Post(c.urlPrefix + urlFetchOrderStatusByOrderID)
+		Get(c.urlPrefix + urlFetchOrderStatusByOrderID)
 	if err != nil {
 		return status, err
 	} else if resp.StatusCode() != http.StatusOK {
@@ -247,6 +244,7 @@ func (c *TradeAgent) FetchOrderStatusByOrderID(orderID string) (status string, e
 	if id := resp.Result().(*OrderResponse).OrderID; id == "" {
 		return status, errors.New(FetchOrderStatusFail)
 	}
+
 	return resp.Result().(*OrderResponse).Status, err
 }
 

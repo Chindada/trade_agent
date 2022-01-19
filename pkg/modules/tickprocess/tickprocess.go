@@ -90,12 +90,14 @@ func realTimeTickProcessor(stockNum string) {
 			lastPeriodEndTime = lastPeriodArr.GetLastTick().TickTime
 		}
 
+		var action sinopacapi.OrderAction
 		realTimeBalancePct, emerAction := getRealTimeBalancePct(stockNum, tick.Close)
-		action := realTimeTickArrActionGenerator(tickArr, lastPeriodArr, analyzeConf)
-		if action == 0 {
-			continue
-		} else if realTimeBalancePct > analyzeConf.MaxLoss {
+		if realTimeBalancePct >= analyzeConf.MaxLoss {
 			action = emerAction
+		} else {
+			if action = realTimeTickArrActionGenerator(tickArr, lastPeriodArr, analyzeConf); action == 0 {
+				continue
+			}
 		}
 
 		order := &sinopacapi.Order{

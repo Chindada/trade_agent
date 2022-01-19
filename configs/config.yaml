@@ -29,9 +29,9 @@ mqtt:
 switch:
     simulation: true
 
-    buy: false
+    buy: true
     sell: true
-    sell_first: false
+    sell_first: true
     buy_later: true
 
     mean_time_forward: 20
