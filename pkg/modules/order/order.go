@@ -106,6 +106,7 @@ func checkWaitingOrder(order *sinopacapi.Order) {
 	originalStatus, err := sinopacapi.Get().FetchOrderStatusByOrderID(order.OrderID)
 	if err != nil {
 		log.Get().Error(err)
+		time.Sleep(5 * time.Second)
 		go checkWaitingOrder(order)
 		return
 	}
@@ -114,6 +115,7 @@ func checkWaitingOrder(order *sinopacapi.Order) {
 		err = sinopacapi.Get().CancelOrder(order.OrderID)
 		if err != nil {
 			log.Get().Error(err)
+			time.Sleep(5 * time.Second)
 			if isOrderNeedCancelAgain(order.OrderID) {
 				go checkWaitingOrder(order)
 			}
