@@ -58,22 +58,22 @@ func orderCallback(order *sinopacapi.Order) {
 	order.Quantity = quantity
 
 	orderRes, err := sinopacapi.Get().PlaceOrder(*order)
-	if err != nil || orderRes.Status != sinopacapi.StatusSuccuss {
-		if err != nil {
-			log.Get().Error(err)
-		}
-
+	if err != nil {
 		if err.Error() == sinopacerr.QuotaIsNotEnough {
 			config.TurnTradeInSwitchOFF()
 			log.Get().Warn("Quota Is Not Enough, Turn trade in switch off")
 			return
 		}
 
+		log.Get().Error(err)
+		return
+	}
+
+	if orderRes.Status == sinopacapi.StatusFail {
 		log.Get().WithFields(map[string]interface{}{
 			"Stock":  order.StockNum,
 			"Action": order.Action,
 		}).Error("PlaceOrder Fail")
-		return
 	}
 
 	if orderID := orderRes.OrderID; orderID != "" {

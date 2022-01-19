@@ -117,6 +117,37 @@ var doc = `{
                     }
                 }
             }
+        },
+        "/targets": {
+            "get": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Targets"
+                ],
+                "summary": "GetTradeDayTargets",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/dbagent.Target"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/handlers.ErrorResponse"
+                        }
+                    }
+                }
+            }
         }
     },
     "definitions": {
@@ -143,6 +174,58 @@ var doc = `{
                 },
                 "trade_day": {
                     "type": "string"
+                }
+            }
+        },
+        "dbagent.Stock": {
+            "type": "object",
+            "properties": {
+                "category": {
+                    "type": "string"
+                },
+                "day_trade": {
+                    "type": "boolean"
+                },
+                "exchange": {
+                    "type": "string"
+                },
+                "last_close": {
+                    "type": "number"
+                },
+                "last_close_change_pct": {
+                    "type": "number"
+                },
+                "last_volume": {
+                    "type": "integer"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "number": {
+                    "type": "string"
+                }
+            }
+        },
+        "dbagent.Target": {
+            "type": "object",
+            "properties": {
+                "rank": {
+                    "type": "integer"
+                },
+                "real_time_add": {
+                    "type": "boolean"
+                },
+                "stock": {
+                    "$ref": "#/definitions/dbagent.Stock"
+                },
+                "stock_id": {
+                    "type": "integer"
+                },
+                "trade_day": {
+                    "type": "string"
+                },
+                "volume": {
+                    "type": "integer"
                 }
             }
         },

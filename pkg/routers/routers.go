@@ -7,6 +7,7 @@ import (
 	"trade_agent/pkg/config"
 	"trade_agent/pkg/log"
 	"trade_agent/pkg/routers/handlers/balance"
+	"trade_agent/pkg/routers/handlers/targets"
 
 	"github.com/gin-gonic/gin"
 )
@@ -35,6 +36,7 @@ func ServeHTTP() {
 func initRouters(router *gin.Engine) {
 	mainRoute := router.Group("trade-agent")
 	balance.AddHandlers(mainRoute)
+	targets.AddHandlers(mainRoute)
 }
 
 func corsMiddleware() gin.HandlerFunc {
