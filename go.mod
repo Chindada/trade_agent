@@ -13,7 +13,7 @@ require (
 	github.com/rifflock/lfshook v0.0.0-20180920164130-b9218ef580f5
 	github.com/robfig/cron v1.2.0
 	github.com/sirupsen/logrus v1.8.1
-	github.com/swaggo/gin-swagger v1.3.3
+	github.com/swaggo/gin-swagger v1.4.0
 	github.com/swaggo/swag v1.7.8
 	google.golang.org/protobuf v1.27.1
 	gopkg.in/yaml.v2 v2.4.0
