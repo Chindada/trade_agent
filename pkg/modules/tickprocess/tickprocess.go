@@ -80,7 +80,7 @@ func realTimeTickProcessor(stockNum string) {
 		}
 
 		if lastPeriodEndTime.IsZero() {
-			lastPeriodEndTime = tick.TickTime
+			lastPeriodEndTime = checkFirstTick(tick, analyzeConf.OpenCloseChangeRatioLow, analyzeConf.OpenCloseChangeRatioHigh)
 			continue
 		}
 
@@ -195,4 +195,11 @@ func getReverseRestCount(stockNum string) int {
 	historyOrderSellFirst := cache.GetCache().GetOrderSellFirst(stockNum)
 	historyOrderBuyLater := cache.GetCache().GetOrderBuyLater(stockNum)
 	return len(historyOrderSellFirst) - len(historyOrderBuyLater)
+}
+
+func checkFirstTick(tick *dbagent.RealTimeTick, low, high float64) time.Time {
+	if tick.PctChg < low || tick.PctChg > high {
+		eventbus.Get().Pub(eventbus.TopicUnSubscribeTargets(), tick.Stock)
+	}
+	return tick.TickTime
 }

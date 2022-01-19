@@ -115,9 +115,12 @@ type TargetCond struct {
 type Analyze struct {
 	CloseChangeRatioLow  float64 `json:"close_change_ratio_low,omitempty" yaml:"close_change_ratio_low"`
 	CloseChangeRatioHigh float64 `json:"close_change_ratio_high,omitempty" yaml:"close_change_ratio_high"`
-	OpenCloseChangeRatio float64 `json:"open_close_change_ratio,omitempty" yaml:"open_close_change_ratio"`
-	OutInRatio           float64 `json:"out_in_ratio,omitempty" yaml:"out_in_ratio"`
-	InOutRatio           float64 `json:"in_out_ratio,omitempty" yaml:"in_out_ratio"`
+
+	OpenCloseChangeRatioLow  float64 `json:"open_close_change_ratio_low,omitempty" yaml:"open_close_change_ratio_low"`
+	OpenCloseChangeRatioHigh float64 `json:"open_close_change_ratio_high,omitempty" yaml:"open_close_change_ratio_high"`
+
+	OutInRatio float64 `json:"out_in_ratio,omitempty" yaml:"out_in_ratio"`
+	InOutRatio float64 `json:"in_out_ratio,omitempty" yaml:"in_out_ratio"`
 
 	VolumePRLow  float64 `json:"volume_pr_low,omitempty" yaml:"volume_pr_low"`
 	VolumePRHigh float64 `json:"volume_pr_high,omitempty" yaml:"volume_pr_high"`

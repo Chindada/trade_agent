@@ -34,8 +34,8 @@ switch:
     sell_first: true
     buy_later: true
 
-    mean_time_forward: 20
-    mean_time_reverse: 20
+    mean_time_forward: 5
+    mean_time_reverse: 5
     forward_max: 30
     reverse_max: 30
 
@@ -75,7 +75,8 @@ analyze:
     # unit: %
     close_change_ratio_low: -2
     close_change_ratio_high: 7
-    open_close_change_ratio: 5
+    open_close_change_ratio_low: -5
+    open_close_change_ratio_high: 5
     # unit: %
     out_in_ratio: 85
     in_out_ratio: 15
@@ -86,7 +87,7 @@ analyze:
     tick_analyze_min_period: 5
     tick_analyze_max_period: 5.5
     # unit: times
-    rsi_min_count: 200
+    rsi_min_count: 500
     # rsi range: 0~1
     rsi_high: 0.7
     rsi_low: 0.3
