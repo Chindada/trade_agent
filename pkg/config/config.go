@@ -125,10 +125,9 @@ type Analyze struct {
 	TickAnalyzeMinPeriod float64 `json:"tick_analyze_min_period,omitempty" yaml:"tick_analyze_min_period"`
 	TickAnalyzeMaxPeriod float64 `json:"tick_analyze_max_period,omitempty" yaml:"tick_analyze_max_period"`
 
-	RSIMinCount int `json:"rsi_min_count,omitempty" yaml:"rsi_min_count"`
-
-	RSIHigh float64 `json:"rsi_high,omitempty" yaml:"rsi_high"`
-	RSILow  float64 `json:"rsi_low,omitempty" yaml:"rsi_low"`
+	RSIMinCount int     `json:"rsi_min_count,omitempty" yaml:"rsi_min_count"`
+	RSIHigh     float64 `json:"rsi_high,omitempty" yaml:"rsi_high"`
+	RSILow      float64 `json:"rsi_low,omitempty" yaml:"rsi_low"`
 
 	MaxLoss float64 `json:"max_loss,omitempty" yaml:"max_loss"`
 }

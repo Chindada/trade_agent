@@ -73,6 +73,11 @@ func realTimeTickProcessor(stockNum string) {
 
 		// save realtime tick close to cache
 		cache.GetCache().SetRealTimeTickClose(stockNum, tick.Close)
+		if getForwardRestCount(stockNum)+getReverseRestCount(stockNum) == 0 {
+			if tick.PctChg < analyzeConf.CloseChangeRatioLow || tick.PctChg > analyzeConf.CloseChangeRatioHigh {
+				continue
+			}
+		}
 
 		if lastPeriodEndTime.IsZero() {
 			lastPeriodEndTime = tick.TickTime
@@ -80,10 +85,6 @@ func realTimeTickProcessor(stockNum string) {
 		}
 
 		lastPeriodArr := tickArr.GetLastNSecondArr(analyzeConf.TickAnalyzeMinPeriod)
-		if float64(len(lastPeriodArr)) < analyzeConf.MaxLoss {
-			continue
-		}
-
 		if tick.TickTime.Before(lastPeriodEndTime.Add(time.Duration(analyzeConf.TickAnalyzeMinPeriod) * time.Second)) {
 			continue
 		} else {
@@ -182,4 +183,16 @@ func getRealTimeBalancePct(stockNum string, close float64) (float64, sinopacapi.
 		}
 	}
 	return 0, 0
+}
+
+func getForwardRestCount(stockNum string) int {
+	historyOrderBuy := cache.GetCache().GetOrderBuy(stockNum)
+	historyOrderSell := cache.GetCache().GetOrderSell(stockNum)
+	return len(historyOrderBuy) - len(historyOrderSell)
+}
+
+func getReverseRestCount(stockNum string) int {
+	historyOrderSellFirst := cache.GetCache().GetOrderSellFirst(stockNum)
+	historyOrderBuyLater := cache.GetCache().GetOrderBuyLater(stockNum)
+	return len(historyOrderSellFirst) - len(historyOrderBuyLater)
 }

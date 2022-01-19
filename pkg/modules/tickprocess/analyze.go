@@ -14,13 +14,6 @@ func realTimeBidAskArrStatusGenerator(bidAsk *dbagent.RealTimeBidAsk, bidAskArr 
 }
 
 func realTimeTickArrActionGenerator(tickArr, lastPeriodArr dbagent.RealTimeTickArr, conf config.Analyze) sinopacapi.OrderAction {
-	lastTick := tickArr.GetLastTick()
-	if lastTick == nil {
-		return 0
-	} else if lastTick.PctChg < conf.CloseChangeRatioLow || lastTick.PctChg > conf.CloseChangeRatioHigh {
-		return 0
-	}
-
 	stockNum := tickArr.GetStockNum()
 	if stockNum == "" {
 		return 0
