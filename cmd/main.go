@@ -30,8 +30,8 @@ func init() {
 	global.Get().SetBasePath(filepath.Clean(filepath.Dir(ex)))
 
 	// check if env is production or development
-	deployment := os.Getenv("DEPLOYMENT")
-	if deployment != "docker" {
+	deployment, exist := os.LookupEnv("DEPLOYMENT")
+	if deployment != "docker" || !exist {
 		global.Get().SetIsDevelopment(true)
 	}
 }

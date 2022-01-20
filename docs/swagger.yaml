@@ -125,6 +125,42 @@ paths:
       summary: ImportBalance
       tags:
       - Balance
+  /cache:
+    get:
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              type: string
+            type: array
+      summary: GetTradeDayTargets
+      tags:
+      - Cache
+  /cache/{key}:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: key
+        in: path
+        name: key
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: object
+      summary: GetTradeDayTargets
+      tags:
+      - Cache
   /targets:
     get:
       consumes:

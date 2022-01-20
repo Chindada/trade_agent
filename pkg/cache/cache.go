@@ -61,3 +61,21 @@ func (c *Cache) getCacheByType(cacheType cacheType) *cache.Cache {
 	}
 	return tmp
 }
+
+// GetAllCacheType GetAllCacheType
+func (c *Cache) GetAllCacheType() []string {
+	c.lock.RLock()
+	var typeArr []string
+	for k := range c.CacheMap {
+		typeArr = append(typeArr, k)
+	}
+	c.lock.RUnlock()
+	return typeArr
+}
+
+// GetAllCacheByType GetAllCacheByType
+func (c *Cache) GetAllCacheByType(cacheType string) interface{} {
+	defer c.lock.RUnlock()
+	c.lock.RLock()
+	return c.CacheMap[cacheType].Items()
+}

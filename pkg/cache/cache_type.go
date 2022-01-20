@@ -22,7 +22,7 @@ const (
 	forwardOrder   cacheType = "forward_order"
 	reverseOrder   cacheType = "reverse_order"
 
-	realTimeBidaskChannel cacheType = "rea_time_bidask_channel"
+	realTimeBidaskChannel cacheType = "real_time_bidask_channel"
 	realTimeTickChannel   cacheType = "real_time_tick_channel"
 )
 
