@@ -108,3 +108,10 @@ func (c *DBAgent) GetOrderStatusByOrderID(orderID string) (int64, error) {
 		Find(&tmp).Error
 	return tmp.Status, err
 }
+
+// GetAllOrderStatus GetAllOrderStatus
+func (c *DBAgent) GetAllOrderStatus() ([]OrderStatus, error) {
+	var tmp []OrderStatus
+	err := c.DB.Model(&OrderStatus{}).Find(&tmp).Error
+	return tmp, err
+}
