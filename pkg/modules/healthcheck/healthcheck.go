@@ -15,10 +15,7 @@ var keepChannel chan struct{} = make(chan struct{})
 func InitHealthCheck() {
 	log.Get().Info("Initial HealthCheck")
 
-	err := eventbus.Get().Sub(eventbus.TopicTerminate(), terminate)
-	if err != nil {
-		log.Get().Panic(err)
-	}
+	eventbus.Get().SubscribeTerminate(terminate)
 
 	go func() {
 		for range time.Tick(10 * time.Second) {

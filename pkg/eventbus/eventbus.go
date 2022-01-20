@@ -3,6 +3,11 @@ package eventbus
 
 import (
 	"sync"
+	"time"
+	"trade_agent/pkg/dbagent"
+	"trade_agent/pkg/eventbus/bustopic"
+	"trade_agent/pkg/log"
+	"trade_agent/pkg/sinopacapi"
 
 	"github.com/asaskevich/EventBus"
 )
@@ -36,12 +41,67 @@ func Get() *BusAgent {
 	return globalBus
 }
 
-// Pub Pub
-func (c *BusAgent) Pub(topic string, arg interface{}) {
-	go c.bus.Publish(topic, arg)
+// PublishTerminate PublishTerminate
+func (c *BusAgent) PublishTerminate(t time.Time) {
+	go c.bus.Publish(bustopic.Terminate, t)
 }
 
-// Sub Sub
-func (c *BusAgent) Sub(topic string, fn interface{}) error {
-	return c.bus.Subscribe(topic, fn)
+// SubscribeTerminate SubscribeTerminate
+func (c *BusAgent) SubscribeTerminate(f func(t time.Time)) {
+	err := c.bus.Subscribe(bustopic.Terminate, f)
+	if err != nil {
+		log.Get().Panic(err)
+	}
+}
+
+// PublishTargets PublishTargets
+func (c *BusAgent) PublishTargets(targetArr []*dbagent.Target) {
+	go c.bus.Publish(bustopic.Targets, targetArr)
+}
+
+// SubscribeTargets SubscribeTargets
+func (c *BusAgent) SubscribeTargets(f func(targetArr []*dbagent.Target)) {
+	err := c.bus.Subscribe(bustopic.Targets, f)
+	if err != nil {
+		log.Get().Panic(err)
+	}
+}
+
+// PublishStockOrder PublishStockOrder
+func (c *BusAgent) PublishStockOrder(order *sinopacapi.Order) {
+	go c.bus.Publish(bustopic.StockOrder, order)
+}
+
+// SubscribeStockOrder SubscribeStockOrder
+func (c *BusAgent) SubscribeStockOrder(f func(order *sinopacapi.Order)) {
+	err := c.bus.Subscribe(bustopic.StockOrder, f)
+	if err != nil {
+		log.Get().Panic(err)
+	}
+}
+
+// PublishSubscribeTargets PublishSubscribeTargets
+func (c *BusAgent) PublishSubscribeTargets(targetArr []*dbagent.Target) {
+	go c.bus.Publish(bustopic.SubscribeTargets, targetArr)
+}
+
+// SubscribeSubscribeTargets SubscribeSubscribeTargets
+func (c *BusAgent) SubscribeSubscribeTargets(f func(targetArr []*dbagent.Target)) {
+	err := c.bus.Subscribe(bustopic.SubscribeTargets, f)
+	if err != nil {
+		log.Get().Panic(err)
+	}
+}
+
+// PublishUnSubscribeTargets PublishUnSubscribeTargets
+func (c *BusAgent) PublishUnSubscribeTargets(target *dbagent.Target) {
+	go c.bus.Publish(bustopic.UnSubscribeTargets, target)
+}
+
+// SubscribeUnSubscribeTargets SubscribeUnSubscribeTargets
+func (c *BusAgent) SubscribeUnSubscribeTargets(f func(target *dbagent.Target)) {
+	err := c.bus.Subscribe(bustopic.UnSubscribeTargets, f)
+	if err != nil {
+		log.Get().Panic(err)
+	}
 }

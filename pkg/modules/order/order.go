@@ -28,10 +28,7 @@ func InitOrder() {
 	// price come from bidask best price
 	go clearAllUnFinished()
 
-	err = eventbus.Get().Sub(eventbus.TopicStockOrder(), orderCallback)
-	if err != nil {
-		log.Get().Panic(err)
-	}
+	eventbus.Get().SubscribeStockOrder(orderCallback)
 }
 
 func orderCallback(order *sinopacapi.Order) {
@@ -203,7 +200,7 @@ func clearAllUnFinished() {
 					Action:    sinopacapi.ActionSell,
 					TradeTime: time.Now(),
 				}
-				eventbus.Get().Pub(eventbus.TopicStockOrder(), order)
+				eventbus.Get().PublishStockOrder(order)
 				continue
 			}
 
@@ -216,7 +213,7 @@ func clearAllUnFinished() {
 					Action:    sinopacapi.ActionBuyLater,
 					TradeTime: time.Now(),
 				}
-				eventbus.Get().Pub(eventbus.TopicStockOrder(), order)
+				eventbus.Get().PublishStockOrder(order)
 			}
 		}
 	}

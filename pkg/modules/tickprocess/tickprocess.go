@@ -24,12 +24,9 @@ func InitTickProcess() {
 	go simTradeRealTimeBidAskCollector()
 
 	// sub targets to sub mq history tick, kbar, realtime tick, bidask
-	err := eventbus.Get().Sub(eventbus.TopicTargets(), targetsBusCallback)
-	if err != nil {
-		log.Get().Panic(err)
-	}
+	eventbus.Get().SubscribeTargets(targetsBusCallback)
 
-	err = subHistroyTick()
+	err := subHistroyTick()
 	if err != nil {
 		log.Get().Panic(err)
 	}
@@ -39,7 +36,7 @@ func InitTickProcess() {
 	}
 }
 
-func targetsBusCallback(targetArr []*dbagent.Target) error {
+func targetsBusCallback(targetArr []*dbagent.Target) {
 	for _, v := range targetArr {
 		cache.GetCache().SetRealTimeTickChannel(v.Stock.Number, make(chan *dbagent.RealTimeTick))
 		go realTimeTickProcessor(v.Stock.Number)
@@ -57,8 +54,7 @@ func targetsBusCallback(targetArr []*dbagent.Target) error {
 		log.Get().Panic(err)
 	}
 
-	eventbus.Get().Pub(eventbus.TopicSubscribeTargets(), targetArr)
-	return nil
+	eventbus.Get().PublishSubscribeTargets(targetArr)
 }
 
 func realTimeTickProcessor(stockNum string) {
@@ -109,7 +105,7 @@ func realTimeTickProcessor(stockNum string) {
 		}
 
 		// send order event
-		eventbus.Get().Pub(eventbus.TopicStockOrder(), order)
+		eventbus.Get().PublishStockOrder(order)
 	}
 }
 
@@ -200,7 +196,7 @@ func getReverseRestCount(stockNum string) int {
 func checkFirstTick(tick *dbagent.RealTimeTick, low, high float64) time.Time {
 	if tick.PctChg < low || tick.PctChg > high {
 		target := cache.GetCache().GetTargetByStockNum(tick.Stock.Number)
-		eventbus.Get().Pub(eventbus.TopicUnSubscribeTargets(), target)
+		eventbus.Get().PublishUnSubscribeTargets(target)
 	}
 	return tick.TickTime
 }

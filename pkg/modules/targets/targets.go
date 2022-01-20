@@ -64,7 +64,7 @@ func getStockTargets(n int64) error {
 			}).Info("DB Target")
 		}
 		// send to bus
-		eventbus.Get().Pub(eventbus.TopicTargets(), inDBTargets)
+		eventbus.Get().PublishTargets(inDBTargets)
 		// append to cache
 		cache.GetCache().AppendTargets(inDBTargets)
 		err = handler.UnSub(string(mqhandler.TopicVolumeRank()))
@@ -141,7 +141,7 @@ func volumeRankCallback(m mqhandler.MQMessage) {
 	}
 
 	// send to bus
-	eventbus.Get().Pub(eventbus.TopicTargets(), targetArr)
+	eventbus.Get().PublishTargets(targetArr)
 	// append to cache
 	cache.GetCache().AppendTargets(targetArr)
 }

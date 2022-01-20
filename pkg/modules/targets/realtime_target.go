@@ -95,7 +95,7 @@ func snapShotCallback(m mqhandler.MQMessage) {
 		log.Get().Panic(err)
 	}
 	// send to bus
-	eventbus.Get().Pub(eventbus.TopicTargets(), targetArr)
+	eventbus.Get().PublishTargets(targetArr)
 	// append to cache
 	cache.GetCache().AppendTargets(targetArr)
 }

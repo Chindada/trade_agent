@@ -119,7 +119,7 @@ func onLost(mqConf config.MQTT) func(mqtt.Client, error) {
 
 		// get target from cache send event to resubscribe target
 		targetArr := cache.GetCache().GetTargets()
-		eventbus.Get().Pub(eventbus.TopicSubscribeTargets(), targetArr)
+		eventbus.Get().PublishSubscribeTargets(targetArr)
 		log.Get().Warn("Resubscribe All Done")
 	}
 }

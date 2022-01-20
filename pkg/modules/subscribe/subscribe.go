@@ -25,19 +25,12 @@ func InitSubscribe() {
 	}
 
 	// sub event targets
-	err = eventbus.Get().Sub(eventbus.TopicSubscribeTargets(), targetsBusCallback)
-	if err != nil {
-		log.Get().Panic(err)
-	}
-
+	eventbus.Get().SubscribeSubscribeTargets(targetsBusCallback)
 	// sub event to unsubscribe
-	err = eventbus.Get().Sub(eventbus.TopicUnSubscribeTargets(), unSubTargetsBusCallback)
-	if err != nil {
-		log.Get().Panic(err)
-	}
+	eventbus.Get().SubscribeUnSubscribeTargets(unSubTargetsBusCallback)
 }
 
-func targetsBusCallback(targetArr []*dbagent.Target) error {
+func targetsBusCallback(targetArr []*dbagent.Target) {
 	var subStockArr []string
 	for _, v := range targetArr {
 		subStockArr = append(subStockArr, v.Stock.Number)
@@ -53,8 +46,6 @@ func targetsBusCallback(targetArr []*dbagent.Target) error {
 	if err != nil {
 		log.Get().Panic(err)
 	}
-
-	return nil
 }
 
 func unSubTargetsBusCallback(target *dbagent.Target) {

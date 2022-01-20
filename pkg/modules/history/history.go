@@ -15,35 +15,36 @@ import (
 func InitHistory() {
 	log.Get().Info("Initial History")
 
-	err := eventbus.Get().Sub(eventbus.TopicTargets(), targetsBusCallback)
-	if err != nil {
-		log.Get().Panic(err)
-	}
+	eventbus.Get().SubscribeTargets(targetsBusCallback)
 }
 
-func targetsBusCallback(targetArr []*dbagent.Target) error {
+func targetsBusCallback(targetArr []*dbagent.Target) {
 	// save stock close in date range
 	err := subStockClose(targetArr, cache.GetCache().GetHistroyCloseRange())
 	if err != nil {
-		return err
+		log.Get().Error(err)
+		return
 	}
 
 	// fill biasrate cache
 	err = calculateBiasRate(targetArr, cache.GetCache().GetHistroyCloseRange())
 	if err != nil {
-		return err
+		log.Get().Error(err)
+		return
 	}
 
 	// save stock tick in date range
 	err = subHistoryTick(targetArr, cache.GetCache().GetHistroyTickRange())
 	if err != nil {
-		return err
+		log.Get().Error(err)
+		return
 	}
 
 	// save stock kbar in date range
 	err = subHistoryKbar(targetArr, cache.GetCache().GetHistroyKbarRange())
 	if err != nil {
-		return err
+		log.Get().Error(err)
+		return
 	}
 
 	for _, v := range targetArr {
@@ -53,8 +54,6 @@ func targetsBusCallback(targetArr []*dbagent.Target) error {
 			"Length": len(historyTickAnalyzeArr),
 		}).Info("HistoryTickAnalyzeArr")
 	}
-
-	return nil
 }
 
 func calculateBiasRate(targetArr []*dbagent.Target, fetchDate []time.Time) error {
@@ -73,7 +72,7 @@ func calculateBiasRate(targetArr []*dbagent.Target, fetchDate []time.Time) error
 			log.Get().WithFields(map[string]interface{}{
 				"Stock": stock.Stock.Number,
 			}).Error("BiasRate Fail")
-			eventbus.Get().Pub(eventbus.TopicUnSubscribeTargets(), stock)
+			eventbus.Get().PublishUnSubscribeTargets(stock)
 			continue
 		}
 
