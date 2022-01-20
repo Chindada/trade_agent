@@ -9,6 +9,7 @@ import (
 	"trade_agent/pkg/log"
 	"trade_agent/pkg/routers/handlers/balance"
 	"trade_agent/pkg/routers/handlers/cache"
+	"trade_agent/pkg/routers/handlers/order"
 	"trade_agent/pkg/routers/handlers/targets"
 
 	"github.com/gin-gonic/gin"
@@ -39,6 +40,8 @@ func initRouters(router *gin.Engine) {
 	mainRoute := router.Group("trade-agent")
 	balance.AddHandlers(mainRoute)
 	targets.AddHandlers(mainRoute)
+	order.AddHandlers(mainRoute)
+
 	if global.Get().GetIsDevelopment() {
 		cache.AddHandlers(mainRoute)
 	}
