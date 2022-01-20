@@ -128,12 +128,12 @@ func (c RealTimeTickArr) GetTotalVolume() int64 {
 }
 
 // GetLastTick GetLastTick
-func (c RealTimeTickArr) GetLastTick() *RealTimeTick {
-	if len(c) == 0 {
-		return nil
-	}
-	return c[len(c)-1]
-}
+// func (c RealTimeTickArr) GetLastTick() *RealTimeTick {
+// 	if len(c) == 0 {
+// 		return nil
+// 	}
+// 	return c[len(c)-1]
+// }
 
 // GetOutInRatio GetOutInRatio
 func (c RealTimeTickArr) GetOutInRatio() float64 {

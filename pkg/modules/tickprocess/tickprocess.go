@@ -88,7 +88,7 @@ func realTimeTickProcessor(stockNum string) {
 		if tick.TickTime.Before(lastPeriodEndTime.Add(time.Duration(analyzeConf.TickAnalyzeMinPeriod) * time.Second)) {
 			continue
 		} else {
-			lastPeriodEndTime = lastPeriodArr.GetLastTick().TickTime
+			lastPeriodEndTime = tick.TickTime
 		}
 
 		var action sinopacapi.OrderAction
