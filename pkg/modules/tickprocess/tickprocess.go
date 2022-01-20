@@ -199,7 +199,8 @@ func getReverseRestCount(stockNum string) int {
 
 func checkFirstTick(tick *dbagent.RealTimeTick, low, high float64) time.Time {
 	if tick.PctChg < low || tick.PctChg > high {
-		eventbus.Get().Pub(eventbus.TopicUnSubscribeTargets(), tick.Stock)
+		target := cache.GetCache().GetTargetByStockNum(tick.Stock.Number)
+		eventbus.Get().Pub(eventbus.TopicUnSubscribeTargets(), target)
 	}
 	return tick.TickTime
 }

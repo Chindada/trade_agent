@@ -28,6 +28,19 @@ func (c *Cache) GetTargets() []*dbagent.Target {
 	return nil
 }
 
+// GetTargetByStockNum GetTargetByStockNum
+func (c *Cache) GetTargetByStockNum(stockNum string) *dbagent.Target {
+	k := KeyTargets()
+	if value, ok := c.getCacheByType(k.Type).Get(k.Name); ok {
+		for _, v := range value.([]*dbagent.Target) {
+			if v.Stock.Number == stockNum {
+				return v
+			}
+		}
+	}
+	return nil
+}
+
 // AppendTargets AppendTargets
 func (c *Cache) AppendTargets(arr []*dbagent.Target) {
 	tmp := c.GetTargets()
