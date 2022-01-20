@@ -1,7 +1,9 @@
 // Package sinopacapi package sinopacapi
 package sinopacapi
 
-import "math"
+import (
+	"math"
+)
 
 var (
 	tradeTaxRatio float64

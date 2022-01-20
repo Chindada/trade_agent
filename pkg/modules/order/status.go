@@ -26,9 +26,6 @@ func subOrderStatus() error {
 	}
 
 	go func() {
-		// on start up update once, then every minute update
-		updateTradeBalance()
-
 		for range time.Tick(time.Minute) {
 			updateTradeBalance()
 		}
@@ -87,8 +84,12 @@ func orderStausCallback(m mqhandler.MQMessage) {
 				}
 				displayOrderResult(v.ToOrderStatus())
 			}
+			saveStatus = append(saveStatus, v.ToOrderStatus())
 		}
-		saveStatus = append(saveStatus, v.ToOrderStatus())
+	}
+
+	if len(saveStatus) == 0 {
+		return
 	}
 
 	err = dbagent.Get().InsertOrUpdateMultiOrderStatus(saveStatus)
@@ -98,33 +99,45 @@ func orderStausCallback(m mqhandler.MQMessage) {
 }
 
 func updateTradeBalance() {
-	dbOrderStatus, err := dbagent.Get().GetOrderStatusByDate(cache.GetCache().GetTradeDay())
-	if err != nil {
-		log.Get().Panic(err)
-	}
+	forwardOrder := cache.GetCache().GetOrderForward()
+	reverseOrder := cache.GetCache().GetOrderReverse()
 
-	tmp := &dbagent.Balance{
-		TradeDay: cache.GetCache().GetTradeDay(),
-	}
-
-	if len(dbOrderStatus) == 0 {
+	if len(forwardOrder)/2 == 0 && len(reverseOrder)/2 == 0 {
 		return
 	}
 
-	for _, order := range dbOrderStatus {
-		if order.Status == 6 {
-			switch order.Action {
-			case 1:
-				tmp.OriginalBalance -= sinopacapi.GetStockBuyCost(order.Price, order.Quantity)
-			case 2:
-				tmp.OriginalBalance += sinopacapi.GetStockSellCost(order.Price, order.Quantity)
-			}
-			tmp.Discount += sinopacapi.GetStockTradeFeeDiscount(order.Price, order.Quantity)
+	var forwardBalance, revereBalance, discount int64
+	for _, v := range forwardOrder {
+		switch v.Action {
+		case sinopacapi.ActionBuy:
+			forwardBalance -= sinopacapi.GetStockBuyCost(v.Price, v.Quantity)
+		case sinopacapi.ActionSell:
+			forwardBalance += sinopacapi.GetStockSellCost(v.Price, v.Quantity)
 		}
+		discount += sinopacapi.GetStockTradeFeeDiscount(v.Price, v.Quantity)
 	}
-	tmp.Total = tmp.OriginalBalance + tmp.Discount
 
-	err = dbagent.Get().InsertOrUpdateBalance(tmp)
+	for _, v := range reverseOrder {
+		switch v.Action {
+		case sinopacapi.ActionSellFirst:
+			revereBalance += sinopacapi.GetStockSellCost(v.Price, v.Quantity)
+		case sinopacapi.ActionBuyLater:
+			revereBalance -= sinopacapi.GetStockBuyCost(v.Price, v.Quantity)
+		}
+		discount += sinopacapi.GetStockTradeFeeDiscount(v.Price, v.Quantity)
+	}
+
+	tmp := &dbagent.Balance{
+		TradeDay:        cache.GetCache().GetTradeDay(),
+		TradeCount:      int64(len(forwardOrder)/2 + len(reverseOrder)/2),
+		Forward:         forwardBalance,
+		Reverse:         revereBalance,
+		OriginalBalance: forwardBalance + revereBalance,
+		Discount:        discount,
+		Total:           forwardBalance + revereBalance + discount,
+	}
+
+	err := dbagent.Get().InsertOrUpdateBalance(tmp)
 	if err != nil {
 		log.Get().Panic(err)
 	}
