@@ -22,6 +22,8 @@ const (
 	forwardOrder   cacheType = "forward_order"
 	reverseOrder   cacheType = "reverse_order"
 
+	tseSnapshot cacheType = "tse_snap_shot"
+
 	realTimeBidaskChannel cacheType = "real_time_bidask_channel"
 	realTimeTickChannel   cacheType = "real_time_tick_channel"
 )

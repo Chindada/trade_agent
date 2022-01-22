@@ -41,6 +41,7 @@ func initRouters(router *gin.Engine) {
 	AddTargetsHandlers(mainRoute)
 	AddOrderHandlers(mainRoute)
 	AddConfigHandlers(mainRoute)
+	AddTSEHandlers(mainRoute)
 
 	if global.Get().GetIsDevelopment() {
 		AddCacheHandlers(mainRoute)

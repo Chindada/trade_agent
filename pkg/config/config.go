@@ -20,16 +20,16 @@ var (
 
 // Config Config
 type Config struct {
-	basePath   string
-	Server     Server     `json:"server,omitempty" yaml:"server"`
-	Database   Database   `json:"database,omitempty" yaml:"database"`
-	MQTT       MQTT       `json:"mqtt,omitempty" yaml:"mqtt"`
-	Switch     Switch     `json:"switch,omitempty" yaml:"switch"`
-	Trade      Trade      `json:"trade,omitempty" yaml:"trade"`
-	Quota      Quota      `json:"quota,omitempty" yaml:"quota"`
-	TargetCond TargetCond `json:"target_cond,omitempty" yaml:"target_cond"`
-	Analyze    Analyze    `json:"analyze,omitempty" yaml:"analyze"`
-	Schedule   Schedule   `json:"schedule,omitempty" yaml:"schedule"`
+	basePath    string
+	Server      Server      `json:"server,omitempty" yaml:"server"`
+	Database    Database    `json:"database,omitempty" yaml:"database"`
+	MQTT        MQTT        `json:"mqtt,omitempty" yaml:"mqtt"`
+	TradeSwitch TradeSwitch `json:"trade_switch,omitempty" yaml:"trade_switch"`
+	Trade       Trade       `json:"trade,omitempty" yaml:"trade"`
+	Quota       Quota       `json:"quota,omitempty" yaml:"quota"`
+	TargetCond  TargetCond  `json:"target_cond,omitempty" yaml:"target_cond"`
+	Analyze     Analyze     `json:"analyze,omitempty" yaml:"analyze"`
+	Schedule    Schedule    `json:"schedule,omitempty" yaml:"schedule"`
 }
 
 // Server Server
@@ -62,8 +62,8 @@ type MQTT struct {
 	KeyPath  string `json:"key_path,omitempty" yaml:"key_path"`
 }
 
-// Switch Switch
-type Switch struct {
+// TradeSwitch TradeSwitch
+type TradeSwitch struct {
 	Simulation bool `json:"simulation,omitempty" yaml:"simulation"`
 
 	Buy       bool `json:"buy,omitempty" yaml:"buy"`
@@ -172,9 +172,9 @@ func parseConfig() {
 		globalConfig.Database.Host = localHost
 		globalConfig.Database.Database = fmt.Sprintf("%s_debug", globalConfig.Database.Database)
 
-		globalConfig.Switch.Simulation = true
-		globalConfig.Switch.Buy = false
-		globalConfig.Switch.SellFirst = false
+		globalConfig.TradeSwitch.Simulation = true
+		globalConfig.TradeSwitch.Buy = false
+		globalConfig.TradeSwitch.SellFirst = false
 	}
 
 	globalConfig.basePath = basePath
@@ -222,12 +222,12 @@ func GetMQTTConfig() MQTT {
 }
 
 // GetSwitchConfig GetSwitchConfig
-func GetSwitchConfig() Switch {
+func GetSwitchConfig() TradeSwitch {
 	if globalConfig != nil {
-		return globalConfig.Switch
+		return globalConfig.TradeSwitch
 	}
 	once.Do(parseConfig)
-	return globalConfig.Switch
+	return globalConfig.TradeSwitch
 }
 
 // GetTradeConfig GetTradeConfig

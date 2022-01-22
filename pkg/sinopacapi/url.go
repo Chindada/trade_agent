@@ -4,6 +4,7 @@ package sinopacapi
 const (
 	urlFetchAllStockDetail                string = "/sinopac-mq-srv/basic/stock-detail"
 	urlFetchAllSnapShot                   string = "/sinopac-mq-srv/real-time/all-snapshot"
+	urlFetchTSESnapShot                   string = "/sinopac-mq-srv/real-time/snapshot/tse"
 	urlFetchHistoryTickByStockAndDate     string = "/sinopac-mq-srv/history/tick"
 	urlFetchHistoryKbarByDateRange        string = "/sinopac-mq-srv/history/kbar"
 	urlFetchHistoryTSEKbarByDate          string = "/sinopac-mq-srv/history/kbar/tse"
@@ -26,6 +27,5 @@ const (
 	urlFetchServerKey                     string = "/sinopac-mq-srv/system/healthcheck"
 	urlAskSinpacMQSRVConnectMQ            string = "/sinopac-mq-srv/system/mq-connect"
 	urlRestartSinopacSRV                  string = "/sinopac-mq-srv/system/restart"
-	// urlFetchTSESnapShot                   string = "/sinopac-mq-srv/real-time/snapshot/tse"
 	// urlFetchHistoryTSETickByDate          string = "/sinopac-mq-srv/history/tick/tse"
 )

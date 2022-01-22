@@ -309,6 +309,23 @@ func (c *TradeAgent) FetchAllSnapShot() (err error) {
 	return err
 }
 
+// FetchTSESnapShot FetchTSESnapShot
+func (c *TradeAgent) FetchTSESnapShot() (err error) {
+	var resp *resty.Response
+	resp, err = c.Client.R().
+		SetResult(&ResponseCommon{}).
+		Get(c.urlPrefix + urlFetchTSESnapShot)
+	if err != nil {
+		return err
+	} else if resp.StatusCode() != http.StatusOK {
+		return errors.New("FetchTSESnapShot API Fail")
+	}
+	if result := resp.Result().(*ResponseCommon).Result; result != StatusSuccuss {
+		return errors.New(result)
+	}
+	return err
+}
+
 // FetchHistoryCloseByStockDateArr FetchHistoryCloseByStockDateArr
 func (c *TradeAgent) FetchHistoryCloseByStockDateArr(stockNumArr []string, date string) (err error) {
 	stockArr := StockNumArrBody{

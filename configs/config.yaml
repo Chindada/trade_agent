@@ -25,8 +25,8 @@ mqtt:
     cert_path: /configs/certs/client_crt.pem
     key_path: /configs/certs/client_key.pem
 
-# switch
-switch:
+# trade_switch
+trade_switch:
     simulation: true
 
     buy: true

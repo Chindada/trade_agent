@@ -8,6 +8,6 @@ func TurnTradeInSwitchOFF() {
 	if globalConfig == nil {
 		log.Get().Panic("config setter should after init")
 	}
-	globalConfig.Switch.Buy = false
-	globalConfig.Switch.SellFirst = false
+	globalConfig.TradeSwitch.Buy = false
+	globalConfig.TradeSwitch.SellFirst = false
 }

@@ -44,12 +44,12 @@ definitions:
         $ref: '#/definitions/config.Schedule'
       server:
         $ref: '#/definitions/config.Server'
-      switch:
-        $ref: '#/definitions/config.Switch'
       target_cond:
         $ref: '#/definitions/config.TargetCond'
       trade:
         $ref: '#/definitions/config.Trade'
+      trade_switch:
+        $ref: '#/definitions/config.TradeSwitch'
     type: object
   config.Database:
     properties:
@@ -114,27 +114,6 @@ definitions:
       sinopac_srv_port:
         type: string
     type: object
-  config.Switch:
-    properties:
-      buy:
-        type: boolean
-      buy_later:
-        type: boolean
-      forward_max:
-        type: integer
-      mean_time_forward:
-        type: integer
-      mean_time_reverse:
-        type: integer
-      reverse_max:
-        type: integer
-      sell:
-        type: boolean
-      sell_first:
-        type: boolean
-      simulation:
-        type: boolean
-    type: object
   config.TargetCond:
     properties:
       black_category:
@@ -174,6 +153,27 @@ definitions:
         type: number
       trade_out_wait_time:
         type: integer
+    type: object
+  config.TradeSwitch:
+    properties:
+      buy:
+        type: boolean
+      buy_later:
+        type: boolean
+      forward_max:
+        type: integer
+      mean_time_forward:
+        type: integer
+      mean_time_reverse:
+        type: integer
+      reverse_max:
+        type: integer
+      sell:
+        type: boolean
+      sell_first:
+        type: boolean
+      simulation:
+        type: boolean
     type: object
   dbagent.Balance:
     properties:
@@ -221,14 +221,45 @@ definitions:
         type: string
       last_close:
         type: number
-      last_close_change_pct:
-        type: number
-      last_volume:
-        type: integer
       name:
         type: string
       number:
         type: string
+    type: object
+  dbagent.TSESnapShot:
+    properties:
+      amount:
+        type: integer
+      amount_sum:
+        type: integer
+      chg_type:
+        type: string
+      close:
+        type: number
+      high:
+        type: number
+      low:
+        type: number
+      open:
+        type: number
+      pct_chg:
+        type: number
+      price_chg:
+        type: number
+      stock:
+        $ref: '#/definitions/dbagent.Stock'
+      tick_time:
+        type: string
+      tick_type:
+        type: string
+      volume:
+        type: integer
+      volume_ratio:
+        type: number
+      volume_sum:
+        type: integer
+      yesterday_volume:
+        type: number
     type: object
   dbagent.Target:
     properties:
@@ -448,4 +479,18 @@ paths:
       summary: GetTradeDayTargets
       tags:
       - Targets
+  /tse/real-time:
+    get:
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dbagent.TSESnapShot'
+      summary: GetRealTimeTSE
+      tags:
+      - TSE
 swagger: "2.0"

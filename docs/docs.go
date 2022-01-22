@@ -317,6 +317,28 @@ var doc = `{
                     }
                 }
             }
+        },
+        "/tse/real-time": {
+            "get": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "TSE"
+                ],
+                "summary": "GetRealTimeTSE",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/dbagent.TSESnapShot"
+                        }
+                    }
+                }
+            }
         }
     },
     "definitions": {
@@ -388,14 +410,14 @@ var doc = `{
                 "server": {
                     "$ref": "#/definitions/config.Server"
                 },
-                "switch": {
-                    "$ref": "#/definitions/config.Switch"
-                },
                 "target_cond": {
                     "$ref": "#/definitions/config.TargetCond"
                 },
                 "trade": {
                     "$ref": "#/definitions/config.Trade"
+                },
+                "trade_switch": {
+                    "$ref": "#/definitions/config.TradeSwitch"
                 }
             }
         },
@@ -496,38 +518,6 @@ var doc = `{
                 }
             }
         },
-        "config.Switch": {
-            "type": "object",
-            "properties": {
-                "buy": {
-                    "type": "boolean"
-                },
-                "buy_later": {
-                    "type": "boolean"
-                },
-                "forward_max": {
-                    "type": "integer"
-                },
-                "mean_time_forward": {
-                    "type": "integer"
-                },
-                "mean_time_reverse": {
-                    "type": "integer"
-                },
-                "reverse_max": {
-                    "type": "integer"
-                },
-                "sell": {
-                    "type": "boolean"
-                },
-                "sell_first": {
-                    "type": "boolean"
-                },
-                "simulation": {
-                    "type": "boolean"
-                }
-            }
-        },
         "config.TargetCond": {
             "type": "object",
             "properties": {
@@ -586,6 +576,38 @@ var doc = `{
                 },
                 "trade_out_wait_time": {
                     "type": "integer"
+                }
+            }
+        },
+        "config.TradeSwitch": {
+            "type": "object",
+            "properties": {
+                "buy": {
+                    "type": "boolean"
+                },
+                "buy_later": {
+                    "type": "boolean"
+                },
+                "forward_max": {
+                    "type": "integer"
+                },
+                "mean_time_forward": {
+                    "type": "integer"
+                },
+                "mean_time_reverse": {
+                    "type": "integer"
+                },
+                "reverse_max": {
+                    "type": "integer"
+                },
+                "sell": {
+                    "type": "boolean"
+                },
+                "sell_first": {
+                    "type": "boolean"
+                },
+                "simulation": {
+                    "type": "boolean"
                 }
             }
         },
@@ -659,17 +681,64 @@ var doc = `{
                 "last_close": {
                     "type": "number"
                 },
-                "last_close_change_pct": {
-                    "type": "number"
-                },
-                "last_volume": {
-                    "type": "integer"
-                },
                 "name": {
                     "type": "string"
                 },
                 "number": {
                     "type": "string"
+                }
+            }
+        },
+        "dbagent.TSESnapShot": {
+            "type": "object",
+            "properties": {
+                "amount": {
+                    "type": "integer"
+                },
+                "amount_sum": {
+                    "type": "integer"
+                },
+                "chg_type": {
+                    "type": "string"
+                },
+                "close": {
+                    "type": "number"
+                },
+                "high": {
+                    "type": "number"
+                },
+                "low": {
+                    "type": "number"
+                },
+                "open": {
+                    "type": "number"
+                },
+                "pct_chg": {
+                    "type": "number"
+                },
+                "price_chg": {
+                    "type": "number"
+                },
+                "stock": {
+                    "$ref": "#/definitions/dbagent.Stock"
+                },
+                "tick_time": {
+                    "type": "string"
+                },
+                "tick_type": {
+                    "type": "string"
+                },
+                "volume": {
+                    "type": "integer"
+                },
+                "volume_ratio": {
+                    "type": "number"
+                },
+                "volume_sum": {
+                    "type": "integer"
+                },
+                "yesterday_volume": {
+                    "type": "number"
                 }
             }
         },

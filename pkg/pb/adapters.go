@@ -15,15 +15,21 @@ func (c *StockDetailMessage) ToStock() *dbagent.Stock {
 	if c.GetDayTrade() == "Yes" {
 		dayTrade = true
 	}
+
+	var category string
+	if c.GetCategory() == "" {
+		category = "custom"
+	} else {
+		category = c.GetCategory()
+	}
+
 	return &dbagent.Stock{
-		Number:             c.GetCode(),
-		Name:               c.GetName(),
-		Exchange:           c.GetExchange(),
-		Category:           c.GetCategory(),
-		DayTrade:           dayTrade,
-		LastClose:          c.GetReference(),
-		LastVolume:         0,
-		LastCloseChangePct: 0,
+		Number:    c.GetCode(),
+		Name:      c.GetName(),
+		Exchange:  c.GetExchange(),
+		Category:  category,
+		DayTrade:  dayTrade,
+		LastClose: c.GetReference(),
 	}
 }
 
@@ -158,5 +164,27 @@ func (c *RealTimeBidAskMessage) ToRealTimeBidAsk() *dbagent.RealTimeBidAsk {
 		DiffAskVol5: c.GetDiffAskVol()[4],
 		Suspend:     c.GetSuspend(),
 		Simtrade:    c.GetSimtrade(),
+	}
+}
+
+// ToTSESnapshot ToTSESnapshot
+func (c *SnapshotMessage) ToTSESnapshot() *dbagent.TSESnapShot {
+	return &dbagent.TSESnapShot{
+		Stock:           cache.GetCache().GetStock(c.GetCode()),
+		TickTime:        time.Unix(0, c.GetTs()).Add(-8 * time.Hour),
+		Open:            c.GetOpen(),
+		High:            c.GetHigh(),
+		Low:             c.GetLow(),
+		Close:           c.GetClose(),
+		TickType:        c.GetTickType(),
+		PriceChg:        c.GetChangePrice(),
+		PctChg:          c.GetChangeRate(),
+		ChgType:         c.GetChangeType(),
+		Volume:          c.GetVolume(),
+		VolumeSum:       c.GetTotalVolume(),
+		Amount:          c.GetAmount(),
+		AmountSum:       c.GetTotalAmount(),
+		YesterdayVolume: c.GetYesterdayVolume(),
+		VolumeRatio:     c.GetVolumeRatio(),
 	}
 }

@@ -7,14 +7,12 @@ import "gorm.io/gorm"
 type Stock struct {
 	gorm.Model `json:"-" swaggerignore:"true"`
 
-	Number             string  `json:"number,omitempty" yaml:"number" gorm:"column:number"`
-	Name               string  `json:"name,omitempty" yaml:"name" gorm:"column:name"`
-	Exchange           string  `json:"exchange,omitempty" yaml:"exchange" gorm:"column:exchange"`
-	Category           string  `json:"category,omitempty" yaml:"category" gorm:"column:category"`
-	DayTrade           bool    `json:"day_trade,omitempty" yaml:"day_trade" gorm:"column:day_trade"`
-	LastClose          float64 `json:"last_close,omitempty" yaml:"last_close" gorm:"column:last_close"`
-	LastVolume         int64   `json:"last_volume,omitempty" yaml:"last_volume" gorm:"column:last_volume"`
-	LastCloseChangePct float64 `json:"last_close_change_pct,omitempty" yaml:"last_close_change_pct" gorm:"column:last_close_change_pct"`
+	Number    string  `json:"number,omitempty" yaml:"number" gorm:"column:number"`
+	Name      string  `json:"name,omitempty" yaml:"name" gorm:"column:name"`
+	Exchange  string  `json:"exchange,omitempty" yaml:"exchange" gorm:"column:exchange"`
+	Category  string  `json:"category,omitempty" yaml:"category" gorm:"column:category"`
+	DayTrade  bool    `json:"day_trade,omitempty" yaml:"day_trade" gorm:"column:day_trade"`
+	LastClose float64 `json:"last_close,omitempty" yaml:"last_close" gorm:"column:last_close"`
 }
 
 // TableName TableName
@@ -108,4 +106,16 @@ func (c *DBAgent) GetAllDayTradeStockMap() (allStockMap map[string]*Stock, err e
 		allStockMap[v.Number] = v
 	}
 	return allStockMap, err
+}
+
+// GetAllCustomStockMap GetAllCustomStockMap
+func (c *DBAgent) GetAllCustomStockMap() (customMap map[string]*Stock, err error) {
+	customMap = make(map[string]*Stock)
+	var stockArr []*Stock
+	err = c.DB.Model(&Stock{}).Where("category = ?", "custom").Find(&stockArr).Error
+
+	for _, v := range stockArr {
+		customMap[v.Number] = v
+	}
+	return customMap, err
 }

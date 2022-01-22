@@ -27,18 +27,22 @@ func getRealTimeTargets() error {
 	if err != nil {
 		return err
 	}
+
 	wg.Add(1)
-	err = sinopacapi.Get().FetchAllSnapShot()
-	if err != nil {
-		return err
-	}
+	go func() {
+		defer wg.Done()
+		err = sinopacapi.Get().FetchAllSnapShot()
+		if err != nil {
+			log.Get().Error(err)
+			return
+		}
+	}()
 	wg.Wait()
 	return nil
 }
 
 // snapShotCallback snapShotCallback
 func snapShotCallback(m mqhandler.MQMessage) {
-	defer wg.Done()
 	body := pb.SnapshotResponse{}
 	err := body.UnmarshalProto(m.Payload())
 	if err != nil {

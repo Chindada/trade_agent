@@ -27,10 +27,17 @@ func InitStock() {
 	if err != nil {
 		log.Get().Panic(err)
 	}
+	inDBCustomStock, err := dbagent.Get().GetAllCustomStockMap()
+	if err != nil {
+		log.Get().Panic(err)
+	}
 
 	// save stock detail to cahce
 	for key := range inDBStock {
 		cache.GetCache().SetStockDetail(inDBStock[key])
+	}
+	for key := range inDBCustomStock {
+		cache.GetCache().SetStockDetail(inDBCustomStock[key])
 	}
 }
 
@@ -76,17 +83,15 @@ func stockDetailCallback(m mqhandler.MQMessage) {
 		// check whether already in db
 		if _, ok := inDBStock[v.GetCode()]; ok {
 			exist++
-			saveStock = append(saveStock, inDBStock[v.GetCode()])
+			tmp := v.ToStock()
+
+			// make sure every time startup all stock in db will be day trade
+			tmp.ID = inDBStock[v.GetCode()].ID
+			saveStock = append(saveStock, tmp)
 		} else {
 			insert++
 			saveStock = append(saveStock, v.ToStock())
 		}
-	}
-
-	// make sure every time startup all stock in db will be day trade
-	err = dbagent.Get().UpdateAllStockDayTradeFalse()
-	if err != nil {
-		log.Get().Panic(err)
 	}
 
 	// insert

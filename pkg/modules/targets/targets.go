@@ -36,6 +36,15 @@ func InitTargets() {
 			}
 		}
 	}()
+
+	go func() {
+		for range time.NewTicker(30 * time.Second).C {
+			err = getTSERealTime()
+			if err != nil {
+				log.Get().Panic(err)
+			}
+		}
+	}()
 }
 
 // getStockTargets getStockTargets
