@@ -1,5 +1,5 @@
-// Package handlers package handlers
-package handlers
+// Package routers package routers
+package routers
 
 // ErrorResponse ErrorResponse
 type ErrorResponse struct {

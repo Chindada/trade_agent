@@ -41,19 +41,6 @@ func Get() *BusAgent {
 	return globalBus
 }
 
-// PublishTerminate PublishTerminate
-func (c *BusAgent) PublishTerminate(t time.Time) {
-	go c.bus.Publish(bustopic.Terminate, t)
-}
-
-// SubscribeTerminate SubscribeTerminate
-func (c *BusAgent) SubscribeTerminate(f func(t time.Time)) {
-	err := c.bus.Subscribe(bustopic.Terminate, f)
-	if err != nil {
-		log.Get().Panic(err)
-	}
-}
-
 // PublishTargets PublishTargets
 func (c *BusAgent) PublishTargets(targetArr []*dbagent.Target) {
 	go c.bus.Publish(bustopic.Targets, targetArr)
@@ -101,6 +88,19 @@ func (c *BusAgent) PublishUnSubscribeTargets(target *dbagent.Target) {
 // SubscribeUnSubscribeTargets SubscribeUnSubscribeTargets
 func (c *BusAgent) SubscribeUnSubscribeTargets(f func(target *dbagent.Target)) {
 	err := c.bus.Subscribe(bustopic.UnSubscribeTargets, f)
+	if err != nil {
+		log.Get().Panic(err)
+	}
+}
+
+// PublishRestartSinopacMQSRV PublishRestartSinopacMQSRV
+func (c *BusAgent) PublishRestartSinopacMQSRV(t time.Time) {
+	go c.bus.Publish(bustopic.RestartSinopacMQSRV, t)
+}
+
+// SubscribeRestartSinopacMQSRV SubscribeRestartSinopacMQSRV
+func (c *BusAgent) SubscribeRestartSinopacMQSRV(f func(t time.Time)) {
+	err := c.bus.Subscribe(bustopic.RestartSinopacMQSRV, f)
 	if err != nil {
 		log.Get().Panic(err)
 	}

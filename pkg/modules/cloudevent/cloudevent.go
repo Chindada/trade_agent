@@ -2,7 +2,9 @@
 package cloudevent
 
 import (
+	"time"
 	"trade_agent/pkg/dbagent"
+	"trade_agent/pkg/eventbus"
 	"trade_agent/pkg/log"
 	"trade_agent/pkg/mqhandler"
 	"trade_agent/pkg/pb"
@@ -53,5 +55,9 @@ func tredeEventCallback(m mqhandler.MQMessage) {
 			"RespCode":  body.GetRespCode(),
 			"Info":      body.GetInfo(),
 		}).Warn("TradeEvent")
+	}
+
+	if body.GetEventCode() == 4 {
+		eventbus.Get().PublishRestartSinopacMQSRV(time.Now())
 	}
 }

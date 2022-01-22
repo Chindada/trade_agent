@@ -52,7 +52,7 @@ var doc = `{
                     "500": {
                         "description": "Internal Server Error",
                         "schema": {
-                            "$ref": "#/definitions/handlers.ErrorResponse"
+                            "$ref": "#/definitions/routers.ErrorResponse"
                         }
                     }
                 }
@@ -89,7 +89,7 @@ var doc = `{
                     "500": {
                         "description": "Internal Server Error",
                         "schema": {
-                            "$ref": "#/definitions/handlers.ErrorResponse"
+                            "$ref": "#/definitions/routers.ErrorResponse"
                         }
                     }
                 }
@@ -112,7 +112,7 @@ var doc = `{
                     "500": {
                         "description": "Internal Server Error",
                         "schema": {
-                            "$ref": "#/definitions/handlers.ErrorResponse"
+                            "$ref": "#/definitions/routers.ErrorResponse"
                         }
                     }
                 }
@@ -174,6 +174,28 @@ var doc = `{
                 }
             }
         },
+        "/config": {
+            "get": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Config"
+                ],
+                "summary": "GetAllConfig",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/config.Config"
+                        }
+                    }
+                }
+            }
+        },
         "/order": {
             "get": {
                 "consumes": [
@@ -199,7 +221,7 @@ var doc = `{
                     "500": {
                         "description": "Internal Server Error",
                         "schema": {
-                            "$ref": "#/definitions/handlers.ErrorResponse"
+                            "$ref": "#/definitions/routers.ErrorResponse"
                         }
                     }
                 }
@@ -236,7 +258,7 @@ var doc = `{
                     "500": {
                         "description": "Internal Server Error",
                         "schema": {
-                            "$ref": "#/definitions/handlers.ErrorResponse"
+                            "$ref": "#/definitions/routers.ErrorResponse"
                         }
                     }
                 }
@@ -259,7 +281,7 @@ var doc = `{
                     "500": {
                         "description": "Internal Server Error",
                         "schema": {
-                            "$ref": "#/definitions/handlers.ErrorResponse"
+                            "$ref": "#/definitions/routers.ErrorResponse"
                         }
                     }
                 }
@@ -290,7 +312,7 @@ var doc = `{
                     "500": {
                         "description": "Internal Server Error",
                         "schema": {
-                            "$ref": "#/definitions/handlers.ErrorResponse"
+                            "$ref": "#/definitions/routers.ErrorResponse"
                         }
                     }
                 }
@@ -298,6 +320,275 @@ var doc = `{
         }
     },
     "definitions": {
+        "config.Analyze": {
+            "type": "object",
+            "properties": {
+                "close_change_ratio_high": {
+                    "type": "number"
+                },
+                "close_change_ratio_low": {
+                    "type": "number"
+                },
+                "in_out_ratio": {
+                    "type": "number"
+                },
+                "max_loss": {
+                    "type": "number"
+                },
+                "open_close_change_ratio_high": {
+                    "type": "number"
+                },
+                "open_close_change_ratio_low": {
+                    "type": "number"
+                },
+                "out_in_ratio": {
+                    "type": "number"
+                },
+                "rsi_high": {
+                    "type": "number"
+                },
+                "rsi_low": {
+                    "type": "number"
+                },
+                "rsi_min_count": {
+                    "type": "integer"
+                },
+                "tick_analyze_max_period": {
+                    "type": "number"
+                },
+                "tick_analyze_min_period": {
+                    "type": "number"
+                },
+                "volume_pr_high": {
+                    "type": "number"
+                },
+                "volume_pr_low": {
+                    "type": "number"
+                }
+            }
+        },
+        "config.Config": {
+            "type": "object",
+            "properties": {
+                "analyze": {
+                    "$ref": "#/definitions/config.Analyze"
+                },
+                "database": {
+                    "$ref": "#/definitions/config.Database"
+                },
+                "mqtt": {
+                    "$ref": "#/definitions/config.MQTT"
+                },
+                "quota": {
+                    "$ref": "#/definitions/config.Quota"
+                },
+                "schedule": {
+                    "$ref": "#/definitions/config.Schedule"
+                },
+                "server": {
+                    "$ref": "#/definitions/config.Server"
+                },
+                "switch": {
+                    "$ref": "#/definitions/config.Switch"
+                },
+                "target_cond": {
+                    "$ref": "#/definitions/config.TargetCond"
+                },
+                "trade": {
+                    "$ref": "#/definitions/config.Trade"
+                }
+            }
+        },
+        "config.Database": {
+            "type": "object",
+            "properties": {
+                "database": {
+                    "type": "string"
+                },
+                "host": {
+                    "type": "string"
+                },
+                "passwd": {
+                    "type": "string"
+                },
+                "port": {
+                    "type": "string"
+                },
+                "time_zone": {
+                    "type": "string"
+                },
+                "user": {
+                    "type": "string"
+                }
+            }
+        },
+        "config.MQTT": {
+            "type": "object",
+            "properties": {
+                "ca_path": {
+                    "type": "string"
+                },
+                "cert_path": {
+                    "type": "string"
+                },
+                "client_id": {
+                    "type": "string"
+                },
+                "host": {
+                    "type": "string"
+                },
+                "key_path": {
+                    "type": "string"
+                },
+                "passwd": {
+                    "type": "string"
+                },
+                "port": {
+                    "type": "string"
+                },
+                "user": {
+                    "type": "string"
+                }
+            }
+        },
+        "config.Quota": {
+            "type": "object",
+            "properties": {
+                "fee_discount": {
+                    "type": "number"
+                },
+                "trade_fee_ratio": {
+                    "type": "number"
+                },
+                "trade_quota": {
+                    "type": "integer"
+                },
+                "trade_tax_ratio": {
+                    "type": "number"
+                }
+            }
+        },
+        "config.Schedule": {
+            "type": "object",
+            "properties": {
+                "clean_event": {
+                    "type": "string"
+                },
+                "restart_sinopac": {
+                    "type": "string"
+                }
+            }
+        },
+        "config.Server": {
+            "type": "object",
+            "properties": {
+                "http_port": {
+                    "type": "string"
+                },
+                "run_mode": {
+                    "type": "string"
+                },
+                "sinopac_srv_host": {
+                    "type": "string"
+                },
+                "sinopac_srv_port": {
+                    "type": "string"
+                }
+            }
+        },
+        "config.Switch": {
+            "type": "object",
+            "properties": {
+                "buy": {
+                    "type": "boolean"
+                },
+                "buy_later": {
+                    "type": "boolean"
+                },
+                "forward_max": {
+                    "type": "integer"
+                },
+                "mean_time_forward": {
+                    "type": "integer"
+                },
+                "mean_time_reverse": {
+                    "type": "integer"
+                },
+                "reverse_max": {
+                    "type": "integer"
+                },
+                "sell": {
+                    "type": "boolean"
+                },
+                "sell_first": {
+                    "type": "boolean"
+                },
+                "simulation": {
+                    "type": "boolean"
+                }
+            }
+        },
+        "config.TargetCond": {
+            "type": "object",
+            "properties": {
+                "black_category": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "black_stock": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "limit_price_high": {
+                    "type": "number"
+                },
+                "limit_price_low": {
+                    "type": "number"
+                },
+                "limit_volume": {
+                    "type": "integer"
+                },
+                "real_time_targets_count": {
+                    "type": "integer"
+                }
+            }
+        },
+        "config.Trade": {
+            "type": "object",
+            "properties": {
+                "history_close_period": {
+                    "type": "integer"
+                },
+                "history_kbar_period": {
+                    "type": "integer"
+                },
+                "history_tick_period": {
+                    "type": "integer"
+                },
+                "hold_time_from_open": {
+                    "type": "number"
+                },
+                "total_open_time": {
+                    "type": "number"
+                },
+                "trade_in_end_time": {
+                    "type": "number"
+                },
+                "trade_in_wait_time": {
+                    "type": "integer"
+                },
+                "trade_out_end_time": {
+                    "type": "number"
+                },
+                "trade_out_wait_time": {
+                    "type": "integer"
+                }
+            }
+        },
         "dbagent.Balance": {
             "type": "object",
             "properties": {
@@ -405,7 +696,7 @@ var doc = `{
                 }
             }
         },
-        "handlers.ErrorResponse": {
+        "routers.ErrorResponse": {
             "type": "object",
             "properties": {
                 "attachment": {},
@@ -430,7 +721,7 @@ type swaggerInfo struct {
 var SwaggerInfo = swaggerInfo{
 	Version:     "2.0.0",
 	Host:        "",
-	BasePath:    "/trade-agent",
+	BasePath:    "",
 	Schemes:     []string{},
 	Title:       "Trade Agent",
 	Description: "API docs for Trade Agent",

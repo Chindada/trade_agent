@@ -173,6 +173,8 @@ func parseConfig() {
 		globalConfig.Database.Database = fmt.Sprintf("%s_debug", globalConfig.Database.Database)
 
 		globalConfig.Switch.Simulation = true
+		globalConfig.Switch.Buy = false
+		globalConfig.Switch.SellFirst = false
 	}
 
 	globalConfig.basePath = basePath
@@ -181,6 +183,15 @@ func parseConfig() {
 	globalConfig.MQTT.CertPath = filepath.Join(globalConfig.basePath, globalConfig.MQTT.CertPath)
 
 	checkConfigIsEmpty(*globalConfig)
+}
+
+// GetAllConfig GetAllConfig
+func GetAllConfig() Config {
+	if globalConfig != nil {
+		return *globalConfig
+	}
+	once.Do(parseConfig)
+	return *globalConfig
 }
 
 // GetServerConfig GetServerConfig

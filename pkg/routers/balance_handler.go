@@ -1,5 +1,5 @@
-// Package balance package balance
-package balance
+// Package routers package routers
+package routers
 
 import (
 	"encoding/json"
@@ -8,13 +8,12 @@ import (
 	"sort"
 	"trade_agent/pkg/dbagent"
 	"trade_agent/pkg/log"
-	"trade_agent/pkg/routers/handlers"
 
 	"github.com/gin-gonic/gin"
 )
 
-// AddHandlers AddHandlers
-func AddHandlers(group *gin.RouterGroup) {
+// AddBalanceHandlers AddBalanceHandlers
+func AddBalanceHandlers(group *gin.RouterGroup) {
 	group.GET("/balance", GetAllBalance)
 	group.POST("/balance", ImportBalance)
 	group.DELETE("/balance", DeletaAllBalance)
@@ -26,10 +25,10 @@ func AddHandlers(group *gin.RouterGroup) {
 // @accept json
 // @produce json
 // @success 200 {object} []dbagent.Balance
-// @failure 500 {object} handlers.ErrorResponse
+// @failure 500 {object} ErrorResponse
 // @Router /balance [get]
 func GetAllBalance(c *gin.Context) {
-	var res handlers.ErrorResponse
+	var res ErrorResponse
 	allBalance, err := dbagent.Get().GetAllBalance()
 	if err != nil {
 		log.Get().Error(err)
@@ -52,10 +51,10 @@ func GetAllBalance(c *gin.Context) {
 // @produce json
 // @param body body []dbagent.Balance{} true "Body"
 // @success 200
-// @failure 500 {object} handlers.ErrorResponse
+// @failure 500 {object} ErrorResponse
 // @Router /balance [post]
 func ImportBalance(c *gin.Context) {
-	var res handlers.ErrorResponse
+	var res ErrorResponse
 	body := []dbagent.Balance{}
 	if byteArr, err := ioutil.ReadAll(c.Request.Body); err != nil {
 		log.Get().Error(err)
@@ -92,10 +91,10 @@ func ImportBalance(c *gin.Context) {
 // @accept json
 // @produce json
 // @success 200
-// @failure 500 {object} handlers.ErrorResponse
+// @failure 500 {object} ErrorResponse
 // @Router /balance [delete]
 func DeletaAllBalance(c *gin.Context) {
-	var res handlers.ErrorResponse
+	var res ErrorResponse
 	if err := dbagent.Get().DeleteAllBalance(); err != nil {
 		log.Get().Error(err)
 		res.Response = err.Error()

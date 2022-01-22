@@ -1,5 +1,5 @@
-// Package cache package cache
-package cache
+// Package routers package routers
+package routers
 
 import (
 	"net/http"
@@ -8,8 +8,8 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-// AddHandlers AddHandlers
-func AddHandlers(group *gin.RouterGroup) {
+// AddCacheHandlers AddCacheHandlers
+func AddCacheHandlers(group *gin.RouterGroup) {
 	group.GET("/cache", GetAllCacheType)
 	group.GET("/cache/:key", GetAllCacheDataByType)
 }

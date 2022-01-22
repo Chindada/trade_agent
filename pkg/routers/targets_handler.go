@@ -1,5 +1,5 @@
-// Package targets package targets
-package targets
+// Package routers package routers
+package routers
 
 import (
 	"net/http"
@@ -8,8 +8,8 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-// AddHandlers AddHandlers
-func AddHandlers(group *gin.RouterGroup) {
+// AddTargetsHandlers AddTargetsHandlers
+func AddTargetsHandlers(group *gin.RouterGroup) {
 	group.GET("/targets", GetTradeDayTargets)
 }
 
@@ -19,7 +19,7 @@ func AddHandlers(group *gin.RouterGroup) {
 // @accept json
 // @produce json
 // @success 200 {object} []dbagent.Target
-// @failure 500 {object} handlers.ErrorResponse
+// @failure 500 {object} ErrorResponse
 // @Router /targets [get]
 func GetTradeDayTargets(c *gin.Context) {
 	targets := cache.GetCache().GetTargets()

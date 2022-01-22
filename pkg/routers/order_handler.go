@@ -1,5 +1,5 @@
-// Package order package order
-package order
+// Package routers package routers
+package routers
 
 import (
 	"encoding/json"
@@ -8,13 +8,12 @@ import (
 	"sort"
 	"trade_agent/pkg/dbagent"
 	"trade_agent/pkg/log"
-	"trade_agent/pkg/routers/handlers"
 
 	"github.com/gin-gonic/gin"
 )
 
-// AddHandlers AddHandlers
-func AddHandlers(group *gin.RouterGroup) {
+// AddOrderHandlers AddOrderHandlers
+func AddOrderHandlers(group *gin.RouterGroup) {
 	group.GET("/order", GetAllOrder)
 	group.POST("/order", ImportOrder)
 	group.DELETE("/order", DeletaAllOrder)
@@ -26,10 +25,10 @@ func AddHandlers(group *gin.RouterGroup) {
 // @accept json
 // @produce json
 // @success 200 {object} []dbagent.OrderStatus
-// @failure 500 {object} handlers.ErrorResponse
+// @failure 500 {object} ErrorResponse
 // @Router /order [get]
 func GetAllOrder(c *gin.Context) {
-	var res handlers.ErrorResponse
+	var res ErrorResponse
 	allOrder, err := dbagent.Get().GetAllOrderStatus()
 	if err != nil {
 		log.Get().Error(err)
@@ -52,10 +51,10 @@ func GetAllOrder(c *gin.Context) {
 // @produce json
 // @param body body []dbagent.OrderStatus{} true "Body"
 // @success 200
-// @failure 500 {object} handlers.ErrorResponse
+// @failure 500 {object} ErrorResponse
 // @Router /order [post]
 func ImportOrder(c *gin.Context) {
-	var res handlers.ErrorResponse
+	var res ErrorResponse
 	body := []dbagent.OrderStatus{}
 	if byteArr, err := ioutil.ReadAll(c.Request.Body); err != nil {
 		log.Get().Error(err)
@@ -94,10 +93,10 @@ func ImportOrder(c *gin.Context) {
 // @accept json
 // @produce json
 // @success 200
-// @failure 500 {object} handlers.ErrorResponse
+// @failure 500 {object} ErrorResponse
 // @Router /order [delete]
 func DeletaAllOrder(c *gin.Context) {
-	var res handlers.ErrorResponse
+	var res ErrorResponse
 	if err := dbagent.Get().DeleteAllOrderStatus(); err != nil {
 		log.Get().Error(err)
 		res.Response = err.Error()
