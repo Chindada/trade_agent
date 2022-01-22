@@ -14,61 +14,61 @@ digraph gocallvis {
     edge [minlen="5"]
 
     subgraph "cluster_focus" {
-        bgcolor="#e6ecfa";
-label="order";
+        label="order";
 labelloc="t";
 labeljust="c";
 fontsize="18";
+bgcolor="#e6ecfa";
         
         "trade_agent/pkg/modules/order.orderStausCallback" [ penwidth="0.5" fillcolor="lightblue" label="orderStausCallback" ]
-        "trade_agent/pkg/modules/order.displayOrderResult" [ label="displayOrderResult" penwidth="0.5" fillcolor="lightblue" ]
+        "trade_agent/pkg/modules/order.displayOrderResult" [ penwidth="0.5" fillcolor="lightblue" label="displayOrderResult" ]
+        "trade_agent/pkg/modules/order.checkSwitch" [ fillcolor="lightblue" label="checkSwitch" penwidth="0.5" ]
         "trade_agent/pkg/modules/order.isOrderNeedCancelAgain" [ fillcolor="lightblue" label="isOrderNeedCancelAgain" penwidth="0.5" ]
-        "trade_agent/pkg/modules/order.subOrderStatus$1" [ fillcolor="lightblue" label="subOrderStatus$1" style="dotted,filled" ]
-        "trade_agent/pkg/modules/order.updateTradeBalance" [ fillcolor="lightblue" label="updateTradeBalance" penwidth="0.5" ]
+        "trade_agent/pkg/modules/order.clearAllUnFinished" [ fillcolor="lightblue" label="clearAllUnFinished" penwidth="0.5" ]
+        "trade_agent/pkg/modules/order.checkWaitingOrder" [ fillcolor="lightblue" label="checkWaitingOrder" penwidth="0.5" ]
         "trade_agent/pkg/modules/order.InitOrder" [ fillcolor="lightblue" label="InitOrder" penwidth="1.5" ]
         "trade_agent/pkg/modules/order.subOrderStatus" [ fillcolor="lightblue" label="subOrderStatus" penwidth="0.5" ]
-        "trade_agent/pkg/modules/order.subOrderStatus$2" [ style="dotted,filled" fillcolor="lightblue" label="subOrderStatus$2" ]
-        "trade_agent/pkg/modules/order.clearAllUnFinished" [ fillcolor="lightblue" label="clearAllUnFinished" penwidth="0.5" ]
-        "trade_agent/pkg/modules/order.getQuantityByBiasRate" [ fillcolor="lightblue" label="getQuantityByBiasRate" penwidth="0.5" ]
-        "trade_agent/pkg/modules/order.checkSwitch" [ fillcolor="lightblue" label="checkSwitch" penwidth="0.5" ]
-        "trade_agent/pkg/modules/order.checkWaitingOrder" [ penwidth="0.5" fillcolor="lightblue" label="checkWaitingOrder" ]
+        "trade_agent/pkg/modules/order.subOrderStatus$1" [ fillcolor="lightblue" label="subOrderStatus$1" style="dotted,filled" ]
+        "trade_agent/pkg/modules/order.updateTradeBalance" [ fillcolor="lightblue" label="updateTradeBalance" penwidth="0.5" ]
+        "trade_agent/pkg/modules/order.subOrderStatus$2" [ fillcolor="lightblue" label="subOrderStatus$2" style="dotted,filled" ]
         "trade_agent/pkg/modules/order.orderCallback" [ fillcolor="lightblue" label="orderCallback" penwidth="0.5" ]
+        "trade_agent/pkg/modules/order.getQuantityByBiasRate" [ fillcolor="lightblue" label="getQuantityByBiasRate" penwidth="0.5" ]
         
         subgraph "cluster_compress/flate" {
-        penwidth="0.8";
-fontsize="16";
-style="filled";
-label="compress/flate";
-fillcolor="#E0FFE1";
-fontname="Tahoma bold";
+        fillcolor="#E0FFE1";
 rank="sink";
 URL="/?f=compress/flate";
 tooltip="package: compress/flate";
+penwidth="0.8";
+fontsize="16";
+style="filled";
+fontname="Tahoma bold";
+label="compress/flate";
         
         
         subgraph "cluster_compress/flate.CorruptInputError" {
-        style="rounded,filled";
+        fontsize="15";
+fontcolor="#222222";
+labelloc="b";
+style="rounded,filled";
 fillcolor="#c2e3c2";
 label="(CorruptInputError)";
 tooltip="type: compress/flate.CorruptInputError";
 penwidth="0.5";
-fontsize="15";
-fontcolor="#222222";
-labelloc="b";
         
         "(compress/flate.CorruptInputError).Error" [ fillcolor="#adedad" label="Error" penwidth="1.5" ]
         
     }
 
         subgraph "cluster_compress/flate.InternalError" {
-        style="rounded,filled";
+        fontcolor="#222222";
+labelloc="b";
+style="rounded,filled";
 fillcolor="#c2e3c2";
 label="(InternalError)";
 tooltip="type: compress/flate.InternalError";
 penwidth="0.5";
 fontsize="15";
-fontcolor="#222222";
-labelloc="b";
         
         "(compress/flate.InternalError).Error" [ fillcolor="#adedad" label="Error" penwidth="1.5" ]
         
@@ -78,25 +78,25 @@ labelloc="b";
 
         subgraph "cluster_context" {
         penwidth="0.8";
-fontsize="16";
 style="filled";
-rank="sink";
+URL="/?f=context";
+fontsize="16";
 fillcolor="#E0FFE1";
 fontname="Tahoma bold";
+rank="sink";
 label="context";
-URL="/?f=context";
 tooltip="package: context";
         
         
         subgraph "cluster_context.deadlineExceededError" {
-        penwidth="0.5";
+        tooltip="type: context.deadlineExceededError";
+penwidth="0.5";
 fontsize="15";
 fontcolor="#222222";
 labelloc="b";
 style="rounded,filled";
 fillcolor="#c2e3c2";
 label="(deadlineExceededError)";
-tooltip="type: context.deadlineExceededError";
         
         "(context.deadlineExceededError).Error" [ fillcolor="#adedad" label="Error" penwidth="1.5" ]
         
@@ -106,81 +106,81 @@ tooltip="type: context.deadlineExceededError";
 
         subgraph "cluster_crypto/aes" {
         style="filled";
+label="crypto/aes";
+URL="/?f=crypto/aes";
+tooltip="package: crypto/aes";
+fontsize="16";
 fillcolor="#E0FFE1";
 fontname="Tahoma bold";
 rank="sink";
-label="crypto/aes";
-tooltip="package: crypto/aes";
 penwidth="0.8";
-URL="/?f=crypto/aes";
-fontsize="16";
         
         
         subgraph "cluster_crypto/aes.KeySizeError" {
-        fontcolor="#222222";
-labelloc="b";
-style="rounded,filled";
+        style="rounded,filled";
 fillcolor="#c2e3c2";
 label="(KeySizeError)";
 tooltip="type: crypto/aes.KeySizeError";
 penwidth="0.5";
 fontsize="15";
+fontcolor="#222222";
+labelloc="b";
         
-        "(crypto/aes.KeySizeError).Error" [ fillcolor="#adedad" label="Error" penwidth="1.5" ]
+        "(crypto/aes.KeySizeError).Error" [ penwidth="1.5" fillcolor="#adedad" label="Error" ]
         
     }
 
     }
 
         subgraph "cluster_crypto/tls" {
-        label="crypto/tls";
+        style="filled";
+fontname="Tahoma bold";
+label="crypto/tls";
 URL="/?f=crypto/tls";
 tooltip="package: crypto/tls";
 penwidth="0.8";
 fontsize="16";
 fillcolor="#E0FFE1";
-fontname="Tahoma bold";
 rank="sink";
-style="filled";
         
         
         subgraph "cluster_*crypto/tls.permanentError" {
-        penwidth="0.5";
+        fillcolor="#c2e3c2";
+label="(*permanentError)";
+tooltip="type: *crypto/tls.permanentError";
+penwidth="0.5";
 fontsize="15";
 fontcolor="#222222";
 labelloc="b";
 style="rounded,filled";
-fillcolor="#c2e3c2";
-label="(*permanentError)";
-tooltip="type: *crypto/tls.permanentError";
         
-        "(*crypto/tls.permanentError).Error" [ fillcolor="#adedad" label="Error" penwidth="1.5" ]
+        "(*crypto/tls.permanentError).Error" [ label="Error" penwidth="1.5" fillcolor="#adedad" ]
         
     }
 
         subgraph "cluster_crypto/tls.RecordHeaderError" {
-        penwidth="0.5";
-fontsize="15";
-fontcolor="#222222";
-labelloc="b";
-style="rounded,filled";
+        style="rounded,filled";
 fillcolor="#c2e3c2";
 label="(RecordHeaderError)";
 tooltip="type: crypto/tls.RecordHeaderError";
+penwidth="0.5";
+fontsize="15";
+fontcolor="#222222";
+labelloc="b";
         
         "(crypto/tls.RecordHeaderError).Error" [ fillcolor="#adedad" label="Error" penwidth="1.5" ]
         
     }
 
         subgraph "cluster_crypto/tls.alert" {
-        labelloc="b";
-style="rounded,filled";
-fillcolor="#c2e3c2";
-label="(alert)";
-tooltip="type: crypto/tls.alert";
+        tooltip="type: crypto/tls.alert";
 penwidth="0.5";
 fontsize="15";
 fontcolor="#222222";
+labelloc="b";
+style="rounded,filled";
+fillcolor="#c2e3c2";
+label="(alert)";
         
         "(crypto/tls.alert).Error" [ fillcolor="#adedad" label="Error" penwidth="1.5" ]
         
@@ -191,80 +191,80 @@ fontcolor="#222222";
         subgraph "cluster_crypto/x509" {
         penwidth="0.8";
 fontsize="16";
-fillcolor="#E0FFE1";
-URL="/?f=crypto/x509";
-style="filled";
-fontname="Tahoma bold";
 rank="sink";
 label="crypto/x509";
+style="filled";
+fillcolor="#E0FFE1";
+fontname="Tahoma bold";
+URL="/?f=crypto/x509";
 tooltip="package: crypto/x509";
         
         
         subgraph "cluster_crypto/x509.CertificateInvalidError" {
-        tooltip="type: crypto/x509.CertificateInvalidError";
+        fillcolor="#c2e3c2";
+label="(CertificateInvalidError)";
+tooltip="type: crypto/x509.CertificateInvalidError";
 penwidth="0.5";
 fontsize="15";
 fontcolor="#222222";
 labelloc="b";
 style="rounded,filled";
-fillcolor="#c2e3c2";
-label="(CertificateInvalidError)";
         
-        "(crypto/x509.CertificateInvalidError).Error" [ fillcolor="#adedad" label="Error" penwidth="1.5" ]
+        "(crypto/x509.CertificateInvalidError).Error" [ label="Error" penwidth="1.5" fillcolor="#adedad" ]
         
     }
 
         subgraph "cluster_crypto/x509.HostnameError" {
-        fontcolor="#222222";
-labelloc="b";
-style="rounded,filled";
+        style="rounded,filled";
 fillcolor="#c2e3c2";
 label="(HostnameError)";
 tooltip="type: crypto/x509.HostnameError";
 penwidth="0.5";
 fontsize="15";
+fontcolor="#222222";
+labelloc="b";
         
         "(crypto/x509.HostnameError).Error" [ fillcolor="#adedad" label="Error" penwidth="1.5" ]
         
     }
 
         subgraph "cluster_crypto/x509.SystemRootsError" {
-        style="rounded,filled";
+        labelloc="b";
+style="rounded,filled";
 fillcolor="#c2e3c2";
 label="(SystemRootsError)";
 tooltip="type: crypto/x509.SystemRootsError";
 penwidth="0.5";
 fontsize="15";
 fontcolor="#222222";
-labelloc="b";
         
         "(crypto/x509.SystemRootsError).Error" [ fillcolor="#adedad" label="Error" penwidth="1.5" ]
         
     }
 
         subgraph "cluster_crypto/x509.UnhandledCriticalExtension" {
-        label="(UnhandledCriticalExtension)";
-tooltip="type: crypto/x509.UnhandledCriticalExtension";
+        tooltip="type: crypto/x509.UnhandledCriticalExtension";
 penwidth="0.5";
 fontsize="15";
 fontcolor="#222222";
 labelloc="b";
 style="rounded,filled";
 fillcolor="#c2e3c2";
+label="(UnhandledCriticalExtension)";
         
         "(crypto/x509.UnhandledCriticalExtension).Error" [ fillcolor="#adedad" label="Error" penwidth="1.5" ]
         
     }
 
         subgraph "cluster_crypto/x509.UnknownAuthorityError" {
-        fillcolor="#c2e3c2";
-label="(UnknownAuthorityError)";
-tooltip="type: crypto/x509.UnknownAuthorityError";
+        tooltip="type: crypto/x509.UnknownAuthorityError";
 penwidth="0.5";
 fontsize="15";
 fontcolor="#222222";
 labelloc="b";
 style="rounded,filled";
+fillcolor="#c2e3c2";
+label="(UnknownAuthorityError)";
         
         "(crypto/x509.UnknownAuthorityError).Error" [ fillcolor="#adedad" label="Error" penwidth="1.5" ]
         
@@ -273,28 +273,28 @@ style="rounded,filled";
     }
 
         subgraph "cluster_encoding/base64" {
-        rank="sink";
-URL="/?f=encoding/base64";
-style="filled";
+        fillcolor="#E0FFE1";
 fontname="Tahoma bold";
-fillcolor="#E0FFE1";
 label="encoding/base64";
-tooltip="package: encoding/base64";
+URL="/?f=encoding/base64";
 penwidth="0.8";
 fontsize="16";
+style="filled";
+rank="sink";
+tooltip="package: encoding/base64";
         
         
         subgraph "cluster_encoding/base64.CorruptInputError" {
-        style="rounded,filled";
-fillcolor="#c2e3c2";
-label="(CorruptInputError)";
+        label="(CorruptInputError)";
 tooltip="type: encoding/base64.CorruptInputError";
 penwidth="0.5";
 fontsize="15";
 fontcolor="#222222";
 labelloc="b";
+style="rounded,filled";
+fillcolor="#c2e3c2";
         
-        "(encoding/base64.CorruptInputError).Error" [ fillcolor="#adedad" label="Error" penwidth="1.5" ]
+        "(encoding/base64.CorruptInputError).Error" [ penwidth="1.5" fillcolor="#adedad" label="Error" ]
         
     }
 
@@ -303,52 +303,52 @@ labelloc="b";
         subgraph "cluster_encoding/json" {
         penwidth="0.8";
 fontsize="16";
-style="filled";
 fillcolor="#E0FFE1";
 rank="sink";
-tooltip="package: encoding/json";
-fontname="Tahoma bold";
 label="encoding/json";
 URL="/?f=encoding/json";
+style="filled";
+fontname="Tahoma bold";
+tooltip="package: encoding/json";
         
         
         subgraph "cluster_*encoding/json.InvalidUnmarshalError" {
-        fillcolor="#c2e3c2";
-label="(*InvalidUnmarshalError)";
+        label="(*InvalidUnmarshalError)";
 tooltip="type: *encoding/json.InvalidUnmarshalError";
 penwidth="0.5";
 fontsize="15";
 fontcolor="#222222";
 labelloc="b";
 style="rounded,filled";
+fillcolor="#c2e3c2";
         
         "(*encoding/json.InvalidUnmarshalError).Error" [ fillcolor="#adedad" label="Error" penwidth="1.5" ]
         
     }
 
         subgraph "cluster_*encoding/json.MarshalerError" {
-        penwidth="0.5";
+        tooltip="type: *encoding/json.MarshalerError";
+penwidth="0.5";
 fontsize="15";
 fontcolor="#222222";
 labelloc="b";
 style="rounded,filled";
 fillcolor="#c2e3c2";
 label="(*MarshalerError)";
-tooltip="type: *encoding/json.MarshalerError";
         
         "(*encoding/json.MarshalerError).Error" [ fillcolor="#adedad" label="Error" penwidth="1.5" ]
         
     }
 
         subgraph "cluster_*encoding/json.SyntaxError" {
-        style="rounded,filled";
-fillcolor="#c2e3c2";
-label="(*SyntaxError)";
+        label="(*SyntaxError)";
 tooltip="type: *encoding/json.SyntaxError";
 penwidth="0.5";
 fontsize="15";
 fontcolor="#222222";
 labelloc="b";
+style="rounded,filled";
+fillcolor="#c2e3c2";
         
         "(*encoding/json.SyntaxError).Error" [ fillcolor="#adedad" label="Error" penwidth="1.5" ]
         
@@ -364,33 +364,33 @@ labelloc="b";
 style="rounded,filled";
 fillcolor="#c2e3c2";
         
-        "(*encoding/json.UnmarshalTypeError).Error" [ fillcolor="#adedad" label="Error" penwidth="1.5" ]
+        "(*encoding/json.UnmarshalTypeError).Error" [ penwidth="1.5" fillcolor="#adedad" label="Error" ]
         
     }
 
         subgraph "cluster_*encoding/json.UnsupportedTypeError" {
-        style="rounded,filled";
-fillcolor="#c2e3c2";
-label="(*UnsupportedTypeError)";
-tooltip="type: *encoding/json.UnsupportedTypeError";
+        tooltip="type: *encoding/json.UnsupportedTypeError";
 penwidth="0.5";
 fontsize="15";
 fontcolor="#222222";
 labelloc="b";
+style="rounded,filled";
+fillcolor="#c2e3c2";
+label="(*UnsupportedTypeError)";
         
         "(*encoding/json.UnsupportedTypeError).Error" [ fillcolor="#adedad" label="Error" penwidth="1.5" ]
         
     }
 
         subgraph "cluster_*encoding/json.UnsupportedValueError" {
-        fillcolor="#c2e3c2";
-label="(*UnsupportedValueError)";
-tooltip="type: *encoding/json.UnsupportedValueError";
+        tooltip="type: *encoding/json.UnsupportedValueError";
 penwidth="0.5";
 fontsize="15";
 fontcolor="#222222";
 labelloc="b";
 style="rounded,filled";
+fillcolor="#c2e3c2";
+label="(*UnsupportedValueError)";
         
         "(*encoding/json.UnsupportedValueError).Error" [ fillcolor="#adedad" label="Error" penwidth="1.5" ]
         
@@ -399,96 +399,96 @@ style="rounded,filled";
     }
 
         subgraph "cluster_encoding/xml" {
-        style="filled";
+        rank="sink";
+style="filled";
+fillcolor="#E0FFE1";
+fontname="Tahoma bold";
 label="encoding/xml";
+URL="/?f=encoding/xml";
 tooltip="package: encoding/xml";
 penwidth="0.8";
 fontsize="16";
-fillcolor="#E0FFE1";
-fontname="Tahoma bold";
-rank="sink";
-URL="/?f=encoding/xml";
         
         
         subgraph "cluster_*encoding/xml.SyntaxError" {
-        fontsize="15";
-fontcolor="#222222";
-labelloc="b";
-style="rounded,filled";
+        style="rounded,filled";
 fillcolor="#c2e3c2";
 label="(*SyntaxError)";
 tooltip="type: *encoding/xml.SyntaxError";
 penwidth="0.5";
+fontsize="15";
+fontcolor="#222222";
+labelloc="b";
         
         "(*encoding/xml.SyntaxError).Error" [ fillcolor="#adedad" label="Error" penwidth="1.5" ]
         
     }
 
         subgraph "cluster_*encoding/xml.TagPathError" {
-        fontcolor="#222222";
+        penwidth="0.5";
+fontsize="15";
+fontcolor="#222222";
 labelloc="b";
 style="rounded,filled";
 fillcolor="#c2e3c2";
 label="(*TagPathError)";
 tooltip="type: *encoding/xml.TagPathError";
-penwidth="0.5";
-fontsize="15";
         
-        "(*encoding/xml.TagPathError).Error" [ fillcolor="#adedad" label="Error" penwidth="1.5" ]
+        "(*encoding/xml.TagPathError).Error" [ penwidth="1.5" fillcolor="#adedad" label="Error" ]
         
     }
 
         subgraph "cluster_*encoding/xml.UnsupportedTypeError" {
-        labelloc="b";
+        penwidth="0.5";
+fontsize="15";
+fontcolor="#222222";
+labelloc="b";
 style="rounded,filled";
 fillcolor="#c2e3c2";
 label="(*UnsupportedTypeError)";
 tooltip="type: *encoding/xml.UnsupportedTypeError";
-penwidth="0.5";
-fontsize="15";
-fontcolor="#222222";
         
         "(*encoding/xml.UnsupportedTypeError).Error" [ fillcolor="#adedad" label="Error" penwidth="1.5" ]
         
     }
 
         subgraph "cluster_encoding/xml.UnmarshalError" {
-        style="rounded,filled";
+        fontcolor="#222222";
+labelloc="b";
+style="rounded,filled";
 fillcolor="#c2e3c2";
 label="(UnmarshalError)";
 tooltip="type: encoding/xml.UnmarshalError";
 penwidth="0.5";
 fontsize="15";
-fontcolor="#222222";
-labelloc="b";
         
-        "(encoding/xml.UnmarshalError).Error" [ fillcolor="#adedad" label="Error" penwidth="1.5" ]
+        "(encoding/xml.UnmarshalError).Error" [ penwidth="1.5" fillcolor="#adedad" label="Error" ]
         
     }
 
     }
 
         subgraph "cluster_errors" {
-        fontname="Tahoma bold";
+        tooltip="package: errors";
+style="filled";
+fontname="Tahoma bold";
 label="errors";
 URL="/?f=errors";
-tooltip="package: errors";
 penwidth="0.8";
 fontsize="16";
-style="filled";
 fillcolor="#E0FFE1";
 rank="sink";
         
         
         subgraph "cluster_*errors.errorString" {
-        label="(*errorString)";
-tooltip="type: *errors.errorString";
-penwidth="0.5";
+        penwidth="0.5";
 fontsize="15";
 fontcolor="#222222";
 labelloc="b";
 style="rounded,filled";
 fillcolor="#c2e3c2";
+label="(*errorString)";
+tooltip="type: *errors.errorString";
         
         "(*errors.errorString).Error" [ fillcolor="#adedad" label="Error" penwidth="1.5" ]
         
@@ -497,54 +497,54 @@ fillcolor="#c2e3c2";
     }
 
         subgraph "cluster_fmt" {
-        style="filled";
-fillcolor="#E0FFE1";
-fontname="Tahoma bold";
+        fontsize="16";
+style="filled";
 label="fmt";
-URL="/?f=fmt";
 penwidth="0.8";
-fontsize="16";
+fontname="Tahoma bold";
 rank="sink";
+URL="/?f=fmt";
 tooltip="package: fmt";
+fillcolor="#E0FFE1";
         
         
         subgraph "cluster_*fmt.wrapError" {
-        penwidth="0.5";
-fontsize="15";
+        fontsize="15";
 fontcolor="#222222";
 labelloc="b";
 style="rounded,filled";
 fillcolor="#c2e3c2";
 label="(*wrapError)";
 tooltip="type: *fmt.wrapError";
+penwidth="0.5";
         
-        "(*fmt.wrapError).Error" [ penwidth="1.5" fillcolor="#adedad" label="Error" ]
+        "(*fmt.wrapError).Error" [ fillcolor="#adedad" label="Error" penwidth="1.5" ]
         
     }
 
     }
 
         subgraph "cluster_github.com/eclipse/paho.mqtt.golang" {
-        fillcolor="lightyellow";
-fontname="Tahoma bold";
+        penwidth="0.8";
+style="filled";
 rank="sink";
-URL="/?f=github.com/eclipse/paho.mqtt.golang";
+label="mqtt";
 tooltip="package: github.com/eclipse/paho.mqtt.golang";
 fontsize="16";
-style="filled";
-penwidth="0.8";
-label="mqtt";
+fillcolor="lightyellow";
+fontname="Tahoma bold";
+URL="/?f=github.com/eclipse/paho.mqtt.golang";
         
         
         subgraph "cluster_*github.com/eclipse/paho.mqtt.golang.message" {
-        labelloc="b";
-style="rounded,filled";
+        style="rounded,filled";
 fillcolor="wheat2";
 label="(*message)";
 tooltip="type: *github.com/eclipse/paho.mqtt.golang.message";
 penwidth="0.5";
 fontsize="15";
 fontcolor="#222222";
+labelloc="b";
         
         "(*github.com/eclipse/paho.mqtt.golang.message).Payload" [ fillcolor="moccasin" label="Payload" penwidth="1.5" ]
         
@@ -553,70 +553,70 @@ fontcolor="#222222";
     }
 
         subgraph "cluster_github.com/go-resty/resty/v2" {
-        tooltip="package: github.com/go-resty/resty/v2";
-penwidth="0.8";
-fontsize="16";
-rank="sink";
+        label="resty";
 URL="/?f=github.com/go-resty/resty/v2";
-style="filled";
-fillcolor="lightyellow";
+fontsize="16";
 fontname="Tahoma bold";
-label="resty";
+fillcolor="lightyellow";
+rank="sink";
+tooltip="package: github.com/go-resty/resty/v2";
+penwidth="0.8";
+style="filled";
         
         
         subgraph "cluster_*github.com/go-resty/resty/v2.noRetryErr" {
-        labelloc="b";
-style="rounded,filled";
-fillcolor="wheat2";
-label="(*noRetryErr)";
-tooltip="type: *github.com/go-resty/resty/v2.noRetryErr";
-penwidth="0.5";
-fontsize="15";
-fontcolor="#222222";
-        
-        "(*github.com/go-resty/resty/v2.noRetryErr).Error" [ fillcolor="moccasin" label="Error" penwidth="1.5" ]
-        
-    }
-
-    }
-
-        subgraph "cluster_github.com/gorilla/websocket" {
-        style="filled";
-label="websocket";
-penwidth="0.8";
-fillcolor="lightyellow";
-fontname="Tahoma bold";
-rank="sink";
-URL="/?f=github.com/gorilla/websocket";
-tooltip="package: github.com/gorilla/websocket";
-fontsize="16";
-        
-        
-        subgraph "cluster_*github.com/gorilla/websocket.CloseError" {
-        tooltip="type: *github.com/gorilla/websocket.CloseError";
-penwidth="0.5";
-fontsize="15";
-fontcolor="#222222";
-labelloc="b";
-style="rounded,filled";
-fillcolor="wheat2";
-label="(*CloseError)";
-        
-        "(*github.com/gorilla/websocket.CloseError).Error" [ fillcolor="moccasin" label="Error" penwidth="1.5" ]
-        
-    }
-
-        subgraph "cluster_*github.com/gorilla/websocket.netError" {
         penwidth="0.5";
 fontsize="15";
 fontcolor="#222222";
 labelloc="b";
 style="rounded,filled";
 fillcolor="wheat2";
+label="(*noRetryErr)";
+tooltip="type: *github.com/go-resty/resty/v2.noRetryErr";
+        
+        "(*github.com/go-resty/resty/v2.noRetryErr).Error" [ label="Error" penwidth="1.5" fillcolor="moccasin" ]
+        
+    }
+
+    }
+
+        subgraph "cluster_github.com/gorilla/websocket" {
+        fontname="Tahoma bold";
+rank="sink";
+tooltip="package: github.com/gorilla/websocket";
+style="filled";
+fillcolor="lightyellow";
+label="websocket";
+URL="/?f=github.com/gorilla/websocket";
+penwidth="0.8";
+fontsize="16";
+        
+        
+        subgraph "cluster_*github.com/gorilla/websocket.CloseError" {
+        penwidth="0.5";
+fontsize="15";
+fontcolor="#222222";
+labelloc="b";
+style="rounded,filled";
+fillcolor="wheat2";
+label="(*CloseError)";
+tooltip="type: *github.com/gorilla/websocket.CloseError";
+        
+        "(*github.com/gorilla/websocket.CloseError).Error" [ fillcolor="moccasin" label="Error" penwidth="1.5" ]
+        
+    }
+
+        subgraph "cluster_*github.com/gorilla/websocket.netError" {
+        fontsize="15";
+fontcolor="#222222";
+labelloc="b";
+style="rounded,filled";
+fillcolor="wheat2";
 label="(*netError)";
 tooltip="type: *github.com/gorilla/websocket.netError";
+penwidth="0.5";
         
-        "(*github.com/gorilla/websocket.netError).Error" [ fillcolor="moccasin" label="Error" penwidth="1.5" ]
+        "(*github.com/gorilla/websocket.netError).Error" [ label="Error" penwidth="1.5" fillcolor="moccasin" ]
         
     }
 
@@ -624,25 +624,25 @@ tooltip="type: *github.com/gorilla/websocket.netError";
 
         subgraph "cluster_github.com/jackc/pgx/v4" {
         fontsize="16";
+fontname="Tahoma bold";
+penwidth="0.8";
+style="filled";
 fillcolor="lightyellow";
 rank="sink";
 label="pgx";
 URL="/?f=github.com/jackc/pgx/v4";
 tooltip="package: github.com/jackc/pgx/v4";
-penwidth="0.8";
-fontname="Tahoma bold";
-style="filled";
         
         
         subgraph "cluster_github.com/jackc/pgx/v4.SerializationError" {
-        fontcolor="#222222";
-labelloc="b";
+        labelloc="b";
 style="rounded,filled";
 fillcolor="wheat2";
 label="(SerializationError)";
 tooltip="type: github.com/jackc/pgx/v4.SerializationError";
 penwidth="0.5";
 fontsize="15";
+fontcolor="#222222";
         
         "(github.com/jackc/pgx/v4.SerializationError).Error" [ fillcolor="moccasin" label="Error" penwidth="1.5" ]
         
@@ -651,45 +651,45 @@ fontsize="15";
     }
 
         subgraph "cluster_github.com/sirupsen/logrus" {
-        style="filled";
-fillcolor="lightyellow";
-fontname="Tahoma bold";
-rank="sink";
-label="logrus";
-penwidth="0.8";
-URL="/?f=github.com/sirupsen/logrus";
-tooltip="package: github.com/sirupsen/logrus";
+        penwidth="0.8";
 fontsize="16";
+fontname="Tahoma bold";
+label="logrus";
+URL="/?f=github.com/sirupsen/logrus";
+style="filled";
+fillcolor="lightyellow";
+rank="sink";
+tooltip="package: github.com/sirupsen/logrus";
         
         
         subgraph "cluster_*github.com/sirupsen/logrus.Entry" {
-        fontcolor="#222222";
-labelloc="b";
-style="rounded,filled";
-fillcolor="wheat2";
-label="(*Entry)";
-tooltip="type: *github.com/sirupsen/logrus.Entry";
+        tooltip="type: *github.com/sirupsen/logrus.Entry";
 penwidth="0.5";
-fontsize="15";
-        
-        "(*github.com/sirupsen/logrus.Entry).Infof" [ label="Infof" penwidth="1.5" fillcolor="moccasin" ]
-        "(*github.com/sirupsen/logrus.Entry).Error" [ fillcolor="moccasin" label="Error" penwidth="1.5" ]
-        
-    }
-
-        subgraph "cluster_*github.com/sirupsen/logrus.Logger" {
-        penwidth="0.5";
 fontsize="15";
 fontcolor="#222222";
 labelloc="b";
 style="rounded,filled";
 fillcolor="wheat2";
-label="(*Logger)";
+label="(*Entry)";
+        
+        "(*github.com/sirupsen/logrus.Entry).Infof" [ label="Infof" penwidth="1.5" fillcolor="moccasin" ]
+        "(*github.com/sirupsen/logrus.Entry).Error" [ penwidth="1.5" fillcolor="moccasin" label="Error" ]
+        
+    }
+
+        subgraph "cluster_*github.com/sirupsen/logrus.Logger" {
+        label="(*Logger)";
 tooltip="type: *github.com/sirupsen/logrus.Logger";
+penwidth="0.5";
+fontsize="15";
+fontcolor="#222222";
+labelloc="b";
+style="rounded,filled";
+fillcolor="wheat2";
         
         "(*github.com/sirupsen/logrus.Logger).Panic" [ fillcolor="moccasin" label="Panic" penwidth="1.5" ]
         "(*github.com/sirupsen/logrus.Logger).WithFields" [ fillcolor="moccasin" label="WithFields" penwidth="1.5" ]
-        "(*github.com/sirupsen/logrus.Logger).Error" [ penwidth="1.5" fillcolor="moccasin" label="Error" ]
+        "(*github.com/sirupsen/logrus.Logger).Error" [ fillcolor="moccasin" label="Error" penwidth="1.5" ]
         "(*github.com/sirupsen/logrus.Logger).Info" [ label="Info" penwidth="1.5" fillcolor="moccasin" ]
         "(*github.com/sirupsen/logrus.Logger).Warn" [ fillcolor="moccasin" label="Warn" penwidth="1.5" ]
         
@@ -698,40 +698,40 @@ tooltip="type: *github.com/sirupsen/logrus.Logger";
     }
 
         subgraph "cluster_internal/poll" {
-        fontsize="16";
-style="filled";
-URL="/?f=internal/poll";
-label="internal/poll";
-tooltip="package: internal/poll";
-penwidth="0.8";
+        penwidth="0.8";
 fillcolor="#E0FFE1";
-fontname="Tahoma bold";
 rank="sink";
+URL="/?f=internal/poll";
+tooltip="package: internal/poll";
+fontsize="16";
+style="filled";
+fontname="Tahoma bold";
+label="internal/poll";
         
         
         subgraph "cluster_*internal/poll.DeadlineExceededError" {
-        fontsize="15";
+        label="(*DeadlineExceededError)";
+tooltip="type: *internal/poll.DeadlineExceededError";
+penwidth="0.5";
+fontsize="15";
 fontcolor="#222222";
 labelloc="b";
 style="rounded,filled";
 fillcolor="#c2e3c2";
-label="(*DeadlineExceededError)";
-tooltip="type: *internal/poll.DeadlineExceededError";
-penwidth="0.5";
         
         "(*internal/poll.DeadlineExceededError).Error" [ fillcolor="#adedad" label="Error" penwidth="1.5" ]
         
     }
 
         subgraph "cluster_internal/poll.errNetClosing" {
-        fontsize="15";
+        label="(errNetClosing)";
+tooltip="type: internal/poll.errNetClosing";
+penwidth="0.5";
+fontsize="15";
 fontcolor="#222222";
 labelloc="b";
 style="rounded,filled";
 fillcolor="#c2e3c2";
-label="(errNetClosing)";
-tooltip="type: internal/poll.errNetClosing";
-penwidth="0.5";
         
         "(internal/poll.errNetClosing).Error" [ fillcolor="#adedad" label="Error" penwidth="1.5" ]
         
@@ -741,25 +741,25 @@ penwidth="0.5";
 
         subgraph "cluster_io/fs" {
         fontsize="16";
-fillcolor="#E0FFE1";
 rank="sink";
 URL="/?f=io/fs";
+fontname="Tahoma bold";
+label="io/fs";
 tooltip="package: io/fs";
 penwidth="0.8";
 style="filled";
-fontname="Tahoma bold";
-label="io/fs";
+fillcolor="#E0FFE1";
         
         
         subgraph "cluster_*io/fs.PathError" {
-        label="(*PathError)";
+        style="rounded,filled";
+fillcolor="#c2e3c2";
+label="(*PathError)";
 tooltip="type: *io/fs.PathError";
 penwidth="0.5";
 fontsize="15";
 fontcolor="#222222";
 labelloc="b";
-style="rounded,filled";
-fillcolor="#c2e3c2";
         
         "(*io/fs.PathError).Error" [ fillcolor="#adedad" label="Error" penwidth="1.5" ]
         
@@ -769,25 +769,25 @@ fillcolor="#c2e3c2";
 
         subgraph "cluster_net" {
         penwidth="0.8";
-fontsize="16";
-style="filled";
 fillcolor="#E0FFE1";
-rank="sink";
-label="net";
 fontname="Tahoma bold";
+rank="sink";
 URL="/?f=net";
 tooltip="package: net";
+fontsize="16";
+style="filled";
+label="net";
         
         
         subgraph "cluster_*net.DNSError" {
-        label="(*DNSError)";
-tooltip="type: *net.DNSError";
-penwidth="0.5";
-fontsize="15";
+        fontsize="15";
 fontcolor="#222222";
 labelloc="b";
 style="rounded,filled";
 fillcolor="#c2e3c2";
+label="(*DNSError)";
+tooltip="type: *net.DNSError";
+penwidth="0.5";
         
         "(*net.DNSError).Error" [ fillcolor="#adedad" label="Error" penwidth="1.5" ]
         
@@ -810,68 +810,68 @@ labelloc="b";
     }
 
         subgraph "cluster_net/http" {
-        fillcolor="#E0FFE1";
+        fontname="Tahoma bold";
 rank="sink";
-URL="/?f=net/http";
 tooltip="package: net/http";
 fontsize="16";
 style="filled";
+fillcolor="#E0FFE1";
 label="net/http";
+URL="/?f=net/http";
 penwidth="0.8";
-fontname="Tahoma bold";
         
         
         subgraph "cluster_*net/http.ProtocolError" {
-        penwidth="0.5";
-fontsize="15";
-fontcolor="#222222";
-labelloc="b";
+        labelloc="b";
 style="rounded,filled";
 fillcolor="#c2e3c2";
 label="(*ProtocolError)";
 tooltip="type: *net/http.ProtocolError";
+penwidth="0.5";
+fontsize="15";
+fontcolor="#222222";
         
         "(*net/http.ProtocolError).Error" [ fillcolor="#adedad" label="Error" penwidth="1.5" ]
         
     }
 
         subgraph "cluster_*net/http.http2httpError" {
-        fontcolor="#222222";
-labelloc="b";
-style="rounded,filled";
-fillcolor="#c2e3c2";
+        fillcolor="#c2e3c2";
 label="(*http2httpError)";
 tooltip="type: *net/http.http2httpError";
 penwidth="0.5";
 fontsize="15";
+fontcolor="#222222";
+labelloc="b";
+style="rounded,filled";
         
         "(*net/http.http2httpError).Error" [ fillcolor="#adedad" label="Error" penwidth="1.5" ]
         
     }
 
         subgraph "cluster_*net/http.httpError" {
-        style="rounded,filled";
-fillcolor="#c2e3c2";
-label="(*httpError)";
-tooltip="type: *net/http.httpError";
-penwidth="0.5";
+        penwidth="0.5";
 fontsize="15";
 fontcolor="#222222";
 labelloc="b";
+style="rounded,filled";
+fillcolor="#c2e3c2";
+label="(*httpError)";
+tooltip="type: *net/http.httpError";
         
-        "(*net/http.httpError).Error" [ penwidth="1.5" fillcolor="#adedad" label="Error" ]
+        "(*net/http.httpError).Error" [ fillcolor="#adedad" label="Error" penwidth="1.5" ]
         
     }
 
         subgraph "cluster_net/http.http2ConnectionError" {
-        fillcolor="#c2e3c2";
-label="(http2ConnectionError)";
+        label="(http2ConnectionError)";
 tooltip="type: net/http.http2ConnectionError";
 penwidth="0.5";
 fontsize="15";
 fontcolor="#222222";
 labelloc="b";
 style="rounded,filled";
+fillcolor="#c2e3c2";
         
         "(net/http.http2ConnectionError).Error" [ fillcolor="#adedad" label="Error" penwidth="1.5" ]
         
@@ -887,61 +887,61 @@ penwidth="0.5";
 fontsize="15";
 fontcolor="#222222";
         
-        "(net/http.http2GoAwayError).Error" [ label="Error" penwidth="1.5" fillcolor="#adedad" ]
+        "(net/http.http2GoAwayError).Error" [ fillcolor="#adedad" label="Error" penwidth="1.5" ]
         
     }
 
         subgraph "cluster_net/http.http2StreamError" {
-        label="(http2StreamError)";
-tooltip="type: net/http.http2StreamError";
+        tooltip="type: net/http.http2StreamError";
 penwidth="0.5";
 fontsize="15";
 fontcolor="#222222";
 labelloc="b";
 style="rounded,filled";
 fillcolor="#c2e3c2";
+label="(http2StreamError)";
         
         "(net/http.http2StreamError).Error" [ fillcolor="#adedad" label="Error" penwidth="1.5" ]
         
     }
 
         subgraph "cluster_net/http.http2connError" {
-        tooltip="type: net/http.http2connError";
+        style="rounded,filled";
+fillcolor="#c2e3c2";
+label="(http2connError)";
+tooltip="type: net/http.http2connError";
 penwidth="0.5";
 fontsize="15";
 fontcolor="#222222";
 labelloc="b";
-style="rounded,filled";
-fillcolor="#c2e3c2";
-label="(http2connError)";
         
-        "(net/http.http2connError).Error" [ fillcolor="#adedad" label="Error" penwidth="1.5" ]
+        "(net/http.http2connError).Error" [ penwidth="1.5" fillcolor="#adedad" label="Error" ]
         
     }
 
     }
 
         subgraph "cluster_net/textproto" {
-        style="filled";
-URL="/?f=net/textproto";
-penwidth="0.8";
-fontsize="16";
-rank="sink";
-label="net/textproto";
-tooltip="package: net/textproto";
+        penwidth="0.8";
 fillcolor="#E0FFE1";
 fontname="Tahoma bold";
+rank="sink";
+URL="/?f=net/textproto";
+tooltip="package: net/textproto";
+fontsize="16";
+style="filled";
+label="net/textproto";
         
         
         subgraph "cluster_net/textproto.ProtocolError" {
-        labelloc="b";
-style="rounded,filled";
-fillcolor="#c2e3c2";
+        fillcolor="#c2e3c2";
 label="(ProtocolError)";
 tooltip="type: net/textproto.ProtocolError";
 penwidth="0.5";
 fontsize="15";
 fontcolor="#222222";
+labelloc="b";
+style="rounded,filled";
         
         "(net/textproto.ProtocolError).Error" [ fillcolor="#adedad" label="Error" penwidth="1.5" ]
         
@@ -950,26 +950,26 @@ fontcolor="#222222";
     }
 
         subgraph "cluster_net/url" {
-        style="filled";
-fontname="Tahoma bold";
-penwidth="0.8";
-fillcolor="#E0FFE1";
+        penwidth="0.8";
+style="filled";
 rank="sink";
-label="net/url";
 URL="/?f=net/url";
-tooltip="package: net/url";
 fontsize="16";
+fillcolor="#E0FFE1";
+fontname="Tahoma bold";
+label="net/url";
+tooltip="package: net/url";
         
         
         subgraph "cluster_*net/url.Error" {
-        tooltip="type: *net/url.Error";
+        fillcolor="#c2e3c2";
+label="(*Error)";
+tooltip="type: *net/url.Error";
 penwidth="0.5";
 fontsize="15";
 fontcolor="#222222";
 labelloc="b";
 style="rounded,filled";
-fillcolor="#c2e3c2";
-label="(*Error)";
         
         "(*net/url.Error).Error" [ fillcolor="#adedad" label="Error" penwidth="1.5" ]
         
@@ -981,23 +981,23 @@ label="(*Error)";
         penwidth="0.8";
 fontsize="16";
 style="filled";
-fillcolor="#E0FFE1";
 fontname="Tahoma bold";
 rank="sink";
-label="os";
 URL="/?f=os";
+fillcolor="#E0FFE1";
+label="os";
 tooltip="package: os";
         
         
         subgraph "cluster_*os.SyscallError" {
-        fontcolor="#222222";
+        penwidth="0.5";
+fontsize="15";
+fontcolor="#222222";
 labelloc="b";
 style="rounded,filled";
 fillcolor="#c2e3c2";
 label="(*SyscallError)";
 tooltip="type: *os.SyscallError";
-penwidth="0.5";
-fontsize="15";
         
         "(*os.SyscallError).Error" [ fillcolor="#adedad" label="Error" penwidth="1.5" ]
         
@@ -1006,26 +1006,26 @@ fontsize="15";
     }
 
         subgraph "cluster_strconv" {
-        fontsize="16";
-style="filled";
+        penwidth="0.8";
 fillcolor="#E0FFE1";
-fontname="Tahoma bold";
 label="strconv";
-penwidth="0.8";
-rank="sink";
 URL="/?f=strconv";
 tooltip="package: strconv";
+fontsize="16";
+style="filled";
+fontname="Tahoma bold";
+rank="sink";
         
         
         subgraph "cluster_*strconv.NumError" {
-        labelloc="b";
-style="rounded,filled";
-fillcolor="#c2e3c2";
-label="(*NumError)";
-tooltip="type: *strconv.NumError";
+        tooltip="type: *strconv.NumError";
 penwidth="0.5";
 fontsize="15";
 fontcolor="#222222";
+labelloc="b";
+style="rounded,filled";
+fillcolor="#c2e3c2";
+label="(*NumError)";
         
         "(*strconv.NumError).Error" [ fillcolor="#adedad" label="Error" penwidth="1.5" ]
         
@@ -1035,25 +1035,25 @@ fontcolor="#222222";
 
         subgraph "cluster_sync" {
         fontsize="16";
-fillcolor="#E0FFE1";
-tooltip="package: sync";
-penwidth="0.8";
 style="filled";
 fontname="Tahoma bold";
+URL="/?f=sync";
+tooltip="package: sync";
+penwidth="0.8";
 rank="sink";
 label="sync";
-URL="/?f=sync";
+fillcolor="#E0FFE1";
         
         
         subgraph "cluster_*sync.Mutex" {
-        fontsize="15";
+        label="(*Mutex)";
+tooltip="type: *sync.Mutex";
+penwidth="0.5";
+fontsize="15";
 fontcolor="#222222";
 labelloc="b";
 style="rounded,filled";
 fillcolor="#c2e3c2";
-label="(*Mutex)";
-tooltip="type: *sync.Mutex";
-penwidth="0.5";
         
         "(*sync.Mutex).Unlock" [ label="Unlock" penwidth="1.5" fillcolor="#adedad" ]
         "(*sync.Mutex).Lock" [ label="Lock" penwidth="1.5" fillcolor="#adedad" ]
@@ -1064,46 +1064,46 @@ penwidth="0.5";
 
         subgraph "cluster_syscall" {
         penwidth="0.8";
-fillcolor="#E0FFE1";
+fontsize="16";
+fontname="Tahoma bold";
 rank="sink";
 URL="/?f=syscall";
-fontsize="16";
 style="filled";
-fontname="Tahoma bold";
+fillcolor="#E0FFE1";
 label="syscall";
 tooltip="package: syscall";
         
         
         subgraph "cluster_syscall.Errno" {
-        fontsize="15";
-fontcolor="#222222";
+        fontcolor="#222222";
 labelloc="b";
 style="rounded,filled";
 fillcolor="#c2e3c2";
 label="(Errno)";
 tooltip="type: syscall.Errno";
 penwidth="0.5";
+fontsize="15";
         
-        "(syscall.Errno).Error" [ fillcolor="#adedad" label="Error" penwidth="1.5" ]
+        "(syscall.Errno).Error" [ penwidth="1.5" fillcolor="#adedad" label="Error" ]
         
     }
 
     }
 
         subgraph "cluster_time" {
-        penwidth="0.8";
+        tooltip="package: time";
+penwidth="0.8";
+fillcolor="#E0FFE1";
 fontname="Tahoma bold";
 rank="sink";
 label="time";
 URL="/?f=time";
-tooltip="package: time";
 fontsize="16";
 style="filled";
-fillcolor="#E0FFE1";
         
-        "time.Tick" [ fillcolor="#adedad" label="Tick" penwidth="1.5" ]
         "time.Sleep" [ fillcolor="#adedad" label="Sleep" penwidth="1.5" ]
-        "time.Now" [ penwidth="1.5" fillcolor="#adedad" label="Now" ]
+        "time.Now" [ fillcolor="#adedad" label="Now" penwidth="1.5" ]
+        "time.Tick" [ label="Tick" penwidth="1.5" fillcolor="#adedad" ]
         
         subgraph "cluster_time.Time" {
         label="(Time)";
@@ -1124,66 +1124,66 @@ fillcolor="#c2e3c2";
     }
 
         subgraph "cluster_trade_agent/cmd" {
-        fontsize="16";
+        URL="/?f=trade_agent/cmd";
+fontsize="16";
+rank="sink";
 label="main";
-URL="/?f=trade_agent/cmd";
+fontname="Tahoma bold";
 tooltip="package: trade_agent/cmd";
 penwidth="0.8";
-fillcolor="lightyellow";
-fontname="Tahoma bold";
-rank="sink";
 style="filled";
+fillcolor="lightyellow";
         
-        "trade_agent/cmd.main" [ label="main" penwidth="0.5" fillcolor="moccasin" ]
+        "trade_agent/cmd.main" [ fillcolor="moccasin" label="main" penwidth="0.5" ]
         
     }
 
         subgraph "cluster_trade_agent/pkg/cache" {
-        rank="sink";
+        fontname="Tahoma bold";
+rank="sink";
 label="cache";
 URL="/?f=trade_agent/pkg/cache";
 penwidth="0.8";
 style="filled";
 fillcolor="lightyellow";
-fontname="Tahoma bold";
 tooltip="package: trade_agent/pkg/cache";
 fontsize="16";
         
-        "trade_agent/pkg/cache.GetCache" [ fillcolor="moccasin" label="GetCache" penwidth="1.5" ]
+        "trade_agent/pkg/cache.GetCache" [ penwidth="1.5" fillcolor="moccasin" label="GetCache" ]
         
         subgraph "cluster_*trade_agent/pkg/cache.Cache" {
-        penwidth="0.5";
+        fillcolor="wheat2";
+label="(*Cache)";
+tooltip="type: *trade_agent/pkg/cache.Cache";
+penwidth="0.5";
 fontsize="15";
 fontcolor="#222222";
 labelloc="b";
 style="rounded,filled";
-fillcolor="wheat2";
-label="(*Cache)";
-tooltip="type: *trade_agent/pkg/cache.Cache";
         
         "(*trade_agent/pkg/cache.Cache).GetOrderWaiting" [ fillcolor="moccasin" label="GetOrderWaiting" penwidth="1.5" ]
-        "(*trade_agent/pkg/cache.Cache).SetOrderWaiting" [ penwidth="1.5" fillcolor="moccasin" label="SetOrderWaiting" ]
+        "(*trade_agent/pkg/cache.Cache).SetOrderWaiting" [ fillcolor="moccasin" label="SetOrderWaiting" penwidth="1.5" ]
         "(*trade_agent/pkg/cache.Cache).AppendOrderBuy" [ fillcolor="moccasin" label="AppendOrderBuy" penwidth="1.5" ]
         "(*trade_agent/pkg/cache.Cache).AppendOrderForward" [ fillcolor="moccasin" label="AppendOrderForward" penwidth="1.5" ]
         "(*trade_agent/pkg/cache.Cache).AppendOrderSell" [ fillcolor="moccasin" label="AppendOrderSell" penwidth="1.5" ]
         "(*trade_agent/pkg/cache.Cache).AppendOrderSellFirst" [ fillcolor="moccasin" label="AppendOrderSellFirst" penwidth="1.5" ]
-        "(*trade_agent/pkg/cache.Cache).AppendOrderReverse" [ fillcolor="moccasin" label="AppendOrderReverse" penwidth="1.5" ]
+        "(*trade_agent/pkg/cache.Cache).AppendOrderReverse" [ penwidth="1.5" fillcolor="moccasin" label="AppendOrderReverse" ]
         "(*trade_agent/pkg/cache.Cache).AppendOrderBuyLater" [ fillcolor="moccasin" label="AppendOrderBuyLater" penwidth="1.5" ]
-        "(*trade_agent/pkg/cache.Cache).GetOrderForward" [ fillcolor="moccasin" label="GetOrderForward" penwidth="1.5" ]
-        "(*trade_agent/pkg/cache.Cache).GetOrderReverse" [ fillcolor="moccasin" label="GetOrderReverse" penwidth="1.5" ]
-        "(*trade_agent/pkg/cache.Cache).GetTradeDay" [ fillcolor="moccasin" label="GetTradeDay" penwidth="1.5" ]
+        "(*trade_agent/pkg/cache.Cache).GetIsAllowTrade" [ label="GetIsAllowTrade" penwidth="1.5" fillcolor="moccasin" ]
+        "(*trade_agent/pkg/cache.Cache).GetOrderForwardCountDetail" [ fillcolor="moccasin" label="GetOrderForwardCountDetail" penwidth="1.5" ]
+        "(*trade_agent/pkg/cache.Cache).GetOrderReverseCountDetail" [ fillcolor="moccasin" label="GetOrderReverseCountDetail" penwidth="1.5" ]
         "(*trade_agent/pkg/cache.Cache).GetTradeDayTradeOutEndTime" [ fillcolor="moccasin" label="GetTradeDayTradeOutEndTime" penwidth="1.5" ]
         "(*trade_agent/pkg/cache.Cache).GetTradeDayOpenEndTime" [ fillcolor="moccasin" label="GetTradeDayOpenEndTime" penwidth="1.5" ]
-        "(*trade_agent/pkg/cache.Cache).GetTargets" [ fillcolor="moccasin" label="GetTargets" penwidth="1.5" ]
+        "(*trade_agent/pkg/cache.Cache).GetTargets" [ penwidth="1.5" fillcolor="moccasin" label="GetTargets" ]
         "(*trade_agent/pkg/cache.Cache).GetOrderBuy" [ fillcolor="moccasin" label="GetOrderBuy" penwidth="1.5" ]
-        "(*trade_agent/pkg/cache.Cache).GetOrderSell" [ label="GetOrderSell" penwidth="1.5" fillcolor="moccasin" ]
+        "(*trade_agent/pkg/cache.Cache).GetOrderSell" [ fillcolor="moccasin" label="GetOrderSell" penwidth="1.5" ]
         "(*trade_agent/pkg/cache.Cache).GetRealTimeTickClose" [ fillcolor="moccasin" label="GetRealTimeTickClose" penwidth="1.5" ]
         "(*trade_agent/pkg/cache.Cache).GetOrderSellFirst" [ fillcolor="moccasin" label="GetOrderSellFirst" penwidth="1.5" ]
         "(*trade_agent/pkg/cache.Cache).GetOrderBuyLater" [ fillcolor="moccasin" label="GetOrderBuyLater" penwidth="1.5" ]
+        "(*trade_agent/pkg/cache.Cache).GetOrderForward" [ label="GetOrderForward" penwidth="1.5" fillcolor="moccasin" ]
+        "(*trade_agent/pkg/cache.Cache).GetOrderReverse" [ penwidth="1.5" fillcolor="moccasin" label="GetOrderReverse" ]
+        "(*trade_agent/pkg/cache.Cache).GetTradeDay" [ label="GetTradeDay" penwidth="1.5" fillcolor="moccasin" ]
         "(*trade_agent/pkg/cache.Cache).GetBiasRate" [ fillcolor="moccasin" label="GetBiasRate" penwidth="1.5" ]
-        "(*trade_agent/pkg/cache.Cache).GetIsAllowTrade" [ label="GetIsAllowTrade" penwidth="1.5" fillcolor="moccasin" ]
-        "(*trade_agent/pkg/cache.Cache).GetOrderForwardCountDetail" [ penwidth="1.5" fillcolor="moccasin" label="GetOrderForwardCountDetail" ]
-        "(*trade_agent/pkg/cache.Cache).GetOrderReverseCountDetail" [ fillcolor="moccasin" label="GetOrderReverseCountDetail" penwidth="1.5" ]
         
     }
 
@@ -1191,119 +1191,119 @@ tooltip="type: *trade_agent/pkg/cache.Cache";
 
         subgraph "cluster_trade_agent/pkg/config" {
         penwidth="0.8";
-style="filled";
-fontname="Tahoma bold";
-label="config";
-tooltip="package: trade_agent/pkg/config";
 fontsize="16";
 fillcolor="lightyellow";
 rank="sink";
+label="config";
+style="filled";
+fontname="Tahoma bold";
 URL="/?f=trade_agent/pkg/config";
+tooltip="package: trade_agent/pkg/config";
         
         "trade_agent/pkg/config.GetSwitchConfig" [ fillcolor="moccasin" label="GetSwitchConfig" penwidth="1.5" ]
         "trade_agent/pkg/config.GetTradeConfig" [ label="GetTradeConfig" penwidth="1.5" fillcolor="moccasin" ]
-        "trade_agent/pkg/config.TurnTradeInSwitchOFF" [ fillcolor="moccasin" label="TurnTradeInSwitchOFF" penwidth="1.5" ]
+        "trade_agent/pkg/config.TurnTradeInSwitchOFF" [ penwidth="1.5" fillcolor="moccasin" label="TurnTradeInSwitchOFF" ]
         
     }
 
         subgraph "cluster_trade_agent/pkg/dbagent" {
-        fillcolor="lightyellow";
-fontname="Tahoma bold";
+        penwidth="0.8";
+rank="sink";
 label="dbagent";
+tooltip="package: trade_agent/pkg/dbagent";
 URL="/?f=trade_agent/pkg/dbagent";
-penwidth="0.8";
 fontsize="16";
 style="filled";
-rank="sink";
-tooltip="package: trade_agent/pkg/dbagent";
+fillcolor="lightyellow";
+fontname="Tahoma bold";
         
         "trade_agent/pkg/dbagent.Get" [ fillcolor="moccasin" label="Get" penwidth="1.5" ]
         
         subgraph "cluster_*trade_agent/pkg/dbagent.DBAgent" {
-        style="rounded,filled";
-fillcolor="wheat2";
-label="(*DBAgent)";
+        label="(*DBAgent)";
 tooltip="type: *trade_agent/pkg/dbagent.DBAgent";
 penwidth="0.5";
 fontsize="15";
 fontcolor="#222222";
 labelloc="b";
+style="rounded,filled";
+fillcolor="wheat2";
         
         "(*trade_agent/pkg/dbagent.DBAgent).InsertOrUpdateMultiOrderStatus" [ fillcolor="moccasin" label="InsertOrUpdateMultiOrderStatus" penwidth="1.5" ]
-        "(*trade_agent/pkg/dbagent.DBAgent).InsertOrUpdateBalance" [ label="InsertOrUpdateBalance" penwidth="1.5" fillcolor="moccasin" ]
+        "(*trade_agent/pkg/dbagent.DBAgent).InsertOrUpdateBalance" [ fillcolor="moccasin" label="InsertOrUpdateBalance" penwidth="1.5" ]
         
     }
 
     }
 
         subgraph "cluster_trade_agent/pkg/eventbus" {
-        style="filled";
-fillcolor="lightyellow";
+        fontsize="16";
+style="filled";
 fontname="Tahoma bold";
 rank="sink";
+label="eventbus";
 tooltip="package: trade_agent/pkg/eventbus";
 penwidth="0.8";
-fontsize="16";
-label="eventbus";
 URL="/?f=trade_agent/pkg/eventbus";
+fillcolor="lightyellow";
         
         "trade_agent/pkg/eventbus.Get" [ fillcolor="moccasin" label="Get" penwidth="1.5" ]
         
         subgraph "cluster_*trade_agent/pkg/eventbus.BusAgent" {
-        fontcolor="#222222";
+        penwidth="0.5";
+fontsize="15";
+fontcolor="#222222";
 labelloc="b";
 style="rounded,filled";
 fillcolor="wheat2";
 label="(*BusAgent)";
 tooltip="type: *trade_agent/pkg/eventbus.BusAgent";
-penwidth="0.5";
-fontsize="15";
         
         "(*trade_agent/pkg/eventbus.BusAgent).PublishStockOrder" [ fillcolor="moccasin" label="PublishStockOrder" penwidth="1.5" ]
-        "(*trade_agent/pkg/eventbus.BusAgent).SubscribeStockOrder" [ label="SubscribeStockOrder" penwidth="1.5" fillcolor="moccasin" ]
+        "(*trade_agent/pkg/eventbus.BusAgent).SubscribeStockOrder" [ fillcolor="moccasin" label="SubscribeStockOrder" penwidth="1.5" ]
         
     }
 
     }
 
         subgraph "cluster_trade_agent/pkg/log" {
-        fontsize="16";
+        fontname="Tahoma bold";
 rank="sink";
+label="log";
 URL="/?f=trade_agent/pkg/log";
 tooltip="package: trade_agent/pkg/log";
-penwidth="0.8";
-style="filled";
 fillcolor="lightyellow";
-fontname="Tahoma bold";
-label="log";
+fontsize="16";
+style="filled";
+penwidth="0.8";
         
-        "trade_agent/pkg/log.Get" [ label="Get" penwidth="1.5" fillcolor="moccasin" ]
+        "trade_agent/pkg/log.Get" [ fillcolor="moccasin" label="Get" penwidth="1.5" ]
         
     }
 
         subgraph "cluster_trade_agent/pkg/mqhandler" {
-        penwidth="0.8";
+        fillcolor="lightyellow";
 fontname="Tahoma bold";
-URL="/?f=trade_agent/pkg/mqhandler";
-label="mqhandler";
-tooltip="package: trade_agent/pkg/mqhandler";
 fontsize="16";
 style="filled";
-fillcolor="lightyellow";
 rank="sink";
+label="mqhandler";
+URL="/?f=trade_agent/pkg/mqhandler";
+tooltip="package: trade_agent/pkg/mqhandler";
+penwidth="0.8";
         
         "trade_agent/pkg/mqhandler.Get" [ fillcolor="moccasin" label="Get" penwidth="1.5" ]
-        "trade_agent/pkg/mqhandler.TopicOrderStatus" [ label="TopicOrderStatus" penwidth="1.5" fillcolor="moccasin" ]
+        "trade_agent/pkg/mqhandler.TopicOrderStatus" [ fillcolor="moccasin" label="TopicOrderStatus" penwidth="1.5" ]
         
         subgraph "cluster_*trade_agent/pkg/mqhandler.MQHandler" {
-        style="rounded,filled";
-fillcolor="wheat2";
+        fillcolor="wheat2";
 label="(*MQHandler)";
 tooltip="type: *trade_agent/pkg/mqhandler.MQHandler";
 penwidth="0.5";
 fontsize="15";
 fontcolor="#222222";
 labelloc="b";
+style="rounded,filled";
         
         "(*trade_agent/pkg/mqhandler.MQHandler).onMessage" [ fillcolor="moccasin" label="onMessage" penwidth="0.5" ]
         "(*trade_agent/pkg/mqhandler.MQHandler).Sub" [ fillcolor="moccasin" label="Sub" penwidth="1.5" ]
@@ -1313,15 +1313,15 @@ labelloc="b";
     }
 
         subgraph "cluster_trade_agent/pkg/pb" {
-        URL="/?f=trade_agent/pkg/pb";
-style="filled";
-fillcolor="lightyellow";
+        style="filled";
 rank="sink";
-label="pb";
-penwidth="0.8";
-fontsize="16";
-fontname="Tahoma bold";
+URL="/?f=trade_agent/pkg/pb";
 tooltip="package: trade_agent/pkg/pb";
+penwidth="0.8";
+fillcolor="lightyellow";
+fontname="Tahoma bold";
+label="pb";
+fontsize="16";
         
         
         subgraph "cluster_*trade_agent/pkg/pb.OrderStatusHistoryMessage" {
@@ -1336,40 +1336,40 @@ fontsize="15";
         
         "(*trade_agent/pkg/pb.OrderStatusHistoryMessage).GetCode" [ fillcolor="moccasin" label="GetCode" penwidth="1.5" ]
         "(*trade_agent/pkg/pb.OrderStatusHistoryMessage).GetStatus" [ fillcolor="moccasin" label="GetStatus" penwidth="1.5" ]
-        "(*trade_agent/pkg/pb.OrderStatusHistoryMessage).GetOrderId" [ penwidth="1.5" fillcolor="moccasin" label="GetOrderId" ]
+        "(*trade_agent/pkg/pb.OrderStatusHistoryMessage).GetOrderId" [ fillcolor="moccasin" label="GetOrderId" penwidth="1.5" ]
         "(*trade_agent/pkg/pb.OrderStatusHistoryMessage).ToOrderStatus" [ fillcolor="moccasin" label="ToOrderStatus" penwidth="1.5" ]
         
     }
 
         subgraph "cluster_*trade_agent/pkg/pb.OrderStatusHistoryResponse" {
-        labelloc="b";
+        penwidth="0.5";
+fontsize="15";
+fontcolor="#222222";
+labelloc="b";
 style="rounded,filled";
 fillcolor="wheat2";
 label="(*OrderStatusHistoryResponse)";
 tooltip="type: *trade_agent/pkg/pb.OrderStatusHistoryResponse";
-penwidth="0.5";
-fontsize="15";
-fontcolor="#222222";
         
         "(*trade_agent/pkg/pb.OrderStatusHistoryResponse).UnmarshalProto" [ fillcolor="moccasin" label="UnmarshalProto" penwidth="1.5" ]
-        "(*trade_agent/pkg/pb.OrderStatusHistoryResponse).GetData" [ fillcolor="moccasin" label="GetData" penwidth="1.5" ]
+        "(*trade_agent/pkg/pb.OrderStatusHistoryResponse).GetData" [ penwidth="1.5" fillcolor="moccasin" label="GetData" ]
         
     }
 
     }
 
         subgraph "cluster_trade_agent/pkg/sinopacapi" {
-        rank="sink";
+        fillcolor="lightyellow";
+fontname="Tahoma bold";
 label="sinopacapi";
 URL="/?f=trade_agent/pkg/sinopacapi";
 tooltip="package: trade_agent/pkg/sinopacapi";
-style="filled";
-fillcolor="lightyellow";
-fontname="Tahoma bold";
 penwidth="0.8";
 fontsize="16";
+style="filled";
+rank="sink";
         
-        "trade_agent/pkg/sinopacapi.Get" [ fillcolor="moccasin" label="Get" penwidth="1.5" ]
+        "trade_agent/pkg/sinopacapi.Get" [ penwidth="1.5" fillcolor="moccasin" label="Get" ]
         "trade_agent/pkg/sinopacapi.GetStockTradeFeeDiscount" [ fillcolor="moccasin" label="GetStockTradeFeeDiscount" penwidth="1.5" ]
         "trade_agent/pkg/sinopacapi.GetStockBuyCost" [ fillcolor="moccasin" label="GetStockBuyCost" penwidth="1.5" ]
         "trade_agent/pkg/sinopacapi.GetStockSellCost" [ fillcolor="moccasin" label="GetStockSellCost" penwidth="1.5" ]
@@ -1386,8 +1386,8 @@ fontsize="15";
         
         "(*trade_agent/pkg/sinopacapi.TradeAgent).SetOrderToQuota" [ fillcolor="moccasin" label="SetOrderToQuota" penwidth="1.5" ]
         "(*trade_agent/pkg/sinopacapi.TradeAgent).FetchOrderStatusByOrderID" [ fillcolor="moccasin" label="FetchOrderStatusByOrderID" penwidth="1.5" ]
-        "(*trade_agent/pkg/sinopacapi.TradeAgent).FetchOrderStatus" [ fillcolor="moccasin" label="FetchOrderStatus" penwidth="1.5" ]
         "(*trade_agent/pkg/sinopacapi.TradeAgent).CancelOrder" [ fillcolor="moccasin" label="CancelOrder" penwidth="1.5" ]
+        "(*trade_agent/pkg/sinopacapi.TradeAgent).FetchOrderStatus" [ penwidth="1.5" fillcolor="moccasin" label="FetchOrderStatus" ]
         "(*trade_agent/pkg/sinopacapi.TradeAgent).PlaceOrder" [ fillcolor="moccasin" label="PlaceOrder" penwidth="1.5" ]
         
     }
@@ -1395,26 +1395,26 @@ fontsize="15";
     }
 
         subgraph "cluster_trade_agent/pkg/sinopacapi/sinopacerr" {
-        fillcolor="lightyellow";
-fontname="Tahoma bold";
-tooltip="package: trade_agent/pkg/sinopacapi/sinopacerr";
+        style="filled";
 label="sinopacerr";
 URL="/?f=trade_agent/pkg/sinopacapi/sinopacerr";
 penwidth="0.8";
 fontsize="16";
-style="filled";
 rank="sink";
+tooltip="package: trade_agent/pkg/sinopacapi/sinopacerr";
+fillcolor="lightyellow";
+fontname="Tahoma bold";
         
         
         subgraph "cluster_*trade_agent/pkg/sinopacapi/sinopacerr.SinopacError" {
-        label="(*SinopacError)";
+        labelloc="b";
+style="rounded,filled";
+fillcolor="wheat2";
+label="(*SinopacError)";
 tooltip="type: *trade_agent/pkg/sinopacapi/sinopacerr.SinopacError";
 penwidth="0.5";
 fontsize="15";
 fontcolor="#222222";
-labelloc="b";
-style="rounded,filled";
-fillcolor="wheat2";
         
         "(*trade_agent/pkg/sinopacapi/sinopacerr.SinopacError).Error" [ fillcolor="moccasin" label="Error" penwidth="1.5" ]
         
@@ -1424,14 +1424,14 @@ fillcolor="wheat2";
 
         subgraph "cluster_vendor/golang.org/x/net/idna" {
         penwidth="0.8";
-fillcolor="#E0FFE1";
-label="vendor/golang.org/x/net/idna";
-URL="/?f=vendor/golang.org/x/net/idna";
-tooltip="package: vendor/golang.org/x/net/idna";
 fontsize="16";
 style="filled";
+fillcolor="#E0FFE1";
 fontname="Tahoma bold";
+label="vendor/golang.org/x/net/idna";
+tooltip="package: vendor/golang.org/x/net/idna";
 rank="sink";
+URL="/?f=vendor/golang.org/x/net/idna";
         
         
         subgraph "cluster_vendor/golang.org/x/net/idna.labelError" {
@@ -1449,14 +1449,14 @@ style="rounded,filled";
     }
 
         subgraph "cluster_vendor/golang.org/x/net/idna.runeError" {
-        fontcolor="#222222";
+        tooltip="type: vendor/golang.org/x/net/idna.runeError";
+penwidth="0.5";
+fontsize="15";
+fontcolor="#222222";
 labelloc="b";
 style="rounded,filled";
 fillcolor="#c2e3c2";
 label="(runeError)";
-tooltip="type: vendor/golang.org/x/net/idna.runeError";
-penwidth="0.5";
-fontsize="15";
         
         "(vendor/golang.org/x/net/idna.runeError).Error" [ label="Error" penwidth="1.5" fillcolor="#adedad" ]
         
@@ -1494,39 +1494,17 @@ fontsize="15";
     "trade_agent/pkg/modules/order.orderStausCallback" -> "trade_agent/pkg/dbagent.Get" [ color="saddlebrown" ]
     "trade_agent/pkg/modules/order.orderStausCallback" -> "(*trade_agent/pkg/dbagent.DBAgent).InsertOrUpdateMultiOrderStatus" [ color="saddlebrown" ]
     "trade_agent/pkg/modules/order.orderStausCallback" -> "(*github.com/sirupsen/logrus.Logger).Error" [ color="saddlebrown" ]
-    "trade_agent/pkg/modules/order.orderStausCallback" -> "(*github.com/eclipse/paho.mqtt.golang.message).Payload" [ color="saddlebrown" style="dashed" ]
+    "trade_agent/pkg/modules/order.orderStausCallback" -> "(*github.com/eclipse/paho.mqtt.golang.message).Payload" [ style="dashed" color="saddlebrown" ]
     "(*trade_agent/pkg/mqhandler.MQHandler).onMessage" -> "trade_agent/pkg/modules/order.orderStausCallback" [ style="dashed" arrowhead="normalnoneodot" color="saddlebrown" ]
+    "trade_agent/pkg/modules/order.checkSwitch" -> "trade_agent/pkg/config.GetSwitchConfig" [ color="saddlebrown" ]
+    "trade_agent/pkg/modules/order.checkSwitch" -> "trade_agent/pkg/cache.GetCache" [ color="saddlebrown" ]
+    "trade_agent/pkg/modules/order.checkSwitch" -> "(*trade_agent/pkg/cache.Cache).GetIsAllowTrade" [ color="saddlebrown" ]
+    "trade_agent/pkg/modules/order.checkSwitch" -> "(*trade_agent/pkg/cache.Cache).GetOrderForwardCountDetail" [ color="saddlebrown" ]
+    "trade_agent/pkg/modules/order.checkSwitch" -> "(*trade_agent/pkg/cache.Cache).GetOrderReverseCountDetail" [ color="saddlebrown" ]
     "trade_agent/pkg/modules/order.isOrderNeedCancelAgain" -> "trade_agent/pkg/sinopacapi.Get" [ color="saddlebrown" ]
     "trade_agent/pkg/modules/order.isOrderNeedCancelAgain" -> "(*trade_agent/pkg/sinopacapi.TradeAgent).FetchOrderStatusByOrderID" [ color="saddlebrown" ]
     "trade_agent/pkg/modules/order.isOrderNeedCancelAgain" -> "trade_agent/pkg/log.Get" [ color="saddlebrown" ]
     "trade_agent/pkg/modules/order.isOrderNeedCancelAgain" -> "(*github.com/sirupsen/logrus.Logger).Error" [ color="saddlebrown" ]
-    "trade_agent/pkg/modules/order.subOrderStatus$1" -> "time.Tick" [ color="saddlebrown" ]
-    "trade_agent/pkg/modules/order.updateTradeBalance" -> "trade_agent/pkg/cache.GetCache" [ color="saddlebrown" ]
-    "trade_agent/pkg/modules/order.updateTradeBalance" -> "(*trade_agent/pkg/cache.Cache).GetOrderForward" [ color="saddlebrown" ]
-    "trade_agent/pkg/modules/order.updateTradeBalance" -> "(*trade_agent/pkg/cache.Cache).GetOrderReverse" [ color="saddlebrown" ]
-    "trade_agent/pkg/modules/order.updateTradeBalance" -> "trade_agent/pkg/sinopacapi.GetStockTradeFeeDiscount" [ color="saddlebrown" ]
-    "trade_agent/pkg/modules/order.updateTradeBalance" -> "trade_agent/pkg/sinopacapi.GetStockBuyCost" [ color="saddlebrown" ]
-    "trade_agent/pkg/modules/order.updateTradeBalance" -> "trade_agent/pkg/sinopacapi.GetStockSellCost" [ color="saddlebrown" ]
-    "trade_agent/pkg/modules/order.updateTradeBalance" -> "(*trade_agent/pkg/cache.Cache).GetTradeDay" [ color="saddlebrown" ]
-    "trade_agent/pkg/modules/order.updateTradeBalance" -> "trade_agent/pkg/dbagent.Get" [ color="saddlebrown" ]
-    "trade_agent/pkg/modules/order.updateTradeBalance" -> "(*trade_agent/pkg/dbagent.DBAgent).InsertOrUpdateBalance" [ color="saddlebrown" ]
-    "trade_agent/pkg/modules/order.updateTradeBalance" -> "trade_agent/pkg/log.Get" [ color="saddlebrown" ]
-    "trade_agent/pkg/modules/order.updateTradeBalance" -> "(*github.com/sirupsen/logrus.Logger).Panic" [ color="saddlebrown" ]
-    "trade_agent/pkg/modules/order.subOrderStatus$1" -> "trade_agent/pkg/modules/order.updateTradeBalance" [  ]
-    "trade_agent/pkg/modules/order.InitOrder" -> "trade_agent/pkg/log.Get" [ color="saddlebrown" ]
-    "trade_agent/pkg/modules/order.InitOrder" -> "(*github.com/sirupsen/logrus.Logger).Info" [ color="saddlebrown" ]
-    "trade_agent/pkg/modules/order.subOrderStatus" -> "trade_agent/pkg/mqhandler.Get" [ color="saddlebrown" ]
-    "trade_agent/pkg/modules/order.subOrderStatus" -> "trade_agent/pkg/mqhandler.TopicOrderStatus" [ color="saddlebrown" ]
-    "trade_agent/pkg/modules/order.subOrderStatus" -> "(*trade_agent/pkg/mqhandler.MQHandler).Sub" [ color="saddlebrown" ]
-    "trade_agent/pkg/modules/order.subOrderStatus" -> "trade_agent/pkg/modules/order.subOrderStatus$1" [ arrowhead="normalnoneodot" ]
-    "trade_agent/pkg/modules/order.subOrderStatus$2" -> "time.Tick" [ color="saddlebrown" ]
-    "trade_agent/pkg/modules/order.subOrderStatus$2" -> "trade_agent/pkg/sinopacapi.Get" [ color="saddlebrown" ]
-    "trade_agent/pkg/modules/order.subOrderStatus$2" -> "(*trade_agent/pkg/sinopacapi.TradeAgent).FetchOrderStatus" [ color="saddlebrown" ]
-    "trade_agent/pkg/modules/order.subOrderStatus$2" -> "trade_agent/pkg/log.Get" [ color="saddlebrown" ]
-    "trade_agent/pkg/modules/order.subOrderStatus$2" -> "(*github.com/sirupsen/logrus.Logger).Error" [ color="saddlebrown" ]
-    "trade_agent/pkg/modules/order.subOrderStatus" -> "trade_agent/pkg/modules/order.subOrderStatus$2" [ arrowhead="normalnoneodot" ]
-    "trade_agent/pkg/modules/order.InitOrder" -> "trade_agent/pkg/modules/order.subOrderStatus" [  ]
-    "trade_agent/pkg/modules/order.InitOrder" -> "(*github.com/sirupsen/logrus.Logger).Panic" [ color="saddlebrown" ]
     "trade_agent/pkg/modules/order.clearAllUnFinished" -> "trade_agent/pkg/cache.GetCache" [ color="saddlebrown" ]
     "trade_agent/pkg/modules/order.clearAllUnFinished" -> "(*trade_agent/pkg/cache.Cache).GetTradeDayTradeOutEndTime" [ color="saddlebrown" ]
     "trade_agent/pkg/modules/order.clearAllUnFinished" -> "(*trade_agent/pkg/cache.Cache).GetTradeDayOpenEndTime" [ color="saddlebrown" ]
@@ -1542,17 +1520,6 @@ fontsize="15";
     "trade_agent/pkg/modules/order.clearAllUnFinished" -> "(*trade_agent/pkg/eventbus.BusAgent).PublishStockOrder" [ color="saddlebrown" ]
     "trade_agent/pkg/modules/order.clearAllUnFinished" -> "(*trade_agent/pkg/cache.Cache).GetOrderSellFirst" [ color="saddlebrown" ]
     "trade_agent/pkg/modules/order.clearAllUnFinished" -> "(*trade_agent/pkg/cache.Cache).GetOrderBuyLater" [ color="saddlebrown" ]
-    "trade_agent/pkg/modules/order.InitOrder" -> "trade_agent/pkg/modules/order.clearAllUnFinished" [ arrowhead="normalnoneodot" ]
-    "trade_agent/pkg/modules/order.InitOrder" -> "trade_agent/pkg/eventbus.Get" [ color="saddlebrown" ]
-    "trade_agent/pkg/modules/order.InitOrder" -> "(*trade_agent/pkg/eventbus.BusAgent).SubscribeStockOrder" [ color="saddlebrown" ]
-    "trade_agent/cmd.main" -> "trade_agent/pkg/modules/order.InitOrder" [ color="saddlebrown" ]
-    "trade_agent/pkg/modules/order.getQuantityByBiasRate" -> "trade_agent/pkg/cache.GetCache" [ color="saddlebrown" ]
-    "trade_agent/pkg/modules/order.getQuantityByBiasRate" -> "(*trade_agent/pkg/cache.Cache).GetBiasRate" [ color="saddlebrown" ]
-    "trade_agent/pkg/modules/order.checkSwitch" -> "trade_agent/pkg/config.GetSwitchConfig" [ color="saddlebrown" ]
-    "trade_agent/pkg/modules/order.checkSwitch" -> "trade_agent/pkg/cache.GetCache" [ color="saddlebrown" ]
-    "trade_agent/pkg/modules/order.checkSwitch" -> "(*trade_agent/pkg/cache.Cache).GetIsAllowTrade" [ color="saddlebrown" ]
-    "trade_agent/pkg/modules/order.checkSwitch" -> "(*trade_agent/pkg/cache.Cache).GetOrderForwardCountDetail" [ color="saddlebrown" ]
-    "trade_agent/pkg/modules/order.checkSwitch" -> "(*trade_agent/pkg/cache.Cache).GetOrderReverseCountDetail" [ color="saddlebrown" ]
     "trade_agent/pkg/modules/order.checkWaitingOrder" -> "trade_agent/pkg/config.GetTradeConfig" [ color="saddlebrown" ]
     "trade_agent/pkg/modules/order.checkWaitingOrder" -> "(time.Time).Add" [ color="saddlebrown" ]
     "trade_agent/pkg/modules/order.checkWaitingOrder" -> "time.Now" [ color="saddlebrown" ]
@@ -1565,11 +1532,44 @@ fontsize="15";
     "trade_agent/pkg/modules/order.checkWaitingOrder" -> "trade_agent/pkg/modules/order.checkWaitingOrder" [ arrowhead="normalnoneodot" ]
     "trade_agent/pkg/modules/order.checkWaitingOrder" -> "(*trade_agent/pkg/sinopacapi.TradeAgent).CancelOrder" [ color="saddlebrown" ]
     "trade_agent/pkg/modules/order.checkWaitingOrder" -> "trade_agent/pkg/modules/order.isOrderNeedCancelAgain" [  ]
-    "trade_agent/pkg/modules/order.orderCallback" -> "(*sync.Mutex).Unlock" [ color="saddlebrown" arrowhead="normalnoneodiamond" ]
+    "trade_agent/pkg/modules/order.InitOrder" -> "trade_agent/pkg/log.Get" [ color="saddlebrown" ]
+    "trade_agent/pkg/modules/order.InitOrder" -> "(*github.com/sirupsen/logrus.Logger).Info" [ color="saddlebrown" ]
+    "trade_agent/pkg/modules/order.subOrderStatus" -> "trade_agent/pkg/mqhandler.Get" [ color="saddlebrown" ]
+    "trade_agent/pkg/modules/order.subOrderStatus" -> "trade_agent/pkg/mqhandler.TopicOrderStatus" [ color="saddlebrown" ]
+    "trade_agent/pkg/modules/order.subOrderStatus" -> "(*trade_agent/pkg/mqhandler.MQHandler).Sub" [ color="saddlebrown" ]
+    "trade_agent/pkg/modules/order.subOrderStatus$1" -> "time.Tick" [ color="saddlebrown" ]
+    "trade_agent/pkg/modules/order.updateTradeBalance" -> "trade_agent/pkg/cache.GetCache" [ color="saddlebrown" ]
+    "trade_agent/pkg/modules/order.updateTradeBalance" -> "(*trade_agent/pkg/cache.Cache).GetOrderForward" [ color="saddlebrown" ]
+    "trade_agent/pkg/modules/order.updateTradeBalance" -> "(*trade_agent/pkg/cache.Cache).GetOrderReverse" [ color="saddlebrown" ]
+    "trade_agent/pkg/modules/order.updateTradeBalance" -> "trade_agent/pkg/sinopacapi.GetStockTradeFeeDiscount" [ color="saddlebrown" ]
+    "trade_agent/pkg/modules/order.updateTradeBalance" -> "trade_agent/pkg/sinopacapi.GetStockBuyCost" [ color="saddlebrown" ]
+    "trade_agent/pkg/modules/order.updateTradeBalance" -> "trade_agent/pkg/sinopacapi.GetStockSellCost" [ color="saddlebrown" ]
+    "trade_agent/pkg/modules/order.updateTradeBalance" -> "(*trade_agent/pkg/cache.Cache).GetTradeDay" [ color="saddlebrown" ]
+    "trade_agent/pkg/modules/order.updateTradeBalance" -> "trade_agent/pkg/dbagent.Get" [ color="saddlebrown" ]
+    "trade_agent/pkg/modules/order.updateTradeBalance" -> "(*trade_agent/pkg/dbagent.DBAgent).InsertOrUpdateBalance" [ color="saddlebrown" ]
+    "trade_agent/pkg/modules/order.updateTradeBalance" -> "trade_agent/pkg/log.Get" [ color="saddlebrown" ]
+    "trade_agent/pkg/modules/order.updateTradeBalance" -> "(*github.com/sirupsen/logrus.Logger).Panic" [ color="saddlebrown" ]
+    "trade_agent/pkg/modules/order.subOrderStatus$1" -> "trade_agent/pkg/modules/order.updateTradeBalance" [  ]
+    "trade_agent/pkg/modules/order.subOrderStatus" -> "trade_agent/pkg/modules/order.subOrderStatus$1" [ arrowhead="normalnoneodot" ]
+    "trade_agent/pkg/modules/order.subOrderStatus$2" -> "time.Tick" [ color="saddlebrown" ]
+    "trade_agent/pkg/modules/order.subOrderStatus$2" -> "trade_agent/pkg/sinopacapi.Get" [ color="saddlebrown" ]
+    "trade_agent/pkg/modules/order.subOrderStatus$2" -> "(*trade_agent/pkg/sinopacapi.TradeAgent).FetchOrderStatus" [ color="saddlebrown" ]
+    "trade_agent/pkg/modules/order.subOrderStatus$2" -> "trade_agent/pkg/log.Get" [ color="saddlebrown" ]
+    "trade_agent/pkg/modules/order.subOrderStatus$2" -> "(*github.com/sirupsen/logrus.Logger).Error" [ color="saddlebrown" ]
+    "trade_agent/pkg/modules/order.subOrderStatus" -> "trade_agent/pkg/modules/order.subOrderStatus$2" [ arrowhead="normalnoneodot" ]
+    "trade_agent/pkg/modules/order.InitOrder" -> "trade_agent/pkg/modules/order.subOrderStatus" [  ]
+    "trade_agent/pkg/modules/order.InitOrder" -> "(*github.com/sirupsen/logrus.Logger).Panic" [ color="saddlebrown" ]
+    "trade_agent/pkg/modules/order.InitOrder" -> "trade_agent/pkg/modules/order.clearAllUnFinished" [ arrowhead="normalnoneodot" ]
+    "trade_agent/pkg/modules/order.InitOrder" -> "trade_agent/pkg/eventbus.Get" [ color="saddlebrown" ]
+    "trade_agent/pkg/modules/order.InitOrder" -> "(*trade_agent/pkg/eventbus.BusAgent).SubscribeStockOrder" [ color="saddlebrown" ]
+    "trade_agent/cmd.main" -> "trade_agent/pkg/modules/order.InitOrder" [ color="saddlebrown" ]
+    "trade_agent/pkg/modules/order.orderCallback" -> "(*sync.Mutex).Unlock" [ arrowhead="normalnoneodiamond" color="saddlebrown" ]
     "trade_agent/pkg/modules/order.orderCallback" -> "(*sync.Mutex).Lock" [ color="saddlebrown" ]
     "trade_agent/pkg/modules/order.orderCallback" -> "trade_agent/pkg/modules/order.checkSwitch" [  ]
     "trade_agent/pkg/modules/order.orderCallback" -> "trade_agent/pkg/cache.GetCache" [ color="saddlebrown" ]
     "trade_agent/pkg/modules/order.orderCallback" -> "(*trade_agent/pkg/cache.Cache).GetOrderWaiting" [ color="saddlebrown" ]
+    "trade_agent/pkg/modules/order.getQuantityByBiasRate" -> "trade_agent/pkg/cache.GetCache" [ color="saddlebrown" ]
+    "trade_agent/pkg/modules/order.getQuantityByBiasRate" -> "(*trade_agent/pkg/cache.Cache).GetBiasRate" [ color="saddlebrown" ]
     "trade_agent/pkg/modules/order.orderCallback" -> "trade_agent/pkg/modules/order.getQuantityByBiasRate" [  ]
     "trade_agent/pkg/modules/order.orderCallback" -> "trade_agent/pkg/sinopacapi.Get" [ color="saddlebrown" ]
     "trade_agent/pkg/modules/order.orderCallback" -> "(*trade_agent/pkg/sinopacapi.TradeAgent).PlaceOrder" [ color="saddlebrown" ]
@@ -1582,53 +1582,53 @@ fontsize="15";
     "trade_agent/pkg/modules/order.orderCallback" -> "(*trade_agent/pkg/sinopacapi.TradeAgent).SetOrderToQuota" [ color="saddlebrown" ]
     "trade_agent/pkg/modules/order.orderCallback" -> "(*trade_agent/pkg/cache.Cache).SetOrderWaiting" [ color="saddlebrown" ]
     "trade_agent/pkg/modules/order.orderCallback" -> "trade_agent/pkg/modules/order.checkWaitingOrder" [ arrowhead="normalnoneodot" ]
-    "trade_agent/pkg/modules/order.orderCallback" -> "(*strconv.NumError).Error" [ style="dashed" color="saddlebrown" ]
-    "trade_agent/pkg/modules/order.orderCallback" -> "(*github.com/gorilla/websocket.CloseError).Error" [ color="saddlebrown" style="dashed" ]
-    "trade_agent/pkg/modules/order.orderCallback" -> "(syscall.Errno).Error" [ color="saddlebrown" style="dashed" ]
-    "trade_agent/pkg/modules/order.orderCallback" -> "(vendor/golang.org/x/net/idna.runeError).Error" [ style="dashed" color="saddlebrown" ]
-    "trade_agent/pkg/modules/order.orderCallback" -> "(*github.com/gorilla/websocket.netError).Error" [ style="dashed" color="saddlebrown" ]
-    "trade_agent/pkg/modules/order.orderCallback" -> "(vendor/golang.org/x/net/idna.labelError).Error" [ style="dashed" color="saddlebrown" ]
-    "trade_agent/pkg/modules/order.orderCallback" -> "(crypto/x509.HostnameError).Error" [ style="dashed" color="saddlebrown" ]
-    "trade_agent/pkg/modules/order.orderCallback" -> "(*io/fs.PathError).Error" [ style="dashed" color="saddlebrown" ]
-    "trade_agent/pkg/modules/order.orderCallback" -> "(*encoding/json.UnsupportedValueError).Error" [ color="saddlebrown" style="dashed" ]
-    "trade_agent/pkg/modules/order.orderCallback" -> "(*os.SyscallError).Error" [ style="dashed" color="saddlebrown" ]
-    "trade_agent/pkg/modules/order.orderCallback" -> "(net/textproto.ProtocolError).Error" [ style="dashed" color="saddlebrown" ]
-    "trade_agent/pkg/modules/order.orderCallback" -> "(net/http.http2GoAwayError).Error" [ style="dashed" color="saddlebrown" ]
-    "trade_agent/pkg/modules/order.orderCallback" -> "(net/http.http2connError).Error" [ color="saddlebrown" style="dashed" ]
-    "trade_agent/pkg/modules/order.orderCallback" -> "(encoding/base64.CorruptInputError).Error" [ style="dashed" color="saddlebrown" ]
     "trade_agent/pkg/modules/order.orderCallback" -> "(crypto/x509.CertificateInvalidError).Error" [ style="dashed" color="saddlebrown" ]
-    "trade_agent/pkg/modules/order.orderCallback" -> "(*encoding/xml.TagPathError).Error" [ style="dashed" color="saddlebrown" ]
-    "trade_agent/pkg/modules/order.orderCallback" -> "(*net/http.ProtocolError).Error" [ style="dashed" color="saddlebrown" ]
-    "trade_agent/pkg/modules/order.orderCallback" -> "(*encoding/xml.SyntaxError).Error" [ style="dashed" color="saddlebrown" ]
-    "trade_agent/pkg/modules/order.orderCallback" -> "(*crypto/tls.permanentError).Error" [ style="dashed" color="saddlebrown" ]
-    "trade_agent/pkg/modules/order.orderCallback" -> "(*net.OpError).Error" [ style="dashed" color="saddlebrown" ]
-    "trade_agent/pkg/modules/order.orderCallback" -> "(*encoding/xml.UnsupportedTypeError).Error" [ style="dashed" color="saddlebrown" ]
-    "trade_agent/pkg/modules/order.orderCallback" -> "(net/http.http2StreamError).Error" [ style="dashed" color="saddlebrown" ]
-    "trade_agent/pkg/modules/order.orderCallback" -> "(*encoding/json.SyntaxError).Error" [ style="dashed" color="saddlebrown" ]
-    "trade_agent/pkg/modules/order.orderCallback" -> "(context.deadlineExceededError).Error" [ style="dashed" color="saddlebrown" ]
-    "trade_agent/pkg/modules/order.orderCallback" -> "(crypto/x509.UnknownAuthorityError).Error" [ color="saddlebrown" style="dashed" ]
-    "trade_agent/pkg/modules/order.orderCallback" -> "(crypto/aes.KeySizeError).Error" [ style="dashed" color="saddlebrown" ]
-    "trade_agent/pkg/modules/order.orderCallback" -> "(crypto/x509.UnhandledCriticalExtension).Error" [ style="dashed" color="saddlebrown" ]
-    "trade_agent/pkg/modules/order.orderCallback" -> "(compress/flate.InternalError).Error" [ style="dashed" color="saddlebrown" ]
-    "trade_agent/pkg/modules/order.orderCallback" -> "(*net/url.Error).Error" [ style="dashed" color="saddlebrown" ]
-    "trade_agent/pkg/modules/order.orderCallback" -> "(github.com/jackc/pgx/v4.SerializationError).Error" [ style="dashed" color="saddlebrown" ]
-    "trade_agent/pkg/modules/order.orderCallback" -> "(*encoding/json.UnsupportedTypeError).Error" [ color="saddlebrown" style="dashed" ]
-    "trade_agent/pkg/modules/order.orderCallback" -> "(crypto/tls.RecordHeaderError).Error" [ style="dashed" color="saddlebrown" ]
-    "trade_agent/pkg/modules/order.orderCallback" -> "(compress/flate.CorruptInputError).Error" [ style="dashed" color="saddlebrown" ]
-    "trade_agent/pkg/modules/order.orderCallback" -> "(*net/http.httpError).Error" [ style="dashed" color="saddlebrown" ]
-    "trade_agent/pkg/modules/order.orderCallback" -> "(*net.DNSError).Error" [ style="dashed" color="saddlebrown" ]
-    "trade_agent/pkg/modules/order.orderCallback" -> "(*internal/poll.DeadlineExceededError).Error" [ style="dashed" color="saddlebrown" ]
-    "trade_agent/pkg/modules/order.orderCallback" -> "(encoding/xml.UnmarshalError).Error" [ style="dashed" color="saddlebrown" ]
-    "trade_agent/pkg/modules/order.orderCallback" -> "(net/http.http2ConnectionError).Error" [ style="dashed" color="saddlebrown" ]
-    "trade_agent/pkg/modules/order.orderCallback" -> "(*github.com/go-resty/resty/v2.noRetryErr).Error" [ style="dashed" color="saddlebrown" ]
-    "trade_agent/pkg/modules/order.orderCallback" -> "(crypto/x509.SystemRootsError).Error" [ style="dashed" color="saddlebrown" ]
-    "trade_agent/pkg/modules/order.orderCallback" -> "(crypto/tls.alert).Error" [ style="dashed" color="saddlebrown" ]
     "trade_agent/pkg/modules/order.orderCallback" -> "(*errors.errorString).Error" [ style="dashed" color="saddlebrown" ]
-    "trade_agent/pkg/modules/order.orderCallback" -> "(*net/http.http2httpError).Error" [ style="dashed" color="saddlebrown" ]
-    "trade_agent/pkg/modules/order.orderCallback" -> "(*encoding/json.InvalidUnmarshalError).Error" [ style="dashed" color="saddlebrown" ]
+    "trade_agent/pkg/modules/order.orderCallback" -> "(*net.DNSError).Error" [ style="dashed" color="saddlebrown" ]
+    "trade_agent/pkg/modules/order.orderCallback" -> "(*net/http.httpError).Error" [ style="dashed" color="saddlebrown" ]
+    "trade_agent/pkg/modules/order.orderCallback" -> "(*internal/poll.DeadlineExceededError).Error" [ style="dashed" color="saddlebrown" ]
+    "trade_agent/pkg/modules/order.orderCallback" -> "(*net/url.Error).Error" [ color="saddlebrown" style="dashed" ]
+    "trade_agent/pkg/modules/order.orderCallback" -> "(net/http.http2StreamError).Error" [ style="dashed" color="saddlebrown" ]
+    "trade_agent/pkg/modules/order.orderCallback" -> "(encoding/base64.CorruptInputError).Error" [ style="dashed" color="saddlebrown" ]
+    "trade_agent/pkg/modules/order.orderCallback" -> "(*encoding/xml.SyntaxError).Error" [ style="dashed" color="saddlebrown" ]
+    "trade_agent/pkg/modules/order.orderCallback" -> "(vendor/golang.org/x/net/idna.runeError).Error" [ style="dashed" color="saddlebrown" ]
+    "trade_agent/pkg/modules/order.orderCallback" -> "(vendor/golang.org/x/net/idna.labelError).Error" [ style="dashed" color="saddlebrown" ]
+    "trade_agent/pkg/modules/order.orderCallback" -> "(*encoding/json.SyntaxError).Error" [ style="dashed" color="saddlebrown" ]
+    "trade_agent/pkg/modules/order.orderCallback" -> "(crypto/tls.RecordHeaderError).Error" [ style="dashed" color="saddlebrown" ]
     "trade_agent/pkg/modules/order.orderCallback" -> "(*encoding/json.UnmarshalTypeError).Error" [ style="dashed" color="saddlebrown" ]
+    "trade_agent/pkg/modules/order.orderCallback" -> "(crypto/x509.UnknownAuthorityError).Error" [ style="dashed" color="saddlebrown" ]
+    "trade_agent/pkg/modules/order.orderCallback" -> "(encoding/xml.UnmarshalError).Error" [ style="dashed" color="saddlebrown" ]
+    "trade_agent/pkg/modules/order.orderCallback" -> "(compress/flate.CorruptInputError).Error" [ style="dashed" color="saddlebrown" ]
+    "trade_agent/pkg/modules/order.orderCallback" -> "(*net/http.http2httpError).Error" [ style="dashed" color="saddlebrown" ]
+    "trade_agent/pkg/modules/order.orderCallback" -> "(github.com/jackc/pgx/v4.SerializationError).Error" [ style="dashed" color="saddlebrown" ]
+    "trade_agent/pkg/modules/order.orderCallback" -> "(crypto/x509.HostnameError).Error" [ style="dashed" color="saddlebrown" ]
+    "trade_agent/pkg/modules/order.orderCallback" -> "(*encoding/xml.UnsupportedTypeError).Error" [ style="dashed" color="saddlebrown" ]
+    "trade_agent/pkg/modules/order.orderCallback" -> "(crypto/aes.KeySizeError).Error" [ style="dashed" color="saddlebrown" ]
+    "trade_agent/pkg/modules/order.orderCallback" -> "(context.deadlineExceededError).Error" [ style="dashed" color="saddlebrown" ]
+    "trade_agent/pkg/modules/order.orderCallback" -> "(*github.com/gorilla/websocket.CloseError).Error" [ style="dashed" color="saddlebrown" ]
+    "trade_agent/pkg/modules/order.orderCallback" -> "(*crypto/tls.permanentError).Error" [ style="dashed" color="saddlebrown" ]
+    "trade_agent/pkg/modules/order.orderCallback" -> "(crypto/tls.alert).Error" [ color="saddlebrown" style="dashed" ]
+    "trade_agent/pkg/modules/order.orderCallback" -> "(*encoding/json.UnsupportedValueError).Error" [ style="dashed" color="saddlebrown" ]
+    "trade_agent/pkg/modules/order.orderCallback" -> "(compress/flate.InternalError).Error" [ style="dashed" color="saddlebrown" ]
     "trade_agent/pkg/modules/order.orderCallback" -> "(*fmt.wrapError).Error" [ style="dashed" color="saddlebrown" ]
     "trade_agent/pkg/modules/order.orderCallback" -> "(*encoding/json.MarshalerError).Error" [ style="dashed" color="saddlebrown" ]
-    "trade_agent/pkg/modules/order.orderCallback" -> "(internal/poll.errNetClosing).Error" [ style="dashed" color="saddlebrown" ]
+    "trade_agent/pkg/modules/order.orderCallback" -> "(*net.OpError).Error" [ style="dashed" color="saddlebrown" ]
+    "trade_agent/pkg/modules/order.orderCallback" -> "(net/http.http2connError).Error" [ style="dashed" color="saddlebrown" ]
+    "trade_agent/pkg/modules/order.orderCallback" -> "(crypto/x509.SystemRootsError).Error" [ style="dashed" color="saddlebrown" ]
+    "trade_agent/pkg/modules/order.orderCallback" -> "(net/http.http2GoAwayError).Error" [ color="saddlebrown" style="dashed" ]
     "trade_agent/pkg/modules/order.orderCallback" -> "(*trade_agent/pkg/sinopacapi/sinopacerr.SinopacError).Error" [ style="dashed" color="saddlebrown" ]
+    "trade_agent/pkg/modules/order.orderCallback" -> "(*net/http.ProtocolError).Error" [ style="dashed" color="saddlebrown" ]
+    "trade_agent/pkg/modules/order.orderCallback" -> "(*encoding/json.InvalidUnmarshalError).Error" [ style="dashed" color="saddlebrown" ]
+    "trade_agent/pkg/modules/order.orderCallback" -> "(internal/poll.errNetClosing).Error" [ style="dashed" color="saddlebrown" ]
+    "trade_agent/pkg/modules/order.orderCallback" -> "(*os.SyscallError).Error" [ style="dashed" color="saddlebrown" ]
+    "trade_agent/pkg/modules/order.orderCallback" -> "(net/http.http2ConnectionError).Error" [ style="dashed" color="saddlebrown" ]
+    "trade_agent/pkg/modules/order.orderCallback" -> "(*io/fs.PathError).Error" [ style="dashed" color="saddlebrown" ]
+    "trade_agent/pkg/modules/order.orderCallback" -> "(*strconv.NumError).Error" [ color="saddlebrown" style="dashed" ]
+    "trade_agent/pkg/modules/order.orderCallback" -> "(crypto/x509.UnhandledCriticalExtension).Error" [ color="saddlebrown" style="dashed" ]
+    "trade_agent/pkg/modules/order.orderCallback" -> "(*encoding/json.UnsupportedTypeError).Error" [ color="saddlebrown" style="dashed" ]
+    "trade_agent/pkg/modules/order.orderCallback" -> "(syscall.Errno).Error" [ style="dashed" color="saddlebrown" ]
+    "trade_agent/pkg/modules/order.orderCallback" -> "(*github.com/gorilla/websocket.netError).Error" [ color="saddlebrown" style="dashed" ]
+    "trade_agent/pkg/modules/order.orderCallback" -> "(*github.com/go-resty/resty/v2.noRetryErr).Error" [ style="dashed" color="saddlebrown" ]
+    "trade_agent/pkg/modules/order.orderCallback" -> "(net/textproto.ProtocolError).Error" [ style="dashed" color="saddlebrown" ]
+    "trade_agent/pkg/modules/order.orderCallback" -> "(*encoding/xml.TagPathError).Error" [ style="dashed" color="saddlebrown" ]
 }

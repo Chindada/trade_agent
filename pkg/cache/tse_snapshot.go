@@ -13,13 +13,13 @@ func KeyTSESnapshot() *Key {
 
 // SetTSESnapshot SetTSESnapshot
 func (c *Cache) SetTSESnapshot(snapshot *dbagent.TSESnapShot) {
-	key := KeyTargets()
+	key := KeyTSESnapshot()
 	c.getCacheByType(key.Type).Set(key.Name, snapshot, noExpired)
 }
 
 // GetTSESnapshot GetTSESnapshot
 func (c *Cache) GetTSESnapshot() *dbagent.TSESnapShot {
-	k := KeyTargets()
+	k := KeyTSESnapshot()
 	if value, ok := c.getCacheByType(k.Type).Get(k.Name); ok {
 		return value.(*dbagent.TSESnapShot)
 	}
