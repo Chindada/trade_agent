@@ -4,6 +4,7 @@ package healthcheck
 import (
 	"sync"
 	"time"
+
 	"trade_agent/global"
 	"trade_agent/pkg/eventbus"
 	"trade_agent/pkg/log"

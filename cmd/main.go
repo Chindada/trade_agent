@@ -3,6 +3,7 @@ package main
 import (
 	"os"
 	"path/filepath"
+
 	"trade_agent/global"
 	"trade_agent/pkg/dbagent"
 	"trade_agent/pkg/log"

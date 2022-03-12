@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"sync"
 	"time"
+
 	"trade_agent/pkg/config"
 	"trade_agent/pkg/log"
 
@@ -59,8 +60,7 @@ func InitDatabase() {
 		}
 	}()
 	var exist bool
-	statement := fmt.Sprintf("SELECT EXISTS(SELECT datname FROM pg_catalog.pg_database WHERE datname = '%s')", dbSettings.Database)
-	err = db.QueryRow(statement).Scan(&exist)
+	err = db.QueryRow(fmt.Sprintf("SELECT EXISTS(SELECT datname FROM pg_catalog.pg_database WHERE datname = '%s')", dbSettings.Database)).Scan(&exist)
 	if err != nil {
 		log.Get().Panic(err)
 	}
