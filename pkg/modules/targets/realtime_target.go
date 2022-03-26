@@ -4,6 +4,7 @@ package targets
 import (
 	"sort"
 	"sync"
+
 	"trade_agent/pkg/cache"
 	"trade_agent/pkg/config"
 	"trade_agent/pkg/dbagent"
@@ -60,7 +61,7 @@ func snapShotCallback(m mqhandler.MQMessage) {
 		if stock == nil {
 			log.Get().WithFields(map[string]interface{}{
 				"Stock": v.GetCode(),
-			}).Error("Stock Cache Error")
+			}).Error("SnapShot Stock Cache Error")
 			continue
 		}
 		tmpTarget := stockWithData{

@@ -3,6 +3,7 @@ package targets
 
 import (
 	"time"
+
 	"trade_agent/global"
 	"trade_agent/pkg/cache"
 	"trade_agent/pkg/config"
@@ -115,7 +116,7 @@ func volumeRankCallback(m mqhandler.MQMessage) {
 		if stock == nil {
 			log.Get().WithFields(map[string]interface{}{
 				"Stock": v.GetCode(),
-			}).Error("Stock Cache Error")
+			}).Error("VolumeRank Stock Cache Error")
 			continue
 		}
 		tmpTarget := stockWithData{

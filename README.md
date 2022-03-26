@@ -62,6 +62,12 @@
 
 ### Order Module
 
+### Test Coverage Regex
+
+```sh
+total:\s\s\s\s\s\s\(statements\)\s\s\s\s\d+.\d+%
+```
+
 ![callvis](./assets/callvis.svg "callvis")
 
 ## Authors

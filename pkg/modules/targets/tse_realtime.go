@@ -3,6 +3,7 @@ package targets
 
 import (
 	"sync"
+
 	"trade_agent/pkg/cache"
 	"trade_agent/pkg/log"
 	"trade_agent/pkg/mqhandler"
@@ -50,7 +51,7 @@ func tseSnapShotCallback(m mqhandler.MQMessage) {
 		if stock == nil {
 			log.Get().WithFields(map[string]interface{}{
 				"Stock": v.GetCode(),
-			}).Error("Stock Cache Error")
+			}).Error("TseSnapShot Stock Cache Error")
 			continue
 		}
 		cache.GetCache().SetTSESnapshot(v.ToTSESnapshot())
