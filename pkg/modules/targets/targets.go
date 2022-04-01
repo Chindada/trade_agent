@@ -131,6 +131,7 @@ func volumeRankCallback(m mqhandler.MQMessage) {
 				Volume:      tmpTarget.totalVolume,
 				Rank:        len(targetArr) + 1,
 				RealTimeAdd: false,
+				Subscribe:   true,
 			}
 			targetArr = append(targetArr, tmp)
 			log.Get().WithFields(map[string]interface{}{

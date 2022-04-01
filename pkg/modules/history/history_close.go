@@ -4,6 +4,7 @@ package history
 import (
 	"sync"
 	"time"
+
 	"trade_agent/global"
 	"trade_agent/pkg/cache"
 	"trade_agent/pkg/dbagent"
@@ -35,9 +36,11 @@ func subStockClose(targetArr []*dbagent.Target, fetchDate []time.Time) error {
 
 		for _, s := range targetArr {
 			var close float64
-			if close, err = dbagent.Get().GetHistoryCloseByStockAndDate(cache.GetCache().GetStockID(s.Stock.Number), int64(calendarDate.ID)); err != nil {
+			close, dbErr := dbagent.Get().GetHistoryCloseByStockAndDate(cache.GetCache().GetStockID(s.Stock.Number), int64(calendarDate.ID))
+			if dbErr != nil {
 				log.Get().Panic(err)
-			} else if close == 0 {
+			}
+			if close == 0 {
 				var stockNumArr, dateArr []string
 				dateArr = append(dateArr, t.Format(global.ShortTimeLayout))
 				stockNumArr = append(stockNumArr, s.Stock.Number)
@@ -47,7 +50,6 @@ func subStockClose(targetArr []*dbagent.Target, fetchDate []time.Time) error {
 				if err != nil {
 					return err
 				}
-				wg.Wait()
 				continue
 			}
 			cache.GetCache().SetStockHistoryClose(s.Stock.Number, close, t)
@@ -58,6 +60,7 @@ func subStockClose(targetArr []*dbagent.Target, fetchDate []time.Time) error {
 			}).Info("History Close Already Exist")
 		}
 	}
+	wg.Wait()
 	return err
 }
 
@@ -80,6 +83,7 @@ func stockCloseCallback(m mqhandler.MQMessage) {
 			log.Get().Panic(err)
 		}
 		tmp := &dbagent.HistoryClose{
+			Open:         cache.GetCache().GetHistoryOpen(v.GetCode(), dateTime),
 			Close:        v.GetClose(),
 			Stock:        cache.GetCache().GetStock(v.GetCode()),
 			CalendarDate: calendarDate,

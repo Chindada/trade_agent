@@ -7,6 +7,8 @@ definitions:
         type: number
       in_out_ratio:
         type: number
+      ma_period:
+        type: integer
       max_loss:
         type: number
       open_close_change_ratio_high:
@@ -109,6 +111,8 @@ definitions:
         type: string
       run_mode:
         type: string
+      sinopac_max_conn:
+        type: integer
       sinopac_srv_host:
         type: string
       sinopac_srv_port:
@@ -271,6 +275,8 @@ definitions:
         $ref: '#/definitions/dbagent.Stock'
       stock_id:
         type: integer
+      subscribe:
+        type: boolean
       trade_day:
         type: string
       volume:
@@ -281,6 +287,15 @@ definitions:
       attachment: {}
       response:
         type: string
+    type: object
+  routers.QuaterMAResponse:
+    properties:
+      date:
+        type: string
+      stocks:
+        items:
+          $ref: '#/definitions/dbagent.Stock'
+        type: array
     type: object
 info:
   contact: {}
@@ -471,6 +486,47 @@ paths:
           schema:
             items:
               $ref: '#/definitions/dbagent.Target'
+            type: array
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/routers.ErrorResponse'
+      summary: GetTradeDayTargets
+      tags:
+      - Targets
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: price_range
+        in: header
+        name: price_range
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ""
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/routers.ErrorResponse'
+      summary: GetTradeDayTargets
+      tags:
+      - Targets
+  /targets/quater:
+    get:
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/routers.QuaterMAResponse'
             type: array
         "500":
           description: Internal Server Error

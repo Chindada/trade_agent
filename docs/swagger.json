@@ -300,6 +300,69 @@
                         }
                     }
                 }
+            },
+            "post": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Targets"
+                ],
+                "summary": "GetTradeDayTargets",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "price_range",
+                        "name": "price_range",
+                        "in": "header",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/routers.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/targets/quater": {
+            "get": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Targets"
+                ],
+                "summary": "GetTradeDayTargets",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/routers.QuaterMAResponse"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/routers.ErrorResponse"
+                        }
+                    }
+                }
             }
         },
         "/tse/real-time": {
@@ -337,6 +400,9 @@
                 },
                 "in_out_ratio": {
                     "type": "number"
+                },
+                "ma_period": {
+                    "type": "integer"
                 },
                 "max_loss": {
                     "type": "number"
@@ -493,6 +559,9 @@
                 },
                 "run_mode": {
                     "type": "string"
+                },
+                "sinopac_max_conn": {
+                    "type": "integer"
                 },
                 "sinopac_srv_host": {
                     "type": "string"
@@ -741,6 +810,9 @@
                 "stock_id": {
                     "type": "integer"
                 },
+                "subscribe": {
+                    "type": "boolean"
+                },
                 "trade_day": {
                     "type": "string"
                 },
@@ -755,6 +827,20 @@
                 "attachment": {},
                 "response": {
                     "type": "string"
+                }
+            }
+        },
+        "routers.QuaterMAResponse": {
+            "type": "object",
+            "properties": {
+                "date": {
+                    "type": "string"
+                },
+                "stocks": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/dbagent.Stock"
+                    }
                 }
             }
         }

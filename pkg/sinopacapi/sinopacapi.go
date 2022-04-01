@@ -7,6 +7,7 @@ import (
 	"strconv"
 	"sync"
 	"time"
+
 	"trade_agent/pkg/config"
 	"trade_agent/pkg/log"
 	"trade_agent/pkg/restfulclient"
@@ -25,8 +26,10 @@ type TradeAgent struct {
 	token      string
 	simulation bool
 
-	tradeQuota int64
-	mu         sync.Mutex
+	tradeQuota      int64
+	mu              sync.RWMutex
+	maxConnection   int64
+	connectionCount int64
 }
 
 // Order Order
@@ -57,15 +60,16 @@ func InitSinpacAPI() {
 		urlPrefix: "http://" + serverConf.SinopacSRVHost + ":" + serverConf.SinopacSRVPort,
 	}
 	newClient.simulation = config.GetSwitchConfig().Simulation
+	newClient.maxConnection = int64(serverConf.SinopacMAXConn)
 
 	quotaConf := config.GetQuotaConfig()
 	tradeTaxRatio = quotaConf.TradeTaxRatio
 	tradeFeeRatio = quotaConf.TradeFeeRatio
 	feeDiscount = quotaConf.FeeDiscount
 
-	newClient.mu.Lock()
+	newClient.mu.RLock()
 	newClient.tradeQuota = quotaConf.TradeQuota
-	newClient.mu.Unlock()
+	newClient.mu.RUnlock()
 
 	// check sinopac mq srv connect to mqtt broker
 	err := newClient.AskSinpacMQSRVConnectMQ(mqConf)
@@ -88,16 +92,48 @@ func Get() *TradeAgent {
 	if globalClient == nil {
 		log.Get().Panic("Trade Agent was not inititalized")
 	}
+
+	for {
+		if globalClient.GetConnectionCount() <= globalClient.maxConnection {
+			globalClient.AddConnection()
+			break
+		}
+		time.Sleep(time.Millisecond * 500)
+	}
+
 	return globalClient
+}
+
+// GetConnectionCount GetConnectionCount
+func (c *TradeAgent) GetConnectionCount() int64 {
+	defer c.mu.RUnlock()
+	c.mu.RLock()
+	return c.connectionCount
+}
+
+// AddConnection AddConnection
+func (c *TradeAgent) AddConnection() {
+	c.mu.RLock()
+	c.connectionCount++
+	c.mu.RUnlock()
+}
+
+// ReleaseConnection ReleaseConnection
+func (c *TradeAgent) ReleaseConnection() {
+	c.mu.RLock()
+	c.connectionCount--
+	c.mu.RUnlock()
 }
 
 // GetToken GetToken
 func (c *TradeAgent) GetToken() string {
+	defer c.ReleaseConnection()
 	return c.token
 }
 
 // AskSinpacMQSRVConnectMQ AskSinpacMQSRVConnectMQ
 func (c *TradeAgent) AskSinpacMQSRVConnectMQ(mqConf config.MQTT) (err error) {
+	defer c.ReleaseConnection()
 	var resp *resty.Response
 	resp, err = c.Client.R().
 		SetBody(mqConf).
@@ -116,6 +152,7 @@ func (c *TradeAgent) AskSinpacMQSRVConnectMQ(mqConf config.MQTT) (err error) {
 
 // FetchServerToken FetchServerToken
 func (c *TradeAgent) FetchServerToken() (token string, err error) {
+	defer c.ReleaseConnection()
 	var resp *resty.Response
 	resp, err = c.Client.R().
 		SetResult(&ResponseHealthStatus{}).
@@ -133,6 +170,7 @@ func (c *TradeAgent) FetchServerToken() (token string, err error) {
 
 // RestartSinopacSRV RestartSinopacSRV
 func (c *TradeAgent) RestartSinopacSRV() (err error) {
+	defer c.ReleaseConnection()
 	var resp *resty.Response
 	resp, err = c.Client.R().
 		SetResult(&ResponseCommon{}).
@@ -150,6 +188,7 @@ func (c *TradeAgent) RestartSinopacSRV() (err error) {
 
 // PlaceOrder PlaceOrder
 func (c *TradeAgent) PlaceOrder(order Order) (res OrderResponse, err error) {
+	defer c.ReleaseConnection()
 	var url string
 	var cost int64
 	switch order.Action {
@@ -194,6 +233,7 @@ func (c *TradeAgent) PlaceOrder(order Order) (res OrderResponse, err error) {
 
 // CancelOrder CancelOrder
 func (c *TradeAgent) CancelOrder(orderID string) (err error) {
+	defer c.ReleaseConnection()
 	order := OrderIDBody{
 		OrderID: orderID,
 	}
@@ -225,6 +265,7 @@ func (c *TradeAgent) CancelOrder(orderID string) (err error) {
 
 // FetchOrderStatusByOrderID FetchOrderStatusByOrderID
 func (c *TradeAgent) FetchOrderStatusByOrderID(orderID string) (status string, err error) {
+	defer c.ReleaseConnection()
 	var resp *resty.Response
 	simulation := "0"
 	if c.simulation {
@@ -250,6 +291,7 @@ func (c *TradeAgent) FetchOrderStatusByOrderID(orderID string) (status string, e
 
 // FetchOrderStatus FetchOrderStatus
 func (c *TradeAgent) FetchOrderStatus() (err error) {
+	defer c.ReleaseConnection()
 	var resp *resty.Response
 	simulation := "0"
 	if c.simulation {
@@ -272,6 +314,7 @@ func (c *TradeAgent) FetchOrderStatus() (err error) {
 
 // FetchHistoryCloseByStockArrDateArr FetchHistoryCloseByStockArrDateArr
 func (c *TradeAgent) FetchHistoryCloseByStockArrDateArr(stockNumArr, dateArr []string) (err error) {
+	defer c.ReleaseConnection()
 	stockAndDateArr := FetchHistoryCloseBody{
 		StockNumArr: stockNumArr,
 		DateArr:     dateArr,
@@ -294,6 +337,7 @@ func (c *TradeAgent) FetchHistoryCloseByStockArrDateArr(stockNumArr, dateArr []s
 
 // FetchAllSnapShot FetchAllSnapShot
 func (c *TradeAgent) FetchAllSnapShot() (err error) {
+	defer c.ReleaseConnection()
 	var resp *resty.Response
 	resp, err = c.Client.R().
 		SetResult(&ResponseCommon{}).
@@ -311,6 +355,7 @@ func (c *TradeAgent) FetchAllSnapShot() (err error) {
 
 // FetchTSESnapShot FetchTSESnapShot
 func (c *TradeAgent) FetchTSESnapShot() (err error) {
+	defer c.ReleaseConnection()
 	var resp *resty.Response
 	resp, err = c.Client.R().
 		SetResult(&ResponseCommon{}).
@@ -328,6 +373,7 @@ func (c *TradeAgent) FetchTSESnapShot() (err error) {
 
 // FetchHistoryCloseByStockDateArr FetchHistoryCloseByStockDateArr
 func (c *TradeAgent) FetchHistoryCloseByStockDateArr(stockNumArr []string, date string) (err error) {
+	defer c.ReleaseConnection()
 	stockArr := StockNumArrBody{
 		StockNumArr: stockNumArr,
 	}
@@ -350,6 +396,7 @@ func (c *TradeAgent) FetchHistoryCloseByStockDateArr(stockNumArr []string, date 
 
 // FetchHistoryTSECloseByDate FetchHistoryTSECloseByDate
 func (c *TradeAgent) FetchHistoryTSECloseByDate(date string) (err error) {
+	defer c.ReleaseConnection()
 	var resp *resty.Response
 	resp, err = c.Client.R().
 		SetHeader("X-Date", date).
@@ -368,6 +415,7 @@ func (c *TradeAgent) FetchHistoryTSECloseByDate(date string) (err error) {
 
 // FetchVolumeRankByDate FetchVolumeRankByDate
 func (c *TradeAgent) FetchVolumeRankByDate(date string, count int64) (err error) {
+	defer c.ReleaseConnection()
 	var resp *resty.Response
 	resp, err = c.Client.R().
 		SetHeader("X-Count", strconv.FormatInt(count, 10)).
@@ -387,6 +435,7 @@ func (c *TradeAgent) FetchVolumeRankByDate(date string, count int64) (err error)
 
 // FetchHistoryKbarByDateRange FetchHistoryKbarByDateRange
 func (c *TradeAgent) FetchHistoryKbarByDateRange(stockNum string, start, end string) (err error) {
+	defer c.ReleaseConnection()
 	stockAndDateArr := FetchHistoryKbarBody{
 		StockNum:  stockNum,
 		StartDate: start,
@@ -409,6 +458,7 @@ func (c *TradeAgent) FetchHistoryKbarByDateRange(stockNum string, start, end str
 
 // FetchHistoryTSEKbarByDate FetchHistoryTSEKbarByDate
 func (c *TradeAgent) FetchHistoryTSEKbarByDate(date string) (err error) {
+	defer c.ReleaseConnection()
 	stockAndDateArr := FetchHistoryKbarBody{
 		StartDate: date,
 		EndDate:   date,
@@ -430,6 +480,7 @@ func (c *TradeAgent) FetchHistoryTSEKbarByDate(date string) (err error) {
 
 // FetchHistoryTickByStockAndDate FetchHistoryTickByStockAndDate
 func (c *TradeAgent) FetchHistoryTickByStockAndDate(stockNum, date string) (err error) {
+	defer c.ReleaseConnection()
 	stockAndDate := FetchHistoryTickBody{
 		StockNum: stockNum,
 		Date:     date,
@@ -452,6 +503,7 @@ func (c *TradeAgent) FetchHistoryTickByStockAndDate(stockNum, date string) (err 
 
 // FetchAllStockDetail FetchAllStockDetail
 func (c *TradeAgent) FetchAllStockDetail() (err error) {
+	defer c.ReleaseConnection()
 	var resp *resty.Response
 	resp, err = c.Client.R().
 		SetResult(&ResponseCommon{}).
@@ -469,6 +521,7 @@ func (c *TradeAgent) FetchAllStockDetail() (err error) {
 
 // SubRealTimeTick SubRealTimeTick
 func (c *TradeAgent) SubRealTimeTick(stockArr []string) (err error) {
+	defer c.ReleaseConnection()
 	stocks := StockNumArrBody{
 		StockNumArr: stockArr,
 	}
@@ -490,6 +543,7 @@ func (c *TradeAgent) SubRealTimeTick(stockArr []string) (err error) {
 
 // UnSubRealTimeTick UnSubRealTimeTick
 func (c *TradeAgent) UnSubRealTimeTick(stockArr []string) (err error) {
+	defer c.ReleaseConnection()
 	stocks := StockNumArrBody{
 		StockNumArr: stockArr,
 	}
@@ -511,6 +565,7 @@ func (c *TradeAgent) UnSubRealTimeTick(stockArr []string) (err error) {
 
 // SubBidAsk SubBidAsk
 func (c *TradeAgent) SubBidAsk(stockArr []string) (err error) {
+	defer c.ReleaseConnection()
 	stocks := StockNumArrBody{
 		StockNumArr: stockArr,
 	}
@@ -532,6 +587,7 @@ func (c *TradeAgent) SubBidAsk(stockArr []string) (err error) {
 
 // UnSubBidAsk UnSubBidAsk
 func (c *TradeAgent) UnSubBidAsk(stockArr []string) (err error) {
+	defer c.ReleaseConnection()
 	stocks := StockNumArrBody{
 		StockNumArr: stockArr,
 	}
@@ -553,6 +609,7 @@ func (c *TradeAgent) UnSubBidAsk(stockArr []string) (err error) {
 
 // UnSubscribeAllByType UnSubscribeAllByType
 func (c *TradeAgent) UnSubscribeAllByType(dataType TickType) (err error) {
+	defer c.ReleaseConnection()
 	var url string
 	switch {
 	case dataType == TickTypeStockRealTime:

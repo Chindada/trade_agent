@@ -14,11 +14,11 @@ require (
 	github.com/robfig/cron v1.2.0
 	github.com/sirupsen/logrus v1.8.1
 	github.com/swaggo/gin-swagger v1.4.1
-	github.com/swaggo/swag v1.8.0
-	google.golang.org/protobuf v1.27.1
+	github.com/swaggo/swag v1.8.1
+	google.golang.org/protobuf v1.28.0
 	gopkg.in/yaml.v2 v2.4.0
 	gorm.io/driver/postgres v1.3.1
-	gorm.io/gorm v1.23.2
+	gorm.io/gorm v1.23.3
 )
 
 require (

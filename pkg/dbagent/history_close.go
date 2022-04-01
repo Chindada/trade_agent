@@ -9,6 +9,7 @@ import (
 type HistoryClose struct {
 	gorm.Model `json:"-" swaggerignore:"true"`
 
+	Open           float64       `json:"open,omitempty" yaml:"open" gorm:"column:open"`
 	Close          float64       `json:"close,omitempty" yaml:"close" gorm:"column:close"`
 	Stock          *Stock        `json:"stock,omitempty" yaml:"stock" gorm:"foreignKey:StockID"`
 	StockID        int64         `json:"stock_id,omitempty" yaml:"stock_id" gorm:"column:stock_id"`
@@ -84,4 +85,11 @@ func (c *DBAgent) GetHistoryCloseByStockAndDate(stockID, dateID int64) (close fl
 	var tmp HistoryClose
 	result := c.DB.Model(&HistoryClose{}).Where("stock_id = ? AND calendar_date_id = ?", stockID, dateID).Find(&tmp)
 	return tmp.Close, result.Error
+}
+
+// GetHistoryOpenByStockAndDate GetHistoryOpenByStockAndDate
+func (c *DBAgent) GetHistoryOpenByStockAndDate(stockID, dateID int64) (open float64, err error) {
+	var tmp HistoryClose
+	result := c.DB.Model(&HistoryClose{}).Where("stock_id = ? AND calendar_date_id = ?", stockID, dateID).Find(&tmp)
+	return tmp.Open, result.Error
 }

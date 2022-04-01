@@ -108,6 +108,7 @@ func initConnection() {
 		&CloudEvent{},
 		&HistoryClose{},
 		&HistoryKbar{},
+		&HistoryMA{},
 		&HistoryTick{},
 		&OrderStatus{},
 		&RealTimeBidAsk{},

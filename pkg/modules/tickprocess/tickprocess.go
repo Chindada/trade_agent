@@ -3,6 +3,7 @@ package tickprocess
 
 import (
 	"time"
+
 	"trade_agent/pkg/cache"
 	"trade_agent/pkg/config"
 	"trade_agent/pkg/dbagent"
@@ -37,12 +38,17 @@ func InitTickProcess() {
 }
 
 func targetsBusCallback(targetArr []*dbagent.Target) {
+	tmp := []*dbagent.Target{}
 	for _, v := range targetArr {
-		cache.GetCache().SetRealTimeTickChannel(v.Stock.Number, make(chan *dbagent.RealTimeTick))
-		go realTimeTickProcessor(v.Stock.Number)
+		if v.Subscribe {
+			tmp = append(tmp, v)
 
-		cache.GetCache().SetRealTimeBidAskChannel(v.Stock.Number, make(chan *dbagent.RealTimeBidAsk))
-		go realTimeBidAskProcessor(v.Stock.Number)
+			cache.GetCache().SetRealTimeTickChannel(v.Stock.Number, make(chan *dbagent.RealTimeTick))
+			go realTimeTickProcessor(v.Stock.Number)
+
+			cache.GetCache().SetRealTimeBidAskChannel(v.Stock.Number, make(chan *dbagent.RealTimeBidAsk))
+			go realTimeBidAskProcessor(v.Stock.Number)
+		}
 	}
 
 	err := subRealTimeTick()
@@ -53,8 +59,9 @@ func targetsBusCallback(targetArr []*dbagent.Target) {
 	if err != nil {
 		log.Get().Panic(err)
 	}
-
-	eventbus.Get().PublishSubscribeTargets(targetArr)
+	if len(tmp) != 0 {
+		eventbus.Get().PublishSubscribeTargets(tmp)
+	}
 }
 
 func realTimeTickProcessor(stockNum string) {

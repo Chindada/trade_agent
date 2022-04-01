@@ -3,8 +3,10 @@ package history
 
 import (
 	"time"
+
 	"trade_agent/global"
 	"trade_agent/pkg/cache"
+	"trade_agent/pkg/config"
 	"trade_agent/pkg/dbagent"
 	"trade_agent/pkg/eventbus"
 	"trade_agent/pkg/log"
@@ -19,8 +21,22 @@ func InitHistory() {
 }
 
 func targetsBusCallback(targetArr []*dbagent.Target) {
+	// save stock kbar in date range
+	err := subHistoryKbar(targetArr, cache.GetCache().GetHistroyKbarRange())
+	if err != nil {
+		log.Get().Error(err)
+		return
+	}
+
 	// save stock close in date range
-	err := subStockClose(targetArr, cache.GetCache().GetHistroyCloseRange())
+	err = subStockClose(targetArr, cache.GetCache().GetHistroyCloseRange())
+	if err != nil {
+		log.Get().Error(err)
+		return
+	}
+
+	// fill biasrate cache
+	err = calculateQuaterMA(targetArr, cache.GetCache().GetHistroyCloseRange())
 	if err != nil {
 		log.Get().Error(err)
 		return
@@ -35,13 +51,6 @@ func targetsBusCallback(targetArr []*dbagent.Target) {
 
 	// save stock tick in date range
 	err = subHistoryTick(targetArr, cache.GetCache().GetHistroyTickRange())
-	if err != nil {
-		log.Get().Error(err)
-		return
-	}
-
-	// save stock kbar in date range
-	err = subHistoryKbar(targetArr, cache.GetCache().GetHistroyKbarRange())
 	if err != nil {
 		log.Get().Error(err)
 		return
@@ -86,6 +95,48 @@ func calculateBiasRate(targetArr []*dbagent.Target, fetchDate []time.Time) error
 			"Stock": stock.Stock.Number,
 			"Value": biasRate,
 		}).Info("BiasRate")
+	}
+	return nil
+}
+
+func calculateQuaterMA(targetArr []*dbagent.Target, fetchDate []time.Time) error {
+	analyzeConf := config.GetAnalyzeConfig()
+	var closeArr []float64
+	for _, stock := range targetArr {
+		closeArr = []float64{}
+		for _, date := range fetchDate {
+			close := cache.GetCache().GetHistoryClose(stock.Stock.Number, date)
+			if close == 0 {
+				log.Get().Warnf("%s on %s close is 0", stock.Stock.Number, date.Format(global.ShortTimeLayout))
+				break
+			}
+			closeArr = append(closeArr, close)
+		}
+		i := 0
+		for {
+			if i+int(analyzeConf.MAPeriod) > len(closeArr) {
+				break
+			}
+			tmp := closeArr[i : i+int(analyzeConf.MAPeriod)]
+			ma, err := utils.GenerareMAByCloseArr(tmp)
+			if err != nil {
+				return err
+			}
+			calendarDate, err := dbagent.Get().GetCalendarDate(fetchDate[i])
+			if err != nil {
+				log.Get().Panic(err)
+			}
+			toDBMA := &dbagent.HistoryMA{
+				QuaterMA:     utils.Round(ma, 2),
+				Stock:        stock.Stock,
+				CalendarDate: calendarDate,
+			}
+
+			if err := dbagent.Get().InsertOrUpdateHistoryMA(toDBMA); err != nil {
+				log.Get().Panic(err)
+			}
+			i++
+		}
 	}
 	return nil
 }

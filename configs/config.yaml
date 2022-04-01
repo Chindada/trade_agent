@@ -4,6 +4,7 @@ server:
     http_port: 16670
     sinopac_srv_host: 172.20.10.223
     sinopac_srv_port: 13333
+    sinopac_max_conn: 90
 
 # database
 database:
@@ -42,9 +43,9 @@ trade_switch:
 # trade
 trade:
     # unit: day
-    history_close_period: 7
+    history_close_period: 90
     history_tick_period: 3
-    history_kbar_period: 3
+    history_kbar_period: 90
     # unit: minute
     hold_time_from_open: 5
     # unit: hours
@@ -93,6 +94,8 @@ analyze:
     rsi_low: 0.3
     # unit: %
     max_loss: 2
+    # unit: day
+    ma_period: 60
 
 # schedule cron
 schedule:

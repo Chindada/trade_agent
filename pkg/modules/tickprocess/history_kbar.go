@@ -2,6 +2,9 @@
 package tickprocess
 
 import (
+	"time"
+
+	"trade_agent/global"
 	"trade_agent/pkg/cache"
 	"trade_agent/pkg/dbagent"
 	"trade_agent/pkg/log"
@@ -33,6 +36,16 @@ func historyKbarCallback(m mqhandler.MQMessage) {
 	for _, v := range body.GetData() {
 		saveKbar = append(saveKbar, v.ToHistoryKbar(body.GetStockNum()))
 	}
+
+	if len(saveKbar) == 0 {
+		return
+	}
+
+	dataTime, err := time.ParseInLocation(global.ShortTimeLayout, body.GetStartDate(), time.Local)
+	if err != nil {
+		log.Get().Panic(err)
+	}
+	cache.GetCache().SetStockHistoryOpen(body.GetStockNum(), saveKbar[0].Open, dataTime)
 
 	if err := dbagent.Get().InsertMultiHistoryKbar(saveKbar); err != nil {
 		log.Get().Panic(err)

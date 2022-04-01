@@ -83,6 +83,6 @@ func (c HistoryKbarArr) Analyzer() string {
 // GetHistoryKbarByStockIDAndDate GetHistoryKbarByStockIDAndDate
 func (c *DBAgent) GetHistoryKbarByStockIDAndDate(stockID int64, date time.Time) (HistoryKbarArr, error) {
 	var tmp HistoryKbarArr
-	err := c.DB.Preload("Stock").Model(&HistoryKbar{}).Where("stock_id = ? and tick_time >= ? and tick_time < ?", stockID, date, date.AddDate(0, 0, 1)).Find(&tmp).Error
+	err := c.DB.Preload("Stock").Model(&HistoryKbar{}).Where("stock_id = ? and tick_time >= ? and tick_time < ?", stockID, date, date.AddDate(0, 0, 1)).Order("tick_time asc").Find(&tmp).Error
 	return tmp, err
 }

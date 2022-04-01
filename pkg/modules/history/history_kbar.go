@@ -4,6 +4,7 @@ package history
 import (
 	"sync"
 	"time"
+
 	"trade_agent/global"
 	"trade_agent/pkg/cache"
 	"trade_agent/pkg/dbagent"
@@ -31,6 +32,11 @@ func subHistoryKbar(targetArr []*dbagent.Target, fetchDate []time.Time) error {
 				if dbErr != nil {
 					return dbErr
 				}
+
+				if len(dbHistoryKbar) != 0 {
+					cache.GetCache().SetStockHistoryOpen(v.Stock.Number, dbHistoryKbar[0].Open, date)
+				}
+
 				status := dbHistoryKbar.Analyzer()
 				cache.GetCache().SetStockHistoryKbarAnalyze(v.Stock.Number, status)
 				continue

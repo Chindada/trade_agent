@@ -81,6 +81,7 @@ func snapShotCallback(m mqhandler.MQMessage) {
 					Volume:      tmpTarget.totalVolume,
 					Rank:        len(targetArr) + 1 + 100,
 					RealTimeAdd: true,
+					Subscribe:   true,
 				}
 				targetArr = append(targetArr, tmp)
 				log.Get().WithFields(map[string]interface{}{

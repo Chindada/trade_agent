@@ -3,6 +3,7 @@ package tradeday
 
 import (
 	"time"
+
 	"trade_agent/pkg/cache"
 )
 
@@ -25,6 +26,18 @@ func GetTradeDay() (tradeDay time.Time, err error) {
 func GetNextTradeDayTime(nowTime time.Time) (tradeDay time.Time, err error) {
 	tmp := time.Date(nowTime.Year(), nowTime.Month(), nowTime.Day(), 0, 0, 0, 0, time.Local)
 	calendar := cache.GetCache().GetCalendar()
+	if !calendar[tmp] {
+		nowTime = nowTime.AddDate(0, 0, 1)
+		return GetNextTradeDayTime(nowTime)
+	}
+	return tmp, err
+}
+
+// GetAbsNextTradeDayTime GetAbsNextTradeDayTime
+func GetAbsNextTradeDayTime(nowTime time.Time) (tradeDay time.Time, err error) {
+	tmp := time.Date(nowTime.Year(), nowTime.Month(), nowTime.Day(), 0, 0, 0, 0, time.Local).AddDate(0, 0, 1)
+	calendar := cache.GetCache().GetCalendar()
+
 	if !calendar[tmp] {
 		nowTime = nowTime.AddDate(0, 0, 1)
 		return GetNextTradeDayTime(nowTime)

@@ -17,6 +17,7 @@ type Target struct {
 
 	Rank        int   `json:"rank,omitempty" yaml:"rank" gorm:"column:rank"`
 	Volume      int64 `json:"volume,omitempty" yaml:"volume" gorm:"column:volume"`
+	Subscribe   bool  `json:"subscribe,omitempty" yaml:"subscribe"`
 	RealTimeAdd bool  `json:"real_time_add,omitempty" yaml:"real_time_add" gorm:"column:real_time_add"`
 }
 
