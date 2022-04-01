@@ -44,6 +44,10 @@ func getRealTimeTargets() error {
 
 // snapShotCallback snapShotCallback
 func snapShotCallback(m mqhandler.MQMessage) {
+	if currentTarget := cache.GetCache().GetTargets(); len(currentTarget) >= 100 {
+		log.Get().Warn("Subscribe Target is full(100)")
+		return
+	}
 	body := pb.SnapshotResponse{}
 	err := body.UnmarshalProto(m.Payload())
 	if err != nil {

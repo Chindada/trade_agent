@@ -119,6 +119,8 @@ func volumeRankCallback(m mqhandler.MQMessage) {
 			}).Error("VolumeRank Stock Cache Error")
 			continue
 		}
+		// save volume to cache
+		cache.GetCache().SetStockVolume(v.GetCode(), v.GetTotalVolume())
 		tmpTarget := stockWithData{
 			stock:       stock,
 			close:       v.GetClose(),
@@ -140,6 +142,10 @@ func volumeRankCallback(m mqhandler.MQMessage) {
 				"Rank":        tmp.Rank,
 			}).Info("Target")
 		}
+	}
+
+	if len(targetArr) >= 100 {
+		targetArr = targetArr[:100]
 	}
 
 	err = dbagent.Get().DeleteMultiTargetByDate(tradeDay)

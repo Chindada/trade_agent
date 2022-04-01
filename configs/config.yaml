@@ -60,8 +60,8 @@ trade:
 # target condition
 target_cond:
     limit_price_low: 10
-    limit_price_high: 50
-    limit_volume: 20000
+    limit_price_high: 100
+    limit_volume: 2000
     black_stock:
         - 1314
         - 2317

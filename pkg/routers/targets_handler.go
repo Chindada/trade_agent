@@ -8,6 +8,7 @@ import (
 
 	"trade_agent/global"
 	"trade_agent/pkg/cache"
+	"trade_agent/pkg/config"
 	"trade_agent/pkg/dbagent"
 	"trade_agent/pkg/eventbus"
 	"trade_agent/pkg/log"
@@ -101,7 +102,11 @@ func queryAllStockByMinMax(min, max float64, originalMap map[string]bool) ([]*db
 	if err != nil {
 		return []*dbagent.Target{}, err
 	}
+	conf := config.GetTargetCondConfig()
 	for stock := range allStock {
+		if cache.GetCache().GetStockVolume(stock) < conf.LimitVolume {
+			continue
+		}
 		if allStock[stock].LastClose >= min && allStock[stock].LastClose < max && !originalMap[stock] {
 			tmp = append(tmp, &dbagent.Target{
 				Stock:       allStock[stock],
