@@ -7,11 +7,10 @@
         "license": {
             "name": "Apache 2.0",
             "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
-        },
-        "version": "2.0.0"
+        }
     },
     "paths": {
-        "/balance": {
+        "/v1/balance": {
             "get": {
                 "consumes": [
                     "application/json"
@@ -22,7 +21,7 @@
                 "tags": [
                     "Balance"
                 ],
-                "summary": "GetAllBalance",
+                "summary": "GetAllBalance V1",
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -51,7 +50,7 @@
                 "tags": [
                     "Balance"
                 ],
-                "summary": "ImportBalance",
+                "summary": "ImportBalance V1",
                 "parameters": [
                     {
                         "description": "Body",
@@ -88,7 +87,7 @@
                 "tags": [
                     "Balance"
                 ],
-                "summary": "DeletaAllBalance",
+                "summary": "DeletaAllBalance V1",
                 "responses": {
                     "200": {
                         "description": ""
@@ -102,7 +101,7 @@
                 }
             }
         },
-        "/cache": {
+        "/v1/cache": {
             "get": {
                 "consumes": [
                     "application/json"
@@ -113,7 +112,7 @@
                 "tags": [
                     "Cache"
                 ],
-                "summary": "GetTradeDayTargets",
+                "summary": "GetTradeDayTargets V1",
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -127,7 +126,7 @@
                 }
             }
         },
-        "/cache/{key}": {
+        "/v1/cache/{key}": {
             "get": {
                 "consumes": [
                     "application/json"
@@ -138,7 +137,7 @@
                 "tags": [
                     "Cache"
                 ],
-                "summary": "GetTradeDayTargets",
+                "summary": "GetTradeDayTargets V1",
                 "parameters": [
                     {
                         "type": "string",
@@ -158,7 +157,7 @@
                 }
             }
         },
-        "/config": {
+        "/v1/config": {
             "get": {
                 "consumes": [
                     "application/json"
@@ -169,7 +168,7 @@
                 "tags": [
                     "Config"
                 ],
-                "summary": "GetAllConfig",
+                "summary": "GetAllConfig V1",
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -180,7 +179,36 @@
                 }
             }
         },
-        "/order": {
+        "/v1/login": {
+            "post": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Login V1"
+                ],
+                "parameters": [
+                    {
+                        "description": "Body",
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/dbagent.Login"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                }
+            }
+        },
+        "/v1/order": {
             "get": {
                 "consumes": [
                     "application/json"
@@ -191,7 +219,7 @@
                 "tags": [
                     "Order"
                 ],
-                "summary": "GetAllOrder",
+                "summary": "GetAllOrder V1",
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -220,7 +248,7 @@
                 "tags": [
                     "Order"
                 ],
-                "summary": "ImportOrder",
+                "summary": "ImportOrder V1",
                 "parameters": [
                     {
                         "description": "Body",
@@ -257,7 +285,7 @@
                 "tags": [
                     "Order"
                 ],
-                "summary": "DeletaAllOrder",
+                "summary": "DeletaAllOrder V1",
                 "responses": {
                     "200": {
                         "description": ""
@@ -271,7 +299,7 @@
                 }
             }
         },
-        "/targets": {
+        "/v1/targets": {
             "get": {
                 "consumes": [
                     "application/json"
@@ -280,7 +308,7 @@
                     "application/json"
                 ],
                 "tags": [
-                    "Targets"
+                    "Targets V1"
                 ],
                 "summary": "GetTradeDayTargets",
                 "responses": {
@@ -309,7 +337,7 @@
                     "application/json"
                 ],
                 "tags": [
-                    "Targets"
+                    "Targets V1"
                 ],
                 "summary": "GetTradeDayTargets",
                 "parameters": [
@@ -334,7 +362,7 @@
                 }
             }
         },
-        "/targets/quater": {
+        "/v1/targets/quater": {
             "get": {
                 "consumes": [
                     "application/json"
@@ -343,7 +371,7 @@
                     "application/json"
                 ],
                 "tags": [
-                    "Targets"
+                    "Targets V1"
                 ],
                 "summary": "GetTradeDayTargets",
                 "responses": {
@@ -365,7 +393,7 @@
                 }
             }
         },
-        "/tse/real-time": {
+        "/v1/tse/real-time": {
             "get": {
                 "consumes": [
                     "application/json"
@@ -376,7 +404,7 @@
                 "tags": [
                     "TSE"
                 ],
-                "summary": "GetRealTimeTSE",
+                "summary": "GetRealTimeTSE V1",
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -554,7 +582,13 @@
         "config.Server": {
             "type": "object",
             "properties": {
+                "cert_path": {
+                    "type": "string"
+                },
                 "http_port": {
+                    "type": "string"
+                },
+                "key_path": {
                     "type": "string"
                 },
                 "run_mode": {
@@ -686,6 +720,21 @@
                     "type": "integer"
                 },
                 "trade_day": {
+                    "type": "string"
+                }
+            }
+        },
+        "dbagent.Login": {
+            "type": "object",
+            "required": [
+                "password",
+                "username"
+            ],
+            "properties": {
+                "password": {
+                    "type": "string"
+                },
+                "username": {
                     "type": "string"
                 }
             }

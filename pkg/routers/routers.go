@@ -2,7 +2,9 @@
 package routers
 
 import (
+	"fmt"
 	"net/http"
+
 	"trade_agent/docs"
 	"trade_agent/global"
 	"trade_agent/pkg/config"
@@ -11,41 +13,67 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-var basePath string = "/trade-agent"
+// APIVersion APIVersion
+const APIVersion string = "v1"
+
+var loginFunc gin.HandlerFunc
 
 // ServeHTTP ServeHTTP
 func ServeHTTP() {
 	go func() {
 		serverConf := config.GetServerConfig()
 		gin.SetMode(serverConf.RunMode)
+
 		g := gin.New()
 		g.Use(corsMiddleware())
 		g.Use(gin.Recovery())
+
 		err := g.SetTrustedProxies(nil)
 		if err != nil {
 			log.Get().Panic(err)
 		}
+
+		authMiddleware := AuthMiddleware(g)
 		addSwagger(g)
-		initRouters(g)
+
+		public := g.Group(fmt.Sprintf("%s/%s", basePath, APIVersion))
+		loginFunc = authMiddleware.LoginHandler
+		public.POST("/login", loginHandler())
+
+		private := g.Group(fmt.Sprintf("%s/%s", basePath, APIVersion))
+		private.Use(authMiddleware.MiddlewareFunc())
+
+		AddBalanceHandlersV1(public)
+		AddTargetsHandlersV1(public)
+		AddOrderHandlersV1(public)
+		AddConfigHandlersV1(public)
+		AddTSEHandlersV1(public)
+
+		if global.Get().GetIsDevelopment() {
+			AddCacheHandlersV1(public)
+		}
+
 		log.Get().Infof("HTTP Server On %s", docs.SwaggerInfo.Host)
-		if err := g.Run(":" + serverConf.HTTPPort); err != nil {
+
+		listenPath := fmt.Sprintf(":%s", serverConf.HTTPPort)
+		// if err := g.Run(listenPath); err != nil {
+		// 	log.Get().Panic(err)
+		// }
+		if err := g.RunTLS(listenPath, serverConf.CertPath, serverConf.KeyPath); err != nil {
 			log.Get().Panic(err)
 		}
 	}()
 }
 
-func initRouters(router *gin.Engine) {
-	mainRoute := router.Group(basePath)
-
-	AddBalanceHandlers(mainRoute)
-	AddTargetsHandlers(mainRoute)
-	AddOrderHandlers(mainRoute)
-	AddConfigHandlers(mainRoute)
-	AddTSEHandlers(mainRoute)
-
-	if global.Get().GetIsDevelopment() {
-		AddCacheHandlers(mainRoute)
-	}
+// loginHandler loginHandler
+// @tags Login V1
+// @accept json
+// @produce json
+// @param body body dbagent.Login{} true "Body"
+// @success 200
+// @Router /v1/login [post]
+func loginHandler() gin.HandlerFunc {
+	return loginFunc
 }
 
 func corsMiddleware() gin.HandlerFunc {
