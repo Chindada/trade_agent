@@ -40,6 +40,8 @@ type Server struct {
 	SinopacSRVHost string `json:"sinopac_srv_host" yaml:"sinopac_srv_host"`
 	SinopacSRVPort string `json:"sinopac_srv_port" yaml:"sinopac_srv_port"`
 	SinopacMAXConn int    `json:"sinopac_max_conn" yaml:"sinopac_max_conn"`
+	CertPath       string `json:"cert_path" yaml:"cert_path"`
+	KeyPath        string `json:"key_path" yaml:"key_path"`
 }
 
 // Database Database
@@ -184,6 +186,9 @@ func parseConfig() {
 	globalConfig.MQTT.CAPath = filepath.Join(globalConfig.basePath, globalConfig.MQTT.CAPath)
 	globalConfig.MQTT.KeyPath = filepath.Join(globalConfig.basePath, globalConfig.MQTT.KeyPath)
 	globalConfig.MQTT.CertPath = filepath.Join(globalConfig.basePath, globalConfig.MQTT.CertPath)
+
+	globalConfig.Server.KeyPath = filepath.Join(globalConfig.basePath, globalConfig.Server.KeyPath)
+	globalConfig.Server.CertPath = filepath.Join(globalConfig.basePath, globalConfig.Server.CertPath)
 
 	checkConfigIsEmpty(*globalConfig)
 }

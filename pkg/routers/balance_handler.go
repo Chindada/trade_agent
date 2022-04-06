@@ -6,27 +6,28 @@ import (
 	"io/ioutil"
 	"net/http"
 	"sort"
+
 	"trade_agent/pkg/dbagent"
 	"trade_agent/pkg/log"
 
 	"github.com/gin-gonic/gin"
 )
 
-// AddBalanceHandlers AddBalanceHandlers
-func AddBalanceHandlers(group *gin.RouterGroup) {
+// AddBalanceHandlersV1 AddBalanceHandlersV1
+func AddBalanceHandlersV1(group *gin.RouterGroup) {
 	group.GET("/balance", GetAllBalance)
 	group.POST("/balance", ImportBalance)
 	group.DELETE("/balance", DeletaAllBalance)
 }
 
 // GetAllBalance GetAllBalance
-// @Summary GetAllBalance
+// @Summary GetAllBalance V1
 // @tags Balance
 // @accept json
 // @produce json
 // @success 200 {object} []dbagent.Balance
 // @failure 500 {object} ErrorResponse
-// @Router /balance [get]
+// @Router /v1/balance [get]
 func GetAllBalance(c *gin.Context) {
 	var res ErrorResponse
 	allBalance, err := dbagent.Get().GetAllBalance()
@@ -45,14 +46,14 @@ func GetAllBalance(c *gin.Context) {
 }
 
 // ImportBalance ImportBalance
-// @Summary ImportBalance
+// @Summary ImportBalance V1
 // @tags Balance
 // @accept json
 // @produce json
 // @param body body []dbagent.Balance{} true "Body"
 // @success 200
 // @failure 500 {object} ErrorResponse
-// @Router /balance [post]
+// @Router /v1/balance [post]
 func ImportBalance(c *gin.Context) {
 	var res ErrorResponse
 	body := []dbagent.Balance{}
@@ -86,13 +87,13 @@ func ImportBalance(c *gin.Context) {
 }
 
 // DeletaAllBalance DeletaAllBalance
-// @Summary DeletaAllBalance
+// @Summary DeletaAllBalance V1
 // @tags Balance
 // @accept json
 // @produce json
 // @success 200
 // @failure 500 {object} ErrorResponse
-// @Router /balance [delete]
+// @Router /v1/balance [delete]
 func DeletaAllBalance(c *gin.Context) {
 	var res ErrorResponse
 	if err := dbagent.Get().DeleteAllBalance(); err != nil {

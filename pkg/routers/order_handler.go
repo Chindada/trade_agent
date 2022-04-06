@@ -6,27 +6,28 @@ import (
 	"io/ioutil"
 	"net/http"
 	"sort"
+
 	"trade_agent/pkg/dbagent"
 	"trade_agent/pkg/log"
 
 	"github.com/gin-gonic/gin"
 )
 
-// AddOrderHandlers AddOrderHandlers
-func AddOrderHandlers(group *gin.RouterGroup) {
+// AddOrderHandlersV1 AddOrderHandlersV1
+func AddOrderHandlersV1(group *gin.RouterGroup) {
 	group.GET("/order", GetAllOrder)
 	group.POST("/order", ImportOrder)
 	group.DELETE("/order", DeletaAllOrder)
 }
 
 // GetAllOrder GetAllOrder
-// @Summary GetAllOrder
+// @Summary GetAllOrder V1
 // @tags Order
 // @accept json
 // @produce json
 // @success 200 {object} []dbagent.OrderStatus
 // @failure 500 {object} ErrorResponse
-// @Router /order [get]
+// @Router /v1/order [get]
 func GetAllOrder(c *gin.Context) {
 	var res ErrorResponse
 	allOrder, err := dbagent.Get().GetAllOrderStatus()
@@ -45,14 +46,14 @@ func GetAllOrder(c *gin.Context) {
 }
 
 // ImportOrder ImportOrder
-// @Summary ImportOrder
+// @Summary ImportOrder V1
 // @tags Order
 // @accept json
 // @produce json
 // @param body body []dbagent.OrderStatus{} true "Body"
 // @success 200
 // @failure 500 {object} ErrorResponse
-// @Router /order [post]
+// @Router /v1/order [post]
 func ImportOrder(c *gin.Context) {
 	var res ErrorResponse
 	body := []dbagent.OrderStatus{}
@@ -88,13 +89,13 @@ func ImportOrder(c *gin.Context) {
 }
 
 // DeletaAllOrder DeletaAllOrder
-// @Summary DeletaAllOrder
+// @Summary DeletaAllOrder V1
 // @tags Order
 // @accept json
 // @produce json
 // @success 200
 // @failure 500 {object} ErrorResponse
-// @Router /order [delete]
+// @Router /v1/order [delete]
 func DeletaAllOrder(c *gin.Context) {
 	var res ErrorResponse
 	if err := dbagent.Get().DeleteAllOrderStatus(); err != nil {

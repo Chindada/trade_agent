@@ -20,7 +20,7 @@ const docTemplate = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
-        "/balance": {
+        "/v1/balance": {
             "get": {
                 "consumes": [
                     "application/json"
@@ -31,7 +31,7 @@ const docTemplate = `{
                 "tags": [
                     "Balance"
                 ],
-                "summary": "GetAllBalance",
+                "summary": "GetAllBalance V1",
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -60,7 +60,7 @@ const docTemplate = `{
                 "tags": [
                     "Balance"
                 ],
-                "summary": "ImportBalance",
+                "summary": "ImportBalance V1",
                 "parameters": [
                     {
                         "description": "Body",
@@ -97,7 +97,7 @@ const docTemplate = `{
                 "tags": [
                     "Balance"
                 ],
-                "summary": "DeletaAllBalance",
+                "summary": "DeletaAllBalance V1",
                 "responses": {
                     "200": {
                         "description": ""
@@ -111,7 +111,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/cache": {
+        "/v1/cache": {
             "get": {
                 "consumes": [
                     "application/json"
@@ -122,7 +122,7 @@ const docTemplate = `{
                 "tags": [
                     "Cache"
                 ],
-                "summary": "GetTradeDayTargets",
+                "summary": "GetTradeDayTargets V1",
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -136,7 +136,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/cache/{key}": {
+        "/v1/cache/{key}": {
             "get": {
                 "consumes": [
                     "application/json"
@@ -147,7 +147,7 @@ const docTemplate = `{
                 "tags": [
                     "Cache"
                 ],
-                "summary": "GetTradeDayTargets",
+                "summary": "GetTradeDayTargets V1",
                 "parameters": [
                     {
                         "type": "string",
@@ -167,7 +167,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/config": {
+        "/v1/config": {
             "get": {
                 "consumes": [
                     "application/json"
@@ -178,7 +178,7 @@ const docTemplate = `{
                 "tags": [
                     "Config"
                 ],
-                "summary": "GetAllConfig",
+                "summary": "GetAllConfig V1",
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -189,7 +189,36 @@ const docTemplate = `{
                 }
             }
         },
-        "/order": {
+        "/v1/login": {
+            "post": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Login V1"
+                ],
+                "parameters": [
+                    {
+                        "description": "Body",
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/dbagent.Login"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                }
+            }
+        },
+        "/v1/order": {
             "get": {
                 "consumes": [
                     "application/json"
@@ -200,7 +229,7 @@ const docTemplate = `{
                 "tags": [
                     "Order"
                 ],
-                "summary": "GetAllOrder",
+                "summary": "GetAllOrder V1",
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -229,7 +258,7 @@ const docTemplate = `{
                 "tags": [
                     "Order"
                 ],
-                "summary": "ImportOrder",
+                "summary": "ImportOrder V1",
                 "parameters": [
                     {
                         "description": "Body",
@@ -266,7 +295,7 @@ const docTemplate = `{
                 "tags": [
                     "Order"
                 ],
-                "summary": "DeletaAllOrder",
+                "summary": "DeletaAllOrder V1",
                 "responses": {
                     "200": {
                         "description": ""
@@ -280,7 +309,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/targets": {
+        "/v1/targets": {
             "get": {
                 "consumes": [
                     "application/json"
@@ -289,7 +318,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "Targets"
+                    "Targets V1"
                 ],
                 "summary": "GetTradeDayTargets",
                 "responses": {
@@ -318,7 +347,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "Targets"
+                    "Targets V1"
                 ],
                 "summary": "GetTradeDayTargets",
                 "parameters": [
@@ -343,7 +372,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/targets/quater": {
+        "/v1/targets/quater": {
             "get": {
                 "consumes": [
                     "application/json"
@@ -352,7 +381,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "Targets"
+                    "Targets V1"
                 ],
                 "summary": "GetTradeDayTargets",
                 "responses": {
@@ -374,7 +403,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/tse/real-time": {
+        "/v1/tse/real-time": {
             "get": {
                 "consumes": [
                     "application/json"
@@ -385,7 +414,7 @@ const docTemplate = `{
                 "tags": [
                     "TSE"
                 ],
-                "summary": "GetRealTimeTSE",
+                "summary": "GetRealTimeTSE V1",
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -563,7 +592,13 @@ const docTemplate = `{
         "config.Server": {
             "type": "object",
             "properties": {
+                "cert_path": {
+                    "type": "string"
+                },
                 "http_port": {
+                    "type": "string"
+                },
+                "key_path": {
                     "type": "string"
                 },
                 "run_mode": {
@@ -695,6 +730,21 @@ const docTemplate = `{
                     "type": "integer"
                 },
                 "trade_day": {
+                    "type": "string"
+                }
+            }
+        },
+        "dbagent.Login": {
+            "type": "object",
+            "required": [
+                "password",
+                "username"
+            ],
+            "properties": {
+                "password": {
+                    "type": "string"
+                },
+                "username": {
                     "type": "string"
                 }
             }
@@ -858,7 +908,7 @@ const docTemplate = `{
 
 // SwaggerInfo holds exported Swagger Info so clients can modify it
 var SwaggerInfo = &swag.Spec{
-	Version:          "2.0.0",
+	Version:          "",
 	Host:             "",
 	BasePath:         "",
 	Schemes:          []string{},

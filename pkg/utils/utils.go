@@ -2,7 +2,9 @@
 package utils
 
 import (
+	"crypto/rand"
 	"math"
+	"math/big"
 	"strconv"
 )
 
@@ -28,4 +30,19 @@ func StrToFloat64(input string) (ans float64, err error) {
 func Round(val float64, precision int) float64 {
 	p := math.Pow10(precision)
 	return math.Floor(val*p+0.5) / p
+}
+
+// RandomString RandomString
+func RandomString(n int) string {
+	letters := []rune("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789")
+
+	s := make([]rune, n)
+	for i := range s {
+		randomBigInt, err := rand.Int(rand.Reader, big.NewInt(int64(len(letters))))
+		if err != nil {
+			return ""
+		}
+		s[i] = letters[randomBigInt.Int64()]
+	}
+	return string(s)
 }

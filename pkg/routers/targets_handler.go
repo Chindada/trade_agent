@@ -17,8 +17,8 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-// AddTargetsHandlers AddTargetsHandlers
-func AddTargetsHandlers(group *gin.RouterGroup) {
+// AddTargetsHandlersV1 AddTargetsHandlersV1
+func AddTargetsHandlersV1(group *gin.RouterGroup) {
 	group.GET("/targets", GetTradeDayTargets)
 	group.POST("/targets", AddTargets)
 
@@ -27,12 +27,12 @@ func AddTargetsHandlers(group *gin.RouterGroup) {
 
 // GetTradeDayTargets GetTradeDayTargets
 // @Summary GetTradeDayTargets
-// @tags Targets
+// @tags Targets V1
 // @accept json
 // @produce json
 // @success 200 {object} []dbagent.Target
 // @failure 500 {object} ErrorResponse
-// @Router /targets [get]
+// @Router /v1/targets [get]
 func GetTradeDayTargets(c *gin.Context) {
 	targets := cache.GetCache().GetTargets()
 	c.JSON(http.StatusOK, targets)
@@ -40,13 +40,13 @@ func GetTradeDayTargets(c *gin.Context) {
 
 // AddTargets AddTargets
 // @Summary GetTradeDayTargets
-// @tags Targets
+// @tags Targets V1
 // @accept json
 // @produce json
 // @param price_range header string true "price_range"
 // @success 200
 // @failure 500 {object} ErrorResponse
-// @Router /targets [post]
+// @Router /v1/targets [post]
 func AddTargets(c *gin.Context) {
 	originalTargets := cache.GetCache().GetTargets()
 	originalMap := make(map[string]bool)
@@ -123,12 +123,12 @@ func queryAllStockByMinMax(min, max float64, originalMap map[string]bool) ([]*db
 
 // GetQuaterTargets GetQuaterTargets
 // @Summary GetTradeDayTargets
-// @tags Targets
+// @tags Targets V1
 // @accept json
 // @produce json
 // @success 200 {object} []QuaterMAResponse{}
 // @failure 500 {object} ErrorResponse
-// @Router /targets/quater [get]
+// @Router /v1/targets/quater [get]
 func GetQuaterTargets(c *gin.Context) {
 	targets := cache.GetCache().GetTargets()
 	belowQuater := make(map[time.Time][]dbagent.Stock)

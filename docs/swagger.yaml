@@ -107,7 +107,11 @@ definitions:
     type: object
   config.Server:
     properties:
+      cert_path:
+        type: string
       http_port:
+        type: string
+      key_path:
         type: string
       run_mode:
         type: string
@@ -195,6 +199,16 @@ definitions:
         type: integer
       trade_day:
         type: string
+    type: object
+  dbagent.Login:
+    properties:
+      password:
+        type: string
+      username:
+        type: string
+    required:
+    - password
+    - username
     type: object
   dbagent.OrderStatus:
     properties:
@@ -304,9 +318,8 @@ info:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
   title: Trade Agent
-  version: 2.0.0
 paths:
-  /balance:
+  /v1/balance:
     delete:
       consumes:
       - application/json
@@ -319,7 +332,7 @@ paths:
           description: Internal Server Error
           schema:
             $ref: '#/definitions/routers.ErrorResponse'
-      summary: DeletaAllBalance
+      summary: DeletaAllBalance V1
       tags:
       - Balance
     get:
@@ -338,7 +351,7 @@ paths:
           description: Internal Server Error
           schema:
             $ref: '#/definitions/routers.ErrorResponse'
-      summary: GetAllBalance
+      summary: GetAllBalance V1
       tags:
       - Balance
     post:
@@ -362,10 +375,10 @@ paths:
           description: Internal Server Error
           schema:
             $ref: '#/definitions/routers.ErrorResponse'
-      summary: ImportBalance
+      summary: ImportBalance V1
       tags:
       - Balance
-  /cache:
+  /v1/cache:
     get:
       consumes:
       - application/json
@@ -378,10 +391,10 @@ paths:
             items:
               type: string
             type: array
-      summary: GetTradeDayTargets
+      summary: GetTradeDayTargets V1
       tags:
       - Cache
-  /cache/{key}:
+  /v1/cache/{key}:
     get:
       consumes:
       - application/json
@@ -398,10 +411,10 @@ paths:
           description: OK
           schema:
             type: object
-      summary: GetTradeDayTargets
+      summary: GetTradeDayTargets V1
       tags:
       - Cache
-  /config:
+  /v1/config:
     get:
       consumes:
       - application/json
@@ -412,10 +425,28 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/config.Config'
-      summary: GetAllConfig
+      summary: GetAllConfig V1
       tags:
       - Config
-  /order:
+  /v1/login:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Body
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/dbagent.Login'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ""
+      tags:
+      - Login V1
+  /v1/order:
     delete:
       consumes:
       - application/json
@@ -428,7 +459,7 @@ paths:
           description: Internal Server Error
           schema:
             $ref: '#/definitions/routers.ErrorResponse'
-      summary: DeletaAllOrder
+      summary: DeletaAllOrder V1
       tags:
       - Order
     get:
@@ -447,7 +478,7 @@ paths:
           description: Internal Server Error
           schema:
             $ref: '#/definitions/routers.ErrorResponse'
-      summary: GetAllOrder
+      summary: GetAllOrder V1
       tags:
       - Order
     post:
@@ -471,10 +502,10 @@ paths:
           description: Internal Server Error
           schema:
             $ref: '#/definitions/routers.ErrorResponse'
-      summary: ImportOrder
+      summary: ImportOrder V1
       tags:
       - Order
-  /targets:
+  /v1/targets:
     get:
       consumes:
       - application/json
@@ -493,7 +524,7 @@ paths:
             $ref: '#/definitions/routers.ErrorResponse'
       summary: GetTradeDayTargets
       tags:
-      - Targets
+      - Targets V1
     post:
       consumes:
       - application/json
@@ -514,8 +545,8 @@ paths:
             $ref: '#/definitions/routers.ErrorResponse'
       summary: GetTradeDayTargets
       tags:
-      - Targets
-  /targets/quater:
+      - Targets V1
+  /v1/targets/quater:
     get:
       consumes:
       - application/json
@@ -534,8 +565,8 @@ paths:
             $ref: '#/definitions/routers.ErrorResponse'
       summary: GetTradeDayTargets
       tags:
-      - Targets
-  /tse/real-time:
+      - Targets V1
+  /v1/tse/real-time:
     get:
       consumes:
       - application/json
@@ -546,7 +577,7 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/dbagent.TSESnapShot'
-      summary: GetRealTimeTSE
+      summary: GetRealTimeTSE V1
       tags:
       - TSE
 swagger: "2.0"

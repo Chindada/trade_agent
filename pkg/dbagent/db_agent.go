@@ -115,6 +115,7 @@ func initConnection() {
 		&RealTimeTick{},
 		&Stock{},
 		&Target{},
+		&User{},
 	)
 	if err != nil {
 		log.Get().Panic(err)

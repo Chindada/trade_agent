@@ -5,6 +5,8 @@ server:
     sinopac_srv_host: 172.20.10.223
     sinopac_srv_port: 13333
     sinopac_max_conn: 90
+    cert_path: /configs/certs/server_crt.pem
+    key_path: /configs/certs/server_key.pem
 
 # database
 database:
