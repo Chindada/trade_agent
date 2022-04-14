@@ -2,6 +2,7 @@
 package routers
 
 import (
+	"fmt"
 	"net/http"
 	"sort"
 	"time"
@@ -15,6 +16,7 @@ import (
 	"trade_agent/pkg/modules/tradeday"
 
 	"github.com/gin-gonic/gin"
+	"gorm.io/gorm"
 )
 
 // AddTargetsHandlersV1 AddTargetsHandlersV1
@@ -121,6 +123,11 @@ func queryAllStockByMinMax(min, max float64, originalMap map[string]bool) ([]*db
 	return tmp, nil
 }
 
+type belowMAStock struct {
+	stock  *dbagent.Stock
+	lastMA float64
+}
+
 // GetQuaterTargets GetQuaterTargets
 // @Summary GetTradeDayTargets
 // @tags Targets V1
@@ -133,6 +140,7 @@ func GetQuaterTargets(c *gin.Context) {
 	targets := cache.GetCache().GetTargets()
 	belowQuater := make(map[time.Time][]dbagent.Stock)
 	result := []QuaterMAResponse{}
+	var lastBelowMAStock []*belowMAStock
 	for _, t := range targets {
 		tmp := *t
 		maArr, err := dbagent.Get().GetAllQuaterMAByStockID(int64(tmp.Stock.ID))
@@ -149,8 +157,28 @@ func GetQuaterTargets(c *gin.Context) {
 					c.JSON(http.StatusInternalServerError, err)
 					return
 				}
+				if nextTradeDay.Equal(cache.GetCache().GetTradeDay()) {
+					fmt.Println(cache.GetCache().GetTradeDay())
+					lastBelowMAStock = append(lastBelowMAStock, &belowMAStock{
+						stock:  ma.Stock,
+						lastMA: ma.QuaterMA,
+					})
+				}
 				if nextOpen := cache.GetCache().GetHistoryOpen(ma.Stock.Number, nextTradeDay); nextOpen != 0 && nextOpen-ma.QuaterMA > 0 {
 					belowQuater[ma.CalendarDate.Date] = append(belowQuater[ma.CalendarDate.Date], *tmp.Stock)
+				}
+			}
+		}
+		if len(lastBelowMAStock) != 0 {
+			for _, s := range lastBelowMAStock {
+				firstTick, err := dbagent.Get().GetFirstTickByStockAndDate(s.stock.ID, cache.GetCache().GetTradeDay())
+				if err != nil && err != gorm.ErrRecordNotFound {
+					log.Get().Error(err)
+					c.JSON(http.StatusInternalServerError, err)
+					return
+				}
+				if firstTick.Open > s.lastMA {
+					belowQuater[cache.GetCache().GetTradeDay()] = append(belowQuater[cache.GetCache().GetTradeDay()], *s.stock)
 				}
 			}
 		}

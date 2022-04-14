@@ -3,6 +3,7 @@ package dbagent
 
 import (
 	"time"
+
 	"trade_agent/pkg/log"
 	"trade_agent/pkg/utils"
 
@@ -75,6 +76,17 @@ func (c *DBAgent) DeleteAllRealTimeTick() error {
 		return nil
 	})
 	return err
+}
+
+// GetFirstTickByStockAndDate GetFirstTickByStockAndDate
+func (c *DBAgent) GetFirstTickByStockAndDate(stockID uint, date time.Time) (*RealTimeTick, error) {
+	var tmp *RealTimeTick
+	query := c.DB.Model(&RealTimeTick{}).
+		Preload("Stock").
+		Where("stock_id = ?", stockID).
+		Where("tick_time >= ? and tick_time < ?", date, date.AddDate(0, 0, 1)).
+		First(&tmp)
+	return tmp, query.Error
 }
 
 // RealTimeTickArr RealTimeTickArr
