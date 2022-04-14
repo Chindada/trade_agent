@@ -53,6 +53,12 @@ func (c *DBAgent) DeleteAllCalendarDate() error {
 	return err
 }
 
+// GetAllTradeDayDate GetAllTradeDayDate
+func (c *DBAgent) GetAllTradeDayDate() (arr []*CalendarDate, err error) {
+	result := c.DB.Model(&CalendarDate{}).Where("is_trade_day = true").Find(&arr)
+	return arr, result.Error
+}
+
 // GetAllCalendarDateMap GetAllCalendarDateMap
 func (c *DBAgent) GetAllCalendarDateMap() (calendarDateMap map[time.Time]bool, err error) {
 	calendarDateMap = make(map[time.Time]bool)
@@ -65,18 +71,18 @@ func (c *DBAgent) GetAllCalendarDateMap() (calendarDateMap map[time.Time]bool, e
 }
 
 // GetAllTradeDayMap GetAllTradeDayMap
-func (c *DBAgent) GetAllTradeDayMap() (tradeDayMap map[time.Time]bool, err error) {
-	tradeDayMap = make(map[time.Time]bool)
-	var calendarDateArr []CalendarDate
-	result := c.DB.Model(&CalendarDate{}).Where("is_trade_day = true").Find(&calendarDateArr)
-	for _, v := range calendarDateArr {
-		tradeDayMap[v.Date] = true
-	}
-	return tradeDayMap, result.Error
-}
+// func (c *DBAgent) GetAllTradeDayMap() (tradeDayMap map[time.Time]bool, err error) {
+// 	tradeDayMap = make(map[time.Time]bool)
+// 	var calendarDateArr []CalendarDate
+// 	result := c.DB.Model(&CalendarDate{}).Where("is_trade_day = true").Find(&calendarDateArr)
+// 	for _, v := range calendarDateArr {
+// 		tradeDayMap[v.Date] = true
+// 	}
+// 	return tradeDayMap, result.Error
+// }
 
 // GetCalendarDate GetCalendarDate
-func (c *DBAgent) GetCalendarDate(date time.Time) (dateTime *CalendarDate, err error) {
-	result := c.DB.Model(&CalendarDate{}).Where("date = ?", date).Find(&dateTime)
-	return dateTime, result.Error
-}
+// func (c *DBAgent) GetCalendarDate(date time.Time) (dateTime *CalendarDate, err error) {
+// 	result := c.DB.Model(&CalendarDate{}).Where("date = ?", date).Find(&dateTime)
+// 	return dateTime, result.Error
+// }

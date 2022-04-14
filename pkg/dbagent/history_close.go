@@ -87,6 +87,25 @@ func (c *DBAgent) GetHistoryCloseByStockAndDate(stockID, dateID int64) (close fl
 	return tmp.Close, result.Error
 }
 
+// GetHistoryCloseByMultiStockAndDate GetHistoryCloseByMultiStockAndDate
+func (c *DBAgent) GetHistoryCloseByMultiStockAndDate(stockID []uint, dateID int64) (closeMap map[uint]float64, err error) {
+	var tmp []HistoryClose
+	query := c.DB.Model(&HistoryClose{}).
+		Preload("Stock").
+		Where("stock_id IN ?", stockID).
+		Where("calendar_date_id = ?", dateID).
+		Find(&tmp)
+
+	result := make(map[uint]float64)
+	for _, s := range stockID {
+		result[s] = 0
+	}
+	for _, v := range tmp {
+		result[v.Stock.ID] = v.Close
+	}
+	return result, query.Error
+}
+
 // GetHistoryOpenByStockAndDate GetHistoryOpenByStockAndDate
 func (c *DBAgent) GetHistoryOpenByStockAndDate(stockID, dateID int64) (open float64, err error) {
 	var tmp HistoryClose

@@ -12,51 +12,58 @@ import (
 	"trade_agent/pkg/sinopacapi"
 )
 
+type tempFetch struct {
+	target *dbagent.Target
+	date   time.Time
+}
+
 func subHistoryKbar(targetArr []*dbagent.Target, fetchDate []time.Time) error {
-	// check history tick exist or fetch
 	errChan := make(chan error)
 	var w sync.WaitGroup
+	var stockIDArr []uint
+	targetMap := make(map[uint]*dbagent.Target)
 	for _, v := range targetArr {
-		for _, date := range fetchDate {
-			exist, err := dbagent.Get().CheckHistoryKbarExistByStockID(v.StockID, date)
-			if err != nil {
-				return err
-			} else if exist {
+		stockIDArr = append(stockIDArr, v.Stock.ID)
+		targetMap[v.Stock.ID] = v
+	}
+	noDataDateArr := []tempFetch{}
+	for _, date := range fetchDate {
+		kbarArr, err := dbagent.Get().GetHistoryOpenByMultiStockIDAndDate(stockIDArr, date)
+		if err != nil {
+			return err
+		}
+		for s, arr := range kbarArr {
+			if len(arr) == 0 {
+				noDataDateArr = append(noDataDateArr, tempFetch{targetMap[s], date})
+			} else {
+				cache.GetCache().SetStockHistoryOpen(arr[0].Stock.Number, arr[0].Open, date)
 				log.Get().WithFields(map[string]interface{}{
-					"Stock": v.Stock.Number,
+					"Stock": arr[0].Stock.Number,
 					"Date":  date.Format(global.ShortTimeLayout),
 				}).Info("HistoryKbar Already Exist")
-
-				// select from db to analyze to cache
-				dbHistoryKbar, dbErr := dbagent.Get().GetHistoryKbarByStockIDAndDate(v.StockID, date)
-				if dbErr != nil {
-					return dbErr
-				}
-
-				if len(dbHistoryKbar) != 0 {
-					cache.GetCache().SetStockHistoryOpen(v.Stock.Number, dbHistoryKbar[0].Open, date)
-				}
-
-				status := dbHistoryKbar.Analyzer()
-				cache.GetCache().SetStockHistoryKbarAnalyze(v.Stock.Number, status)
-				continue
 			}
-			// does not exist, fetch.
-			w.Add(1)
-			stock := v.Stock.Number
-			fetchDate := date.Format(global.ShortTimeLayout)
-			go func(wg *sync.WaitGroup) {
-				defer wg.Done()
-				log.Get().WithFields(map[string]interface{}{
-					"Stock": stock,
-					"Date":  fetchDate,
-				}).Info("Fetching HistoryKbar")
-				sinoErr := sinopacapi.Get().FetchHistoryKbarByDateRange(stock, fetchDate, fetchDate)
-				if err != nil {
-					errChan <- sinoErr
-				}
-			}(&w)
 		}
+	}
+	// 	// status := dbHistoryKbar.Analyzer()
+	// 	// cache.GetCache().SetStockHistoryKbarAnalyze(v.Stock.Number, status)
+	// 	continue
+	// }
+	// // does not exist, fetch.
+	for _, fetch := range noDataDateArr {
+		w.Add(1)
+		stock := fetch.target.Stock.Number
+		fetchDate := fetch.date.Format(global.ShortTimeLayout)
+		go func(wg *sync.WaitGroup) {
+			defer wg.Done()
+			log.Get().WithFields(map[string]interface{}{
+				"Stock": stock,
+				"Date":  fetchDate,
+			}).Info("Fetching HistoryKbar")
+			sinoErr := sinopacapi.Get().FetchHistoryKbarByDateRange(stock, fetchDate, fetchDate)
+			if sinoErr != nil {
+				errChan <- sinoErr
+			}
+		}(&w)
 	}
 	w.Wait()
 	close(errChan)

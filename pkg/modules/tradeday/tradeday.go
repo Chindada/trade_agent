@@ -3,6 +3,7 @@ package tradeday
 
 import (
 	"time"
+
 	"trade_agent/global"
 	"trade_agent/pkg/cache"
 	"trade_agent/pkg/config"
@@ -26,13 +27,19 @@ func InitTradeDay() {
 
 	// get trade config
 	tradeConf := config.GetTradeConfig()
-
 	// save trade day map to cache
-	tradeDayMap, err := dbagent.Get().GetAllTradeDayMap()
+	tradeDayArr, err := dbagent.Get().GetAllTradeDayDate()
 	if err != nil {
 		log.Get().Panic(err)
 	}
-	cache.GetCache().SetCalendar(tradeDayMap)
+	tmp := make(map[time.Time]bool)
+	for _, v := range tradeDayArr {
+		if v.IsTradeDay {
+			tmp[v.Date] = true
+			cache.GetCache().SetCalendarID(v)
+		}
+	}
+	cache.GetCache().SetCalendar(tmp)
 
 	// get trade day and save to cache
 	tradeDay, err := GetTradeDay()

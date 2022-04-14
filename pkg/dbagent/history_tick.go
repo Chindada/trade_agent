@@ -82,6 +82,25 @@ func (c *DBAgent) GetHistoryTickByStockIDAndDate(stockID int64, date time.Time) 
 	return tmp, err
 }
 
+// GetHistoryTickByMultiStockIDAndDate GetHistoryTickByMultiStockIDAndDate
+func (c *DBAgent) GetHistoryTickByMultiStockIDAndDate(stockID []uint, date time.Time) (map[uint]HistoryTickArr, error) {
+	var tmp HistoryTickArr
+	err := c.DB.Preload("Stock").
+		Model(&HistoryTick{}).
+		Where("stock_id IN ?", stockID).
+		Where("tick_time >= ? and tick_time < ?", date, date.AddDate(0, 0, 1)).
+		Find(&tmp).Error
+
+	result := make(map[uint]HistoryTickArr)
+	for _, s := range stockID {
+		result[s] = HistoryTickArr{}
+	}
+	for _, v := range tmp {
+		result[v.Stock.ID] = append(result[v.Stock.ID], v)
+	}
+	return result, err
+}
+
 type (
 	// HistoryTickArr HistoryTickArr
 	HistoryTickArr []*HistoryTick
