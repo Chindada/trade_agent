@@ -8,7 +8,7 @@ require (
 	github.com/eclipse/paho.mqtt.golang v1.3.5
 	github.com/gin-gonic/gin v1.7.7
 	github.com/go-resty/resty/v2 v2.7.0
-	github.com/lib/pq v1.10.4
+	github.com/lib/pq v1.10.5
 	github.com/markcheno/go-talib v0.0.0-20190307022042-cd53a9264d70
 	github.com/patrickmn/go-cache v2.1.0+incompatible
 	github.com/rifflock/lfshook v0.0.0-20180920164130-b9218ef580f5
@@ -18,7 +18,7 @@ require (
 	github.com/swaggo/swag v1.8.1
 	google.golang.org/protobuf v1.28.0
 	gopkg.in/yaml.v2 v2.4.0
-	gorm.io/driver/postgres v1.3.3
+	gorm.io/driver/postgres v1.3.4
 	gorm.io/gorm v1.23.4
 )
 

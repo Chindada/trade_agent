@@ -86,3 +86,32 @@ func (c *DBAgent) GetHistoryKbarByStockIDAndDate(stockID int64, date time.Time) 
 	err := c.DB.Preload("Stock").Model(&HistoryKbar{}).Where("stock_id = ? and tick_time >= ? and tick_time < ?", stockID, date, date.AddDate(0, 0, 1)).Order("tick_time asc").Find(&tmp).Error
 	return tmp, err
 }
+
+// GetHistoryOpenByStockIDAndDate GetHistoryOpenByStockIDAndDate
+func (c *DBAgent) GetHistoryOpenByStockIDAndDate(stockID int64, date time.Time) (*HistoryKbar, error) {
+	var tmp *HistoryKbar
+	err := c.DB.Preload("Stock").Model(&HistoryKbar{}).Where("stock_id = ? and tick_time >= ? and tick_time < ?", stockID, date, date.AddDate(0, 0, 1)).Order("tick_time asc").First(&tmp).Error
+	if tmp != nil {
+		return tmp, err
+	}
+	return nil, err
+}
+
+// GetHistoryOpenByMultiStockIDAndDate GetHistoryOpenByMultiStockIDAndDate
+func (c *DBAgent) GetHistoryOpenByMultiStockIDAndDate(stockID []uint, date time.Time) (map[uint][]*HistoryKbar, error) {
+	var tmp []*HistoryKbar
+	err := c.DB.Preload("Stock").
+		Model(&HistoryKbar{}).
+		Where("stock_id IN ?", stockID).
+		Where("tick_time >= ? and tick_time < ?", date, date.AddDate(0, 0, 1)).
+		Find(&tmp).Error
+
+	result := make(map[uint][]*HistoryKbar)
+	for _, s := range stockID {
+		result[s] = []*HistoryKbar{}
+	}
+	for _, v := range tmp {
+		result[v.Stock.ID] = append(result[v.Stock.ID], v)
+	}
+	return result, err
+}

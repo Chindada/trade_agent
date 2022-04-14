@@ -122,10 +122,7 @@ func calculateQuaterMA(targetArr []*dbagent.Target, fetchDate []time.Time) error
 			if err != nil {
 				return err
 			}
-			calendarDate, err := dbagent.Get().GetCalendarDate(fetchDate[i])
-			if err != nil {
-				log.Get().Panic(err)
-			}
+			calendarDate := cache.GetCache().GetCalendarID(fetchDate[i].Format(global.ShortTimeLayout))
 			toDBMA := &dbagent.HistoryMA{
 				QuaterMA:     utils.Round(ma, 2),
 				Stock:        stock.Stock,
