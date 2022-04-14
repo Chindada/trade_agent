@@ -2,7 +2,6 @@
 package routers
 
 import (
-	"fmt"
 	"net/http"
 	"sort"
 	"time"
@@ -158,7 +157,6 @@ func GetQuaterTargets(c *gin.Context) {
 					return
 				}
 				if nextTradeDay.Equal(cache.GetCache().GetTradeDay()) {
-					fmt.Println(cache.GetCache().GetTradeDay())
 					lastBelowMAStock = append(lastBelowMAStock, &belowMAStock{
 						stock:  ma.Stock,
 						lastMA: ma.QuaterMA,
