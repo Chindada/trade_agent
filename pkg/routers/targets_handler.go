@@ -122,11 +122,6 @@ func queryAllStockByMinMax(min, max float64, originalMap map[string]bool) ([]*db
 	return tmp, nil
 }
 
-type belowMAStock struct {
-	stock  *dbagent.Stock
-	lastMA float64
-}
-
 // GetQuaterTargets GetQuaterTargets
 // @Summary GetTradeDayTargets
 // @tags Targets V1
@@ -139,7 +134,7 @@ func GetQuaterTargets(c *gin.Context) {
 	targets := cache.GetCache().GetTargets()
 	belowQuater := make(map[time.Time][]dbagent.Stock)
 	result := []QuaterMAResponse{}
-	var lastBelowMAStock []*belowMAStock
+	var lastBelowMAStock []*dbagent.HistoryMA
 	for _, t := range targets {
 		tmp := *t
 		maArr, err := dbagent.Get().GetAllQuaterMAByStockID(int64(tmp.Stock.ID))
@@ -157,10 +152,8 @@ func GetQuaterTargets(c *gin.Context) {
 					return
 				}
 				if nextTradeDay.Equal(cache.GetCache().GetTradeDay()) {
-					lastBelowMAStock = append(lastBelowMAStock, &belowMAStock{
-						stock:  ma.Stock,
-						lastMA: ma.QuaterMA,
-					})
+					tmp := ma
+					lastBelowMAStock = append(lastBelowMAStock, &tmp)
 				}
 				if nextOpen := cache.GetCache().GetHistoryOpen(ma.Stock.Number, nextTradeDay); nextOpen != 0 && nextOpen-ma.QuaterMA > 0 {
 					belowQuater[ma.CalendarDate.Date] = append(belowQuater[ma.CalendarDate.Date], *tmp.Stock)
@@ -169,14 +162,14 @@ func GetQuaterTargets(c *gin.Context) {
 		}
 		if len(lastBelowMAStock) != 0 {
 			for _, s := range lastBelowMAStock {
-				firstTick, err := dbagent.Get().GetFirstTickByStockAndDate(s.stock.ID, cache.GetCache().GetTradeDay())
+				firstTick, err := dbagent.Get().GetFirstTickByStockAndDate(s.Stock.ID, cache.GetCache().GetTradeDay())
 				if err != nil && err != gorm.ErrRecordNotFound {
 					log.Get().Error(err)
 					c.JSON(http.StatusInternalServerError, err)
 					return
 				}
-				if firstTick.Open > s.lastMA {
-					belowQuater[cache.GetCache().GetTradeDay()] = append(belowQuater[cache.GetCache().GetTradeDay()], *s.stock)
+				if firstTick.Open > s.QuaterMA {
+					belowQuater[s.CalendarDate.Date] = append(belowQuater[s.CalendarDate.Date], *s.Stock)
 				}
 			}
 		}
