@@ -4,6 +4,7 @@ package mqhandler
 import (
 	"sync"
 	"time"
+
 	"trade_agent/pkg/config"
 	"trade_agent/pkg/log"
 	"trade_agent/pkg/utils"

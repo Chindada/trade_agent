@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"net/http"
 
-	"trade_agent/docs"
 	"trade_agent/global"
 	"trade_agent/pkg/config"
 	"trade_agent/pkg/log"
@@ -48,19 +47,19 @@ func ServeHTTP() {
 		AddOrderHandlersV1(public)
 		AddConfigHandlersV1(public)
 		AddTSEHandlersV1(public)
+		AddSocketHandlersV1(public)
 
+		// log.Get().Infof("HTTP Server On %s", docs.SwaggerInfo.Host)
+		listenPath := fmt.Sprintf(":%s", serverConf.HTTPPort)
 		if global.Get().GetIsDevelopment() {
 			AddCacheHandlersV1(public)
-		}
-
-		log.Get().Infof("HTTP Server On %s", docs.SwaggerInfo.Host)
-
-		listenPath := fmt.Sprintf(":%s", serverConf.HTTPPort)
-		// if err := g.Run(listenPath); err != nil {
-		// 	log.Get().Panic(err)
-		// }
-		if err := g.RunTLS(listenPath, serverConf.CertPath, serverConf.KeyPath); err != nil {
-			log.Get().Panic(err)
+			if err := g.Run(listenPath); err != nil {
+				log.Get().Panic(err)
+			}
+		} else {
+			if err := g.RunTLS(listenPath, serverConf.CertPath, serverConf.KeyPath); err != nil {
+				log.Get().Panic(err)
+			}
 		}
 	}()
 }

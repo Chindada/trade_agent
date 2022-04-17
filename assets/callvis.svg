@@ -15,6 +15,14 @@
 <polygon fill="#e6ecfa" stroke="#000000" stroke-width=".5" points="8,-48.4444 8,-6215.4444 2193.5913,-6215.4444 2193.5913,-48.4444 8,-48.4444"/>
 <text text-anchor="middle" x="1100.7957" y="-6195.2444" font-family="Arial" font-size="18.00" fill="#000000">order</text>
 </g>
+<g id="clust79" class="cluster">
+<title>cluster_trade_agent/cmd</title>
+<g id="a_clust79"><a xlink:href="/?f=trade_agent/cmd" xlink:title="package: trade_agent/cmd">
+<polygon fill="#ffffe0" stroke="#000000" stroke-width=".8" points="16,-5834.4444 16,-5913.4444 86,-5913.4444 86,-5834.4444 16,-5834.4444"/>
+<text text-anchor="middle" x="51" y="-5895.0444" font-family="Tahoma bold" font-size="16.00" fill="#000000">main</text>
+</a>
+</g>
+</g>
 <g id="clust2" class="cluster">
 <title>cluster_compress/flate</title>
 <g id="a_clust2"><a xlink:href="/?f=compress/flate" xlink:title="package: compress/flate">
@@ -135,19 +143,19 @@
 </a>
 </g>
 </g>
-<g id="clust16" class="cluster">
-<title>cluster_crypto/x509.SystemRootsError</title>
-<g id="a_clust16"><a xlink:href="/?f=crypto/x509" xlink:title="type: crypto/x509.SystemRootsError">
-<path fill="#c2e3c2" stroke="#000000" stroke-width=".5" d="M1193.7305,-2152.4444C1193.7305,-2152.4444 1305.7305,-2152.4444 1305.7305,-2152.4444 1311.7305,-2152.4444 1317.7305,-2158.4444 1317.7305,-2164.4444 1317.7305,-2164.4444 1317.7305,-2218.4444 1317.7305,-2218.4444 1317.7305,-2224.4444 1311.7305,-2230.4444 1305.7305,-2230.4444 1305.7305,-2230.4444 1193.7305,-2230.4444 1193.7305,-2230.4444 1187.7305,-2230.4444 1181.7305,-2224.4444 1181.7305,-2218.4444 1181.7305,-2218.4444 1181.7305,-2164.4444 1181.7305,-2164.4444 1181.7305,-2158.4444 1187.7305,-2152.4444 1193.7305,-2152.4444"/>
-<text text-anchor="middle" x="1249.7305" y="-2160.9444" font-family="Tahoma bold" font-size="15.00" fill="#222222">(SystemRootsError)</text>
-</a>
-</g>
-</g>
 <g id="clust15" class="cluster">
 <title>cluster_crypto/x509.HostnameError</title>
 <g id="a_clust15"><a xlink:href="/?f=crypto/x509" xlink:title="type: crypto/x509.HostnameError">
 <path fill="#c2e3c2" stroke="#000000" stroke-width=".5" d="M1202.7305,-1980.4444C1202.7305,-1980.4444 1296.7305,-1980.4444 1296.7305,-1980.4444 1302.7305,-1980.4444 1308.7305,-1986.4444 1308.7305,-1992.4444 1308.7305,-1992.4444 1308.7305,-2046.4444 1308.7305,-2046.4444 1308.7305,-2052.4444 1302.7305,-2058.4444 1296.7305,-2058.4444 1296.7305,-2058.4444 1202.7305,-2058.4444 1202.7305,-2058.4444 1196.7305,-2058.4444 1190.7305,-2052.4444 1190.7305,-2046.4444 1190.7305,-2046.4444 1190.7305,-1992.4444 1190.7305,-1992.4444 1190.7305,-1986.4444 1196.7305,-1980.4444 1202.7305,-1980.4444"/>
 <text text-anchor="middle" x="1249.7305" y="-1988.9444" font-family="Tahoma bold" font-size="15.00" fill="#222222">(HostnameError)</text>
+</a>
+</g>
+</g>
+<g id="clust16" class="cluster">
+<title>cluster_crypto/x509.SystemRootsError</title>
+<g id="a_clust16"><a xlink:href="/?f=crypto/x509" xlink:title="type: crypto/x509.SystemRootsError">
+<path fill="#c2e3c2" stroke="#000000" stroke-width=".5" d="M1193.7305,-2152.4444C1193.7305,-2152.4444 1305.7305,-2152.4444 1305.7305,-2152.4444 1311.7305,-2152.4444 1317.7305,-2158.4444 1317.7305,-2164.4444 1317.7305,-2164.4444 1317.7305,-2218.4444 1317.7305,-2218.4444 1317.7305,-2224.4444 1311.7305,-2230.4444 1305.7305,-2230.4444 1305.7305,-2230.4444 1193.7305,-2230.4444 1193.7305,-2230.4444 1187.7305,-2230.4444 1181.7305,-2224.4444 1181.7305,-2218.4444 1181.7305,-2218.4444 1181.7305,-2164.4444 1181.7305,-2164.4444 1181.7305,-2158.4444 1187.7305,-2152.4444 1193.7305,-2152.4444"/>
+<text text-anchor="middle" x="1249.7305" y="-2160.9444" font-family="Tahoma bold" font-size="15.00" fill="#222222">(SystemRootsError)</text>
 </a>
 </g>
 </g>
@@ -535,14 +543,6 @@
 </a>
 </g>
 </g>
-<g id="clust79" class="cluster">
-<title>cluster_trade_agent/cmd</title>
-<g id="a_clust79"><a xlink:href="/?f=trade_agent/cmd" xlink:title="package: trade_agent/cmd">
-<polygon fill="#ffffe0" stroke="#000000" stroke-width=".8" points="16,-5834.4444 16,-5913.4444 86,-5913.4444 86,-5834.4444 16,-5834.4444"/>
-<text text-anchor="middle" x="51" y="-5895.0444" font-family="Tahoma bold" font-size="16.00" fill="#000000">main</text>
-</a>
-</g>
-</g>
 <g id="clust37" class="cluster">
 <title>cluster_github.com/eclipse/paho.mqtt.golang</title>
 <g id="a_clust37"><a xlink:href="/?f=github.com/eclipse/paho.mqtt.golang" xlink:title="package: github.com/eclipse/paho.mqtt.golang">
@@ -572,150 +572,6 @@
 <g id="a_clust96"><a xlink:href="/?f=trade_agent/pkg/sinopacapi/sinopacerr" xlink:title="type: *trade_agent/pkg/sinopacapi/sinopacerr.SinopacError">
 <path fill="#eed8ae" stroke="#000000" stroke-width=".5" d="M1205.7305,-852.4444C1205.7305,-852.4444 1294.7305,-852.4444 1294.7305,-852.4444 1300.7305,-852.4444 1306.7305,-858.4444 1306.7305,-864.4444 1306.7305,-864.4444 1306.7305,-918.4444 1306.7305,-918.4444 1306.7305,-924.4444 1300.7305,-930.4444 1294.7305,-930.4444 1294.7305,-930.4444 1205.7305,-930.4444 1205.7305,-930.4444 1199.7305,-930.4444 1193.7305,-924.4444 1193.7305,-918.4444 1193.7305,-918.4444 1193.7305,-864.4444 1193.7305,-864.4444 1193.7305,-858.4444 1199.7305,-852.4444 1205.7305,-852.4444"/>
 <text text-anchor="middle" x="1250.2305" y="-860.9444" font-family="Tahoma bold" font-size="15.00" fill="#222222">(*SinopacError)</text>
-</a>
-</g>
-</g>
-<g id="clust39" class="cluster">
-<title>cluster_github.com/go&#45;resty/resty/v2</title>
-<g id="a_clust39"><a xlink:href="/?f=github.com/go-resty/resty/v2" xlink:title="package: github.com/go&#45;resty/resty/v2">
-<polygon fill="#ffffe0" stroke="#000000" stroke-width=".8" points="1191.7305,-3842.4444 1191.7305,-3963.4444 1307.7305,-3963.4444 1307.7305,-3842.4444 1191.7305,-3842.4444"/>
-<text text-anchor="middle" x="1249.7305" y="-3945.0444" font-family="Tahoma bold" font-size="16.00" fill="#000000">resty</text>
-</a>
-</g>
-</g>
-<g id="clust40" class="cluster">
-<title>cluster_*github.com/go&#45;resty/resty/v2.noRetryErr</title>
-<g id="a_clust40"><a xlink:href="/?f=github.com/go-resty/resty/v2" xlink:title="type: *github.com/go&#45;resty/resty/v2.noRetryErr">
-<path fill="#eed8ae" stroke="#000000" stroke-width=".5" d="M1211.7305,-3850.4444C1211.7305,-3850.4444 1287.7305,-3850.4444 1287.7305,-3850.4444 1293.7305,-3850.4444 1299.7305,-3856.4444 1299.7305,-3862.4444 1299.7305,-3862.4444 1299.7305,-3916.4444 1299.7305,-3916.4444 1299.7305,-3922.4444 1293.7305,-3928.4444 1287.7305,-3928.4444 1287.7305,-3928.4444 1211.7305,-3928.4444 1211.7305,-3928.4444 1205.7305,-3928.4444 1199.7305,-3922.4444 1199.7305,-3916.4444 1199.7305,-3916.4444 1199.7305,-3862.4444 1199.7305,-3862.4444 1199.7305,-3856.4444 1205.7305,-3850.4444 1211.7305,-3850.4444"/>
-<text text-anchor="middle" x="1249.7305" y="-3858.9444" font-family="Tahoma bold" font-size="15.00" fill="#222222">(*noRetryErr)</text>
-</a>
-</g>
-</g>
-<g id="clust41" class="cluster">
-<title>cluster_github.com/gorilla/websocket</title>
-<g id="a_clust41"><a xlink:href="/?f=github.com/gorilla/websocket" xlink:title="package: github.com/gorilla/websocket">
-<polygon fill="#ffffe0" stroke="#000000" stroke-width=".8" points="1192.7305,-3971.4444 1192.7305,-4178.4444 1307.7305,-4178.4444 1307.7305,-3971.4444 1192.7305,-3971.4444"/>
-<text text-anchor="middle" x="1250.2305" y="-4160.0444" font-family="Tahoma bold" font-size="16.00" fill="#000000">websocket</text>
-</a>
-</g>
-</g>
-<g id="clust42" class="cluster">
-<title>cluster_*github.com/gorilla/websocket.CloseError</title>
-<g id="a_clust42"><a xlink:href="/?f=github.com/gorilla/websocket" xlink:title="type: *github.com/gorilla/websocket.CloseError">
-<path fill="#eed8ae" stroke="#000000" stroke-width=".5" d="M1212.7305,-3979.4444C1212.7305,-3979.4444 1287.7305,-3979.4444 1287.7305,-3979.4444 1293.7305,-3979.4444 1299.7305,-3985.4444 1299.7305,-3991.4444 1299.7305,-3991.4444 1299.7305,-4045.4444 1299.7305,-4045.4444 1299.7305,-4051.4444 1293.7305,-4057.4444 1287.7305,-4057.4444 1287.7305,-4057.4444 1212.7305,-4057.4444 1212.7305,-4057.4444 1206.7305,-4057.4444 1200.7305,-4051.4444 1200.7305,-4045.4444 1200.7305,-4045.4444 1200.7305,-3991.4444 1200.7305,-3991.4444 1200.7305,-3985.4444 1206.7305,-3979.4444 1212.7305,-3979.4444"/>
-<text text-anchor="middle" x="1250.2305" y="-3987.9444" font-family="Tahoma bold" font-size="15.00" fill="#222222">(*CloseError)</text>
-</a>
-</g>
-</g>
-<g id="clust43" class="cluster">
-<title>cluster_*github.com/gorilla/websocket.netError</title>
-<g id="a_clust43"><a xlink:href="/?f=github.com/gorilla/websocket" xlink:title="type: *github.com/gorilla/websocket.netError">
-<path fill="#eed8ae" stroke="#000000" stroke-width=".5" d="M1220.7305,-4065.4444C1220.7305,-4065.4444 1279.7305,-4065.4444 1279.7305,-4065.4444 1285.7305,-4065.4444 1291.7305,-4071.4444 1291.7305,-4077.4444 1291.7305,-4077.4444 1291.7305,-4131.4444 1291.7305,-4131.4444 1291.7305,-4137.4444 1285.7305,-4143.4444 1279.7305,-4143.4444 1279.7305,-4143.4444 1220.7305,-4143.4444 1220.7305,-4143.4444 1214.7305,-4143.4444 1208.7305,-4137.4444 1208.7305,-4131.4444 1208.7305,-4131.4444 1208.7305,-4077.4444 1208.7305,-4077.4444 1208.7305,-4071.4444 1214.7305,-4065.4444 1220.7305,-4065.4444"/>
-<text text-anchor="middle" x="1250.2305" y="-4073.9444" font-family="Tahoma bold" font-size="15.00" fill="#222222">(*netError)</text>
-</a>
-</g>
-</g>
-<g id="clust44" class="cluster">
-<title>cluster_github.com/jackc/pgx/v4</title>
-<g id="a_clust44"><a xlink:href="/?f=github.com/jackc/pgx/v4" xlink:title="package: github.com/jackc/pgx/v4">
-<polygon fill="#ffffe0" stroke="#000000" stroke-width=".8" points="1175.7305,-4186.4444 1175.7305,-4307.4444 1324.7305,-4307.4444 1324.7305,-4186.4444 1175.7305,-4186.4444"/>
-<text text-anchor="middle" x="1250.2305" y="-4289.0444" font-family="Tahoma bold" font-size="16.00" fill="#000000">pgx</text>
-</a>
-</g>
-</g>
-<g id="clust45" class="cluster">
-<title>cluster_github.com/jackc/pgx/v4.SerializationError</title>
-<g id="a_clust45"><a xlink:href="/?f=github.com/jackc/pgx/v4" xlink:title="type: github.com/jackc/pgx/v4.SerializationError">
-<path fill="#eed8ae" stroke="#000000" stroke-width=".5" d="M1195.7305,-4194.4444C1195.7305,-4194.4444 1304.7305,-4194.4444 1304.7305,-4194.4444 1310.7305,-4194.4444 1316.7305,-4200.4444 1316.7305,-4206.4444 1316.7305,-4206.4444 1316.7305,-4260.4444 1316.7305,-4260.4444 1316.7305,-4266.4444 1310.7305,-4272.4444 1304.7305,-4272.4444 1304.7305,-4272.4444 1195.7305,-4272.4444 1195.7305,-4272.4444 1189.7305,-4272.4444 1183.7305,-4266.4444 1183.7305,-4260.4444 1183.7305,-4260.4444 1183.7305,-4206.4444 1183.7305,-4206.4444 1183.7305,-4200.4444 1189.7305,-4194.4444 1195.7305,-4194.4444"/>
-<text text-anchor="middle" x="1250.2305" y="-4202.9444" font-family="Tahoma bold" font-size="15.00" fill="#222222">(SerializationError)</text>
-</a>
-</g>
-</g>
-<g id="clust46" class="cluster">
-<title>cluster_github.com/sirupsen/logrus</title>
-<g id="a_clust46"><a xlink:href="/?f=github.com/sirupsen/logrus" xlink:title="package: github.com/sirupsen/logrus">
-<polygon fill="#ffffe0" stroke="#000000" stroke-width=".8" points="2017.9492,-4580.4444 2017.9492,-5092.4444 2129.3433,-5092.4444 2129.3433,-4580.4444 2017.9492,-4580.4444"/>
-<text text-anchor="middle" x="2073.6463" y="-5074.0444" font-family="Tahoma bold" font-size="16.00" fill="#000000">logrus</text>
-</a>
-</g>
-</g>
-<g id="clust47" class="cluster">
-<title>cluster_*github.com/sirupsen/logrus.Entry</title>
-<g id="a_clust47"><a xlink:href="/?f=github.com/sirupsen/logrus" xlink:title="type: *github.com/sirupsen/logrus.Entry">
-<path fill="#eed8ae" stroke="#000000" stroke-width=".5" d="M2050.6463,-4588.4444C2050.6463,-4588.4444 2096.6463,-4588.4444 2096.6463,-4588.4444 2102.6463,-4588.4444 2108.6463,-4594.4444 2108.6463,-4600.4444 2108.6463,-4600.4444 2108.6463,-4715.4444 2108.6463,-4715.4444 2108.6463,-4721.4444 2102.6463,-4727.4444 2096.6463,-4727.4444 2096.6463,-4727.4444 2050.6463,-4727.4444 2050.6463,-4727.4444 2044.6463,-4727.4444 2038.6463,-4721.4444 2038.6463,-4715.4444 2038.6463,-4715.4444 2038.6463,-4600.4444 2038.6463,-4600.4444 2038.6463,-4594.4444 2044.6463,-4588.4444 2050.6463,-4588.4444"/>
-<text text-anchor="middle" x="2073.6463" y="-4596.9444" font-family="Tahoma bold" font-size="15.00" fill="#222222">(*Entry)</text>
-</a>
-</g>
-</g>
-<g id="clust48" class="cluster">
-<title>cluster_*github.com/sirupsen/logrus.Logger</title>
-<g id="a_clust48"><a xlink:href="/?f=github.com/sirupsen/logrus" xlink:title="type: *github.com/sirupsen/logrus.Logger">
-<path fill="#eed8ae" stroke="#000000" stroke-width=".5" d="M2037.9492,-4735.4444C2037.9492,-4735.4444 2109.3433,-4735.4444 2109.3433,-4735.4444 2115.3433,-4735.4444 2121.3433,-4741.4444 2121.3433,-4747.4444 2121.3433,-4747.4444 2121.3433,-5045.4444 2121.3433,-5045.4444 2121.3433,-5051.4444 2115.3433,-5057.4444 2109.3433,-5057.4444 2109.3433,-5057.4444 2037.9492,-5057.4444 2037.9492,-5057.4444 2031.9492,-5057.4444 2025.9492,-5051.4444 2025.9492,-5045.4444 2025.9492,-5045.4444 2025.9492,-4747.4444 2025.9492,-4747.4444 2025.9492,-4741.4444 2031.9492,-4735.4444 2037.9492,-4735.4444"/>
-<text text-anchor="middle" x="2073.6463" y="-4743.9444" font-family="Tahoma bold" font-size="15.00" fill="#222222">(*Logger)</text>
-</a>
-</g>
-</g>
-<g id="clust97" class="cluster">
-<title>cluster_vendor/golang.org/x/net/idna</title>
-<g id="a_clust97"><a xlink:href="/?f=vendor/golang.org/x/net/idna" xlink:title="package: vendor/golang.org/x/net/idna">
-<polygon fill="#e0ffe1" stroke="#000000" stroke-width=".8" points="1148.7305,-973.4444 1148.7305,-1180.4444 1350.7305,-1180.4444 1350.7305,-973.4444 1148.7305,-973.4444"/>
-<text text-anchor="middle" x="1249.7305" y="-1162.0444" font-family="Tahoma bold" font-size="16.00" fill="#000000">vendor/golang.org/x/net/idna</text>
-</a>
-</g>
-</g>
-<g id="clust98" class="cluster">
-<title>cluster_vendor/golang.org/x/net/idna.labelError</title>
-<g id="a_clust98"><a xlink:href="/?f=vendor/golang.org/x/net/idna" xlink:title="type: vendor/golang.org/x/net/idna.labelError">
-<path fill="#c2e3c2" stroke="#000000" stroke-width=".5" d="M1218.7305,-1067.4444C1218.7305,-1067.4444 1280.7305,-1067.4444 1280.7305,-1067.4444 1286.7305,-1067.4444 1292.7305,-1073.4444 1292.7305,-1079.4444 1292.7305,-1079.4444 1292.7305,-1133.4444 1292.7305,-1133.4444 1292.7305,-1139.4444 1286.7305,-1145.4444 1280.7305,-1145.4444 1280.7305,-1145.4444 1218.7305,-1145.4444 1218.7305,-1145.4444 1212.7305,-1145.4444 1206.7305,-1139.4444 1206.7305,-1133.4444 1206.7305,-1133.4444 1206.7305,-1079.4444 1206.7305,-1079.4444 1206.7305,-1073.4444 1212.7305,-1067.4444 1218.7305,-1067.4444"/>
-<text text-anchor="middle" x="1249.7305" y="-1075.9444" font-family="Tahoma bold" font-size="15.00" fill="#222222">(labelError)</text>
-</a>
-</g>
-</g>
-<g id="clust99" class="cluster">
-<title>cluster_vendor/golang.org/x/net/idna.runeError</title>
-<g id="a_clust99"><a xlink:href="/?f=vendor/golang.org/x/net/idna" xlink:title="type: vendor/golang.org/x/net/idna.runeError">
-<path fill="#c2e3c2" stroke="#000000" stroke-width=".5" d="M1219.7305,-981.4444C1219.7305,-981.4444 1279.7305,-981.4444 1279.7305,-981.4444 1285.7305,-981.4444 1291.7305,-987.4444 1291.7305,-993.4444 1291.7305,-993.4444 1291.7305,-1047.4444 1291.7305,-1047.4444 1291.7305,-1053.4444 1285.7305,-1059.4444 1279.7305,-1059.4444 1279.7305,-1059.4444 1219.7305,-1059.4444 1219.7305,-1059.4444 1213.7305,-1059.4444 1207.7305,-1053.4444 1207.7305,-1047.4444 1207.7305,-1047.4444 1207.7305,-993.4444 1207.7305,-993.4444 1207.7305,-987.4444 1213.7305,-981.4444 1219.7305,-981.4444"/>
-<text text-anchor="middle" x="1249.7305" y="-989.9444" font-family="Tahoma bold" font-size="15.00" fill="#222222">(runeError)</text>
-</a>
-</g>
-</g>
-<g id="clust82" class="cluster">
-<title>cluster_trade_agent/pkg/config</title>
-<g id="a_clust82"><a xlink:href="/?f=trade_agent/pkg/config" xlink:title="package: trade_agent/pkg/config">
-<polygon fill="#ffffe0" stroke="#000000" stroke-width=".8" points="1595.1162,-2782.4444 1595.1162,-2983.4444 1774.0149,-2983.4444 1774.0149,-2782.4444 1595.1162,-2782.4444"/>
-<text text-anchor="middle" x="1684.5656" y="-2965.0444" font-family="Tahoma bold" font-size="16.00" fill="#000000">config</text>
-</a>
-</g>
-</g>
-<g id="clust83" class="cluster">
-<title>cluster_trade_agent/pkg/dbagent</title>
-<g id="a_clust83"><a xlink:href="/?f=trade_agent/pkg/dbagent" xlink:title="package: trade_agent/pkg/dbagent">
-<polygon fill="#ffffe0" stroke="#000000" stroke-width=".8" points="1559.4299,-5039.4444 1559.4299,-5265.4444 1809.7012,-5265.4444 1809.7012,-5039.4444 1559.4299,-5039.4444"/>
-<text text-anchor="middle" x="1684.5656" y="-5247.0444" font-family="Tahoma bold" font-size="16.00" fill="#000000">dbagent</text>
-</a>
-</g>
-</g>
-<g id="clust84" class="cluster">
-<title>cluster_*trade_agent/pkg/dbagent.DBAgent</title>
-<g id="a_clust84"><a xlink:href="/?f=trade_agent/pkg/dbagent" xlink:title="type: *trade_agent/pkg/dbagent.DBAgent">
-<path fill="#eed8ae" stroke="#000000" stroke-width=".5" d="M1579.4299,-5091.4444C1579.4299,-5091.4444 1789.7012,-5091.4444 1789.7012,-5091.4444 1795.7012,-5091.4444 1801.7012,-5097.4444 1801.7012,-5103.4444 1801.7012,-5103.4444 1801.7012,-5218.4444 1801.7012,-5218.4444 1801.7012,-5224.4444 1795.7012,-5230.4444 1789.7012,-5230.4444 1789.7012,-5230.4444 1579.4299,-5230.4444 1579.4299,-5230.4444 1573.4299,-5230.4444 1567.4299,-5224.4444 1567.4299,-5218.4444 1567.4299,-5218.4444 1567.4299,-5103.4444 1567.4299,-5103.4444 1567.4299,-5097.4444 1573.4299,-5091.4444 1579.4299,-5091.4444"/>
-<text text-anchor="middle" x="1684.5656" y="-5099.9444" font-family="Tahoma bold" font-size="15.00" fill="#222222">(*DBAgent)</text>
-</a>
-</g>
-</g>
-<g id="clust85" class="cluster">
-<title>cluster_trade_agent/pkg/eventbus</title>
-<g id="a_clust85"><a xlink:href="/?f=trade_agent/pkg/eventbus" xlink:title="package: trade_agent/pkg/eventbus">
-<polygon fill="#ffffe0" stroke="#000000" stroke-width=".8" points="1596.3511,-2130.4444 1596.3511,-2365.4444 1772.7801,-2365.4444 1772.7801,-2130.4444 1596.3511,-2130.4444"/>
-<text text-anchor="middle" x="1684.5656" y="-2347.0444" font-family="Tahoma bold" font-size="16.00" fill="#000000">eventbus</text>
-</a>
-</g>
-</g>
-<g id="clust86" class="cluster">
-<title>cluster_*trade_agent/pkg/eventbus.BusAgent</title>
-<g id="a_clust86"><a xlink:href="/?f=trade_agent/pkg/eventbus" xlink:title="type: *trade_agent/pkg/eventbus.BusAgent">
-<path fill="#eed8ae" stroke="#000000" stroke-width=".5" d="M1616.3511,-2138.4444C1616.3511,-2138.4444 1752.7801,-2138.4444 1752.7801,-2138.4444 1758.7801,-2138.4444 1764.7801,-2144.4444 1764.7801,-2150.4444 1764.7801,-2150.4444 1764.7801,-2265.4444 1764.7801,-2265.4444 1764.7801,-2271.4444 1758.7801,-2277.4444 1752.7801,-2277.4444 1752.7801,-2277.4444 1616.3511,-2277.4444 1616.3511,-2277.4444 1610.3511,-2277.4444 1604.3511,-2271.4444 1604.3511,-2265.4444 1604.3511,-2265.4444 1604.3511,-2150.4444 1604.3511,-2150.4444 1604.3511,-2144.4444 1610.3511,-2138.4444 1616.3511,-2138.4444"/>
-<text text-anchor="middle" x="1684.5656" y="-2146.9444" font-family="Tahoma bold" font-size="15.00" fill="#222222">(*BusAgent)</text>
 </a>
 </g>
 </g>
@@ -783,6 +639,30 @@
 </a>
 </g>
 </g>
+<g id="clust97" class="cluster">
+<title>cluster_vendor/golang.org/x/net/idna</title>
+<g id="a_clust97"><a xlink:href="/?f=vendor/golang.org/x/net/idna" xlink:title="package: vendor/golang.org/x/net/idna">
+<polygon fill="#e0ffe1" stroke="#000000" stroke-width=".8" points="1148.7305,-973.4444 1148.7305,-1180.4444 1350.7305,-1180.4444 1350.7305,-973.4444 1148.7305,-973.4444"/>
+<text text-anchor="middle" x="1249.7305" y="-1162.0444" font-family="Tahoma bold" font-size="16.00" fill="#000000">vendor/golang.org/x/net/idna</text>
+</a>
+</g>
+</g>
+<g id="clust98" class="cluster">
+<title>cluster_vendor/golang.org/x/net/idna.labelError</title>
+<g id="a_clust98"><a xlink:href="/?f=vendor/golang.org/x/net/idna" xlink:title="type: vendor/golang.org/x/net/idna.labelError">
+<path fill="#c2e3c2" stroke="#000000" stroke-width=".5" d="M1218.7305,-1067.4444C1218.7305,-1067.4444 1280.7305,-1067.4444 1280.7305,-1067.4444 1286.7305,-1067.4444 1292.7305,-1073.4444 1292.7305,-1079.4444 1292.7305,-1079.4444 1292.7305,-1133.4444 1292.7305,-1133.4444 1292.7305,-1139.4444 1286.7305,-1145.4444 1280.7305,-1145.4444 1280.7305,-1145.4444 1218.7305,-1145.4444 1218.7305,-1145.4444 1212.7305,-1145.4444 1206.7305,-1139.4444 1206.7305,-1133.4444 1206.7305,-1133.4444 1206.7305,-1079.4444 1206.7305,-1079.4444 1206.7305,-1073.4444 1212.7305,-1067.4444 1218.7305,-1067.4444"/>
+<text text-anchor="middle" x="1249.7305" y="-1075.9444" font-family="Tahoma bold" font-size="15.00" fill="#222222">(labelError)</text>
+</a>
+</g>
+</g>
+<g id="clust99" class="cluster">
+<title>cluster_vendor/golang.org/x/net/idna.runeError</title>
+<g id="a_clust99"><a xlink:href="/?f=vendor/golang.org/x/net/idna" xlink:title="type: vendor/golang.org/x/net/idna.runeError">
+<path fill="#c2e3c2" stroke="#000000" stroke-width=".5" d="M1219.7305,-981.4444C1219.7305,-981.4444 1279.7305,-981.4444 1279.7305,-981.4444 1285.7305,-981.4444 1291.7305,-987.4444 1291.7305,-993.4444 1291.7305,-993.4444 1291.7305,-1047.4444 1291.7305,-1047.4444 1291.7305,-1053.4444 1285.7305,-1059.4444 1279.7305,-1059.4444 1279.7305,-1059.4444 1219.7305,-1059.4444 1219.7305,-1059.4444 1213.7305,-1059.4444 1207.7305,-1053.4444 1207.7305,-1047.4444 1207.7305,-1047.4444 1207.7305,-993.4444 1207.7305,-993.4444 1207.7305,-987.4444 1213.7305,-981.4444 1219.7305,-981.4444"/>
+<text text-anchor="middle" x="1249.7305" y="-989.9444" font-family="Tahoma bold" font-size="15.00" fill="#222222">(runeError)</text>
+</a>
+</g>
+</g>
 <g id="clust80" class="cluster">
 <title>cluster_trade_agent/pkg/cache</title>
 <g id="a_clust80"><a xlink:href="/?f=trade_agent/pkg/cache" xlink:title="package: trade_agent/pkg/cache">
@@ -796,6 +676,126 @@
 <g id="a_clust81"><a xlink:href="/?f=trade_agent/pkg/cache" xlink:title="type: *trade_agent/pkg/cache.Cache">
 <path fill="#eed8ae" stroke="#000000" stroke-width=".5" d="M1581.1996,-2999.4444C1581.1996,-2999.4444 1787.9315,-2999.4444 1787.9315,-2999.4444 1793.9315,-2999.4444 1799.9315,-3005.4444 1799.9315,-3011.4444 1799.9315,-3011.4444 1799.9315,-4407.4444 1799.9315,-4407.4444 1799.9315,-4413.4444 1793.9315,-4419.4444 1787.9315,-4419.4444 1787.9315,-4419.4444 1581.1996,-4419.4444 1581.1996,-4419.4444 1575.1996,-4419.4444 1569.1996,-4413.4444 1569.1996,-4407.4444 1569.1996,-4407.4444 1569.1996,-3011.4444 1569.1996,-3011.4444 1569.1996,-3005.4444 1575.1996,-2999.4444 1581.1996,-2999.4444"/>
 <text text-anchor="middle" x="1684.5656" y="-3007.9444" font-family="Tahoma bold" font-size="15.00" fill="#222222">(*Cache)</text>
+</a>
+</g>
+</g>
+<g id="clust82" class="cluster">
+<title>cluster_trade_agent/pkg/config</title>
+<g id="a_clust82"><a xlink:href="/?f=trade_agent/pkg/config" xlink:title="package: trade_agent/pkg/config">
+<polygon fill="#ffffe0" stroke="#000000" stroke-width=".8" points="1595.1162,-2782.4444 1595.1162,-2983.4444 1774.0149,-2983.4444 1774.0149,-2782.4444 1595.1162,-2782.4444"/>
+<text text-anchor="middle" x="1684.5656" y="-2965.0444" font-family="Tahoma bold" font-size="16.00" fill="#000000">config</text>
+</a>
+</g>
+</g>
+<g id="clust83" class="cluster">
+<title>cluster_trade_agent/pkg/dbagent</title>
+<g id="a_clust83"><a xlink:href="/?f=trade_agent/pkg/dbagent" xlink:title="package: trade_agent/pkg/dbagent">
+<polygon fill="#ffffe0" stroke="#000000" stroke-width=".8" points="1559.4299,-5039.4444 1559.4299,-5265.4444 1809.7012,-5265.4444 1809.7012,-5039.4444 1559.4299,-5039.4444"/>
+<text text-anchor="middle" x="1684.5656" y="-5247.0444" font-family="Tahoma bold" font-size="16.00" fill="#000000">dbagent</text>
+</a>
+</g>
+</g>
+<g id="clust84" class="cluster">
+<title>cluster_*trade_agent/pkg/dbagent.DBAgent</title>
+<g id="a_clust84"><a xlink:href="/?f=trade_agent/pkg/dbagent" xlink:title="type: *trade_agent/pkg/dbagent.DBAgent">
+<path fill="#eed8ae" stroke="#000000" stroke-width=".5" d="M1579.4299,-5091.4444C1579.4299,-5091.4444 1789.7012,-5091.4444 1789.7012,-5091.4444 1795.7012,-5091.4444 1801.7012,-5097.4444 1801.7012,-5103.4444 1801.7012,-5103.4444 1801.7012,-5218.4444 1801.7012,-5218.4444 1801.7012,-5224.4444 1795.7012,-5230.4444 1789.7012,-5230.4444 1789.7012,-5230.4444 1579.4299,-5230.4444 1579.4299,-5230.4444 1573.4299,-5230.4444 1567.4299,-5224.4444 1567.4299,-5218.4444 1567.4299,-5218.4444 1567.4299,-5103.4444 1567.4299,-5103.4444 1567.4299,-5097.4444 1573.4299,-5091.4444 1579.4299,-5091.4444"/>
+<text text-anchor="middle" x="1684.5656" y="-5099.9444" font-family="Tahoma bold" font-size="15.00" fill="#222222">(*DBAgent)</text>
+</a>
+</g>
+</g>
+<g id="clust85" class="cluster">
+<title>cluster_trade_agent/pkg/eventbus</title>
+<g id="a_clust85"><a xlink:href="/?f=trade_agent/pkg/eventbus" xlink:title="package: trade_agent/pkg/eventbus">
+<polygon fill="#ffffe0" stroke="#000000" stroke-width=".8" points="1596.3511,-2130.4444 1596.3511,-2365.4444 1772.7801,-2365.4444 1772.7801,-2130.4444 1596.3511,-2130.4444"/>
+<text text-anchor="middle" x="1684.5656" y="-2347.0444" font-family="Tahoma bold" font-size="16.00" fill="#000000">eventbus</text>
+</a>
+</g>
+</g>
+<g id="clust86" class="cluster">
+<title>cluster_*trade_agent/pkg/eventbus.BusAgent</title>
+<g id="a_clust86"><a xlink:href="/?f=trade_agent/pkg/eventbus" xlink:title="type: *trade_agent/pkg/eventbus.BusAgent">
+<path fill="#eed8ae" stroke="#000000" stroke-width=".5" d="M1616.3511,-2138.4444C1616.3511,-2138.4444 1752.7801,-2138.4444 1752.7801,-2138.4444 1758.7801,-2138.4444 1764.7801,-2144.4444 1764.7801,-2150.4444 1764.7801,-2150.4444 1764.7801,-2265.4444 1764.7801,-2265.4444 1764.7801,-2271.4444 1758.7801,-2277.4444 1752.7801,-2277.4444 1752.7801,-2277.4444 1616.3511,-2277.4444 1616.3511,-2277.4444 1610.3511,-2277.4444 1604.3511,-2271.4444 1604.3511,-2265.4444 1604.3511,-2265.4444 1604.3511,-2150.4444 1604.3511,-2150.4444 1604.3511,-2144.4444 1610.3511,-2138.4444 1616.3511,-2138.4444"/>
+<text text-anchor="middle" x="1684.5656" y="-2146.9444" font-family="Tahoma bold" font-size="15.00" fill="#222222">(*BusAgent)</text>
+</a>
+</g>
+</g>
+<g id="clust41" class="cluster">
+<title>cluster_github.com/gorilla/websocket</title>
+<g id="a_clust41"><a xlink:href="/?f=github.com/gorilla/websocket" xlink:title="package: github.com/gorilla/websocket">
+<polygon fill="#ffffe0" stroke="#000000" stroke-width=".8" points="1192.7305,-3971.4444 1192.7305,-4178.4444 1307.7305,-4178.4444 1307.7305,-3971.4444 1192.7305,-3971.4444"/>
+<text text-anchor="middle" x="1250.2305" y="-4160.0444" font-family="Tahoma bold" font-size="16.00" fill="#000000">websocket</text>
+</a>
+</g>
+</g>
+<g id="clust42" class="cluster">
+<title>cluster_*github.com/gorilla/websocket.CloseError</title>
+<g id="a_clust42"><a xlink:href="/?f=github.com/gorilla/websocket" xlink:title="type: *github.com/gorilla/websocket.CloseError">
+<path fill="#eed8ae" stroke="#000000" stroke-width=".5" d="M1212.7305,-3979.4444C1212.7305,-3979.4444 1287.7305,-3979.4444 1287.7305,-3979.4444 1293.7305,-3979.4444 1299.7305,-3985.4444 1299.7305,-3991.4444 1299.7305,-3991.4444 1299.7305,-4045.4444 1299.7305,-4045.4444 1299.7305,-4051.4444 1293.7305,-4057.4444 1287.7305,-4057.4444 1287.7305,-4057.4444 1212.7305,-4057.4444 1212.7305,-4057.4444 1206.7305,-4057.4444 1200.7305,-4051.4444 1200.7305,-4045.4444 1200.7305,-4045.4444 1200.7305,-3991.4444 1200.7305,-3991.4444 1200.7305,-3985.4444 1206.7305,-3979.4444 1212.7305,-3979.4444"/>
+<text text-anchor="middle" x="1250.2305" y="-3987.9444" font-family="Tahoma bold" font-size="15.00" fill="#222222">(*CloseError)</text>
+</a>
+</g>
+</g>
+<g id="clust43" class="cluster">
+<title>cluster_*github.com/gorilla/websocket.netError</title>
+<g id="a_clust43"><a xlink:href="/?f=github.com/gorilla/websocket" xlink:title="type: *github.com/gorilla/websocket.netError">
+<path fill="#eed8ae" stroke="#000000" stroke-width=".5" d="M1220.7305,-4065.4444C1220.7305,-4065.4444 1279.7305,-4065.4444 1279.7305,-4065.4444 1285.7305,-4065.4444 1291.7305,-4071.4444 1291.7305,-4077.4444 1291.7305,-4077.4444 1291.7305,-4131.4444 1291.7305,-4131.4444 1291.7305,-4137.4444 1285.7305,-4143.4444 1279.7305,-4143.4444 1279.7305,-4143.4444 1220.7305,-4143.4444 1220.7305,-4143.4444 1214.7305,-4143.4444 1208.7305,-4137.4444 1208.7305,-4131.4444 1208.7305,-4131.4444 1208.7305,-4077.4444 1208.7305,-4077.4444 1208.7305,-4071.4444 1214.7305,-4065.4444 1220.7305,-4065.4444"/>
+<text text-anchor="middle" x="1250.2305" y="-4073.9444" font-family="Tahoma bold" font-size="15.00" fill="#222222">(*netError)</text>
+</a>
+</g>
+</g>
+<g id="clust44" class="cluster">
+<title>cluster_github.com/jackc/pgx/v4</title>
+<g id="a_clust44"><a xlink:href="/?f=github.com/jackc/pgx/v4" xlink:title="package: github.com/jackc/pgx/v4">
+<polygon fill="#ffffe0" stroke="#000000" stroke-width=".8" points="1175.7305,-4186.4444 1175.7305,-4307.4444 1324.7305,-4307.4444 1324.7305,-4186.4444 1175.7305,-4186.4444"/>
+<text text-anchor="middle" x="1250.2305" y="-4289.0444" font-family="Tahoma bold" font-size="16.00" fill="#000000">pgx</text>
+</a>
+</g>
+</g>
+<g id="clust45" class="cluster">
+<title>cluster_github.com/jackc/pgx/v4.SerializationError</title>
+<g id="a_clust45"><a xlink:href="/?f=github.com/jackc/pgx/v4" xlink:title="type: github.com/jackc/pgx/v4.SerializationError">
+<path fill="#eed8ae" stroke="#000000" stroke-width=".5" d="M1195.7305,-4194.4444C1195.7305,-4194.4444 1304.7305,-4194.4444 1304.7305,-4194.4444 1310.7305,-4194.4444 1316.7305,-4200.4444 1316.7305,-4206.4444 1316.7305,-4206.4444 1316.7305,-4260.4444 1316.7305,-4260.4444 1316.7305,-4266.4444 1310.7305,-4272.4444 1304.7305,-4272.4444 1304.7305,-4272.4444 1195.7305,-4272.4444 1195.7305,-4272.4444 1189.7305,-4272.4444 1183.7305,-4266.4444 1183.7305,-4260.4444 1183.7305,-4260.4444 1183.7305,-4206.4444 1183.7305,-4206.4444 1183.7305,-4200.4444 1189.7305,-4194.4444 1195.7305,-4194.4444"/>
+<text text-anchor="middle" x="1250.2305" y="-4202.9444" font-family="Tahoma bold" font-size="15.00" fill="#222222">(SerializationError)</text>
+</a>
+</g>
+</g>
+<g id="clust46" class="cluster">
+<title>cluster_github.com/sirupsen/logrus</title>
+<g id="a_clust46"><a xlink:href="/?f=github.com/sirupsen/logrus" xlink:title="package: github.com/sirupsen/logrus">
+<polygon fill="#ffffe0" stroke="#000000" stroke-width=".8" points="2017.9492,-4580.4444 2017.9492,-5092.4444 2129.3433,-5092.4444 2129.3433,-4580.4444 2017.9492,-4580.4444"/>
+<text text-anchor="middle" x="2073.6463" y="-5074.0444" font-family="Tahoma bold" font-size="16.00" fill="#000000">logrus</text>
+</a>
+</g>
+</g>
+<g id="clust47" class="cluster">
+<title>cluster_*github.com/sirupsen/logrus.Entry</title>
+<g id="a_clust47"><a xlink:href="/?f=github.com/sirupsen/logrus" xlink:title="type: *github.com/sirupsen/logrus.Entry">
+<path fill="#eed8ae" stroke="#000000" stroke-width=".5" d="M2050.6463,-4588.4444C2050.6463,-4588.4444 2096.6463,-4588.4444 2096.6463,-4588.4444 2102.6463,-4588.4444 2108.6463,-4594.4444 2108.6463,-4600.4444 2108.6463,-4600.4444 2108.6463,-4715.4444 2108.6463,-4715.4444 2108.6463,-4721.4444 2102.6463,-4727.4444 2096.6463,-4727.4444 2096.6463,-4727.4444 2050.6463,-4727.4444 2050.6463,-4727.4444 2044.6463,-4727.4444 2038.6463,-4721.4444 2038.6463,-4715.4444 2038.6463,-4715.4444 2038.6463,-4600.4444 2038.6463,-4600.4444 2038.6463,-4594.4444 2044.6463,-4588.4444 2050.6463,-4588.4444"/>
+<text text-anchor="middle" x="2073.6463" y="-4596.9444" font-family="Tahoma bold" font-size="15.00" fill="#222222">(*Entry)</text>
+</a>
+</g>
+</g>
+<g id="clust48" class="cluster">
+<title>cluster_*github.com/sirupsen/logrus.Logger</title>
+<g id="a_clust48"><a xlink:href="/?f=github.com/sirupsen/logrus" xlink:title="type: *github.com/sirupsen/logrus.Logger">
+<path fill="#eed8ae" stroke="#000000" stroke-width=".5" d="M2037.9492,-4735.4444C2037.9492,-4735.4444 2109.3433,-4735.4444 2109.3433,-4735.4444 2115.3433,-4735.4444 2121.3433,-4741.4444 2121.3433,-4747.4444 2121.3433,-4747.4444 2121.3433,-5045.4444 2121.3433,-5045.4444 2121.3433,-5051.4444 2115.3433,-5057.4444 2109.3433,-5057.4444 2109.3433,-5057.4444 2037.9492,-5057.4444 2037.9492,-5057.4444 2031.9492,-5057.4444 2025.9492,-5051.4444 2025.9492,-5045.4444 2025.9492,-5045.4444 2025.9492,-4747.4444 2025.9492,-4747.4444 2025.9492,-4741.4444 2031.9492,-4735.4444 2037.9492,-4735.4444"/>
+<text text-anchor="middle" x="2073.6463" y="-4743.9444" font-family="Tahoma bold" font-size="15.00" fill="#222222">(*Logger)</text>
+</a>
+</g>
+</g>
+<g id="clust39" class="cluster">
+<title>cluster_github.com/go&#45;resty/resty/v2</title>
+<g id="a_clust39"><a xlink:href="/?f=github.com/go-resty/resty/v2" xlink:title="package: github.com/go&#45;resty/resty/v2">
+<polygon fill="#ffffe0" stroke="#000000" stroke-width=".8" points="1191.7305,-3842.4444 1191.7305,-3963.4444 1307.7305,-3963.4444 1307.7305,-3842.4444 1191.7305,-3842.4444"/>
+<text text-anchor="middle" x="1249.7305" y="-3945.0444" font-family="Tahoma bold" font-size="16.00" fill="#000000">resty</text>
+</a>
+</g>
+</g>
+<g id="clust40" class="cluster">
+<title>cluster_*github.com/go&#45;resty/resty/v2.noRetryErr</title>
+<g id="a_clust40"><a xlink:href="/?f=github.com/go-resty/resty/v2" xlink:title="type: *github.com/go&#45;resty/resty/v2.noRetryErr">
+<path fill="#eed8ae" stroke="#000000" stroke-width=".5" d="M1211.7305,-3850.4444C1211.7305,-3850.4444 1287.7305,-3850.4444 1287.7305,-3850.4444 1293.7305,-3850.4444 1299.7305,-3856.4444 1299.7305,-3862.4444 1299.7305,-3862.4444 1299.7305,-3916.4444 1299.7305,-3916.4444 1299.7305,-3922.4444 1293.7305,-3928.4444 1287.7305,-3928.4444 1287.7305,-3928.4444 1211.7305,-3928.4444 1211.7305,-3928.4444 1205.7305,-3928.4444 1199.7305,-3922.4444 1199.7305,-3916.4444 1199.7305,-3916.4444 1199.7305,-3862.4444 1199.7305,-3862.4444 1199.7305,-3856.4444 1205.7305,-3850.4444 1211.7305,-3850.4444"/>
+<text text-anchor="middle" x="1249.7305" y="-3858.9444" font-family="Tahoma bold" font-size="15.00" fill="#222222">(*noRetryErr)</text>
 </a>
 </g>
 </g>
@@ -1301,62 +1301,122 @@
 <path fill="none" stroke="#8b4513" d="M1738.7611,-2064.4896C1761.0026,-2070.7629 1786.8453,-2078.7124 1809.7012,-2087.4444 1879.53,-2114.122 1891.536,-2133.6645 1961.7012,-2159.4444 1974.9231,-2164.3023 1989.2852,-2168.7468 2003.1752,-2172.6407"/>
 <polygon fill="#8b4513" stroke="#8b4513" points="2002.6136,-2176.1155 2013.1827,-2175.3767 2004.4598,-2169.3633 2002.6136,-2176.1155"/>
 </g>
-<!-- trade_agent/pkg/modules/order.updateTradeBalance -->
+<!-- trade_agent/pkg/modules/order.checkSwitch -->
 <g id="node5" class="node">
+<title>trade_agent/pkg/modules/order.checkSwitch</title>
+<ellipse fill="#add8e6" stroke="#000000" stroke-width=".5" cx="1249.7305" cy="-4333.4444" rx="44.9207" ry="18"/>
+<text text-anchor="middle" x="1249.7305" y="-4329.2444" font-family="Verdana" font-size="14.00" fill="#000000">checkSwitch</text>
+</g>
+<!-- trade_agent/pkg/modules/order.checkSwitch&#45;&gt;trade_agent/pkg/cache.GetCache -->
+<g id="edge48" class="edge">
+<title>trade_agent/pkg/modules/order.checkSwitch&#45;&gt;trade_agent/pkg/cache.GetCache</title>
+<path fill="none" stroke="#8b4513" d="M1291.6729,-4339.9738C1334.958,-4346.1384 1404.493,-4354.4444 1464.9299,-4354.4444 1464.9299,-4354.4444 1464.9299,-4354.4444 1501.9299,-4354.4444 1526.2985,-4354.4444 1524.4303,-4375.2392 1539.4299,-4394.4444 1549.5223,-4407.3665 1546.0169,-4416.0141 1559.4299,-4425.4444 1582.5189,-4441.6774 1613.3634,-4448.9478 1638.6517,-4452.1499"/>
+<polygon fill="#8b4513" stroke="#8b4513" points="1638.4317,-4455.6466 1648.7529,-4453.2545 1639.1927,-4448.6881 1638.4317,-4455.6466"/>
+</g>
+<!-- (*trade_agent/pkg/cache.Cache).GetIsAllowTrade -->
+<g id="node86" class="node">
+<title>(*trade_agent/pkg/cache.Cache).GetIsAllowTrade</title>
+<ellipse fill="#ffe4b5" stroke="#000000" stroke-width="1.5" cx="1684.5656" cy="-3173.4444" rx="59.7987" ry="18"/>
+<text text-anchor="middle" x="1684.5656" y="-3169.2444" font-family="Verdana" font-size="14.00" fill="#000000">GetIsAllowTrade</text>
+</g>
+<!-- trade_agent/pkg/modules/order.checkSwitch&#45;&gt;(*trade_agent/pkg/cache.Cache).GetIsAllowTrade -->
+<g id="edge49" class="edge">
+<title>trade_agent/pkg/modules/order.checkSwitch&#45;&gt;(*trade_agent/pkg/cache.Cache).GetIsAllowTrade</title>
+<path fill="none" stroke="#8b4513" d="M1288.0446,-4323.8476C1311.6649,-4315.8128 1340.2987,-4301.7947 1355.7305,-4278.4444 1471.7257,-4102.9289 1338.8835,-3525.2849 1427.4299,-3334.4444 1462.0859,-3259.7516 1487.5794,-3244.6632 1559.4299,-3204.4444 1577.641,-3194.2506 1599.1877,-3187.3699 1619.2239,-3182.7413"/>
+<polygon fill="#8b4513" stroke="#8b4513" points="1620.1897,-3186.1136 1629.2265,-3180.5831 1618.7132,-3179.271 1620.1897,-3186.1136"/>
+</g>
+<!-- (*trade_agent/pkg/cache.Cache).GetOrderForwardCountDetail -->
+<g id="node87" class="node">
+<title>(*trade_agent/pkg/cache.Cache).GetOrderForwardCountDetail</title>
+<ellipse fill="#ffe4b5" stroke="#000000" stroke-width="1.5" cx="1684.5656" cy="-3051.4444" rx="99.8049" ry="18"/>
+<text text-anchor="middle" x="1684.5656" y="-3047.2444" font-family="Verdana" font-size="14.00" fill="#000000">GetOrderForwardCountDetail</text>
+</g>
+<!-- trade_agent/pkg/modules/order.checkSwitch&#45;&gt;(*trade_agent/pkg/cache.Cache).GetOrderForwardCountDetail -->
+<g id="edge50" class="edge">
+<title>trade_agent/pkg/modules/order.checkSwitch&#45;&gt;(*trade_agent/pkg/cache.Cache).GetOrderForwardCountDetail</title>
+<path fill="none" stroke="#8b4513" d="M1288.0843,-4323.8738C1311.721,-4315.8497 1340.358,-4301.8338 1355.7305,-4278.4444 1427.4415,-4169.3355 1334.3649,-3108.4444 1464.9299,-3108.4444 1464.9299,-3108.4444 1464.9299,-3108.4444 1501.9299,-3108.4444 1529.9766,-3108.4444 1532.9308,-3091.6322 1559.4299,-3082.4444 1575.5162,-3076.8669 1593.0917,-3071.8669 1609.8509,-3067.5936"/>
+<polygon fill="#8b4513" stroke="#8b4513" points="1610.7496,-3070.9767 1619.6067,-3065.1627 1609.0571,-3064.1844 1610.7496,-3070.9767"/>
+</g>
+<!-- (*trade_agent/pkg/cache.Cache).GetOrderReverseCountDetail -->
+<g id="node88" class="node">
+<title>(*trade_agent/pkg/cache.Cache).GetOrderReverseCountDetail</title>
+<ellipse fill="#ffe4b5" stroke="#000000" stroke-width="1.5" cx="1684.5656" cy="-3112.4444" rx="98.6598" ry="18"/>
+<text text-anchor="middle" x="1684.5656" y="-3108.2444" font-family="Verdana" font-size="14.00" fill="#000000">GetOrderReverseCountDetail</text>
+</g>
+<!-- trade_agent/pkg/modules/order.checkSwitch&#45;&gt;(*trade_agent/pkg/cache.Cache).GetOrderReverseCountDetail -->
+<g id="edge51" class="edge">
+<title>trade_agent/pkg/modules/order.checkSwitch&#45;&gt;(*trade_agent/pkg/cache.Cache).GetOrderReverseCountDetail</title>
+<path fill="none" stroke="#8b4513" d="M1288.0502,-4323.8513C1311.6728,-4315.818 1340.307,-4301.8002 1355.7305,-4278.4444 1472.7621,-4101.2233 1398.8505,-3535.8889 1427.4299,-3325.4444 1439.0128,-3240.1538 1378.8564,-3135.4444 1464.9299,-3135.4444 1464.9299,-3135.4444 1464.9299,-3135.4444 1501.9299,-3135.4444 1535.9577,-3135.4444 1573.2742,-3131.4655 1605.2571,-3126.8176"/>
+<polygon fill="#8b4513" stroke="#8b4513" points="1606.073,-3130.2345 1615.4429,-3125.2893 1605.0342,-3123.312 1606.073,-3130.2345"/>
+</g>
+<!-- trade_agent/pkg/config.GetSwitchConfig -->
+<g id="node102" class="node">
+<title>trade_agent/pkg/config.GetSwitchConfig</title>
+<ellipse fill="#ffe4b5" stroke="#000000" stroke-width="1.5" cx="1684.5656" cy="-2930.4444" rx="59.8335" ry="18"/>
+<text text-anchor="middle" x="1684.5656" y="-2926.2444" font-family="Verdana" font-size="14.00" fill="#000000">GetSwitchConfig</text>
+</g>
+<!-- trade_agent/pkg/modules/order.checkSwitch&#45;&gt;trade_agent/pkg/config.GetSwitchConfig -->
+<g id="edge47" class="edge">
+<title>trade_agent/pkg/modules/order.checkSwitch&#45;&gt;trade_agent/pkg/config.GetSwitchConfig</title>
+<path fill="none" stroke="#8b4513" d="M1288.1452,-4323.9137C1311.8068,-4315.9059 1340.4488,-4301.8932 1355.7305,-4278.4444 1428.649,-4166.5555 1331.3776,-3081.4444 1464.9299,-3081.4444 1464.9299,-3081.4444 1464.9299,-3081.4444 1501.9299,-3081.4444 1520.8188,-3081.4444 1527.5022,-3076.0908 1539.4299,-3061.4444 1559.3226,-3037.0174 1539.251,-3017.6354 1559.4299,-2993.4444 1577.8732,-2971.3341 1606.0166,-2956.201 1630.9457,-2946.3201"/>
+<polygon fill="#8b4513" stroke="#8b4513" points="1632.1939,-2949.5901 1640.3158,-2942.7868 1629.724,-2943.0403 1632.1939,-2949.5901"/>
+</g>
+<!-- trade_agent/pkg/modules/order.updateTradeBalance -->
+<g id="node6" class="node">
 <title>trade_agent/pkg/modules/order.updateTradeBalance</title>
 <ellipse fill="#add8e6" stroke="#000000" stroke-width=".5" cx="1249.7305" cy="-5139.4444" rx="69.6262" ry="18"/>
 <text text-anchor="middle" x="1249.7305" y="-5135.2444" font-family="Verdana" font-size="14.00" fill="#000000">updateTradeBalance</text>
 </g>
 <!-- trade_agent/pkg/modules/order.updateTradeBalance&#45;&gt;(*github.com/sirupsen/logrus.Logger).Panic -->
-<g id="edge57" class="edge">
+<g id="edge62" class="edge">
 <title>trade_agent/pkg/modules/order.updateTradeBalance&#45;&gt;(*github.com/sirupsen/logrus.Logger).Panic</title>
 <path fill="none" stroke="#8b4513" d="M1307.3148,-5129.1992C1324.6453,-5123.7093 1342.5413,-5115.3023 1355.7305,-5102.4444 1454.0487,-5006.5957 1327.6221,-4813.4444 1464.9299,-4813.4444 1464.9299,-4813.4444 1464.9299,-4813.4444 1538.9299,-4813.4444 1659.6005,-4813.4444 1696.082,-4792.7987 1809.7012,-4833.4444 1887.4889,-4861.2718 1886.8708,-4905.4345 1961.7012,-4940.4444 1985.8817,-4951.7573 2015.0677,-4959.4022 2037.5755,-4964.1423"/>
 <polygon fill="#8b4513" stroke="#8b4513" points="2036.9112,-4967.5787 2047.405,-4966.1185 2038.291,-4960.716 2036.9112,-4967.5787"/>
 </g>
 <!-- trade_agent/pkg/modules/order.updateTradeBalance&#45;&gt;trade_agent/pkg/cache.GetCache -->
-<g id="edge47" class="edge">
+<g id="edge52" class="edge">
 <title>trade_agent/pkg/modules/order.updateTradeBalance&#45;&gt;trade_agent/pkg/cache.GetCache</title>
 <path fill="none" stroke="#8b4513" d="M1295.7378,-5125.8191C1317.4371,-5116.9838 1341.6106,-5103.1643 1355.7305,-5082.4444 1441.1757,-4957.0595 1313.1991,-4408.4444 1464.9299,-4408.4444 1464.9299,-4408.4444 1464.9299,-4408.4444 1501.9299,-4408.4444 1528.579,-4408.4444 1533.6601,-4418.6553 1559.4299,-4425.4444 1586.6017,-4432.6027 1617.3402,-4439.7398 1641.5521,-4445.1424"/>
 <polygon fill="#8b4513" stroke="#8b4513" points="1640.9792,-4448.6003 1651.4996,-4447.3466 1642.4936,-4441.7661 1640.9792,-4448.6003"/>
 </g>
 <!-- (*trade_agent/pkg/cache.Cache).GetOrderForward -->
-<g id="node86" class="node">
+<g id="node89" class="node">
 <title>(*trade_agent/pkg/cache.Cache).GetOrderForward</title>
 <ellipse fill="#ffe4b5" stroke="#000000" stroke-width="1.5" cx="1684.5656" cy="-3783.4444" rx="61.4285" ry="18"/>
 <text text-anchor="middle" x="1684.5656" y="-3779.2444" font-family="Verdana" font-size="14.00" fill="#000000">GetOrderForward</text>
 </g>
 <!-- trade_agent/pkg/modules/order.updateTradeBalance&#45;&gt;(*trade_agent/pkg/cache.Cache).GetOrderForward -->
-<g id="edge48" class="edge">
+<g id="edge53" class="edge">
 <title>trade_agent/pkg/modules/order.updateTradeBalance&#45;&gt;(*trade_agent/pkg/cache.Cache).GetOrderForward</title>
 <path fill="none" stroke="#8b4513" d="M1295.9953,-5125.9919C1317.7603,-5117.2005 1341.9148,-5103.3684 1355.7305,-5082.4444 1453.7138,-4934.048 1364.2216,-4451.6578 1427.4299,-4285.4444 1447.0827,-4233.765 1465.8781,-4227.7889 1501.4299,-4185.4444 1517.1971,-4166.6646 1529.6543,-4167.9326 1539.4299,-4145.4444 1568.8071,-4077.8636 1512.2881,-3871.082 1559.4299,-3814.4444 1572.7806,-3798.4044 1593.0066,-3789.9363 1613.3285,-3785.6522"/>
 <polygon fill="#8b4513" stroke="#8b4513" points="1614.0558,-3789.0777 1623.2826,-3783.8704 1612.8223,-3782.1873 1614.0558,-3789.0777"/>
 </g>
 <!-- (*trade_agent/pkg/cache.Cache).GetOrderReverse -->
-<g id="node87" class="node">
+<g id="node90" class="node">
 <title>(*trade_agent/pkg/cache.Cache).GetOrderReverse</title>
 <ellipse fill="#ffe4b5" stroke="#000000" stroke-width="1.5" cx="1684.5656" cy="-4027.4444" rx="59.7829" ry="18"/>
 <text text-anchor="middle" x="1684.5656" y="-4023.2444" font-family="Verdana" font-size="14.00" fill="#000000">GetOrderReverse</text>
 </g>
 <!-- trade_agent/pkg/modules/order.updateTradeBalance&#45;&gt;(*trade_agent/pkg/cache.Cache).GetOrderReverse -->
-<g id="edge49" class="edge">
+<g id="edge54" class="edge">
 <title>trade_agent/pkg/modules/order.updateTradeBalance&#45;&gt;(*trade_agent/pkg/cache.Cache).GetOrderReverse</title>
 <path fill="none" stroke="#8b4513" d="M1295.9873,-5125.9866C1317.7502,-5117.1939 1341.9053,-5103.3621 1355.7305,-5082.4444 1452.8047,-4935.5694 1319.5986,-4432.6135 1427.4299,-4293.4444 1459.804,-4251.6617 1506.8144,-4295.0389 1539.4299,-4253.4444 1593.1882,-4184.8866 1502.3064,-4124.2245 1559.4299,-4058.4444 1573.3025,-4042.4695 1593.9927,-4034.0654 1614.5739,-4029.8193"/>
 <polygon fill="#8b4513" stroke="#8b4513" points="1615.3935,-4033.229 1624.6384,-4028.0538 1614.184,-4026.3343 1615.3935,-4033.229"/>
 </g>
 <!-- (*trade_agent/pkg/cache.Cache).GetTradeDay -->
-<g id="node88" class="node">
+<g id="node91" class="node">
 <title>(*trade_agent/pkg/cache.Cache).GetTradeDay</title>
 <ellipse fill="#ffe4b5" stroke="#000000" stroke-width="1.5" cx="1684.5656" cy="-3722.4444" rx="47.6746" ry="18"/>
 <text text-anchor="middle" x="1684.5656" y="-3718.2444" font-family="Verdana" font-size="14.00" fill="#000000">GetTradeDay</text>
 </g>
 <!-- trade_agent/pkg/modules/order.updateTradeBalance&#45;&gt;(*trade_agent/pkg/cache.Cache).GetTradeDay -->
-<g id="edge53" class="edge">
+<g id="edge58" class="edge">
 <title>trade_agent/pkg/modules/order.updateTradeBalance&#45;&gt;(*trade_agent/pkg/cache.Cache).GetTradeDay</title>
 <path fill="none" stroke="#8b4513" d="M1296.0031,-5125.9971C1317.7701,-5117.207 1341.9241,-5103.3745 1355.7305,-5082.4444 1472.0119,-4906.1655 1253.7533,-4138.4444 1464.9299,-4138.4444 1464.9299,-4138.4444 1464.9299,-4138.4444 1501.9299,-4138.4444 1545.1821,-4138.4444 1530.326,-3785.44 1559.4299,-3753.4444 1576.3634,-3734.8284 1602.5614,-3726.585 1626.6193,-3723.1938"/>
 <polygon fill="#8b4513" stroke="#8b4513" points="1627.2334,-3726.6462 1636.7656,-3722.0214 1626.4299,-3719.6925 1627.2334,-3726.6462"/>
 </g>
 <!-- trade_agent/pkg/modules/order.updateTradeBalance&#45;&gt;trade_agent/pkg/dbagent.Get -->
-<g id="edge54" class="edge">
+<g id="edge59" class="edge">
 <title>trade_agent/pkg/modules/order.updateTradeBalance&#45;&gt;trade_agent/pkg/dbagent.Get</title>
 <path fill="none" stroke="#8b4513" d="M1296.8273,-5126.1647C1315.6453,-5120.0556 1337.203,-5112.0207 1355.7305,-5102.4444 1407.1569,-5075.8636 1407.0403,-5031.4444 1464.9299,-5031.4444 1464.9299,-5031.4444 1464.9299,-5031.4444 1501.9299,-5031.4444 1554.4055,-5031.4444 1613.9514,-5045.1782 1650.3837,-5055.1885"/>
 <polygon fill="#8b4513" stroke="#8b4513" points="1649.4473,-5058.5609 1660.0214,-5057.8987 1651.3423,-5051.8222 1649.4473,-5058.5609"/>
@@ -1368,13 +1428,13 @@
 <text text-anchor="middle" x="1684.5656" y="-5139.2444" font-family="Verdana" font-size="14.00" fill="#000000">InsertOrUpdateBalance</text>
 </g>
 <!-- trade_agent/pkg/modules/order.updateTradeBalance&#45;&gt;(*trade_agent/pkg/dbagent.DBAgent).InsertOrUpdateBalance -->
-<g id="edge55" class="edge">
+<g id="edge60" class="edge">
 <title>trade_agent/pkg/modules/order.updateTradeBalance&#45;&gt;(*trade_agent/pkg/dbagent.DBAgent).InsertOrUpdateBalance</title>
 <path fill="none" stroke="#8b4513" d="M1294.2573,-5125.538C1347.0415,-5109.5382 1431.9959,-5085.4444 1464.9299,-5085.4444 1464.9299,-5085.4444 1464.9299,-5085.4444 1501.9299,-5085.4444 1532.081,-5085.4444 1531.2835,-5110.6339 1559.4299,-5121.4444 1573.0654,-5126.6814 1588.0194,-5130.6812 1602.6975,-5133.7333"/>
 <polygon fill="#8b4513" stroke="#8b4513" points="1602.3112,-5137.2237 1612.7956,-5135.6985 1603.6484,-5130.3526 1602.3112,-5137.2237"/>
 </g>
 <!-- trade_agent/pkg/modules/order.updateTradeBalance&#45;&gt;trade_agent/pkg/log.Get -->
-<g id="edge56" class="edge">
+<g id="edge61" class="edge">
 <title>trade_agent/pkg/modules/order.updateTradeBalance&#45;&gt;trade_agent/pkg/log.Get</title>
 <path fill="none" stroke="#8b4513" d="M1308.5009,-5149.2446C1324.479,-5153.4088 1341.333,-5159.2631 1355.7305,-5167.4444 1414.8073,-5201.0141 1396.9815,-5274.4444 1464.9299,-5274.4444 1464.9299,-5274.4444 1464.9299,-5274.4444 1904.2012,-5274.4444 1993.8425,-5274.4444 2053.2089,-5593.8036 2069.263,-5691.4324"/>
 <polygon fill="#8b4513" stroke="#8b4513" points="2065.8314,-5692.1369 2070.8852,-5701.4487 2072.7414,-5691.0177 2065.8314,-5692.1369"/>
@@ -1386,7 +1446,7 @@
 <text text-anchor="middle" x="2073.6463" y="-2490.2444" font-family="Verdana" font-size="14.00" fill="#000000">GetStockTradeFeeDiscount</text>
 </g>
 <!-- trade_agent/pkg/modules/order.updateTradeBalance&#45;&gt;trade_agent/pkg/sinopacapi.GetStockTradeFeeDiscount -->
-<g id="edge50" class="edge">
+<g id="edge55" class="edge">
 <title>trade_agent/pkg/modules/order.updateTradeBalance&#45;&gt;trade_agent/pkg/sinopacapi.GetStockTradeFeeDiscount</title>
 <path fill="none" stroke="#8b4513" d="M1308.5385,-5129.8004C1326.1521,-5124.0796 1343.9058,-5114.9653 1355.7305,-5100.4444 1500.1814,-4923.0564 1236.1668,-4597.4444 1464.9299,-4597.4444 1464.9299,-4597.4444 1464.9299,-4597.4444 1538.9299,-4597.4444 1659.6005,-4597.4444 1689.6029,-4589.1834 1809.7012,-4577.4444 1835.3233,-4574.9399 1841.457,-4570.4444 1867.2012,-4570.4444 1867.2012,-4570.4444 1867.2012,-4570.4444 1904.2012,-4570.4444 1930.9243,-4570.4444 1932.7459,-4548.6223 1941.7012,-4523.4444 1960.301,-4471.1509 1927.8768,-2569.4497 1961.7012,-2525.4444 1967.5844,-2517.7903 1975.1818,-2511.9148 1983.6466,-2507.4204"/>
 <polygon fill="#8b4513" stroke="#8b4513" points="1985.1338,-2510.5889 1992.7463,-2503.22 1982.2,-2504.2333 1985.1338,-2510.5889"/>
@@ -1398,7 +1458,7 @@
 <text text-anchor="middle" x="2073.6463" y="-2551.2444" font-family="Verdana" font-size="14.00" fill="#000000">GetStockBuyCost</text>
 </g>
 <!-- trade_agent/pkg/modules/order.updateTradeBalance&#45;&gt;trade_agent/pkg/sinopacapi.GetStockBuyCost -->
-<g id="edge51" class="edge">
+<g id="edge56" class="edge">
 <title>trade_agent/pkg/modules/order.updateTradeBalance&#45;&gt;trade_agent/pkg/sinopacapi.GetStockBuyCost</title>
 <path fill="none" stroke="#8b4513" d="M1308.4754,-5129.7488C1326.085,-5124.0248 1343.8524,-5114.9215 1355.7305,-5100.4444 1493.4058,-4932.6447 1247.8787,-4624.4444 1464.9299,-4624.4444 1464.9299,-4624.4444 1464.9299,-4624.4444 1538.9299,-4624.4444 1659.6005,-4624.4444 1689.6029,-4616.1834 1809.7012,-4604.4444 1835.3233,-4601.9399 1841.457,-4597.4444 1867.2012,-4597.4444 1867.2012,-4597.4444 1867.2012,-4597.4444 1904.2012,-4597.4444 1923.0901,-4597.4444 1931.4605,-4593.3163 1941.7012,-4577.4444 2054.7609,-4402.2152 2071.5781,-2816.889 2073.4439,-2583.966"/>
 <polygon fill="#8b4513" stroke="#8b4513" points="2076.9464,-2583.6492 2073.5239,-2573.6224 2069.9466,-2583.595 2076.9464,-2583.6492"/>
@@ -1410,154 +1470,16 @@
 <text text-anchor="middle" x="2073.6463" y="-2429.2444" font-family="Verdana" font-size="14.00" fill="#000000">GetStockSellCost</text>
 </g>
 <!-- trade_agent/pkg/modules/order.updateTradeBalance&#45;&gt;trade_agent/pkg/sinopacapi.GetStockSellCost -->
-<g id="edge52" class="edge">
+<g id="edge57" class="edge">
 <title>trade_agent/pkg/modules/order.updateTradeBalance&#45;&gt;trade_agent/pkg/sinopacapi.GetStockSellCost</title>
 <path fill="none" stroke="#8b4513" d="M1308.6056,-5129.8548C1326.2234,-5124.1374 1343.9627,-5115.0114 1355.7305,-5100.4444 1506.8643,-4913.3602 1224.4265,-4570.4444 1464.9299,-4570.4444 1464.9299,-4570.4444 1464.9299,-4570.4444 1538.9299,-4570.4444 1569.0976,-4570.4444 1788.38,-4571.7867 1809.7012,-4550.4444 2138.1906,-4221.6292 1667.0362,-2823.8845 1961.7012,-2464.4444 1972.2359,-2451.5938 1987.5865,-2443.8041 2003.5614,-2439.1486"/>
 <polygon fill="#8b4513" stroke="#8b4513" points="2004.7061,-2442.4699 2013.5512,-2436.6377 2002.9997,-2435.681 2004.7061,-2442.4699"/>
 </g>
-<!-- trade_agent/pkg/modules/order.InitOrder -->
-<g id="node6" class="node">
-<title>trade_agent/pkg/modules/order.InitOrder</title>
-<ellipse fill="#add8e6" stroke="#000000" stroke-width="1.5" cx="295.9676" cy="-5860.4444" rx="33.9353" ry="18"/>
-<text text-anchor="middle" x="295.9676" y="-5856.2444" font-family="Verdana" font-size="14.00" fill="#000000">InitOrder</text>
-</g>
-<!-- trade_agent/pkg/modules/order.subOrderStatus -->
-<g id="node7" class="node">
-<title>trade_agent/pkg/modules/order.subOrderStatus</title>
-<ellipse fill="#add8e6" stroke="#000000" stroke-width=".5" cx="567.2519" cy="-5860.4444" rx="53.1339" ry="18"/>
-<text text-anchor="middle" x="567.2519" y="-5856.2444" font-family="Verdana" font-size="14.00" fill="#000000">subOrderStatus</text>
-</g>
-<!-- trade_agent/pkg/modules/order.InitOrder&#45;&gt;trade_agent/pkg/modules/order.subOrderStatus -->
-<g id="edge72" class="edge">
-<title>trade_agent/pkg/modules/order.InitOrder&#45;&gt;trade_agent/pkg/modules/order.subOrderStatus</title>
-<path fill="none" stroke="#000000" d="M330.3308,-5860.4444C351.4256,-5860.4444 378.9938,-5860.4444 403.4353,-5860.4444 403.4353,-5860.4444 403.4353,-5860.4444 440.4353,-5860.4444 461.0592,-5860.4444 483.5698,-5860.4444 503.825,-5860.4444"/>
-<polygon fill="#000000" stroke="#000000" points="503.8782,-5863.9445 513.8782,-5860.4444 503.8781,-5856.9445 503.8782,-5863.9445"/>
-</g>
-<!-- trade_agent/pkg/modules/order.clearAllUnFinished -->
-<g id="node10" class="node">
-<title>trade_agent/pkg/modules/order.clearAllUnFinished</title>
-<ellipse fill="#add8e6" stroke="#000000" stroke-width=".5" cx="1249.7305" cy="-4394.4444" rx="66.8851" ry="18"/>
-<text text-anchor="middle" x="1249.7305" y="-4390.2444" font-family="Verdana" font-size="14.00" fill="#000000">clearAllUnFinished</text>
-</g>
-<!-- trade_agent/pkg/modules/order.InitOrder&#45;&gt;trade_agent/pkg/modules/order.clearAllUnFinished -->
-<g id="edge89" class="edge">
-<title>trade_agent/pkg/modules/order.InitOrder&#45;&gt;trade_agent/pkg/modules/order.clearAllUnFinished</title>
-<path fill="none" stroke="#000000" d="M309.6828,-5843.6183C328.4518,-5822.6227 364.3023,-5789.4444 403.4353,-5789.4444 403.4353,-5789.4444 403.4353,-5789.4444 768.0685,-5789.4444 842.1418,-5789.4444 874.6171,-5752.964 934.5863,-5796.4444 963.9132,-5817.7077 936.8307,-5896.3679 964.0311,-5872.4444 1198.8958,-5665.8746 988.2623,-4747.852 1143.7305,-4476.4444 1156.3709,-4454.3774 1177.541,-4436.2056 1197.6526,-4422.6255"/>
-<polygon fill="#000000" stroke="#000000" points="1210.7771,-4418.6215 1217.4398,-4410.3838 1207.0942,-4412.6686 1210.7771,-4418.6215"/>
-<polyline fill="none" stroke="#000000" points="1208.9357,-4415.6451 1204.6836,-4418.2757 "/>
-<ellipse fill="none" stroke="#000000" cx="1201.282" cy="-4420.3802" rx="4" ry="4"/>
-</g>
-<!-- trade_agent/pkg/modules/order.InitOrder&#45;&gt;(*github.com/sirupsen/logrus.Logger).Panic -->
-<g id="edge73" class="edge">
-<title>trade_agent/pkg/modules/order.InitOrder&#45;&gt;(*github.com/sirupsen/logrus.Logger).Panic</title>
-<path fill="none" stroke="#8b4513" d="M299.2874,-5878.4527C310.7054,-5937.6459 350.584,-6122.4444 403.4353,-6122.4444 403.4353,-6122.4444 403.4353,-6122.4444 1684.5656,-6122.4444 1747.2368,-6122.4444 1772.8941,-6108.1684 1809.7012,-6057.4444 2021.0865,-5766.1336 1898.3651,-5615.7505 1941.7012,-5258.4444 1945.1498,-5230.0108 1943.4883,-5023.5497 1961.7012,-5001.4444 1979.5419,-4979.7909 2011.0537,-4972.5172 2036.1082,-4970.3889"/>
-<polygon fill="#8b4513" stroke="#8b4513" points="2036.6222,-4973.8642 2046.3918,-4969.7649 2036.1982,-4966.8771 2036.6222,-4973.8642"/>
-</g>
-<!-- (*github.com/sirupsen/logrus.Logger).Info -->
-<g id="node49" class="node">
-<title>(*github.com/sirupsen/logrus.Logger).Info</title>
-<ellipse fill="#ffe4b5" stroke="#000000" stroke-width="1.5" cx="2073.6463" cy="-5031.4444" rx="27" ry="18"/>
-<text text-anchor="middle" x="2073.6463" y="-5027.2444" font-family="Verdana" font-size="14.00" fill="#000000">Info</text>
-</g>
-<!-- trade_agent/pkg/modules/order.InitOrder&#45;&gt;(*github.com/sirupsen/logrus.Logger).Info -->
-<g id="edge59" class="edge">
-<title>trade_agent/pkg/modules/order.InitOrder&#45;&gt;(*github.com/sirupsen/logrus.Logger).Info</title>
-<path fill="none" stroke="#8b4513" d="M298.7715,-5878.7519C307.3224,-5932.6481 334.4151,-6089.4664 365.9353,-6129.4444 377.6302,-6144.2774 384.5464,-6149.4444 403.4353,-6149.4444 403.4353,-6149.4444 403.4353,-6149.4444 1684.5656,-6149.4444 1750.1202,-6149.4444 1776.1524,-6165.8014 1830.7012,-6129.4444 1911.7619,-6075.4171 1912.4518,-6033.365 1941.7012,-5940.4444 1975.5684,-5832.8536 1947.7556,-5799.3742 1961.7012,-5687.4444 1992.2081,-5442.5908 2049.7252,-5149.7162 2067.9538,-5059.3559"/>
-<polygon fill="#8b4513" stroke="#8b4513" points="2071.4241,-5059.8527 2069.9776,-5049.3571 2064.5633,-5058.464 2071.4241,-5059.8527"/>
-</g>
-<!-- trade_agent/pkg/eventbus.Get -->
-<g id="node107" class="node">
-<title>trade_agent/pkg/eventbus.Get</title>
-<ellipse fill="#ffe4b5" stroke="#000000" stroke-width="1.5" cx="1684.5656" cy="-2312.4444" rx="27" ry="18"/>
-<text text-anchor="middle" x="1684.5656" y="-2308.2444" font-family="Verdana" font-size="14.00" fill="#000000">Get</text>
-</g>
-<!-- trade_agent/pkg/modules/order.InitOrder&#45;&gt;trade_agent/pkg/eventbus.Get -->
-<g id="edge90" class="edge">
-<title>trade_agent/pkg/modules/order.InitOrder&#45;&gt;trade_agent/pkg/eventbus.Get</title>
-<path fill="none" stroke="#8b4513" d="M296.056,-5842.3033C297.8061,-5488.7043 325.8241,-84.4444 403.4353,-84.4444 403.4353,-84.4444 403.4353,-84.4444 1074.5311,-84.4444 1137.0594,-84.4444 1311.3782,-50.3688 1355.7305,-94.4444 1423.3323,-161.6242 1410.7656,-1714.6071 1427.4299,-1808.4444 1455.9877,-1969.2542 1501.531,-1999.5764 1539.4299,-2158.4444 1552.4852,-2213.1709 1521.044,-2242.311 1559.4299,-2283.4444 1581.6234,-2307.2263 1619.1519,-2313.3221 1647.3348,-2314.1653"/>
-<polygon fill="#8b4513" stroke="#8b4513" points="1647.5962,-2317.6677 1657.6271,-2314.2573 1647.6588,-2310.668 1647.5962,-2317.6677"/>
-</g>
-<!-- (*trade_agent/pkg/eventbus.BusAgent).SubscribeStockOrder -->
-<g id="node109" class="node">
-<title>(*trade_agent/pkg/eventbus.BusAgent).SubscribeStockOrder</title>
-<ellipse fill="#ffe4b5" stroke="#000000" stroke-width="1.5" cx="1684.5656" cy="-2190.4444" rx="72.4296" ry="18"/>
-<text text-anchor="middle" x="1684.5656" y="-2186.2444" font-family="Verdana" font-size="14.00" fill="#000000">SubscribeStockOrder</text>
-</g>
-<!-- trade_agent/pkg/modules/order.InitOrder&#45;&gt;(*trade_agent/pkg/eventbus.BusAgent).SubscribeStockOrder -->
-<g id="edge91" class="edge">
-<title>trade_agent/pkg/modules/order.InitOrder&#45;&gt;(*trade_agent/pkg/eventbus.BusAgent).SubscribeStockOrder</title>
-<path fill="none" stroke="#8b4513" d="M296.0548,-5842.2185C297.7824,-5486.9666 325.4614,-57.4444 403.4353,-57.4444 403.4353,-57.4444 403.4353,-57.4444 1074.5311,-57.4444 1199.5592,-57.4444 1264.8706,20.4422 1355.7305,-65.4444 1494.7895,-196.8918 1479.1433,-1591.3939 1501.4299,-1781.4444 1511.5581,-1867.813 1498.7213,-2106.1821 1559.4299,-2168.4444 1570.9709,-2180.2807 1586.4793,-2187.0722 1602.6431,-2190.7583"/>
-<polygon fill="#8b4513" stroke="#8b4513" points="1602.2865,-2194.2528 1612.7624,-2192.6695 1603.5857,-2187.3744 1602.2865,-2194.2528"/>
-</g>
-<!-- trade_agent/pkg/modules/order.InitOrder&#45;&gt;trade_agent/pkg/log.Get -->
-<g id="edge58" class="edge">
-<title>trade_agent/pkg/modules/order.InitOrder&#45;&gt;trade_agent/pkg/log.Get</title>
-<path fill="none" stroke="#8b4513" d="M298.2679,-5878.5179C305.8475,-5935.7414 331.5313,-6111.7915 365.9353,-6156.4444 377.4637,-6171.4071 384.5464,-6176.4444 403.4353,-6176.4444 403.4353,-6176.4444 403.4353,-6176.4444 1904.2012,-6176.4444 1996.1522,-6176.4444 2054.1013,-5847.0775 2069.5098,-5747.5754"/>
-<polygon fill="#8b4513" stroke="#8b4513" points="2072.9772,-5748.0546 2071.0243,-5737.6413 2066.0571,-5746.9996 2072.9772,-5748.0546"/>
-</g>
 <!-- trade_agent/pkg/modules/order.subOrderStatus$1 -->
-<g id="node8" class="node">
+<g id="node7" class="node">
 <title>trade_agent/pkg/modules/order.subOrderStatus$1</title>
 <ellipse fill="#add8e6" stroke="#000000" stroke-dasharray="1,5" cx="865.7998" cy="-3282.4444" rx="61.4635" ry="18"/>
 <text text-anchor="middle" x="865.7998" y="-3278.2444" font-family="Verdana" font-size="14.00" fill="#000000">subOrderStatus$1</text>
-</g>
-<!-- trade_agent/pkg/modules/order.subOrderStatus&#45;&gt;trade_agent/pkg/modules/order.subOrderStatus$1 -->
-<g id="edge65" class="edge">
-<title>trade_agent/pkg/modules/order.subOrderStatus&#45;&gt;trade_agent/pkg/modules/order.subOrderStatus$1</title>
-<path fill="none" stroke="#000000" d="M567.9838,-5842.2913C574.5394,-5682.5501 624.5427,-4522.4444 694.0685,-4522.4444 694.0685,-4522.4444 694.0685,-4522.4444 731.0685,-4522.4444 865.6015,-4522.4444 720.9461,-3424.4079 797.0133,-3313.4444 798.3499,-3311.4946 799.8399,-3309.6656 801.455,-3307.9502"/>
-<polygon fill="#000000" stroke="#000000" points="814.1916,-3303.1703 820.3034,-3294.5161 810.1287,-3297.47 814.1916,-3303.1703"/>
-<polyline fill="none" stroke="#000000" points="812.1602,-3300.3202 808.0885,-3303.2222 "/>
-<ellipse fill="none" stroke="#000000" cx="804.8312" cy="-3305.5439" rx="4" ry="4"/>
-</g>
-<!-- trade_agent/pkg/modules/order.subOrderStatus$2 -->
-<g id="node9" class="node">
-<title>trade_agent/pkg/modules/order.subOrderStatus$2</title>
-<ellipse fill="#add8e6" stroke="#000000" stroke-dasharray="1,5" cx="1249.7305" cy="-5882.4444" rx="61.4635" ry="18"/>
-<text text-anchor="middle" x="1249.7305" y="-5878.2444" font-family="Verdana" font-size="14.00" fill="#000000">subOrderStatus$2</text>
-</g>
-<!-- trade_agent/pkg/modules/order.subOrderStatus&#45;&gt;trade_agent/pkg/modules/order.subOrderStatus$2 -->
-<g id="edge71" class="edge">
-<title>trade_agent/pkg/modules/order.subOrderStatus&#45;&gt;trade_agent/pkg/modules/order.subOrderStatus$2</title>
-<path fill="none" stroke="#000000" d="M595.0039,-5844.8077C620.0789,-5832.1608 658.4129,-5816.4444 694.0685,-5816.4444 694.0685,-5816.4444 694.0685,-5816.4444 768.0685,-5816.4444 842.2683,-5816.4444 878.2915,-5780.1069 934.5863,-5828.4444 977.8134,-5865.5612 918.4972,-5917.906 963.0311,-5953.4444 998.5053,-5981.753 1122.0003,-5936.9653 1194.8276,-5906.6338"/>
-<polygon fill="#000000" stroke="#000000" points="1208.2506,-5904.7281 1216.0829,-5897.5933 1205.5108,-5898.2865 1208.2506,-5904.7281"/>
-<polyline fill="none" stroke="#000000" points="1206.8807,-5901.5073 1202.2796,-5903.4643 "/>
-<ellipse fill="none" stroke="#000000" cx="1198.5987" cy="-5905.0299" rx="4" ry="4"/>
-</g>
-<!-- trade_agent/pkg/mqhandler.Get -->
-<g id="node111" class="node">
-<title>trade_agent/pkg/mqhandler.Get</title>
-<ellipse fill="#ffe4b5" stroke="#000000" stroke-width="1.5" cx="865.7998" cy="-6060.4444" rx="27" ry="18"/>
-<text text-anchor="middle" x="865.7998" y="-6056.2444" font-family="Verdana" font-size="14.00" fill="#000000">Get</text>
-</g>
-<!-- trade_agent/pkg/modules/order.subOrderStatus&#45;&gt;trade_agent/pkg/mqhandler.Get -->
-<g id="edge60" class="edge">
-<title>trade_agent/pkg/modules/order.subOrderStatus&#45;&gt;trade_agent/pkg/mqhandler.Get</title>
-<path fill="none" stroke="#8b4513" d="M572.7319,-5878.4776C586.2077,-5918.7409 624.9902,-6012.4444 694.0685,-6012.4444 694.0685,-6012.4444 694.0685,-6012.4444 731.0685,-6012.4444 741.5092,-6012.4444 796.3847,-6033.1624 832.8028,-6047.3757"/>
-<polygon fill="#8b4513" stroke="#8b4513" points="831.9452,-6050.7988 842.5328,-6051.1895 834.4997,-6044.2815 831.9452,-6050.7988"/>
-</g>
-<!-- trade_agent/pkg/mqhandler.TopicOrderStatus -->
-<g id="node112" class="node">
-<title>trade_agent/pkg/mqhandler.TopicOrderStatus</title>
-<ellipse fill="#ffe4b5" stroke="#000000" stroke-width="1.5" cx="865.7998" cy="-5860.4444" rx="60.5737" ry="18"/>
-<text text-anchor="middle" x="865.7998" y="-5856.2444" font-family="Verdana" font-size="14.00" fill="#000000">TopicOrderStatus</text>
-</g>
-<!-- trade_agent/pkg/modules/order.subOrderStatus&#45;&gt;trade_agent/pkg/mqhandler.TopicOrderStatus -->
-<g id="edge61" class="edge">
-<title>trade_agent/pkg/modules/order.subOrderStatus&#45;&gt;trade_agent/pkg/mqhandler.TopicOrderStatus</title>
-<path fill="none" stroke="#8b4513" d="M620.6256,-5860.4444C643.2738,-5860.4444 669.9601,-5860.4444 694.0685,-5860.4444 694.0685,-5860.4444 694.0685,-5860.4444 731.0685,-5860.4444 751.679,-5860.4444 774.0629,-5860.4444 794.5578,-5860.4444"/>
-<polygon fill="#8b4513" stroke="#8b4513" points="794.7662,-5863.9445 804.7662,-5860.4444 794.7662,-5856.9445 794.7662,-5863.9445"/>
-</g>
-<!-- (*trade_agent/pkg/mqhandler.MQHandler).Sub -->
-<g id="node114" class="node">
-<title>(*trade_agent/pkg/mqhandler.MQHandler).Sub</title>
-<ellipse fill="#ffe4b5" stroke="#000000" stroke-width="1.5" cx="865.7998" cy="-5938.4444" rx="27" ry="18"/>
-<text text-anchor="middle" x="865.7998" y="-5934.2444" font-family="Verdana" font-size="14.00" fill="#000000">Sub</text>
-</g>
-<!-- trade_agent/pkg/modules/order.subOrderStatus&#45;&gt;(*trade_agent/pkg/mqhandler.MQHandler).Sub -->
-<g id="edge62" class="edge">
-<title>trade_agent/pkg/modules/order.subOrderStatus&#45;&gt;(*trade_agent/pkg/mqhandler.MQHandler).Sub</title>
-<path fill="none" stroke="#8b4513" d="M590.8547,-5876.6124C615.4755,-5891.8772 655.7573,-5912.4444 694.0685,-5912.4444 694.0685,-5912.4444 694.0685,-5912.4444 731.0685,-5912.4444 765.7115,-5912.4444 804.4721,-5920.8342 831.4936,-5928.0821"/>
-<polygon fill="#8b4513" stroke="#8b4513" points="830.6704,-5931.4858 841.2419,-5930.7841 832.5402,-5924.7401 830.6704,-5931.4858"/>
 </g>
 <!-- trade_agent/pkg/modules/order.subOrderStatus$1&#45;&gt;trade_agent/pkg/modules/order.updateTradeBalance -->
 <g id="edge64" class="edge">
@@ -1577,26 +1499,164 @@
 <path fill="none" stroke="#8b4513" d="M866.0752,-3264.2188C870.0203,-3006.9072 916.2857,-111.4444 1000.5311,-111.4444 1000.5311,-111.4444 1000.5311,-111.4444 1074.5311,-111.4444 1137.0973,-111.4444 1311.6778,-81.016 1355.7305,-125.4444 1423.7339,-194.0276 1414.4502,-1766.7383 1427.4299,-1862.4444 1431.7837,-1894.5469 1536.602,-2407.457 1559.4299,-2430.4444 1582.2526,-2453.4264 1619.3589,-2459.9996 1647.2509,-2461.3785"/>
 <polygon fill="#8b4513" stroke="#8b4513" points="1647.3426,-2464.8825 1657.4406,-2461.676 1647.547,-2457.8855 1647.3426,-2464.8825"/>
 </g>
-<!-- trade_agent/pkg/modules/order.subOrderStatus$2&#45;&gt;(*github.com/sirupsen/logrus.Logger).Error -->
+<!-- trade_agent/pkg/modules/order.InitOrder -->
+<g id="node8" class="node">
+<title>trade_agent/pkg/modules/order.InitOrder</title>
+<ellipse fill="#add8e6" stroke="#000000" stroke-width="1.5" cx="295.9676" cy="-5860.4444" rx="33.9353" ry="18"/>
+<text text-anchor="middle" x="295.9676" y="-5856.2444" font-family="Verdana" font-size="14.00" fill="#000000">InitOrder</text>
+</g>
+<!-- trade_agent/pkg/modules/order.subOrderStatus -->
+<g id="node9" class="node">
+<title>trade_agent/pkg/modules/order.subOrderStatus</title>
+<ellipse fill="#add8e6" stroke="#000000" stroke-width=".5" cx="567.2519" cy="-5860.4444" rx="53.1339" ry="18"/>
+<text text-anchor="middle" x="567.2519" y="-5856.2444" font-family="Verdana" font-size="14.00" fill="#000000">subOrderStatus</text>
+</g>
+<!-- trade_agent/pkg/modules/order.InitOrder&#45;&gt;trade_agent/pkg/modules/order.subOrderStatus -->
+<g id="edge77" class="edge">
+<title>trade_agent/pkg/modules/order.InitOrder&#45;&gt;trade_agent/pkg/modules/order.subOrderStatus</title>
+<path fill="none" stroke="#000000" d="M330.3308,-5860.4444C351.4256,-5860.4444 378.9938,-5860.4444 403.4353,-5860.4444 403.4353,-5860.4444 403.4353,-5860.4444 440.4353,-5860.4444 461.0592,-5860.4444 483.5698,-5860.4444 503.825,-5860.4444"/>
+<polygon fill="#000000" stroke="#000000" points="503.8782,-5863.9445 513.8782,-5860.4444 503.8781,-5856.9445 503.8782,-5863.9445"/>
+</g>
+<!-- trade_agent/pkg/modules/order.clearAllUnFinished -->
+<g id="node11" class="node">
+<title>trade_agent/pkg/modules/order.clearAllUnFinished</title>
+<ellipse fill="#add8e6" stroke="#000000" stroke-width=".5" cx="1249.7305" cy="-4394.4444" rx="66.8851" ry="18"/>
+<text text-anchor="middle" x="1249.7305" y="-4390.2444" font-family="Verdana" font-size="14.00" fill="#000000">clearAllUnFinished</text>
+</g>
+<!-- trade_agent/pkg/modules/order.InitOrder&#45;&gt;trade_agent/pkg/modules/order.clearAllUnFinished -->
+<g id="edge94" class="edge">
+<title>trade_agent/pkg/modules/order.InitOrder&#45;&gt;trade_agent/pkg/modules/order.clearAllUnFinished</title>
+<path fill="none" stroke="#000000" d="M309.6828,-5843.6183C328.4518,-5822.6227 364.3023,-5789.4444 403.4353,-5789.4444 403.4353,-5789.4444 403.4353,-5789.4444 768.0685,-5789.4444 842.1418,-5789.4444 874.6171,-5752.964 934.5863,-5796.4444 963.9132,-5817.7077 936.8307,-5896.3679 964.0311,-5872.4444 1198.8958,-5665.8746 988.2623,-4747.852 1143.7305,-4476.4444 1156.3709,-4454.3774 1177.541,-4436.2056 1197.6526,-4422.6255"/>
+<polygon fill="#000000" stroke="#000000" points="1210.7771,-4418.6215 1217.4398,-4410.3838 1207.0942,-4412.6686 1210.7771,-4418.6215"/>
+<polyline fill="none" stroke="#000000" points="1208.9357,-4415.6451 1204.6836,-4418.2757 "/>
+<ellipse fill="none" stroke="#000000" cx="1201.282" cy="-4420.3802" rx="4" ry="4"/>
+</g>
+<!-- trade_agent/pkg/modules/order.InitOrder&#45;&gt;(*github.com/sirupsen/logrus.Logger).Panic -->
+<g id="edge78" class="edge">
+<title>trade_agent/pkg/modules/order.InitOrder&#45;&gt;(*github.com/sirupsen/logrus.Logger).Panic</title>
+<path fill="none" stroke="#8b4513" d="M299.2874,-5878.4527C310.7054,-5937.6459 350.584,-6122.4444 403.4353,-6122.4444 403.4353,-6122.4444 403.4353,-6122.4444 1684.5656,-6122.4444 1747.2368,-6122.4444 1772.8941,-6108.1684 1809.7012,-6057.4444 2021.0865,-5766.1336 1898.3651,-5615.7505 1941.7012,-5258.4444 1945.1498,-5230.0108 1943.4883,-5023.5497 1961.7012,-5001.4444 1979.5419,-4979.7909 2011.0537,-4972.5172 2036.1082,-4970.3889"/>
+<polygon fill="#8b4513" stroke="#8b4513" points="2036.6222,-4973.8642 2046.3918,-4969.7649 2036.1982,-4966.8771 2036.6222,-4973.8642"/>
+</g>
+<!-- (*github.com/sirupsen/logrus.Logger).Info -->
+<g id="node49" class="node">
+<title>(*github.com/sirupsen/logrus.Logger).Info</title>
+<ellipse fill="#ffe4b5" stroke="#000000" stroke-width="1.5" cx="2073.6463" cy="-5031.4444" rx="27" ry="18"/>
+<text text-anchor="middle" x="2073.6463" y="-5027.2444" font-family="Verdana" font-size="14.00" fill="#000000">Info</text>
+</g>
+<!-- trade_agent/pkg/modules/order.InitOrder&#45;&gt;(*github.com/sirupsen/logrus.Logger).Info -->
+<g id="edge66" class="edge">
+<title>trade_agent/pkg/modules/order.InitOrder&#45;&gt;(*github.com/sirupsen/logrus.Logger).Info</title>
+<path fill="none" stroke="#8b4513" d="M298.7715,-5878.7519C307.3224,-5932.6481 334.4151,-6089.4664 365.9353,-6129.4444 377.6302,-6144.2774 384.5464,-6149.4444 403.4353,-6149.4444 403.4353,-6149.4444 403.4353,-6149.4444 1684.5656,-6149.4444 1750.1202,-6149.4444 1776.1524,-6165.8014 1830.7012,-6129.4444 1911.7619,-6075.4171 1912.4518,-6033.365 1941.7012,-5940.4444 1975.5684,-5832.8536 1947.7556,-5799.3742 1961.7012,-5687.4444 1992.2081,-5442.5908 2049.7252,-5149.7162 2067.9538,-5059.3559"/>
+<polygon fill="#8b4513" stroke="#8b4513" points="2071.4241,-5059.8527 2069.9776,-5049.3571 2064.5633,-5058.464 2071.4241,-5059.8527"/>
+</g>
+<!-- trade_agent/pkg/eventbus.Get -->
+<g id="node107" class="node">
+<title>trade_agent/pkg/eventbus.Get</title>
+<ellipse fill="#ffe4b5" stroke="#000000" stroke-width="1.5" cx="1684.5656" cy="-2312.4444" rx="27" ry="18"/>
+<text text-anchor="middle" x="1684.5656" y="-2308.2444" font-family="Verdana" font-size="14.00" fill="#000000">Get</text>
+</g>
+<!-- trade_agent/pkg/modules/order.InitOrder&#45;&gt;trade_agent/pkg/eventbus.Get -->
+<g id="edge95" class="edge">
+<title>trade_agent/pkg/modules/order.InitOrder&#45;&gt;trade_agent/pkg/eventbus.Get</title>
+<path fill="none" stroke="#8b4513" d="M296.056,-5842.3033C297.8061,-5488.7043 325.8241,-84.4444 403.4353,-84.4444 403.4353,-84.4444 403.4353,-84.4444 1074.5311,-84.4444 1137.0594,-84.4444 1311.3782,-50.3688 1355.7305,-94.4444 1423.3323,-161.6242 1410.7656,-1714.6071 1427.4299,-1808.4444 1455.9877,-1969.2542 1501.531,-1999.5764 1539.4299,-2158.4444 1552.4852,-2213.1709 1521.044,-2242.311 1559.4299,-2283.4444 1581.6234,-2307.2263 1619.1519,-2313.3221 1647.3348,-2314.1653"/>
+<polygon fill="#8b4513" stroke="#8b4513" points="1647.5962,-2317.6677 1657.6271,-2314.2573 1647.6588,-2310.668 1647.5962,-2317.6677"/>
+</g>
+<!-- (*trade_agent/pkg/eventbus.BusAgent).SubscribeStockOrder -->
+<g id="node109" class="node">
+<title>(*trade_agent/pkg/eventbus.BusAgent).SubscribeStockOrder</title>
+<ellipse fill="#ffe4b5" stroke="#000000" stroke-width="1.5" cx="1684.5656" cy="-2190.4444" rx="72.4296" ry="18"/>
+<text text-anchor="middle" x="1684.5656" y="-2186.2444" font-family="Verdana" font-size="14.00" fill="#000000">SubscribeStockOrder</text>
+</g>
+<!-- trade_agent/pkg/modules/order.InitOrder&#45;&gt;(*trade_agent/pkg/eventbus.BusAgent).SubscribeStockOrder -->
+<g id="edge96" class="edge">
+<title>trade_agent/pkg/modules/order.InitOrder&#45;&gt;(*trade_agent/pkg/eventbus.BusAgent).SubscribeStockOrder</title>
+<path fill="none" stroke="#8b4513" d="M296.0548,-5842.2185C297.7824,-5486.9666 325.4614,-57.4444 403.4353,-57.4444 403.4353,-57.4444 403.4353,-57.4444 1074.5311,-57.4444 1199.5592,-57.4444 1264.8706,20.4422 1355.7305,-65.4444 1494.7895,-196.8918 1479.1433,-1591.3939 1501.4299,-1781.4444 1511.5581,-1867.813 1498.7213,-2106.1821 1559.4299,-2168.4444 1570.9709,-2180.2807 1586.4793,-2187.0722 1602.6431,-2190.7583"/>
+<polygon fill="#8b4513" stroke="#8b4513" points="1602.2865,-2194.2528 1612.7624,-2192.6695 1603.5857,-2187.3744 1602.2865,-2194.2528"/>
+</g>
+<!-- trade_agent/pkg/modules/order.InitOrder&#45;&gt;trade_agent/pkg/log.Get -->
+<g id="edge65" class="edge">
+<title>trade_agent/pkg/modules/order.InitOrder&#45;&gt;trade_agent/pkg/log.Get</title>
+<path fill="none" stroke="#8b4513" d="M298.2679,-5878.5179C305.8475,-5935.7414 331.5313,-6111.7915 365.9353,-6156.4444 377.4637,-6171.4071 384.5464,-6176.4444 403.4353,-6176.4444 403.4353,-6176.4444 403.4353,-6176.4444 1904.2012,-6176.4444 1996.1522,-6176.4444 2054.1013,-5847.0775 2069.5098,-5747.5754"/>
+<polygon fill="#8b4513" stroke="#8b4513" points="2072.9772,-5748.0546 2071.0243,-5737.6413 2066.0571,-5746.9996 2072.9772,-5748.0546"/>
+</g>
+<!-- trade_agent/pkg/modules/order.subOrderStatus&#45;&gt;trade_agent/pkg/modules/order.subOrderStatus$1 -->
 <g id="edge70" class="edge">
+<title>trade_agent/pkg/modules/order.subOrderStatus&#45;&gt;trade_agent/pkg/modules/order.subOrderStatus$1</title>
+<path fill="none" stroke="#000000" d="M567.9838,-5842.2913C574.5394,-5682.5501 624.5427,-4522.4444 694.0685,-4522.4444 694.0685,-4522.4444 694.0685,-4522.4444 731.0685,-4522.4444 865.6015,-4522.4444 720.9461,-3424.4079 797.0133,-3313.4444 798.3499,-3311.4946 799.8399,-3309.6656 801.455,-3307.9502"/>
+<polygon fill="#000000" stroke="#000000" points="814.1916,-3303.1703 820.3034,-3294.5161 810.1287,-3297.47 814.1916,-3303.1703"/>
+<polyline fill="none" stroke="#000000" points="812.1602,-3300.3202 808.0885,-3303.2222 "/>
+<ellipse fill="none" stroke="#000000" cx="804.8312" cy="-3305.5439" rx="4" ry="4"/>
+</g>
+<!-- trade_agent/pkg/modules/order.subOrderStatus$2 -->
+<g id="node10" class="node">
+<title>trade_agent/pkg/modules/order.subOrderStatus$2</title>
+<ellipse fill="#add8e6" stroke="#000000" stroke-dasharray="1,5" cx="1249.7305" cy="-5882.4444" rx="61.4635" ry="18"/>
+<text text-anchor="middle" x="1249.7305" y="-5878.2444" font-family="Verdana" font-size="14.00" fill="#000000">subOrderStatus$2</text>
+</g>
+<!-- trade_agent/pkg/modules/order.subOrderStatus&#45;&gt;trade_agent/pkg/modules/order.subOrderStatus$2 -->
+<g id="edge76" class="edge">
+<title>trade_agent/pkg/modules/order.subOrderStatus&#45;&gt;trade_agent/pkg/modules/order.subOrderStatus$2</title>
+<path fill="none" stroke="#000000" d="M595.0039,-5844.8077C620.0789,-5832.1608 658.4129,-5816.4444 694.0685,-5816.4444 694.0685,-5816.4444 694.0685,-5816.4444 768.0685,-5816.4444 842.2683,-5816.4444 878.2915,-5780.1069 934.5863,-5828.4444 977.8134,-5865.5612 918.4972,-5917.906 963.0311,-5953.4444 998.5053,-5981.753 1122.0003,-5936.9653 1194.8276,-5906.6338"/>
+<polygon fill="#000000" stroke="#000000" points="1208.2506,-5904.7281 1216.0829,-5897.5933 1205.5108,-5898.2865 1208.2506,-5904.7281"/>
+<polyline fill="none" stroke="#000000" points="1206.8807,-5901.5073 1202.2796,-5903.4643 "/>
+<ellipse fill="none" stroke="#000000" cx="1198.5987" cy="-5905.0299" rx="4" ry="4"/>
+</g>
+<!-- trade_agent/pkg/mqhandler.Get -->
+<g id="node111" class="node">
+<title>trade_agent/pkg/mqhandler.Get</title>
+<ellipse fill="#ffe4b5" stroke="#000000" stroke-width="1.5" cx="865.7998" cy="-6060.4444" rx="27" ry="18"/>
+<text text-anchor="middle" x="865.7998" y="-6056.2444" font-family="Verdana" font-size="14.00" fill="#000000">Get</text>
+</g>
+<!-- trade_agent/pkg/modules/order.subOrderStatus&#45;&gt;trade_agent/pkg/mqhandler.Get -->
+<g id="edge67" class="edge">
+<title>trade_agent/pkg/modules/order.subOrderStatus&#45;&gt;trade_agent/pkg/mqhandler.Get</title>
+<path fill="none" stroke="#8b4513" d="M572.7319,-5878.4776C586.2077,-5918.7409 624.9902,-6012.4444 694.0685,-6012.4444 694.0685,-6012.4444 694.0685,-6012.4444 731.0685,-6012.4444 741.5092,-6012.4444 796.3847,-6033.1624 832.8028,-6047.3757"/>
+<polygon fill="#8b4513" stroke="#8b4513" points="831.9452,-6050.7988 842.5328,-6051.1895 834.4997,-6044.2815 831.9452,-6050.7988"/>
+</g>
+<!-- trade_agent/pkg/mqhandler.TopicOrderStatus -->
+<g id="node112" class="node">
+<title>trade_agent/pkg/mqhandler.TopicOrderStatus</title>
+<ellipse fill="#ffe4b5" stroke="#000000" stroke-width="1.5" cx="865.7998" cy="-5860.4444" rx="60.5737" ry="18"/>
+<text text-anchor="middle" x="865.7998" y="-5856.2444" font-family="Verdana" font-size="14.00" fill="#000000">TopicOrderStatus</text>
+</g>
+<!-- trade_agent/pkg/modules/order.subOrderStatus&#45;&gt;trade_agent/pkg/mqhandler.TopicOrderStatus -->
+<g id="edge68" class="edge">
+<title>trade_agent/pkg/modules/order.subOrderStatus&#45;&gt;trade_agent/pkg/mqhandler.TopicOrderStatus</title>
+<path fill="none" stroke="#8b4513" d="M620.6256,-5860.4444C643.2738,-5860.4444 669.9601,-5860.4444 694.0685,-5860.4444 694.0685,-5860.4444 694.0685,-5860.4444 731.0685,-5860.4444 751.679,-5860.4444 774.0629,-5860.4444 794.5578,-5860.4444"/>
+<polygon fill="#8b4513" stroke="#8b4513" points="794.7662,-5863.9445 804.7662,-5860.4444 794.7662,-5856.9445 794.7662,-5863.9445"/>
+</g>
+<!-- (*trade_agent/pkg/mqhandler.MQHandler).Sub -->
+<g id="node114" class="node">
+<title>(*trade_agent/pkg/mqhandler.MQHandler).Sub</title>
+<ellipse fill="#ffe4b5" stroke="#000000" stroke-width="1.5" cx="865.7998" cy="-5938.4444" rx="27" ry="18"/>
+<text text-anchor="middle" x="865.7998" y="-5934.2444" font-family="Verdana" font-size="14.00" fill="#000000">Sub</text>
+</g>
+<!-- trade_agent/pkg/modules/order.subOrderStatus&#45;&gt;(*trade_agent/pkg/mqhandler.MQHandler).Sub -->
+<g id="edge69" class="edge">
+<title>trade_agent/pkg/modules/order.subOrderStatus&#45;&gt;(*trade_agent/pkg/mqhandler.MQHandler).Sub</title>
+<path fill="none" stroke="#8b4513" d="M590.8547,-5876.6124C615.4755,-5891.8772 655.7573,-5912.4444 694.0685,-5912.4444 694.0685,-5912.4444 694.0685,-5912.4444 731.0685,-5912.4444 765.7115,-5912.4444 804.4721,-5920.8342 831.4936,-5928.0821"/>
+<polygon fill="#8b4513" stroke="#8b4513" points="830.6704,-5931.4858 841.2419,-5930.7841 832.5402,-5924.7401 830.6704,-5931.4858"/>
+</g>
+<!-- trade_agent/pkg/modules/order.subOrderStatus$2&#45;&gt;(*github.com/sirupsen/logrus.Logger).Error -->
+<g id="edge75" class="edge">
 <title>trade_agent/pkg/modules/order.subOrderStatus$2&#45;&gt;(*github.com/sirupsen/logrus.Logger).Error</title>
 <path fill="none" stroke="#8b4513" d="M1306.1302,-5875.3996C1324.7838,-5870.1663 1343.7998,-5861.1039 1355.7305,-5845.4444 1502.7234,-5652.5098 1222.3796,-4759.4444 1464.9299,-4759.4444 1464.9299,-4759.4444 1464.9299,-4759.4444 1684.5656,-4759.4444 1740.8873,-4759.4444 1754.5829,-4767.8638 1809.7012,-4779.4444 1832.1401,-4784.1588 1971.6503,-4821.2198 2038.2858,-4838.9955"/>
 <polygon fill="#8b4513" stroke="#8b4513" points="2037.7612,-4842.478 2048.3256,-4841.6749 2039.5663,-4835.7147 2037.7612,-4842.478"/>
 </g>
 <!-- trade_agent/pkg/modules/order.subOrderStatus$2&#45;&gt;time.Tick -->
-<g id="edge66" class="edge">
+<g id="edge71" class="edge">
 <title>trade_agent/pkg/modules/order.subOrderStatus$2&#45;&gt;time.Tick</title>
 <path fill="none" stroke="#8b4513" d="M1274.267,-5865.7095C1299.8109,-5846.7075 1338.4544,-5813.1376 1355.7305,-5773.4444 1419.8837,-5626.0472 1417.5879,-4488.8959 1427.4299,-4328.4444 1441.6173,-4097.1517 1448.7925,-4039.5737 1465.4299,-3808.4444 1466.7555,-3790.0291 1547.0658,-2496.1559 1559.4299,-2482.4444 1581.269,-2458.2252 1619.6189,-2454.6424 1648.1254,-2455.9379"/>
 <polygon fill="#8b4513" stroke="#8b4513" points="1647.9224,-2459.4321 1658.1336,-2456.6068 1648.3892,-2452.4477 1647.9224,-2459.4321"/>
 </g>
 <!-- trade_agent/pkg/modules/order.subOrderStatus$2&#45;&gt;trade_agent/pkg/log.Get -->
-<g id="edge69" class="edge">
+<g id="edge74" class="edge">
 <title>trade_agent/pkg/modules/order.subOrderStatus$2&#45;&gt;trade_agent/pkg/log.Get</title>
 <path fill="none" stroke="#8b4513" d="M1305.5455,-5874.938C1324.1399,-5869.658 1343.2681,-5860.6841 1355.7305,-5845.4444 1511.8387,-5654.546 1218.3291,-5301.4444 1464.9299,-5301.4444 1464.9299,-5301.4444 1464.9299,-5301.4444 1538.9299,-5301.4444 1666.4646,-5301.4444 1705.2812,-5323.2216 1809.7012,-5396.4444 1929.3002,-5480.3111 2024.2932,-5632.5434 2059.2052,-5693.3406"/>
 <polygon fill="#8b4513" stroke="#8b4513" points="2056.3052,-5695.3216 2064.2871,-5702.2886 2062.3921,-5691.8646 2056.3052,-5695.3216"/>
 </g>
 <!-- trade_agent/pkg/modules/order.subOrderStatus$2&#45;&gt;trade_agent/pkg/sinopacapi.Get -->
-<g id="edge67" class="edge">
+<g id="edge72" class="edge">
 <title>trade_agent/pkg/modules/order.subOrderStatus$2&#45;&gt;trade_agent/pkg/sinopacapi.Get</title>
 <path fill="none" stroke="#8b4513" d="M1274.1898,-5865.6757C1299.6677,-5846.6448 1338.2552,-5813.0503 1355.7305,-5773.4444 1412.3237,-5645.1821 1324.7372,-4516.4444 1464.9299,-4516.4444 1464.9299,-4516.4444 1464.9299,-4516.4444 1538.9299,-4516.4444 1553.9753,-4516.4444 1798.9909,-4522.011 1809.7012,-4511.4444 1844.9567,-4476.6621 1863.0533,-2778.8351 1866.7012,-2729.4444 1885.9072,-2469.4035 1887.267,-2402.6598 1940.7012,-2147.4444 1947.7948,-2113.5636 1936.2775,-2095.936 1961.7012,-2072.4444 1981.5963,-2054.0612 2012.1832,-2049.0408 2036.3603,-2048.3522"/>
 <polygon fill="#8b4513" stroke="#8b4513" points="2036.6344,-2051.851 2046.6171,-2048.3018 2036.6,-2044.8511 2036.6344,-2051.851"/>
@@ -1608,25 +1668,25 @@
 <text text-anchor="middle" x="2073.6463" y="-2307.2444" font-family="Verdana" font-size="14.00" fill="#000000">FetchOrderStatus</text>
 </g>
 <!-- trade_agent/pkg/modules/order.subOrderStatus$2&#45;&gt;(*trade_agent/pkg/sinopacapi.TradeAgent).FetchOrderStatus -->
-<g id="edge68" class="edge">
+<g id="edge73" class="edge">
 <title>trade_agent/pkg/modules/order.subOrderStatus$2&#45;&gt;(*trade_agent/pkg/sinopacapi.TradeAgent).FetchOrderStatus</title>
 <path fill="none" stroke="#8b4513" d="M1274.1233,-5865.6461C1299.5442,-5846.59 1338.0834,-5812.9741 1355.7305,-5773.4444 1411.6616,-5648.1579 1327.7257,-4543.4444 1464.9299,-4543.4444 1464.9299,-4543.4444 1464.9299,-4543.4444 1538.9299,-4543.4444 1569.0976,-4543.4444 1788.8188,-4545.2162 1809.7012,-4523.4444 1878.1498,-4452.0802 1855.1208,-2842.648 1866.7012,-2744.4444 1888.2014,-2562.1198 1832.8363,-2473.2049 1961.7012,-2342.4444 1973.4235,-2330.5496 1989.2761,-2323.1065 2005.3602,-2318.4796"/>
 <polygon fill="#8b4513" stroke="#8b4513" points="2006.5333,-2321.7932 2015.3698,-2315.9481 2004.8169,-2315.0069 2006.5333,-2321.7932"/>
 </g>
 <!-- trade_agent/pkg/modules/order.clearAllUnFinished&#45;&gt;time.Now -->
-<g id="edge78" class="edge">
+<g id="edge83" class="edge">
 <title>trade_agent/pkg/modules/order.clearAllUnFinished&#45;&gt;time.Now</title>
 <path fill="none" stroke="#8b4513" d="M1313.9431,-4389.3405C1329.8748,-4384.9215 1345.3442,-4377.3214 1355.7305,-4364.4444 1435.828,-4265.1386 1411.1331,-3344.9815 1427.4299,-3218.4444 1460.4641,-2961.9493 1502.626,-2903.4257 1539.4299,-2647.4444 1546.3216,-2599.5107 1527.8664,-2467.1714 1559.4299,-2430.4444 1580.8673,-2405.4999 1618.9274,-2398.9785 1647.4621,-2397.9487"/>
 <polygon fill="#8b4513" stroke="#8b4513" points="1647.5507,-2401.4478 1657.4955,-2397.7938 1647.4426,-2394.4487 1647.5507,-2401.4478"/>
 </g>
 <!-- trade_agent/pkg/modules/order.clearAllUnFinished&#45;&gt;time.Sleep -->
-<g id="edge77" class="edge">
+<g id="edge82" class="edge">
 <title>trade_agent/pkg/modules/order.clearAllUnFinished&#45;&gt;time.Sleep</title>
 <path fill="none" stroke="#8b4513" d="M1313.878,-4389.2878C1329.8093,-4384.8684 1345.2948,-4377.2813 1355.7305,-4364.4444 1509.8472,-4174.866 1220.6107,-3270.4444 1464.9299,-3270.4444 1464.9299,-3270.4444 1464.9299,-3270.4444 1501.9299,-3270.4444 1520.8188,-3270.4444 1529.3723,-3266.433 1539.4299,-3250.4444 1567.4977,-3205.8247 1529.6905,-2819.9677 1559.4299,-2776.4444 1579.4301,-2747.1743 1618.6997,-2733.3362 1647.9393,-2726.8867"/>
 <polygon fill="#8b4513" stroke="#8b4513" points="1648.7018,-2730.3035 1657.8153,-2724.9004 1647.3215,-2723.441 1648.7018,-2730.3035"/>
 </g>
 <!-- trade_agent/pkg/modules/order.clearAllUnFinished&#45;&gt;(time.Time).Before -->
-<g id="edge79" class="edge">
+<g id="edge84" class="edge">
 <title>trade_agent/pkg/modules/order.clearAllUnFinished&#45;&gt;(time.Time).Before</title>
 <path fill="none" stroke="#8b4513" d="M1313.9303,-4389.3302C1329.862,-4384.9111 1345.3346,-4377.3136 1355.7305,-4364.4444 1516.7648,-4165.0992 1208.6673,-3216.4444 1464.9299,-3216.4444 1464.9299,-3216.4444 1464.9299,-3216.4444 1501.9299,-3216.4444 1567.3537,-3216.4444 1516.6416,-2679.9362 1559.4299,-2630.4444 1580.9409,-2605.5633 1618.99,-2599.0325 1647.5021,-2597.9832"/>
 <polygon fill="#8b4513" stroke="#8b4513" points="1647.5848,-2601.4824 1657.5268,-2597.8208 1647.4714,-2594.4833 1647.5848,-2601.4824"/>
@@ -1638,115 +1698,115 @@
 <text text-anchor="middle" x="1684.5656" y="-2656.2444" font-family="Verdana" font-size="14.00" fill="#000000">After</text>
 </g>
 <!-- trade_agent/pkg/modules/order.clearAllUnFinished&#45;&gt;(time.Time).After -->
-<g id="edge81" class="edge">
+<g id="edge86" class="edge">
 <title>trade_agent/pkg/modules/order.clearAllUnFinished&#45;&gt;(time.Time).After</title>
 <path fill="none" stroke="#8b4513" d="M1313.917,-4389.3194C1329.8485,-4384.9002 1345.3244,-4377.3054 1355.7305,-4364.4444 1513.1653,-4169.8692 1214.6397,-3243.4444 1464.9299,-3243.4444 1464.9299,-3243.4444 1464.9299,-3243.4444 1501.9299,-3243.4444 1520.8188,-3243.4444 1529.4141,-3239.4591 1539.4299,-3223.4444 1571.3256,-3172.4449 1519.9087,-2727.7915 1559.4299,-2682.4444 1580.9209,-2657.7853 1619.5018,-2654.3122 1648.1629,-2655.7549"/>
 <polygon fill="#8b4513" stroke="#8b4513" points="1647.998,-2659.252 1658.2234,-2656.4787 1648.5003,-2652.2701 1647.998,-2659.252"/>
 </g>
 <!-- trade_agent/pkg/modules/order.clearAllUnFinished&#45;&gt;trade_agent/pkg/cache.GetCache -->
-<g id="edge74" class="edge">
+<g id="edge79" class="edge">
 <title>trade_agent/pkg/modules/order.clearAllUnFinished&#45;&gt;trade_agent/pkg/cache.GetCache</title>
 <path fill="none" stroke="#8b4513" d="M1313.2301,-4388.5909C1356.0495,-4385.1403 1413.8392,-4381.4444 1464.9299,-4381.4444 1464.9299,-4381.4444 1464.9299,-4381.4444 1501.9299,-4381.4444 1520.8188,-4381.4444 1524.7782,-4389.523 1539.4299,-4401.4444 1550.2001,-4410.2075 1547.6065,-4418.1645 1559.4299,-4425.4444 1583.3804,-4440.191 1614.1048,-4447.4462 1639.1152,-4451.0122"/>
 <polygon fill="#8b4513" stroke="#8b4513" points="1638.732,-4454.4916 1649.0947,-4452.286 1639.6184,-4447.5479 1638.732,-4454.4916"/>
 </g>
 <!-- (*trade_agent/pkg/cache.Cache).GetTradeDayTradeOutEndTime -->
-<g id="node89" class="node">
+<g id="node92" class="node">
 <title>(*trade_agent/pkg/cache.Cache).GetTradeDayTradeOutEndTime</title>
 <ellipse fill="#ffe4b5" stroke="#000000" stroke-width="1.5" cx="1684.5656" cy="-3295.4444" rx="107.232" ry="18"/>
 <text text-anchor="middle" x="1684.5656" y="-3291.2444" font-family="Verdana" font-size="14.00" fill="#000000">GetTradeDayTradeOutEndTime</text>
 </g>
 <!-- trade_agent/pkg/modules/order.clearAllUnFinished&#45;&gt;(*trade_agent/pkg/cache.Cache).GetTradeDayTradeOutEndTime -->
-<g id="edge75" class="edge">
+<g id="edge80" class="edge">
 <title>trade_agent/pkg/modules/order.clearAllUnFinished&#45;&gt;(*trade_agent/pkg/cache.Cache).GetTradeDayTradeOutEndTime</title>
 <path fill="none" stroke="#8b4513" d="M1313.8326,-4389.2507C1329.7635,-4384.8311 1345.2602,-4377.2532 1355.7305,-4364.4444 1494.9719,-4194.104 1244.9209,-3380.4444 1464.9299,-3380.4444 1464.9299,-3380.4444 1464.9299,-3380.4444 1501.9299,-3380.4444 1523.8399,-3380.4444 1523.6959,-3363.692 1539.4299,-3348.4444 1548.9193,-3339.2482 1548.0817,-3333.2146 1559.4299,-3326.4444 1570.4579,-3319.8651 1582.8283,-3314.6778 1595.3854,-3310.589"/>
 <polygon fill="#8b4513" stroke="#8b4513" points="1596.4514,-3313.9232 1605.0052,-3307.6716 1594.4198,-3307.2245 1596.4514,-3313.9232"/>
 </g>
 <!-- (*trade_agent/pkg/cache.Cache).GetTradeDayOpenEndTime -->
-<g id="node90" class="node">
+<g id="node93" class="node">
 <title>(*trade_agent/pkg/cache.Cache).GetTradeDayOpenEndTime</title>
 <ellipse fill="#ffe4b5" stroke="#000000" stroke-width="1.5" cx="1684.5656" cy="-3539.4444" rx="94.3669" ry="18"/>
 <text text-anchor="middle" x="1684.5656" y="-3535.2444" font-family="Verdana" font-size="14.00" fill="#000000">GetTradeDayOpenEndTime</text>
 </g>
 <!-- trade_agent/pkg/modules/order.clearAllUnFinished&#45;&gt;(*trade_agent/pkg/cache.Cache).GetTradeDayOpenEndTime -->
-<g id="edge76" class="edge">
+<g id="edge81" class="edge">
 <title>trade_agent/pkg/modules/order.clearAllUnFinished&#45;&gt;(*trade_agent/pkg/cache.Cache).GetTradeDayOpenEndTime</title>
 <path fill="none" stroke="#8b4513" d="M1313.6883,-4388.8212C1329.5204,-4384.3893 1345.0029,-4376.9126 1355.7305,-4364.4444 1445.1189,-4260.5521 1327.8756,-3757.4444 1464.9299,-3757.4444 1464.9299,-3757.4444 1464.9299,-3757.4444 1501.9299,-3757.4444 1588.8813,-3757.4444 1496.2646,-3630.1996 1559.4299,-3570.4444 1568.4105,-3561.9486 1579.3411,-3555.6758 1590.9622,-3551.0622"/>
 <polygon fill="#8b4513" stroke="#8b4513" points="1592.1547,-3554.353 1600.4061,-3547.7072 1589.8113,-3547.7568 1592.1547,-3554.353"/>
 </g>
 <!-- (*trade_agent/pkg/cache.Cache).GetTargets -->
-<g id="node91" class="node">
+<g id="node94" class="node">
 <title>(*trade_agent/pkg/cache.Cache).GetTargets</title>
 <ellipse fill="#ffe4b5" stroke="#000000" stroke-width="1.5" cx="1684.5656" cy="-3600.4444" rx="39.8617" ry="18"/>
 <text text-anchor="middle" x="1684.5656" y="-3596.2444" font-family="Verdana" font-size="14.00" fill="#000000">GetTargets</text>
 </g>
 <!-- trade_agent/pkg/modules/order.clearAllUnFinished&#45;&gt;(*trade_agent/pkg/cache.Cache).GetTargets -->
-<g id="edge80" class="edge">
+<g id="edge85" class="edge">
 <title>trade_agent/pkg/modules/order.clearAllUnFinished&#45;&gt;(*trade_agent/pkg/cache.Cache).GetTargets</title>
 <path fill="none" stroke="#8b4513" d="M1312.8791,-4388.4241C1328.8035,-4383.9988 1344.5352,-4376.6246 1355.7305,-4364.4444 1528.2143,-4176.7851 1210.0444,-3801.4444 1464.9299,-3801.4444 1464.9299,-3801.4444 1464.9299,-3801.4444 1501.9299,-3801.4444 1571.0279,-3801.4444 1529.7033,-3664.0917 1559.4299,-3631.4444 1578.2533,-3610.7715 1608.5021,-3602.8924 1634.544,-3600.2438"/>
 <polygon fill="#8b4513" stroke="#8b4513" points="1634.9612,-3603.7218 1644.6557,-3599.4478 1634.4118,-3596.7434 1634.9612,-3603.7218"/>
 </g>
 <!-- (*trade_agent/pkg/cache.Cache).GetOrderBuy -->
-<g id="node92" class="node">
+<g id="node95" class="node">
 <title>(*trade_agent/pkg/cache.Cache).GetOrderBuy</title>
 <ellipse fill="#ffe4b5" stroke="#000000" stroke-width="1.5" cx="1684.5656" cy="-3661.4444" rx="47.692" ry="18"/>
 <text text-anchor="middle" x="1684.5656" y="-3657.2444" font-family="Verdana" font-size="14.00" fill="#000000">GetOrderBuy</text>
 </g>
 <!-- trade_agent/pkg/modules/order.clearAllUnFinished&#45;&gt;(*trade_agent/pkg/cache.Cache).GetOrderBuy -->
-<g id="edge82" class="edge">
+<g id="edge87" class="edge">
 <title>trade_agent/pkg/modules/order.clearAllUnFinished&#45;&gt;(*trade_agent/pkg/cache.Cache).GetOrderBuy</title>
 <path fill="none" stroke="#8b4513" d="M1312.458,-4388.0266C1328.3795,-4383.5985 1344.2151,-4376.3224 1355.7305,-4364.4444 1456.5339,-4260.4673 1320.1109,-4057.4444 1464.9299,-4057.4444 1464.9299,-4057.4444 1464.9299,-4057.4444 1501.9299,-4057.4444 1542.9856,-4057.4444 1531.6829,-3722.7044 1559.4299,-3692.4444 1576.4376,-3673.8962 1602.6447,-3665.6611 1626.6894,-3662.2578"/>
 <polygon fill="#8b4513" stroke="#8b4513" points="1627.2998,-3665.7105 1636.8287,-3661.0791 1626.4914,-3658.7573 1627.2998,-3665.7105"/>
 </g>
 <!-- (*trade_agent/pkg/cache.Cache).GetOrderSell -->
-<g id="node93" class="node">
+<g id="node96" class="node">
 <title>(*trade_agent/pkg/cache.Cache).GetOrderSell</title>
 <ellipse fill="#ffe4b5" stroke="#000000" stroke-width="1.5" cx="1684.5656" cy="-3234.4444" rx="46.931" ry="18"/>
 <text text-anchor="middle" x="1684.5656" y="-3230.2444" font-family="Verdana" font-size="14.00" fill="#000000">GetOrderSell</text>
 </g>
 <!-- trade_agent/pkg/modules/order.clearAllUnFinished&#45;&gt;(*trade_agent/pkg/cache.Cache).GetOrderSell -->
-<g id="edge83" class="edge">
+<g id="edge88" class="edge">
 <title>trade_agent/pkg/modules/order.clearAllUnFinished&#45;&gt;(*trade_agent/pkg/cache.Cache).GetOrderSell</title>
-<path fill="none" stroke="#8b4513" d="M1313.8546,-4389.2687C1329.7857,-4384.8492 1345.2769,-4377.2668 1355.7305,-4364.4444 1500.1936,-4187.2447 1236.3051,-3341.4444 1464.9299,-3341.4444 1464.9299,-3341.4444 1464.9299,-3341.4444 1501.9299,-3341.4444 1525.3435,-3341.4444 1525.5796,-3323.322 1539.4299,-3304.4444 1550.9531,-3288.7385 1544.16,-3277.5393 1559.4299,-3265.4444 1578.763,-3250.131 1604.6378,-3242.257 1627.8405,-3238.2551"/>
-<polygon fill="#8b4513" stroke="#8b4513" points="1628.5751,-3241.6838 1637.9359,-3236.7214 1627.5236,-3234.7632 1628.5751,-3241.6838"/>
+<path fill="none" stroke="#8b4513" d="M1313.8546,-4389.2687C1329.7857,-4384.8492 1345.2769,-4377.2668 1355.7305,-4364.4444 1500.1936,-4187.2447 1236.3051,-3341.4444 1464.9299,-3341.4444 1464.9299,-3341.4444 1464.9299,-3341.4444 1501.9299,-3341.4444 1544.2858,-3341.4444 1524.0699,-3288.7615 1559.4299,-3265.4444 1579.938,-3251.9208 1605.8631,-3244.2951 1628.7905,-3239.9958"/>
+<polygon fill="#8b4513" stroke="#8b4513" points="1629.4759,-3243.4295 1638.7448,-3238.2973 1628.2985,-3236.5292 1629.4759,-3243.4295"/>
 </g>
 <!-- (*trade_agent/pkg/cache.Cache).GetRealTimeTickClose -->
-<g id="node94" class="node">
+<g id="node97" class="node">
 <title>(*trade_agent/pkg/cache.Cache).GetRealTimeTickClose</title>
 <ellipse fill="#ffe4b5" stroke="#000000" stroke-width="1.5" cx="1684.5656" cy="-3356.4444" rx="79.8803" ry="18"/>
 <text text-anchor="middle" x="1684.5656" y="-3352.2444" font-family="Verdana" font-size="14.00" fill="#000000">GetRealTimeTickClose</text>
 </g>
 <!-- trade_agent/pkg/modules/order.clearAllUnFinished&#45;&gt;(*trade_agent/pkg/cache.Cache).GetRealTimeTickClose -->
-<g id="edge84" class="edge">
+<g id="edge89" class="edge">
 <title>trade_agent/pkg/modules/order.clearAllUnFinished&#45;&gt;(*trade_agent/pkg/cache.Cache).GetRealTimeTickClose</title>
 <path fill="none" stroke="#8b4513" d="M1313.8118,-4389.2338C1329.7426,-4384.814 1345.2444,-4377.2403 1355.7305,-4364.4444 1490.5626,-4199.9119 1252.2079,-3413.4444 1464.9299,-3413.4444 1464.9299,-3413.4444 1464.9299,-3413.4444 1501.9299,-3413.4444 1529.9766,-3413.4444 1532.9308,-3396.6322 1559.4299,-3387.4444 1577.4446,-3381.1983 1597.3269,-3375.6764 1615.8389,-3371.0884"/>
 <polygon fill="#8b4513" stroke="#8b4513" points="1616.774,-3374.4631 1625.6684,-3368.7064 1615.1254,-3367.66 1616.774,-3374.4631"/>
 </g>
 <!-- (*trade_agent/pkg/cache.Cache).GetOrderSellFirst -->
-<g id="node95" class="node">
+<g id="node98" class="node">
 <title>(*trade_agent/pkg/cache.Cache).GetOrderSellFirst</title>
 <ellipse fill="#ffe4b5" stroke="#000000" stroke-width="1.5" cx="1684.5656" cy="-3417.4444" rx="61.4539" ry="18"/>
 <text text-anchor="middle" x="1684.5656" y="-3413.2444" font-family="Verdana" font-size="14.00" fill="#000000">GetOrderSellFirst</text>
 </g>
 <!-- trade_agent/pkg/modules/order.clearAllUnFinished&#45;&gt;(*trade_agent/pkg/cache.Cache).GetOrderSellFirst -->
-<g id="edge87" class="edge">
+<g id="edge92" class="edge">
 <title>trade_agent/pkg/modules/order.clearAllUnFinished&#45;&gt;(*trade_agent/pkg/cache.Cache).GetOrderSellFirst</title>
 <path fill="none" stroke="#8b4513" d="M1313.837,-4388.9479C1329.6697,-4384.5166 1345.1153,-4377.0084 1355.7305,-4364.4444 1451.0856,-4251.5833 1408.7936,-3850.0148 1427.4299,-3703.4444 1441.9897,-3588.9345 1349.4981,-3446.4444 1464.9299,-3446.4444 1464.9299,-3446.4444 1464.9299,-3446.4444 1501.9299,-3446.4444 1544.4813,-3446.4444 1591.927,-3438.671 1627.7934,-3431.1734"/>
 <polygon fill="#8b4513" stroke="#8b4513" points="1628.5451,-3434.5919 1637.5888,-3429.0727 1627.0772,-3427.7475 1628.5451,-3434.5919"/>
 </g>
 <!-- (*trade_agent/pkg/cache.Cache).GetOrderBuyLater -->
-<g id="node96" class="node">
+<g id="node99" class="node">
 <title>(*trade_agent/pkg/cache.Cache).GetOrderBuyLater</title>
 <ellipse fill="#ffe4b5" stroke="#000000" stroke-width="1.5" cx="1684.5656" cy="-3478.4444" rx="64.0845" ry="18"/>
 <text text-anchor="middle" x="1684.5656" y="-3474.2444" font-family="Verdana" font-size="14.00" fill="#000000">GetOrderBuyLater</text>
 </g>
 <!-- trade_agent/pkg/modules/order.clearAllUnFinished&#45;&gt;(*trade_agent/pkg/cache.Cache).GetOrderBuyLater -->
-<g id="edge88" class="edge">
+<g id="edge93" class="edge">
 <title>trade_agent/pkg/modules/order.clearAllUnFinished&#45;&gt;(*trade_agent/pkg/cache.Cache).GetOrderBuyLater</title>
 <path fill="none" stroke="#8b4513" d="M1313.7402,-4388.8656C1329.5725,-4384.434 1345.0421,-4376.9462 1355.7305,-4364.4444 1442.4172,-4263.05 1410.1168,-3900.7155 1427.4299,-3768.4444 1442.8678,-3650.4992 1345.9787,-3503.4444 1464.9299,-3503.4444 1464.9299,-3503.4444 1464.9299,-3503.4444 1501.9299,-3503.4444 1542.4178,-3503.4444 1587.4919,-3497.3389 1622.7313,-3491.1624"/>
 <polygon fill="#8b4513" stroke="#8b4513" points="1623.6445,-3494.5543 1632.8657,-3489.337 1622.4036,-3487.6651 1623.6445,-3494.5543"/>
 </g>
 <!-- trade_agent/pkg/modules/order.clearAllUnFinished&#45;&gt;trade_agent/pkg/eventbus.Get -->
-<g id="edge85" class="edge">
+<g id="edge90" class="edge">
 <title>trade_agent/pkg/modules/order.clearAllUnFinished&#45;&gt;trade_agent/pkg/eventbus.Get</title>
 <path fill="none" stroke="#8b4513" d="M1313.949,-4389.3452C1329.8807,-4384.9263 1345.3487,-4377.325 1355.7305,-4364.4444 1436.698,-4263.9881 1412.1762,-3333.5635 1427.4299,-3205.4444 1438.5824,-3111.7727 1446.9802,-3089.1497 1464.4299,-2996.4444 1495.951,-2828.982 1516.0081,-2789.2302 1539.4299,-2620.4444 1547.1817,-2564.582 1526.7625,-2413.4175 1559.4299,-2367.4444 1579.9641,-2338.5464 1619.1445,-2324.6461 1648.2171,-2318.0803"/>
 <polygon fill="#8b4513" stroke="#8b4513" points="1648.9475,-2321.5034 1658.0318,-2316.0512 1647.5302,-2314.6484 1648.9475,-2321.5034"/>
@@ -1758,13 +1818,37 @@
 <text text-anchor="middle" x="1684.5656" y="-2247.2444" font-family="Verdana" font-size="14.00" fill="#000000">PublishStockOrder</text>
 </g>
 <!-- trade_agent/pkg/modules/order.clearAllUnFinished&#45;&gt;(*trade_agent/pkg/eventbus.BusAgent).PublishStockOrder -->
-<g id="edge86" class="edge">
+<g id="edge91" class="edge">
 <title>trade_agent/pkg/modules/order.clearAllUnFinished&#45;&gt;(*trade_agent/pkg/eventbus.BusAgent).PublishStockOrder</title>
 <path fill="none" stroke="#8b4513" d="M1313.9552,-4389.3503C1329.887,-4384.9313 1345.3535,-4377.3288 1355.7305,-4364.4444 1437.6349,-4262.7492 1414.1432,-3321.3432 1427.4299,-3191.4444 1448.4012,-2986.4159 1415.989,-2421.4347 1559.4299,-2273.4444 1572.8954,-2259.5518 1591.8233,-2252.5965 1610.8899,-2249.4555"/>
 <polygon fill="#8b4513" stroke="#8b4513" points="1611.3877,-2252.9202 1620.8449,-2248.1441 1610.4734,-2245.9802 1611.3877,-2252.9202"/>
 </g>
+<!-- trade_agent/pkg/modules/order.getQuantityByBiasRate -->
+<g id="node12" class="node">
+<title>trade_agent/pkg/modules/order.getQuantityByBiasRate</title>
+<ellipse fill="#add8e6" stroke="#000000" stroke-width=".5" cx="1249.7305" cy="-5051.4444" rx="79.8993" ry="18"/>
+<text text-anchor="middle" x="1249.7305" y="-5047.2444" font-family="Verdana" font-size="14.00" fill="#000000">getQuantityByBiasRate</text>
+</g>
+<!-- trade_agent/pkg/modules/order.getQuantityByBiasRate&#45;&gt;trade_agent/pkg/cache.GetCache -->
+<g id="edge98" class="edge">
+<title>trade_agent/pkg/modules/order.getQuantityByBiasRate&#45;&gt;trade_agent/pkg/cache.GetCache</title>
+<path fill="none" stroke="#8b4513" d="M1299.132,-5037.1954C1319.8447,-5028.6984 1342.2122,-5015.7053 1355.7305,-4996.4444 1501.6553,-4788.5296 1210.917,-4435.4444 1464.9299,-4435.4444 1464.9299,-4435.4444 1464.9299,-4435.4444 1501.9299,-4435.4444 1549.4267,-4435.4444 1603.5004,-4441.8801 1640.4071,-4447.2604"/>
+<polygon fill="#8b4513" stroke="#8b4513" points="1639.9345,-4450.7286 1650.3417,-4448.7437 1640.9682,-4443.8053 1639.9345,-4450.7286"/>
+</g>
+<!-- (*trade_agent/pkg/cache.Cache).GetBiasRate -->
+<g id="node100" class="node">
+<title>(*trade_agent/pkg/cache.Cache).GetBiasRate</title>
+<ellipse fill="#ffe4b5" stroke="#000000" stroke-width="1.5" cx="1684.5656" cy="-3905.4444" rx="44.5453" ry="18"/>
+<text text-anchor="middle" x="1684.5656" y="-3901.2444" font-family="Verdana" font-size="14.00" fill="#000000">GetBiasRate</text>
+</g>
+<!-- trade_agent/pkg/modules/order.getQuantityByBiasRate&#45;&gt;(*trade_agent/pkg/cache.Cache).GetBiasRate -->
+<g id="edge99" class="edge">
+<title>trade_agent/pkg/modules/order.getQuantityByBiasRate&#45;&gt;(*trade_agent/pkg/cache.Cache).GetBiasRate</title>
+<path fill="none" stroke="#8b4513" d="M1299.6879,-5037.2776C1320.3783,-5028.8162 1342.5731,-5015.8285 1355.7305,-4996.4444 1534.1008,-4733.6602 1307.3799,-4579.4843 1427.4299,-4285.4444 1457.5492,-4211.6727 1509.4988,-4219.2926 1539.4299,-4145.4444 1556.9553,-4102.2043 1528.9582,-3971.7758 1559.4299,-3936.4444 1576.7098,-3916.4086 1604.7138,-3908.2665 1629.8532,-3905.306"/>
+<polygon fill="#8b4513" stroke="#8b4513" points="1630.4118,-3908.7693 1640.0455,-3904.3599 1629.7647,-3901.7993 1630.4118,-3908.7693"/>
+</g>
 <!-- trade_agent/pkg/modules/order.orderCallback -->
-<g id="node11" class="node">
+<g id="node13" class="node">
 <title>trade_agent/pkg/modules/order.orderCallback</title>
 <ellipse fill="#add8e6" stroke="#000000" stroke-width=".5" cx="865.7998" cy="-3343.4444" rx="49.2048" ry="18"/>
 <text text-anchor="middle" x="865.7998" y="-3339.2444" font-family="Verdana" font-size="14.00" fill="#000000">orderCallback</text>
@@ -1777,23 +1861,11 @@
 <polyline fill="none" stroke="#000000" points="1199.5016,-173.635 1194.8847,-175.5544 "/>
 <ellipse fill="none" stroke="#000000" cx="1191.1912" cy="-177.09" rx="4" ry="4"/>
 </g>
-<!-- trade_agent/pkg/modules/order.checkSwitch -->
-<g id="node12" class="node">
-<title>trade_agent/pkg/modules/order.checkSwitch</title>
-<ellipse fill="#add8e6" stroke="#000000" stroke-width=".5" cx="1249.7305" cy="-4333.4444" rx="44.9207" ry="18"/>
-<text text-anchor="middle" x="1249.7305" y="-4329.2444" font-family="Verdana" font-size="14.00" fill="#000000">checkSwitch</text>
-</g>
 <!-- trade_agent/pkg/modules/order.orderCallback&#45;&gt;trade_agent/pkg/modules/order.checkSwitch -->
-<g id="edge100" class="edge">
+<g id="edge102" class="edge">
 <title>trade_agent/pkg/modules/order.orderCallback&#45;&gt;trade_agent/pkg/modules/order.checkSwitch</title>
 <path fill="none" stroke="#000000" d="M866.4432,-3361.6826C871.2768,-3492.0674 904.3827,-4277.4444 1000.5311,-4277.4444 1000.5311,-4277.4444 1000.5311,-4277.4444 1037.5311,-4277.4444 1099.2134,-4277.4444 1167.7421,-4299.8391 1209.791,-4316.3046"/>
 <polygon fill="#000000" stroke="#000000" points="1208.5345,-4319.5715 1219.1194,-4320.031 1211.1313,-4313.071 1208.5345,-4319.5715"/>
-</g>
-<!-- trade_agent/pkg/modules/order.getQuantityByBiasRate -->
-<g id="node13" class="node">
-<title>trade_agent/pkg/modules/order.getQuantityByBiasRate</title>
-<ellipse fill="#add8e6" stroke="#000000" stroke-width=".5" cx="1249.7305" cy="-5051.4444" rx="79.8993" ry="18"/>
-<text text-anchor="middle" x="1249.7305" y="-5047.2444" font-family="Verdana" font-size="14.00" fill="#000000">getQuantityByBiasRate</text>
 </g>
 <!-- trade_agent/pkg/modules/order.orderCallback&#45;&gt;trade_agent/pkg/modules/order.getQuantityByBiasRate -->
 <g id="edge105" class="edge">
@@ -1808,7 +1880,7 @@
 <text text-anchor="middle" x="1249.7305" y="-1244.2444" font-family="Verdana" font-size="14.00" fill="#000000">Error</text>
 </g>
 <!-- trade_agent/pkg/modules/order.orderCallback&#45;&gt;(compress/flate.CorruptInputError).Error -->
-<g id="edge153" class="edge">
+<g id="edge144" class="edge">
 <title>trade_agent/pkg/modules/order.orderCallback&#45;&gt;(compress/flate.CorruptInputError).Error</title>
 <path fill="none" stroke="#8b4513" stroke-dasharray="5,2" d="M907.9187,-3333.805C918.3266,-3329.3518 928.2884,-3322.8684 934.5863,-3313.4444 958.0504,-3278.3335 959.9419,-1835.5608 963.0311,-1793.4444 967.8169,-1728.1978 935.1093,-1501.4444 1000.5311,-1501.4444 1000.5311,-1501.4444 1000.5311,-1501.4444 1037.5311,-1501.4444 1148.1106,-1501.4444 1058.7307,-1347.1751 1143.7305,-1276.4444 1162.9291,-1260.4687 1190.2958,-1253.5139 1212.4131,-1250.5296"/>
 <polygon fill="#8b4513" stroke="#8b4513" points="1212.9304,-1253.9935 1222.473,-1249.3905 1212.1427,-1247.038 1212.9304,-1253.9935"/>
@@ -1820,7 +1892,7 @@
 <text text-anchor="middle" x="1249.7305" y="-1330.2444" font-family="Verdana" font-size="14.00" fill="#000000">Error</text>
 </g>
 <!-- trade_agent/pkg/modules/order.orderCallback&#45;&gt;(compress/flate.InternalError).Error -->
-<g id="edge143" class="edge">
+<g id="edge131" class="edge">
 <title>trade_agent/pkg/modules/order.orderCallback&#45;&gt;(compress/flate.InternalError).Error</title>
 <path fill="none" stroke="#8b4513" stroke-dasharray="5,2" d="M907.9177,-3333.8043C918.3256,-3329.3512 928.2876,-3322.8679 934.5863,-3313.4444 981.119,-3243.8267 949.3167,-1889.0508 963.0311,-1806.4444 971.9744,-1752.576 945.9255,-1689.4444 1000.5311,-1689.4444 1000.5311,-1689.4444 1000.5311,-1689.4444 1037.5311,-1689.4444 1172.2897,-1689.4444 1060.1286,-1511.1353 1143.7305,-1405.4444 1163.4164,-1380.5571 1194.2652,-1361.2894 1217.6181,-1349.1456"/>
 <polygon fill="#8b4513" stroke="#8b4513" points="1219.4301,-1352.1522 1226.7949,-1344.5358 1216.2879,-1345.8971 1219.4301,-1352.1522"/>
@@ -1832,7 +1904,7 @@
 <text text-anchor="middle" x="1249.7305" y="-1459.2444" font-family="Verdana" font-size="14.00" fill="#000000">Error</text>
 </g>
 <!-- trade_agent/pkg/modules/order.orderCallback&#45;&gt;(context.deadlineExceededError).Error -->
-<g id="edge132" class="edge">
+<g id="edge155" class="edge">
 <title>trade_agent/pkg/modules/order.orderCallback&#45;&gt;(context.deadlineExceededError).Error</title>
 <path fill="none" stroke="#8b4513" stroke-dasharray="5,2" d="M907.9171,-3333.8039C918.325,-3329.3507 928.2871,-3322.8676 934.5863,-3313.4444 980.8755,-3244.1985 940.7239,-1894.6944 963.0311,-1814.4444 971.9633,-1782.3109 967.1793,-1749.4444 1000.5311,-1749.4444 1000.5311,-1749.4444 1000.5311,-1749.4444 1037.5311,-1749.4444 1066.3866,-1749.4444 1060.9841,-1721.65 1075.0311,-1696.4444 1113.1024,-1628.1301 1093.8978,-1594.7185 1143.7305,-1534.4444 1163.9498,-1509.9885 1194.7351,-1490.6694 1217.9284,-1478.3966"/>
 <polygon fill="#8b4513" stroke="#8b4513" points="1219.7317,-1481.4054 1227.0352,-1473.7301 1216.5394,-1475.1756 1219.7317,-1481.4054"/>
@@ -1844,7 +1916,7 @@
 <text text-anchor="middle" x="1249.7305" y="-1588.2444" font-family="Verdana" font-size="14.00" fill="#000000">Error</text>
 </g>
 <!-- trade_agent/pkg/modules/order.orderCallback&#45;&gt;(crypto/aes.KeySizeError).Error -->
-<g id="edge160" class="edge">
+<g id="edge147" class="edge">
 <title>trade_agent/pkg/modules/order.orderCallback&#45;&gt;(crypto/aes.KeySizeError).Error</title>
 <path fill="none" stroke="#8b4513" stroke-dasharray="5,2" d="M907.908,-3333.7978C918.3158,-3329.3446 928.2801,-3322.8629 934.5863,-3313.4444 977.5586,-3249.2637 951.5168,-1999.8197 963.0311,-1923.4444 972.0592,-1863.5603 939.9704,-1792.4444 1000.5311,-1792.4444 1000.5311,-1792.4444 1000.5311,-1792.4444 1037.5311,-1792.4444 1060.6347,-1792.4444 1059.7793,-1773.7983 1075.0311,-1756.4444 1108.9548,-1717.8452 1106.5668,-1698.9348 1143.7305,-1663.4444 1166.679,-1641.5292 1197.1388,-1621.9071 1219.5163,-1608.8748"/>
 <polygon fill="#8b4513" stroke="#8b4513" points="1221.3194,-1611.8756 1228.2646,-1603.8746 1217.8458,-1605.7982 1221.3194,-1611.8756"/>
@@ -1856,7 +1928,7 @@
 <text text-anchor="middle" x="1249.7305" y="-1717.2444" font-family="Verdana" font-size="14.00" fill="#000000">Error</text>
 </g>
 <!-- trade_agent/pkg/modules/order.orderCallback&#45;&gt;(*crypto/tls.permanentError).Error -->
-<g id="edge137" class="edge">
+<g id="edge165" class="edge">
 <title>trade_agent/pkg/modules/order.orderCallback&#45;&gt;(*crypto/tls.permanentError).Error</title>
 <path fill="none" stroke="#8b4513" stroke-dasharray="5,2" d="M907.9068,-3333.797C918.3145,-3329.3438 928.2792,-3322.8623 934.5863,-3313.4444 977.163,-3249.8679 949.6334,-2011.7786 963.0311,-1936.4444 972.0015,-1886.0046 949.2999,-1827.4444 1000.5311,-1827.4444 1000.5311,-1827.4444 1000.5311,-1827.4444 1037.5311,-1827.4444 1096.0938,-1827.4444 1090.8931,-1774.6991 1143.7305,-1749.4444 1165.7202,-1738.9339 1192.2316,-1731.9327 1213.2398,-1727.5596"/>
 <polygon fill="#8b4513" stroke="#8b4513" points="1213.9339,-1730.9902 1223.067,-1725.6201 1212.5785,-1724.1227 1213.9339,-1730.9902"/>
@@ -1868,7 +1940,7 @@
 <text text-anchor="middle" x="1249.7305" y="-1803.2444" font-family="Verdana" font-size="14.00" fill="#000000">Error</text>
 </g>
 <!-- trade_agent/pkg/modules/order.orderCallback&#45;&gt;(crypto/tls.RecordHeaderError).Error -->
-<g id="edge136" class="edge">
+<g id="edge125" class="edge">
 <title>trade_agent/pkg/modules/order.orderCallback&#45;&gt;(crypto/tls.RecordHeaderError).Error</title>
 <path fill="none" stroke="#8b4513" stroke-dasharray="5,2" d="M907.9056,-3333.7962C918.3134,-3329.343 928.2784,-3322.8617 934.5863,-3313.4444 976.7978,-3250.4255 947.3817,-2022.6622 963.0311,-1948.4444 971.9717,-1906.0434 957.1978,-1858.4444 1000.5311,-1858.4444 1000.5311,-1858.4444 1000.5311,-1858.4444 1037.5311,-1858.4444 1055.1428,-1858.4444 1159.104,-1831.5427 1214.697,-1816.8157"/>
 <polygon fill="#8b4513" stroke="#8b4513" points="1215.7163,-1820.1664 1224.4828,-1814.2168 1213.9194,-1813.4009 1215.7163,-1820.1664"/>
@@ -1880,7 +1952,7 @@
 <text text-anchor="middle" x="1249.7305" y="-1889.2444" font-family="Verdana" font-size="14.00" fill="#000000">Error</text>
 </g>
 <!-- trade_agent/pkg/modules/order.orderCallback&#45;&gt;(crypto/tls.alert).Error -->
-<g id="edge163" class="edge">
+<g id="edge134" class="edge">
 <title>trade_agent/pkg/modules/order.orderCallback&#45;&gt;(crypto/tls.alert).Error</title>
 <path fill="none" stroke="#8b4513" stroke-dasharray="5,2" d="M907.9049,-3333.7957C918.3127,-3329.3425 928.2778,-3322.8613 934.5863,-3313.4444 976.5544,-3250.7972 935.4187,-2026.6123 963.0311,-1956.4444 972.1947,-1933.1581 975.5067,-1914.4444 1000.5311,-1914.4444 1000.5311,-1914.4444 1000.5311,-1914.4444 1037.5311,-1914.4444 1099.4733,-1914.4444 1171.094,-1905.4734 1213.2807,-1899.2583"/>
 <polygon fill="#8b4513" stroke="#8b4513" points="1213.9797,-1902.6926 1223.3481,-1897.7447 1212.9389,-1895.7704 1213.9797,-1902.6926"/>
@@ -1892,7 +1964,7 @@
 <text text-anchor="middle" x="1249.7305" y="-2372.2444" font-family="Verdana" font-size="14.00" fill="#000000">Error</text>
 </g>
 <!-- trade_agent/pkg/modules/order.orderCallback&#45;&gt;(crypto/x509.CertificateInvalidError).Error -->
-<g id="edge157" class="edge">
+<g id="edge139" class="edge">
 <title>trade_agent/pkg/modules/order.orderCallback&#45;&gt;(crypto/x509.CertificateInvalidError).Error</title>
 <path fill="none" stroke="#8b4513" stroke-dasharray="5,2" d="M907.8126,-3333.7334C918.2194,-3329.2795 928.2072,-3322.8136 934.5863,-3313.4444 988.9588,-3233.5855 903.9195,-2446.4444 1000.5311,-2446.4444 1000.5311,-2446.4444 1000.5311,-2446.4444 1037.5311,-2446.4444 1105.5876,-2446.4444 1180.0216,-2413.5703 1220.1308,-2392.879"/>
 <polygon fill="#8b4513" stroke="#8b4513" points="1221.8759,-2395.9158 1229.0946,-2388.1608 1218.6153,-2389.7216 1221.8759,-2395.9158"/>
@@ -1904,7 +1976,7 @@
 <text text-anchor="middle" x="1249.7305" y="-2028.2444" font-family="Verdana" font-size="14.00" fill="#000000">Error</text>
 </g>
 <!-- trade_agent/pkg/modules/order.orderCallback&#45;&gt;(crypto/x509.HostnameError).Error -->
-<g id="edge126" class="edge">
+<g id="edge120" class="edge">
 <title>trade_agent/pkg/modules/order.orderCallback&#45;&gt;(crypto/x509.HostnameError).Error</title>
 <path fill="none" stroke="#8b4513" stroke-dasharray="5,2" d="M907.8575,-3333.7638C918.2648,-3329.3103 928.2415,-3322.8369 934.5863,-3313.4444 965.4482,-3267.7576 957.5114,-2376.3011 963.0311,-2321.4444 972.7858,-2224.4979 903.0951,-2105.4444 1000.5311,-2105.4444 1000.5311,-2105.4444 1000.5311,-2105.4444 1037.5311,-2105.4444 1088.7933,-2105.4444 1095.2264,-2077.0324 1143.7305,-2060.4444 1166.6868,-2052.5935 1193.0616,-2045.6191 1213.7596,-2040.5947"/>
 <polygon fill="#8b4513" stroke="#8b4513" points="1214.8046,-2043.9437 1223.7204,-2038.2202 1213.1813,-2037.1345 1214.8046,-2043.9437"/>
@@ -1916,7 +1988,7 @@
 <text text-anchor="middle" x="1249.7305" y="-2200.2444" font-family="Verdana" font-size="14.00" fill="#000000">Error</text>
 </g>
 <!-- trade_agent/pkg/modules/order.orderCallback&#45;&gt;(crypto/x509.SystemRootsError).Error -->
-<g id="edge141" class="edge">
+<g id="edge157" class="edge">
 <title>trade_agent/pkg/modules/order.orderCallback&#45;&gt;(crypto/x509.SystemRootsError).Error</title>
 <path fill="none" stroke="#8b4513" stroke-dasharray="5,2" d="M907.8421,-3333.7534C918.2492,-3329.2998 928.2297,-3322.8289 934.5863,-3313.4444 996.4737,-3222.0764 890.1765,-2322.4444 1000.5311,-2322.4444 1000.5311,-2322.4444 1000.5311,-2322.4444 1037.5311,-2322.4444 1099.4004,-2322.4444 1088.8709,-2261.0492 1143.7305,-2232.4444 1165.4866,-2221.1003 1192.2091,-2214.0812 1213.3802,-2209.9077"/>
 <polygon fill="#8b4513" stroke="#8b4513" points="1214.0822,-2213.3373 1223.2812,-2208.081 1212.8122,-2206.4535 1214.0822,-2213.3373"/>
@@ -1928,7 +2000,7 @@
 <text text-anchor="middle" x="1249.7305" y="-2114.2444" font-family="Verdana" font-size="14.00" fill="#000000">Error</text>
 </g>
 <!-- trade_agent/pkg/modules/order.orderCallback&#45;&gt;(crypto/x509.UnhandledCriticalExtension).Error -->
-<g id="edge162" class="edge">
+<g id="edge149" class="edge">
 <title>trade_agent/pkg/modules/order.orderCallback&#45;&gt;(crypto/x509.UnhandledCriticalExtension).Error</title>
 <path fill="none" stroke="#8b4513" stroke-dasharray="5,2" d="M907.8476,-3333.7571C918.2548,-3329.3035 928.2339,-3322.8318 934.5863,-3313.4444 963.8357,-3270.2201 956.5269,-2426.2281 963.0311,-2374.4444 972.5654,-2298.5366 924.0269,-2206.4444 1000.5311,-2206.4444 1000.5311,-2206.4444 1000.5311,-2206.4444 1037.5311,-2206.4444 1091.743,-2206.4444 1093.5127,-2166.8674 1143.7305,-2146.4444 1166.2047,-2137.3044 1192.5775,-2130.3246 1213.395,-2125.6197"/>
 <polygon fill="#8b4513" stroke="#8b4513" points="1214.4014,-2128.9825 1223.425,-2123.4304 1212.9086,-2122.1435 1214.4014,-2128.9825"/>
@@ -1940,7 +2012,7 @@
 <text text-anchor="middle" x="1249.7305" y="-2286.2444" font-family="Verdana" font-size="14.00" fill="#000000">Error</text>
 </g>
 <!-- trade_agent/pkg/modules/order.orderCallback&#45;&gt;(crypto/x509.UnknownAuthorityError).Error -->
-<g id="edge156" class="edge">
+<g id="edge160" class="edge">
 <title>trade_agent/pkg/modules/order.orderCallback&#45;&gt;(crypto/x509.UnknownAuthorityError).Error</title>
 <path fill="none" stroke="#8b4513" stroke-dasharray="5,2" d="M907.8159,-3333.7356C918.2228,-3329.2818 928.2097,-3322.8153 934.5863,-3313.4444 984.7492,-3239.7256 949.2535,-2599.5406 963.0311,-2511.4444 972.5208,-2450.7661 939.1153,-2378.4444 1000.5311,-2378.4444 1000.5311,-2378.4444 1000.5311,-2378.4444 1037.5311,-2378.4444 1091.743,-2378.4444 1093.5127,-2338.8674 1143.7305,-2318.4444 1166.2047,-2309.3044 1192.5775,-2302.3246 1213.395,-2297.6197"/>
 <polygon fill="#8b4513" stroke="#8b4513" points="1214.4014,-2300.9825 1223.425,-2295.4304 1212.9086,-2294.1435 1214.4014,-2300.9825"/>
@@ -1952,7 +2024,7 @@
 <text text-anchor="middle" x="1249.7305" y="-2501.2444" font-family="Verdana" font-size="14.00" fill="#000000">Error</text>
 </g>
 <!-- trade_agent/pkg/modules/order.orderCallback&#45;&gt;(encoding/base64.CorruptInputError).Error -->
-<g id="edge122" class="edge">
+<g id="edge146" class="edge">
 <title>trade_agent/pkg/modules/order.orderCallback&#45;&gt;(encoding/base64.CorruptInputError).Error</title>
 <path fill="none" stroke="#8b4513" stroke-dasharray="5,2" d="M907.7598,-3333.6972C918.1661,-3329.2431 928.1668,-3322.786 934.5863,-3313.4444 974.7118,-3255.054 953.4692,-2746.6445 963.0311,-2676.4444 973.0638,-2602.7876 926.1942,-2513.4444 1000.5311,-2513.4444 1000.5311,-2513.4444 1000.5311,-2513.4444 1037.5311,-2513.4444 1098.8761,-2513.4444 1170.1259,-2510.0644 1212.4866,-2507.6984"/>
 <polygon fill="#8b4513" stroke="#8b4513" points="1212.8257,-2511.1849 1222.6103,-2507.1214 1212.4273,-2504.1962 1212.8257,-2511.1849"/>
@@ -1964,7 +2036,7 @@
 <text text-anchor="middle" x="1249.7305" y="-3060.2444" font-family="Verdana" font-size="14.00" fill="#000000">Error</text>
 </g>
 <!-- trade_agent/pkg/modules/order.orderCallback&#45;&gt;(*encoding/json.InvalidUnmarshalError).Error -->
-<g id="edge144" class="edge">
+<g id="edge132" class="edge">
 <title>trade_agent/pkg/modules/order.orderCallback&#45;&gt;(*encoding/json.InvalidUnmarshalError).Error</title>
 <path fill="none" stroke="#8b4513" stroke-dasharray="5,2" d="M906.7592,-3333.3834C917.284,-3328.917 927.5964,-3322.5322 934.5863,-3313.4444 995.2634,-3234.5557 901.0066,-3099.4444 1000.5311,-3099.4444 1000.5311,-3099.4444 1000.5311,-3099.4444 1037.5311,-3099.4444 1071.1526,-3099.4444 1162.4858,-3082.123 1213.6927,-3071.8511"/>
 <polygon fill="#8b4513" stroke="#8b4513" points="1214.5632,-3075.246 1223.6728,-3069.8364 1213.178,-3068.3845 1214.5632,-3075.246"/>
@@ -1976,7 +2048,7 @@
 <text text-anchor="middle" x="1249.7305" y="-2802.2444" font-family="Verdana" font-size="14.00" fill="#000000">Error</text>
 </g>
 <!-- trade_agent/pkg/modules/order.orderCallback&#45;&gt;(*encoding/json.MarshalerError).Error -->
-<g id="edge121" class="edge">
+<g id="edge124" class="edge">
 <title>trade_agent/pkg/modules/order.orderCallback&#45;&gt;(*encoding/json.MarshalerError).Error</title>
 <path fill="none" stroke="#8b4513" stroke-dasharray="5,2" d="M907.4776,-3333.4985C917.8812,-3329.0423 927.951,-3322.634 934.5863,-3313.4444 986.4259,-3241.6494 911.9768,-2920.4444 1000.5311,-2920.4444 1000.5311,-2920.4444 1000.5311,-2920.4444 1037.5311,-2920.4444 1098.2662,-2920.4444 1089.5664,-2861.9217 1143.7305,-2834.4444 1165.466,-2823.418 1191.9775,-2816.4169 1213.0493,-2812.1729"/>
 <polygon fill="#8b4513" stroke="#8b4513" points="1213.7377,-2815.6049 1222.912,-2810.3055 1212.4354,-2808.7271 1213.7377,-2815.6049"/>
@@ -1988,7 +2060,7 @@
 <text text-anchor="middle" x="1249.7305" y="-2716.2444" font-family="Verdana" font-size="14.00" fill="#000000">Error</text>
 </g>
 <!-- trade_agent/pkg/modules/order.orderCallback&#45;&gt;(*encoding/json.SyntaxError).Error -->
-<g id="edge135" class="edge">
+<g id="edge137" class="edge">
 <title>trade_agent/pkg/modules/order.orderCallback&#45;&gt;(*encoding/json.SyntaxError).Error</title>
 <path fill="none" stroke="#8b4513" stroke-dasharray="5,2" d="M907.5546,-3333.5537C917.959,-3329.0981 928.0099,-3322.6762 934.5863,-3313.4444 1007.1599,-3211.5671 875.4475,-2754.4444 1000.5311,-2754.4444 1000.5311,-2754.4444 1000.5311,-2754.4444 1037.5311,-2754.4444 1100.4744,-2754.4444 1172.612,-2739.679 1214.4912,-2729.6089"/>
 <polygon fill="#8b4513" stroke="#8b4513" points="1215.5849,-2732.9444 1224.4625,-2727.1617 1213.9164,-2726.1461 1215.5849,-2732.9444"/>
@@ -2000,7 +2072,7 @@
 <text text-anchor="middle" x="1249.7305" y="-2630.2444" font-family="Verdana" font-size="14.00" fill="#000000">Error</text>
 </g>
 <!-- trade_agent/pkg/modules/order.orderCallback&#45;&gt;(*encoding/json.UnmarshalTypeError).Error -->
-<g id="edge123" class="edge">
+<g id="edge142" class="edge">
 <title>trade_agent/pkg/modules/order.orderCallback&#45;&gt;(*encoding/json.UnmarshalTypeError).Error</title>
 <path fill="none" stroke="#8b4513" stroke-dasharray="5,2" d="M907.7133,-3333.6652C918.1192,-3329.2107 928.1313,-3322.7615 934.5863,-3313.4444 1017.0167,-3194.4654 855.7874,-2665.4444 1000.5311,-2665.4444 1000.5311,-2665.4444 1000.5311,-2665.4444 1037.5311,-2665.4444 1100.1697,-2665.4444 1172.127,-2652.0553 1214.1005,-2642.8756"/>
 <polygon fill="#8b4513" stroke="#8b4513" points="1215.1045,-2646.2377 1224.1018,-2640.6432 1213.5794,-2639.4058 1215.1045,-2646.2377"/>
@@ -2012,7 +2084,7 @@
 <text text-anchor="middle" x="1249.7305" y="-2888.2444" font-family="Verdana" font-size="14.00" fill="#000000">Error</text>
 </g>
 <!-- trade_agent/pkg/modules/order.orderCallback&#45;&gt;(*encoding/json.UnsupportedTypeError).Error -->
-<g id="edge161" class="edge">
+<g id="edge153" class="edge">
 <title>trade_agent/pkg/modules/order.orderCallback&#45;&gt;(*encoding/json.UnsupportedTypeError).Error</title>
 <path fill="none" stroke="#8b4513" stroke-dasharray="5,2" d="M907.4402,-3333.4714C917.8434,-3329.015 927.9224,-3322.6132 934.5863,-3313.4444 981.1181,-3249.4215 921.3848,-2963.4444 1000.5311,-2963.4444 1000.5311,-2963.4444 1000.5311,-2963.4444 1037.5311,-2963.4444 1088.4531,-2963.4444 1095.4174,-2936.5346 1143.7305,-2920.4444 1166.7491,-2912.7782 1193.1243,-2905.8046 1213.8068,-2900.7344"/>
 <polygon fill="#8b4513" stroke="#8b4513" points="1214.8584,-2904.0812 1223.7586,-2898.3334 1213.2166,-2897.2764 1214.8584,-2904.0812"/>
@@ -2024,7 +2096,7 @@
 <text text-anchor="middle" x="1249.7305" y="-2974.2444" font-family="Verdana" font-size="14.00" fill="#000000">Error</text>
 </g>
 <!-- trade_agent/pkg/modules/order.orderCallback&#45;&gt;(*encoding/json.UnsupportedValueError).Error -->
-<g id="edge117" class="edge">
+<g id="edge122" class="edge">
 <title>trade_agent/pkg/modules/order.orderCallback&#45;&gt;(*encoding/json.UnsupportedValueError).Error</title>
 <path fill="none" stroke="#8b4513" stroke-dasharray="5,2" d="M907.2113,-3333.3016C917.6122,-3328.8435 927.7472,-3322.4834 934.5863,-3313.4444 1014.8626,-3207.3454 867.485,-3021.4444 1000.5311,-3021.4444 1000.5311,-3021.4444 1000.5311,-3021.4444 1037.5311,-3021.4444 1071.5544,-3021.4444 1163.5694,-2999.9422 1214.5459,-2987.3481"/>
 <polygon fill="#8b4513" stroke="#8b4513" points="1215.6051,-2990.6914 1224.4651,-2984.8819 1213.916,-2983.8982 1215.6051,-2990.6914"/>
@@ -2048,7 +2120,7 @@
 <text text-anchor="middle" x="1249.7305" y="-3425.2444" font-family="Verdana" font-size="14.00" fill="#000000">Error</text>
 </g>
 <!-- trade_agent/pkg/modules/order.orderCallback&#45;&gt;(*encoding/xml.TagPathError).Error -->
-<g id="edge118" class="edge">
+<g id="edge138" class="edge">
 <title>trade_agent/pkg/modules/order.orderCallback&#45;&gt;(*encoding/xml.TagPathError).Error</title>
 <path fill="none" stroke="#8b4513" stroke-dasharray="5,2" d="M888.9259,-3359.6419C914.8467,-3376.1808 958.7352,-3399.4444 1000.5311,-3399.4444 1000.5311,-3399.4444 1000.5311,-3399.4444 1037.5311,-3399.4444 1100.1282,-3399.4444 1172.0985,-3412.4016 1214.0858,-3421.2851"/>
 <polygon fill="#8b4513" stroke="#8b4513" points="1213.5771,-3424.7559 1224.0906,-3423.4455 1215.0547,-3417.9136 1213.5771,-3424.7559"/>
@@ -2060,7 +2132,7 @@
 <text text-anchor="middle" x="1249.7305" y="-3511.2444" font-family="Verdana" font-size="14.00" fill="#000000">Error</text>
 </g>
 <!-- trade_agent/pkg/modules/order.orderCallback&#45;&gt;(*encoding/xml.UnsupportedTypeError).Error -->
-<g id="edge165" class="edge">
+<g id="edge164" class="edge">
 <title>trade_agent/pkg/modules/order.orderCallback&#45;&gt;(*encoding/xml.UnsupportedTypeError).Error</title>
 <path fill="none" stroke="#8b4513" stroke-dasharray="5,2" d="M872.8428,-3361.3021C889.114,-3399.2432 933.1538,-3484.4444 1000.5311,-3484.4444 1000.5311,-3484.4444 1000.5311,-3484.4444 1037.5311,-3484.4444 1100.1697,-3484.4444 1172.127,-3497.8335 1214.1005,-3507.0131"/>
 <polygon fill="#8b4513" stroke="#8b4513" points="1213.5794,-3510.4829 1224.1018,-3509.2456 1215.1045,-3503.651 1213.5794,-3510.4829"/>
@@ -2072,7 +2144,7 @@
 <text text-anchor="middle" x="1249.7305" y="-3339.2444" font-family="Verdana" font-size="14.00" fill="#000000">Error</text>
 </g>
 <!-- trade_agent/pkg/modules/order.orderCallback&#45;&gt;(encoding/xml.UnmarshalError).Error -->
-<g id="edge130" class="edge">
+<g id="edge161" class="edge">
 <title>trade_agent/pkg/modules/order.orderCallback&#45;&gt;(encoding/xml.UnmarshalError).Error</title>
 <path fill="none" stroke="#8b4513" stroke-dasharray="5,2" d="M915.3902,-3343.4444C940.8424,-3343.4444 972.3451,-3343.4444 1000.5311,-3343.4444 1000.5311,-3343.4444 1000.5311,-3343.4444 1037.5311,-3343.4444 1098.8326,-3343.4444 1170.0955,-3343.4444 1212.4706,-3343.4444"/>
 <polygon fill="#8b4513" stroke="#8b4513" points="1212.598,-3346.9445 1222.5979,-3343.4444 1212.5979,-3339.9445 1212.598,-3346.9445"/>
@@ -2096,7 +2168,7 @@
 <text text-anchor="middle" x="1249.7305" y="-3769.2444" font-family="Verdana" font-size="14.00" fill="#000000">Error</text>
 </g>
 <!-- trade_agent/pkg/modules/order.orderCallback&#45;&gt;(*fmt.wrapError).Error -->
-<g id="edge151" class="edge">
+<g id="edge123" class="edge">
 <title>trade_agent/pkg/modules/order.orderCallback&#45;&gt;(*fmt.wrapError).Error</title>
 <path fill="none" stroke="#8b4513" stroke-dasharray="5,2" d="M868.3095,-3361.5896C879.1094,-3436.0751 924.5535,-3714.4444 1000.5311,-3714.4444 1000.5311,-3714.4444 1000.5311,-3714.4444 1037.5311,-3714.4444 1103.7655,-3714.4444 1177.5187,-3741.4564 1218.2916,-3758.926"/>
 <polygon fill="#8b4513" stroke="#8b4513" points="1217.1172,-3762.2324 1227.6818,-3763.0322 1219.9218,-3755.8188 1217.1172,-3762.2324"/>
@@ -2108,7 +2180,7 @@
 <text text-anchor="middle" x="1249.7305" y="-3898.2444" font-family="Verdana" font-size="14.00" fill="#000000">Error</text>
 </g>
 <!-- trade_agent/pkg/modules/order.orderCallback&#45;&gt;(*github.com/go&#45;resty/resty/v2.noRetryErr).Error -->
-<g id="edge128" class="edge">
+<g id="edge136" class="edge">
 <title>trade_agent/pkg/modules/order.orderCallback&#45;&gt;(*github.com/go&#45;resty/resty/v2.noRetryErr).Error</title>
 <path fill="none" stroke="#8b4513" stroke-dasharray="5,2" d="M866.4292,-3361.6537C870.1256,-3454.6731 892.7277,-3872.4444 1000.5311,-3872.4444 1000.5311,-3872.4444 1000.5311,-3872.4444 1037.5311,-3872.4444 1100.1282,-3872.4444 1172.0985,-3885.4016 1214.0858,-3894.2851"/>
 <polygon fill="#8b4513" stroke="#8b4513" points="1213.5771,-3897.7559 1224.0906,-3896.4455 1215.0547,-3890.9136 1213.5771,-3897.7559"/>
@@ -2120,7 +2192,7 @@
 <text text-anchor="middle" x="1249.7305" y="-4027.2444" font-family="Verdana" font-size="14.00" fill="#000000">Error</text>
 </g>
 <!-- trade_agent/pkg/modules/order.orderCallback&#45;&gt;(*github.com/gorilla/websocket.CloseError).Error -->
-<g id="edge150" class="edge">
+<g id="edge118" class="edge">
 <title>trade_agent/pkg/modules/order.orderCallback&#45;&gt;(*github.com/gorilla/websocket.CloseError).Error</title>
 <path fill="none" stroke="#8b4513" stroke-dasharray="5,2" d="M867.4348,-3361.4455C877.3894,-3468.4714 931.717,-4016.4444 1000.5311,-4016.4444 1000.5311,-4016.4444 1000.5311,-4016.4444 1037.5311,-4016.4444 1099.1558,-4016.4444 1170.5972,-4022.8169 1212.8779,-4027.2548"/>
 <polygon fill="#8b4513" stroke="#8b4513" points="1212.6593,-4030.7513 1222.9753,-4028.3363 1213.4049,-4023.7911 1212.6593,-4030.7513"/>
@@ -2132,7 +2204,7 @@
 <text text-anchor="middle" x="1249.7305" y="-4113.2444" font-family="Verdana" font-size="14.00" fill="#000000">Error</text>
 </g>
 <!-- trade_agent/pkg/modules/order.orderCallback&#45;&gt;(*github.com/gorilla/websocket.netError).Error -->
-<g id="edge119" class="edge">
+<g id="edge158" class="edge">
 <title>trade_agent/pkg/modules/order.orderCallback&#45;&gt;(*github.com/gorilla/websocket.netError).Error</title>
 <path fill="none" stroke="#8b4513" stroke-dasharray="5,2" d="M867.1411,-3361.6624C875.7325,-3475.1543 925.0894,-4080.4444 1000.5311,-4080.4444 1000.5311,-4080.4444 1000.5311,-4080.4444 1037.5311,-4080.4444 1100.9257,-4080.4444 1173.4114,-4096.669 1215.1491,-4107.6305"/>
 <polygon fill="#8b4513" stroke="#8b4513" points="1214.2587,-4111.0153 1224.8238,-4110.2225 1216.0702,-4104.2538 1214.2587,-4111.0153"/>
@@ -2144,7 +2216,7 @@
 <text text-anchor="middle" x="1249.7305" y="-4242.2444" font-family="Verdana" font-size="14.00" fill="#000000">Error</text>
 </g>
 <!-- trade_agent/pkg/modules/order.orderCallback&#45;&gt;(github.com/jackc/pgx/v4.SerializationError).Error -->
-<g id="edge154" class="edge">
+<g id="edge117" class="edge">
 <title>trade_agent/pkg/modules/order.orderCallback&#45;&gt;(github.com/jackc/pgx/v4.SerializationError).Error</title>
 <path fill="none" stroke="#8b4513" stroke-dasharray="5,2" d="M866.693,-3361.6338C872.9899,-3485.1099 913.0182,-4195.4444 1000.5311,-4195.4444 1000.5311,-4195.4444 1000.5311,-4195.4444 1037.5311,-4195.4444 1102.637,-4195.4444 1175.9455,-4218.4216 1217.1126,-4233.5306"/>
 <polygon fill="#8b4513" stroke="#8b4513" points="1216.0251,-4236.8607 1226.6175,-4237.0902 1218.4802,-4230.3053 1216.0251,-4236.8607"/>
@@ -2192,7 +2264,7 @@
 <text text-anchor="middle" x="1249.7305" y="-4530.2444" font-family="Verdana" font-size="14.00" fill="#000000">Error</text>
 </g>
 <!-- trade_agent/pkg/modules/order.orderCallback&#45;&gt;(*internal/poll.DeadlineExceededError).Error -->
-<g id="edge155" class="edge">
+<g id="edge156" class="edge">
 <title>trade_agent/pkg/modules/order.orderCallback&#45;&gt;(*internal/poll.DeadlineExceededError).Error</title>
 <path fill="none" stroke="#8b4513" stroke-dasharray="5,2" d="M865.9141,-3361.8223C867.0741,-3510.6714 879.3842,-4513.4444 1000.5311,-4513.4444 1000.5311,-4513.4444 1000.5311,-4513.4444 1037.5311,-4513.4444 1099.4733,-4513.4444 1171.094,-4522.4153 1213.2807,-4528.6304"/>
 <polygon fill="#8b4513" stroke="#8b4513" points="1212.9389,-4532.1183 1223.3481,-4530.144 1213.9797,-4525.1961 1212.9389,-4532.1183"/>
@@ -2204,7 +2276,7 @@
 <text text-anchor="middle" x="1249.7305" y="-4616.2444" font-family="Verdana" font-size="14.00" fill="#000000">Error</text>
 </g>
 <!-- trade_agent/pkg/modules/order.orderCallback&#45;&gt;(internal/poll.errNetClosing).Error -->
-<g id="edge152" class="edge">
+<g id="edge150" class="edge">
 <title>trade_agent/pkg/modules/order.orderCallback&#45;&gt;(internal/poll.errNetClosing).Error</title>
 <path fill="none" stroke="#8b4513" stroke-dasharray="5,2" d="M866.466,-3361.4717C871.3168,-3489.2277 902.7281,-4259.2769 963.0311,-4484.4444 973.1896,-4522.3756 961.2631,-4564.4444 1000.5311,-4564.4444 1000.5311,-4564.4444 1000.5311,-4564.4444 1037.5311,-4564.4444 1103.1776,-4564.4444 1176.5788,-4589.8101 1217.5612,-4606.3982"/>
 <polygon fill="#8b4513" stroke="#8b4513" points="1216.436,-4609.7202 1227.0148,-4610.3032 1219.1085,-4603.2504 1216.436,-4609.7202"/>
@@ -2216,7 +2288,7 @@
 <text text-anchor="middle" x="1249.7305" y="-4745.2444" font-family="Verdana" font-size="14.00" fill="#000000">Error</text>
 </g>
 <!-- trade_agent/pkg/modules/order.orderCallback&#45;&gt;(*io/fs.PathError).Error -->
-<g id="edge129" class="edge">
+<g id="edge162" class="edge">
 <title>trade_agent/pkg/modules/order.orderCallback&#45;&gt;(*io/fs.PathError).Error</title>
 <path fill="none" stroke="#8b4513" stroke-dasharray="5,2" d="M866.7595,-3361.7418C875.003,-3516.6893 935.1507,-4603.4444 1000.5311,-4603.4444 1000.5311,-4603.4444 1000.5311,-4603.4444 1037.5311,-4603.4444 1080.8761,-4603.4444 1180.2601,-4687.1685 1225.9538,-4727.8138"/>
 <polygon fill="#8b4513" stroke="#8b4513" points="1223.795,-4730.5788 1233.5799,-4734.6416 1228.4643,-4725.3636 1223.795,-4730.5788"/>
@@ -2228,7 +2300,7 @@
 <text text-anchor="middle" x="1249.7305" y="-4960.2444" font-family="Verdana" font-size="14.00" fill="#000000">Error</text>
 </g>
 <!-- trade_agent/pkg/modules/order.orderCallback&#45;&gt;(*net.DNSError).Error -->
-<g id="edge149" class="edge">
+<g id="edge126" class="edge">
 <title>trade_agent/pkg/modules/order.orderCallback&#45;&gt;(*net.DNSError).Error</title>
 <path fill="none" stroke="#8b4513" stroke-dasharray="5,2" d="M866.417,-3361.5974C872.3707,-3533.317 921.1161,-4865.4444 1000.5311,-4865.4444 1000.5311,-4865.4444 1000.5311,-4865.4444 1037.5311,-4865.4444 1047.3065,-4865.4444 1162.2145,-4921.3473 1218.7314,-4949.1367"/>
 <polygon fill="#8b4513" stroke="#8b4513" points="1217.4046,-4952.3846 1227.9222,-4953.6612 1220.4962,-4946.1044 1217.4046,-4952.3846"/>
@@ -2240,7 +2312,7 @@
 <text text-anchor="middle" x="1249.7305" y="-4874.2444" font-family="Verdana" font-size="14.00" fill="#000000">Error</text>
 </g>
 <!-- trade_agent/pkg/modules/order.orderCallback&#45;&gt;(*net.OpError).Error -->
-<g id="edge134" class="edge">
+<g id="edge163" class="edge">
 <title>trade_agent/pkg/modules/order.orderCallback&#45;&gt;(*net.OpError).Error</title>
 <path fill="none" stroke="#8b4513" stroke-dasharray="5,2" d="M866.349,-3361.7901C870.6314,-3500.7876 900.1855,-4389.7022 963.0311,-4650.4444 973.0887,-4692.1728 957.6077,-4739.4444 1000.5311,-4739.4444 1000.5311,-4739.4444 1000.5311,-4739.4444 1037.5311,-4739.4444 1080.1156,-4739.4444 1179.4564,-4818.767 1225.5017,-4857.5677"/>
 <polygon fill="#8b4513" stroke="#8b4513" points="1223.3049,-4860.2938 1233.1954,-4864.0925 1227.8325,-4854.9552 1223.3049,-4860.2938"/>
@@ -2252,7 +2324,7 @@
 <text text-anchor="middle" x="1249.7305" y="-5479.2444" font-family="Verdana" font-size="14.00" fill="#000000">Error</text>
 </g>
 <!-- trade_agent/pkg/modules/order.orderCallback&#45;&gt;(*net/http.ProtocolError).Error -->
-<g id="edge159" class="edge">
+<g id="edge152" class="edge">
 <title>trade_agent/pkg/modules/order.orderCallback&#45;&gt;(*net/http.ProtocolError).Error</title>
 <path fill="none" stroke="#8b4513" stroke-dasharray="5,2" d="M865.9194,-3361.4683C867.4246,-3571.2886 884.6496,-5542.4444 1000.5311,-5542.4444 1000.5311,-5542.4444 1000.5311,-5542.4444 1037.5311,-5542.4444 1086.7006,-5542.4444 1096.3572,-5524.6131 1143.7305,-5511.4444 1167.2627,-5504.9029 1193.8366,-5497.8842 1214.4904,-5492.5103"/>
 <polygon fill="#8b4513" stroke="#8b4513" points="1215.6077,-5495.8363 1224.4086,-5489.9375 1213.8501,-5489.0606 1215.6077,-5495.8363"/>
@@ -2264,7 +2336,7 @@
 <text text-anchor="middle" x="1249.7305" y="-5307.2444" font-family="Verdana" font-size="14.00" fill="#000000">Error</text>
 </g>
 <!-- trade_agent/pkg/modules/order.orderCallback&#45;&gt;(*net/http.http2httpError).Error -->
-<g id="edge148" class="edge">
+<g id="edge119" class="edge">
 <title>trade_agent/pkg/modules/order.orderCallback&#45;&gt;(*net/http.http2httpError).Error</title>
 <path fill="none" stroke="#8b4513" stroke-dasharray="5,2" d="M866.0857,-3361.452C869.2825,-3555.6651 900.1289,-5255.4444 1000.5311,-5255.4444 1000.5311,-5255.4444 1000.5311,-5255.4444 1037.5311,-5255.4444 1103.1776,-5255.4444 1176.5788,-5280.8101 1217.5612,-5297.3982"/>
 <polygon fill="#8b4513" stroke="#8b4513" points="1216.436,-5300.7202 1227.0148,-5301.3032 1219.1085,-5294.2504 1216.436,-5300.7202"/>
@@ -2276,7 +2348,7 @@
 <text text-anchor="middle" x="1249.7305" y="-5393.2444" font-family="Verdana" font-size="14.00" fill="#000000">Error</text>
 </g>
 <!-- trade_agent/pkg/modules/order.orderCallback&#45;&gt;(*net/http.httpError).Error -->
-<g id="edge145" class="edge">
+<g id="edge135" class="edge">
 <title>trade_agent/pkg/modules/order.orderCallback&#45;&gt;(*net/http.httpError).Error</title>
 <path fill="none" stroke="#8b4513" stroke-dasharray="5,2" d="M866.0338,-3361.6273C868.7193,-3561.4201 895.5784,-5340.4444 1000.5311,-5340.4444 1000.5311,-5340.4444 1000.5311,-5340.4444 1037.5311,-5340.4444 1103.4308,-5340.4444 1177.0226,-5366.4017 1217.9146,-5383.2829"/>
 <polygon fill="#8b4513" stroke="#8b4513" points="1216.7655,-5386.5967 1227.34,-5387.2539 1219.4833,-5380.1459 1216.7655,-5386.5967"/>
@@ -2288,7 +2360,7 @@
 <text text-anchor="middle" x="1249.7305" y="-5565.2444" font-family="Verdana" font-size="14.00" fill="#000000">Error</text>
 </g>
 <!-- trade_agent/pkg/modules/order.orderCallback&#45;&gt;(net/http.http2ConnectionError).Error -->
-<g id="edge158" class="edge">
+<g id="edge148" class="edge">
 <title>trade_agent/pkg/modules/order.orderCallback&#45;&gt;(net/http.http2ConnectionError).Error</title>
 <path fill="none" stroke="#8b4513" stroke-dasharray="5,2" d="M865.9073,-3361.6896C867.2737,-3574.0861 883.232,-5569.4444 1000.5311,-5569.4444 1000.5311,-5569.4444 1000.5311,-5569.4444 1037.5311,-5569.4444 1098.8326,-5569.4444 1170.0955,-5569.4444 1212.4706,-5569.4444"/>
 <polygon fill="#8b4513" stroke="#8b4513" points="1212.598,-5572.9445 1222.5979,-5569.4444 1212.5979,-5565.9445 1212.598,-5572.9445"/>
@@ -2300,7 +2372,7 @@
 <text text-anchor="middle" x="1249.7305" y="-5651.2444" font-family="Verdana" font-size="14.00" fill="#000000">Error</text>
 </g>
 <!-- trade_agent/pkg/modules/order.orderCallback&#45;&gt;(net/http.http2GoAwayError).Error -->
-<g id="edge120" class="edge">
+<g id="edge159" class="edge">
 <title>trade_agent/pkg/modules/order.orderCallback&#45;&gt;(net/http.http2GoAwayError).Error</title>
 <path fill="none" stroke="#8b4513" stroke-dasharray="5,2" d="M865.879,-3361.4807C866.9334,-3575.6665 880.1677,-5625.4444 1000.5311,-5625.4444 1000.5311,-5625.4444 1000.5311,-5625.4444 1037.5311,-5625.4444 1100.1282,-5625.4444 1172.0985,-5638.4016 1214.0858,-5647.2851"/>
 <polygon fill="#8b4513" stroke="#8b4513" points="1213.5771,-5650.7559 1224.0906,-5649.4455 1215.0547,-5643.9136 1213.5771,-5650.7559"/>
@@ -2312,7 +2384,7 @@
 <text text-anchor="middle" x="1249.7305" y="-5737.2444" font-family="Verdana" font-size="14.00" fill="#000000">Error</text>
 </g>
 <!-- trade_agent/pkg/modules/order.orderCallback&#45;&gt;(net/http.http2StreamError).Error -->
-<g id="edge146" class="edge">
+<g id="edge127" class="edge">
 <title>trade_agent/pkg/modules/order.orderCallback&#45;&gt;(net/http.http2StreamError).Error</title>
 <path fill="none" stroke="#8b4513" stroke-dasharray="5,2" d="M865.8474,-3361.702C866.5332,-3580.7132 876.3717,-5696.4444 1000.5311,-5696.4444 1000.5311,-5696.4444 1000.5311,-5696.4444 1037.5311,-5696.4444 1101.8942,-5696.4444 1174.8964,-5716.501 1216.3157,-5729.8343"/>
 <polygon fill="#8b4513" stroke="#8b4513" points="1215.3015,-5733.1851 1225.8944,-5732.9802 1217.4858,-5726.5346 1215.3015,-5733.1851"/>
@@ -2324,7 +2396,7 @@
 <text text-anchor="middle" x="1249.7305" y="-5221.2444" font-family="Verdana" font-size="14.00" fill="#000000">Error</text>
 </g>
 <!-- trade_agent/pkg/modules/order.orderCallback&#45;&gt;(net/http.http2connError).Error -->
-<g id="edge124" class="edge">
+<g id="edge129" class="edge">
 <title>trade_agent/pkg/modules/order.orderCallback&#45;&gt;(net/http.http2connError).Error</title>
 <path fill="none" stroke="#8b4513" stroke-dasharray="5,2" d="M866.3331,-3361.6718C871.5314,-3537.2414 914.0331,-4925.7962 963.0311,-5102.4444 972.5696,-5136.8326 964.8445,-5173.4444 1000.5311,-5173.4444 1000.5311,-5173.4444 1000.5311,-5173.4444 1037.5311,-5173.4444 1086.578,-5173.4444 1096.0892,-5191.7869 1143.7305,-5203.4444 1166.8448,-5209.1003 1193.0232,-5214.5428 1213.5813,-5218.5997"/>
 <polygon fill="#8b4513" stroke="#8b4513" points="1212.9926,-5222.0508 1223.4779,-5220.5316 1214.3338,-5215.1804 1212.9926,-5222.0508"/>
@@ -2336,7 +2408,7 @@
 <text text-anchor="middle" x="1249.7305" y="-255.2444" font-family="Verdana" font-size="14.00" fill="#000000">Error</text>
 </g>
 <!-- trade_agent/pkg/modules/order.orderCallback&#45;&gt;(net/textproto.ProtocolError).Error -->
-<g id="edge131" class="edge">
+<g id="edge151" class="edge">
 <title>trade_agent/pkg/modules/order.orderCallback&#45;&gt;(net/textproto.ProtocolError).Error</title>
 <path fill="none" stroke="#8b4513" stroke-dasharray="5,2" d="M907.9717,-3333.8402C918.3802,-3329.3874 928.3289,-3322.8954 934.5863,-3313.4444 977.6948,-3248.3345 952.6536,-579.839 963.0311,-502.4444 971.763,-437.3226 934.8266,-359.4444 1000.5311,-359.4444 1000.5311,-359.4444 1000.5311,-359.4444 1037.5311,-359.4444 1075.7913,-359.4444 1172.1969,-305.5764 1220.7866,-276.9131"/>
 <polygon fill="#8b4513" stroke="#8b4513" points="1222.7449,-279.8208 1229.5571,-271.7063 1219.1715,-273.8016 1222.7449,-279.8208"/>
@@ -2348,7 +2420,7 @@
 <text text-anchor="middle" x="1249.7305" y="-384.2444" font-family="Verdana" font-size="14.00" fill="#000000">Error</text>
 </g>
 <!-- trade_agent/pkg/modules/order.orderCallback&#45;&gt;(*net/url.Error).Error -->
-<g id="edge138" class="edge">
+<g id="edge143" class="edge">
 <title>trade_agent/pkg/modules/order.orderCallback&#45;&gt;(*net/url.Error).Error</title>
 <path fill="none" stroke="#8b4513" stroke-dasharray="5,2" d="M907.9687,-3333.8382C918.3771,-3329.3854 928.3266,-3322.8938 934.5863,-3313.4444 975.7166,-3251.3554 953.2404,-706.2744 963.0311,-632.4444 971.7818,-566.4573 933.9664,-487.4444 1000.5311,-487.4444 1000.5311,-487.4444 1000.5311,-487.4444 1037.5311,-487.4444 1111.2293,-487.4444 1186.9633,-437.7967 1224.8908,-408.8184"/>
 <polygon fill="#8b4513" stroke="#8b4513" points="1227.0957,-411.5374 1232.8302,-402.6286 1222.7918,-406.0169 1227.0957,-411.5374"/>
@@ -2360,7 +2432,7 @@
 <text text-anchor="middle" x="1249.7305" y="-513.2444" font-family="Verdana" font-size="14.00" fill="#000000">Error</text>
 </g>
 <!-- trade_agent/pkg/modules/order.orderCallback&#45;&gt;(*os.SyscallError).Error -->
-<g id="edge164" class="edge">
+<g id="edge128" class="edge">
 <title>trade_agent/pkg/modules/order.orderCallback&#45;&gt;(*os.SyscallError).Error</title>
 <path fill="none" stroke="#8b4513" stroke-dasharray="5,2" d="M907.9656,-3333.8362C918.374,-3329.3834 928.3242,-3322.8923 934.5863,-3313.4444 973.8906,-3254.1439 953.2932,-822.918 963.0311,-752.4444 971.7894,-689.0601 936.5446,-613.4444 1000.5311,-613.4444 1000.5311,-613.4444 1000.5311,-613.4444 1037.5311,-613.4444 1110.6471,-613.4444 1186.344,-565.5478 1224.4966,-537.4176"/>
 <polygon fill="#8b4513" stroke="#8b4513" points="1226.604,-540.2121 1232.4914,-531.4036 1222.396,-534.618 1226.604,-540.2121"/>
@@ -2372,13 +2444,13 @@
 <text text-anchor="middle" x="1249.7305" y="-642.2444" font-family="Verdana" font-size="14.00" fill="#000000">Error</text>
 </g>
 <!-- trade_agent/pkg/modules/order.orderCallback&#45;&gt;(*strconv.NumError).Error -->
-<g id="edge147" class="edge">
+<g id="edge145" class="edge">
 <title>trade_agent/pkg/modules/order.orderCallback&#45;&gt;(*strconv.NumError).Error</title>
 <path fill="none" stroke="#8b4513" stroke-dasharray="5,2" d="M907.9621,-3333.8339C918.3705,-3329.381 928.3216,-3322.8905 934.5863,-3313.4444 972.0037,-3257.0254 953.8059,-943.5119 963.0311,-876.4444 971.8089,-812.6295 936.1154,-736.4444 1000.5311,-736.4444 1000.5311,-736.4444 1000.5311,-736.4444 1037.5311,-736.4444 1109.2166,-736.4444 1184.4833,-692.3745 1223.2174,-665.9115"/>
 <polygon fill="#8b4513" stroke="#8b4513" points="1225.6093,-668.5104 1231.8081,-659.9183 1221.6041,-662.7695 1225.6093,-668.5104"/>
 </g>
 <!-- trade_agent/pkg/modules/order.orderCallback&#45;&gt;(*sync.Mutex).Unlock -->
-<g id="edge93" class="edge">
+<g id="edge100" class="edge">
 <title>trade_agent/pkg/modules/order.orderCallback&#45;&gt;(*sync.Mutex).Unlock</title>
 <path fill="none" stroke="#8b4513" d="M866.1496,-3361.6249C870.4752,-3584.3253 914.3029,-5780.2715 963.0311,-5906.4444 972.2362,-5930.2793 979.5351,-5935.1881 1000.0311,-5950.4444 1063.6632,-5997.809 1297.6148,-6034.4352 1355.7305,-5980.4444 1519.9903,-5827.8434 1240.7239,-4977.4444 1464.9299,-4977.4444 1464.9299,-4977.4444 1464.9299,-4977.4444 1501.9299,-4977.4444 1544.8161,-4977.4444 1593.3255,-4975.4932 1629.5666,-4973.6511"/>
 <polygon fill="#8b4513" stroke="#8b4513" points="1646.9355,-4976.2123 1656.7308,-4972.1747 1646.5556,-4969.2226 1646.9355,-4976.2123"/>
@@ -2386,7 +2458,7 @@
 <polygon fill="none" stroke="#8b4513" points="1629.7706,-4973.6401 1635.5446,-4969.3204 1641.7529,-4972.9888 1635.9788,-4977.3086 1629.7706,-4973.6401"/>
 </g>
 <!-- trade_agent/pkg/modules/order.orderCallback&#45;&gt;(*sync.Mutex).Lock -->
-<g id="edge94" class="edge">
+<g id="edge101" class="edge">
 <title>trade_agent/pkg/modules/order.orderCallback&#45;&gt;(*sync.Mutex).Lock</title>
 <path fill="none" stroke="#8b4513" d="M866.0598,-3361.6154C869.2962,-3584.1944 902.6944,-5778.8049 963.0311,-5899.4444 981.971,-5937.3135 997.3175,-5944.7603 1037.0311,-5959.4444 1059.9444,-5967.9165 1296.1357,-6015.9508 1355.7305,-5960.4444 1525.2934,-5802.5142 1233.2113,-4923.4444 1464.9299,-4923.4444 1464.9299,-4923.4444 1464.9299,-4923.4444 1501.9299,-4923.4444 1552.5811,-4923.4444 1610.9033,-4918.0249 1647.7438,-4913.9297"/>
 <polygon fill="#8b4513" stroke="#8b4513" points="1648.4578,-4917.3711 1657.9976,-4912.7622 1647.6658,-4910.416 1648.4578,-4917.3711"/>
@@ -2398,19 +2470,19 @@
 <text text-anchor="middle" x="1249.7305" y="-771.2444" font-family="Verdana" font-size="14.00" fill="#000000">Error</text>
 </g>
 <!-- trade_agent/pkg/modules/order.orderCallback&#45;&gt;(syscall.Errno).Error -->
-<g id="edge139" class="edge">
+<g id="edge130" class="edge">
 <title>trade_agent/pkg/modules/order.orderCallback&#45;&gt;(syscall.Errno).Error</title>
 <path fill="none" stroke="#8b4513" stroke-dasharray="5,2" d="M907.9589,-3333.8317C918.3672,-3329.3789 928.3191,-3322.8889 934.5863,-3313.4444 970.4212,-3259.4421 953.4362,-1044.5405 963.0311,-980.4444 971.8073,-921.8176 941.2511,-852.4444 1000.5311,-852.4444 1000.5311,-852.4444 1000.5311,-852.4444 1037.5311,-852.4444 1106.8296,-852.4444 1181.6354,-815.7082 1221.2786,-792.9846"/>
 <polygon fill="#8b4513" stroke="#8b4513" points="1223.25,-795.8863 1230.1142,-787.8157 1219.7153,-789.8442 1223.25,-795.8863"/>
 </g>
 <!-- trade_agent/pkg/modules/order.orderCallback&#45;&gt;trade_agent/pkg/cache.GetCache -->
-<g id="edge101" class="edge">
+<g id="edge103" class="edge">
 <title>trade_agent/pkg/modules/order.orderCallback&#45;&gt;trade_agent/pkg/cache.GetCache</title>
 <path fill="none" stroke="#8b4513" d="M866.2065,-3361.6438C870.4757,-3547.5701 908.7734,-5095.4444 1000.5311,-5095.4444 1000.5311,-5095.4444 1000.5311,-5095.4444 1074.5311,-5095.4444 1137.0866,-5095.4444 1308.7557,-5123.7549 1355.7305,-5082.4444 1565.8384,-4897.6716 1185.133,-4462.4444 1464.9299,-4462.4444 1464.9299,-4462.4444 1464.9299,-4462.4444 1501.9299,-4462.4444 1548.4372,-4462.4444 1601.5424,-4459.8232 1638.4542,-4457.5816"/>
 <polygon fill="#8b4513" stroke="#8b4513" points="1639.1268,-4461.0466 1648.8899,-4456.9318 1638.6917,-4454.0601 1639.1268,-4461.0466"/>
 </g>
 <!-- trade_agent/pkg/modules/order.orderCallback&#45;&gt;(*trade_agent/pkg/cache.Cache).GetOrderWaiting -->
-<g id="edge102" class="edge">
+<g id="edge104" class="edge">
 <title>trade_agent/pkg/modules/order.orderCallback&#45;&gt;(*trade_agent/pkg/cache.Cache).GetOrderWaiting</title>
 <path fill="none" stroke="#8b4513" d="M866.0009,-3361.5227C867.8369,-3505.8385 884.4105,-4465.4444 1000.5311,-4465.4444 1000.5311,-4465.4444 1000.5311,-4465.4444 1074.5311,-4465.4444 1137.2108,-4465.4444 1304.7378,-4479.8929 1355.7305,-4443.4444 1421.1114,-4396.7114 1394.3575,-4350.6895 1427.4299,-4277.4444 1441.5843,-4246.0968 1532.8277,-4019.2465 1559.4299,-3997.4444 1575.3494,-3984.3974 1595.9796,-3976.7237 1615.8818,-3972.2465"/>
 <polygon fill="#8b4513" stroke="#8b4513" points="1616.7645,-3975.6393 1625.8806,-3970.2405 1615.3875,-3968.776 1616.7645,-3975.6393"/>
@@ -2470,7 +2542,7 @@
 <text text-anchor="middle" x="1249.7305" y="-900.2444" font-family="Verdana" font-size="14.00" fill="#000000">Error</text>
 </g>
 <!-- trade_agent/pkg/modules/order.orderCallback&#45;&gt;(*trade_agent/pkg/sinopacapi/sinopacerr.SinopacError).Error -->
-<g id="edge125" class="edge">
+<g id="edge141" class="edge">
 <title>trade_agent/pkg/modules/order.orderCallback&#45;&gt;(*trade_agent/pkg/sinopacapi/sinopacerr.SinopacError).Error</title>
 <path fill="none" stroke="#8b4513" stroke-dasharray="5,2" d="M907.9552,-3333.8293C918.3635,-3329.3764 928.3163,-3322.887 934.5863,-3313.4444 968.7626,-3261.9749 954.1166,-1150.5807 963.0311,-1089.4444 971.831,-1029.0944 939.543,-957.4444 1000.5311,-957.4444 1000.5311,-957.4444 1000.5311,-957.4444 1037.5311,-957.4444 1102.779,-957.4444 1176.0388,-933.566 1217.1587,-917.8645"/>
 <polygon fill="#8b4513" stroke="#8b4513" points="1218.6051,-921.0573 1226.652,-914.1654 1216.0636,-914.535 1218.6051,-921.0573"/>
@@ -2482,7 +2554,7 @@
 <text text-anchor="middle" x="1249.7305" y="-1115.2444" font-family="Verdana" font-size="14.00" fill="#000000">Error</text>
 </g>
 <!-- trade_agent/pkg/modules/order.orderCallback&#45;&gt;(vendor/golang.org/x/net/idna.labelError).Error -->
-<g id="edge127" class="edge">
+<g id="edge154" class="edge">
 <title>trade_agent/pkg/modules/order.orderCallback&#45;&gt;(vendor/golang.org/x/net/idna.labelError).Error</title>
 <path fill="none" stroke="#8b4513" stroke-dasharray="5,2" d="M907.9346,-3333.8155C918.3426,-3329.3625 928.3005,-3322.8765 934.5863,-3313.4444 961.7326,-3272.7104 956.3796,-1599.9412 963.0311,-1551.4444 971.9591,-1486.3492 934.8266,-1408.4444 1000.5311,-1408.4444 1000.5311,-1408.4444 1000.5311,-1408.4444 1037.5311,-1408.4444 1145.3053,-1408.4444 1072.9118,-1271.6846 1143.7305,-1190.4444 1164.5816,-1166.5249 1195.2915,-1147.1418 1218.296,-1134.7086"/>
 <polygon fill="#8b4513" stroke="#8b4513" points="1220.0923,-1137.7187 1227.3198,-1129.9717 1216.8388,-1131.5207 1220.0923,-1137.7187"/>
@@ -2494,82 +2566,10 @@
 <text text-anchor="middle" x="1249.7305" y="-1029.2444" font-family="Verdana" font-size="14.00" fill="#000000">Error</text>
 </g>
 <!-- trade_agent/pkg/modules/order.orderCallback&#45;&gt;(vendor/golang.org/x/net/idna.runeError).Error -->
-<g id="edge142" class="edge">
+<g id="edge121" class="edge">
 <title>trade_agent/pkg/modules/order.orderCallback&#45;&gt;(vendor/golang.org/x/net/idna.runeError).Error</title>
 <path fill="none" stroke="#8b4513" stroke-dasharray="5,2" d="M907.9412,-3333.82C918.3493,-3329.367 928.3055,-3322.8799 934.5863,-3313.4444 963.6499,-3269.7826 959.9601,-1477.8048 963.0311,-1425.4444 967.8181,-1343.8255 918.772,-1059.4444 1000.5311,-1059.4444 1000.5311,-1059.4444 1000.5311,-1059.4444 1037.5311,-1059.4444 1099.8043,-1059.4444 1171.5991,-1048.2762 1213.6858,-1040.5791"/>
 <polygon fill="#8b4513" stroke="#8b4513" points="1214.5338,-1043.9813 1223.7218,-1038.7058 1213.2493,-1037.1001 1214.5338,-1043.9813"/>
-</g>
-<!-- trade_agent/pkg/modules/order.checkSwitch&#45;&gt;trade_agent/pkg/cache.GetCache -->
-<g id="edge96" class="edge">
-<title>trade_agent/pkg/modules/order.checkSwitch&#45;&gt;trade_agent/pkg/cache.GetCache</title>
-<path fill="none" stroke="#8b4513" d="M1291.6729,-4339.9738C1334.958,-4346.1384 1404.493,-4354.4444 1464.9299,-4354.4444 1464.9299,-4354.4444 1464.9299,-4354.4444 1501.9299,-4354.4444 1526.2985,-4354.4444 1524.4303,-4375.2392 1539.4299,-4394.4444 1549.5223,-4407.3665 1546.0169,-4416.0141 1559.4299,-4425.4444 1582.5189,-4441.6774 1613.3634,-4448.9478 1638.6517,-4452.1499"/>
-<polygon fill="#8b4513" stroke="#8b4513" points="1638.4317,-4455.6466 1648.7529,-4453.2545 1639.1927,-4448.6881 1638.4317,-4455.6466"/>
-</g>
-<!-- (*trade_agent/pkg/cache.Cache).GetIsAllowTrade -->
-<g id="node97" class="node">
-<title>(*trade_agent/pkg/cache.Cache).GetIsAllowTrade</title>
-<ellipse fill="#ffe4b5" stroke="#000000" stroke-width="1.5" cx="1684.5656" cy="-3173.4444" rx="59.7987" ry="18"/>
-<text text-anchor="middle" x="1684.5656" y="-3169.2444" font-family="Verdana" font-size="14.00" fill="#000000">GetIsAllowTrade</text>
-</g>
-<!-- trade_agent/pkg/modules/order.checkSwitch&#45;&gt;(*trade_agent/pkg/cache.Cache).GetIsAllowTrade -->
-<g id="edge97" class="edge">
-<title>trade_agent/pkg/modules/order.checkSwitch&#45;&gt;(*trade_agent/pkg/cache.Cache).GetIsAllowTrade</title>
-<path fill="none" stroke="#8b4513" d="M1288.0383,-4323.8435C1311.656,-4315.8069 1340.2892,-4301.7885 1355.7305,-4278.4444 1470.5743,-4104.8238 1343.2508,-3534.8309 1427.4299,-3344.4444 1462.0122,-3266.2302 1485.5932,-3247.5898 1559.4299,-3204.4444 1577.4491,-3193.9151 1598.9437,-3186.9434 1618.9912,-3182.3346"/>
-<polygon fill="#8b4513" stroke="#8b4513" points="1619.9566,-3185.7074 1629.0046,-3180.1952 1618.494,-3178.8619 1619.9566,-3185.7074"/>
-</g>
-<!-- (*trade_agent/pkg/cache.Cache).GetOrderForwardCountDetail -->
-<g id="node98" class="node">
-<title>(*trade_agent/pkg/cache.Cache).GetOrderForwardCountDetail</title>
-<ellipse fill="#ffe4b5" stroke="#000000" stroke-width="1.5" cx="1684.5656" cy="-3051.4444" rx="99.8049" ry="18"/>
-<text text-anchor="middle" x="1684.5656" y="-3047.2444" font-family="Verdana" font-size="14.00" fill="#000000">GetOrderForwardCountDetail</text>
-</g>
-<!-- trade_agent/pkg/modules/order.checkSwitch&#45;&gt;(*trade_agent/pkg/cache.Cache).GetOrderForwardCountDetail -->
-<g id="edge98" class="edge">
-<title>trade_agent/pkg/modules/order.checkSwitch&#45;&gt;(*trade_agent/pkg/cache.Cache).GetOrderForwardCountDetail</title>
-<path fill="none" stroke="#8b4513" d="M1288.1452,-4323.9137C1311.8068,-4315.9059 1340.4488,-4301.8932 1355.7305,-4278.4444 1493.9585,-4066.3422 1315.9311,-3368.7378 1427.4299,-3141.4444 1437.2076,-3121.5123 1442.7288,-3108.4444 1464.9299,-3108.4444 1464.9299,-3108.4444 1464.9299,-3108.4444 1501.9299,-3108.4444 1529.9766,-3108.4444 1532.9308,-3091.6322 1559.4299,-3082.4444 1575.5162,-3076.8669 1593.0917,-3071.8669 1609.8509,-3067.5936"/>
-<polygon fill="#8b4513" stroke="#8b4513" points="1610.7496,-3070.9767 1619.6067,-3065.1627 1609.0571,-3064.1844 1610.7496,-3070.9767"/>
-</g>
-<!-- (*trade_agent/pkg/cache.Cache).GetOrderReverseCountDetail -->
-<g id="node99" class="node">
-<title>(*trade_agent/pkg/cache.Cache).GetOrderReverseCountDetail</title>
-<ellipse fill="#ffe4b5" stroke="#000000" stroke-width="1.5" cx="1684.5656" cy="-3112.4444" rx="98.6598" ry="18"/>
-<text text-anchor="middle" x="1684.5656" y="-3108.2444" font-family="Verdana" font-size="14.00" fill="#000000">GetOrderReverseCountDetail</text>
-</g>
-<!-- trade_agent/pkg/modules/order.checkSwitch&#45;&gt;(*trade_agent/pkg/cache.Cache).GetOrderReverseCountDetail -->
-<g id="edge99" class="edge">
-<title>trade_agent/pkg/modules/order.checkSwitch&#45;&gt;(*trade_agent/pkg/cache.Cache).GetOrderReverseCountDetail</title>
-<path fill="none" stroke="#8b4513" d="M1288.044,-4323.8472C1311.664,-4315.8122 1340.2977,-4301.7941 1355.7305,-4278.4444 1471.6106,-4103.1184 1400.0572,-3543.8145 1427.4299,-3335.4444 1439.2091,-3245.7768 1374.492,-3135.4444 1464.9299,-3135.4444 1464.9299,-3135.4444 1464.9299,-3135.4444 1501.9299,-3135.4444 1535.9577,-3135.4444 1573.2742,-3131.4655 1605.2571,-3126.8176"/>
-<polygon fill="#8b4513" stroke="#8b4513" points="1606.073,-3130.2345 1615.4429,-3125.2893 1605.0342,-3123.312 1606.073,-3130.2345"/>
-</g>
-<!-- trade_agent/pkg/config.GetSwitchConfig -->
-<g id="node102" class="node">
-<title>trade_agent/pkg/config.GetSwitchConfig</title>
-<ellipse fill="#ffe4b5" stroke="#000000" stroke-width="1.5" cx="1684.5656" cy="-2930.4444" rx="59.8335" ry="18"/>
-<text text-anchor="middle" x="1684.5656" y="-2926.2444" font-family="Verdana" font-size="14.00" fill="#000000">GetSwitchConfig</text>
-</g>
-<!-- trade_agent/pkg/modules/order.checkSwitch&#45;&gt;trade_agent/pkg/config.GetSwitchConfig -->
-<g id="edge95" class="edge">
-<title>trade_agent/pkg/modules/order.checkSwitch&#45;&gt;trade_agent/pkg/config.GetSwitchConfig</title>
-<path fill="none" stroke="#8b4513" d="M1288.1486,-4323.9159C1311.8117,-4315.9091 1340.4539,-4301.8966 1355.7305,-4278.4444 1428.6244,-4166.5395 1331.3776,-3081.4444 1464.9299,-3081.4444 1464.9299,-3081.4444 1464.9299,-3081.4444 1501.9299,-3081.4444 1520.8188,-3081.4444 1527.5022,-3076.0908 1539.4299,-3061.4444 1559.3226,-3037.0174 1539.251,-3017.6354 1559.4299,-2993.4444 1577.8732,-2971.3341 1606.0166,-2956.201 1630.9457,-2946.3201"/>
-<polygon fill="#8b4513" stroke="#8b4513" points="1632.1939,-2949.5901 1640.3158,-2942.7868 1629.724,-2943.0403 1632.1939,-2949.5901"/>
-</g>
-<!-- trade_agent/pkg/modules/order.getQuantityByBiasRate&#45;&gt;trade_agent/pkg/cache.GetCache -->
-<g id="edge103" class="edge">
-<title>trade_agent/pkg/modules/order.getQuantityByBiasRate&#45;&gt;trade_agent/pkg/cache.GetCache</title>
-<path fill="none" stroke="#8b4513" d="M1299.132,-5037.1954C1319.8447,-5028.6984 1342.2122,-5015.7053 1355.7305,-4996.4444 1501.6553,-4788.5296 1210.917,-4435.4444 1464.9299,-4435.4444 1464.9299,-4435.4444 1464.9299,-4435.4444 1501.9299,-4435.4444 1549.4267,-4435.4444 1603.5004,-4441.8801 1640.4071,-4447.2604"/>
-<polygon fill="#8b4513" stroke="#8b4513" points="1639.9345,-4450.7286 1650.3417,-4448.7437 1640.9682,-4443.8053 1639.9345,-4450.7286"/>
-</g>
-<!-- (*trade_agent/pkg/cache.Cache).GetBiasRate -->
-<g id="node100" class="node">
-<title>(*trade_agent/pkg/cache.Cache).GetBiasRate</title>
-<ellipse fill="#ffe4b5" stroke="#000000" stroke-width="1.5" cx="1684.5656" cy="-3905.4444" rx="44.5453" ry="18"/>
-<text text-anchor="middle" x="1684.5656" y="-3901.2444" font-family="Verdana" font-size="14.00" fill="#000000">GetBiasRate</text>
-</g>
-<!-- trade_agent/pkg/modules/order.getQuantityByBiasRate&#45;&gt;(*trade_agent/pkg/cache.Cache).GetBiasRate -->
-<g id="edge104" class="edge">
-<title>trade_agent/pkg/modules/order.getQuantityByBiasRate&#45;&gt;(*trade_agent/pkg/cache.Cache).GetBiasRate</title>
-<path fill="none" stroke="#8b4513" d="M1299.6879,-5037.2776C1320.3783,-5028.8162 1342.5731,-5015.8285 1355.7305,-4996.4444 1534.1008,-4733.6602 1307.3799,-4579.4843 1427.4299,-4285.4444 1457.5492,-4211.6727 1509.4988,-4219.2926 1539.4299,-4145.4444 1556.9553,-4102.2043 1528.9582,-3971.7758 1559.4299,-3936.4444 1576.7098,-3916.4086 1604.7138,-3908.2665 1629.8532,-3905.306"/>
-<polygon fill="#8b4513" stroke="#8b4513" points="1630.4118,-3908.7693 1640.0455,-3904.3599 1629.7647,-3901.7993 1630.4118,-3908.7693"/>
 </g>
 <!-- trade_agent/cmd.main -->
 <g id="node76" class="node">
@@ -2578,7 +2578,7 @@
 <text text-anchor="middle" x="51" y="-5856.2444" font-family="Verdana" font-size="14.00" fill="#000000">main</text>
 </g>
 <!-- trade_agent/cmd.main&#45;&gt;trade_agent/pkg/modules/order.InitOrder -->
-<g id="edge92" class="edge">
+<g id="edge97" class="edge">
 <title>trade_agent/cmd.main&#45;&gt;trade_agent/pkg/modules/order.InitOrder</title>
 <path fill="none" stroke="#8b4513" d="M78.2992,-5860.4444C98.5122,-5860.4444 126.724,-5860.4444 151.5,-5860.4444 151.5,-5860.4444 151.5,-5860.4444 188.5,-5860.4444 209.2179,-5860.4444 232.1825,-5860.4444 251.5467,-5860.4444"/>
 <polygon fill="#8b4513" stroke="#8b4513" points="251.6044,-5863.9445 261.6044,-5860.4444 251.6044,-5856.9445 251.6044,-5863.9445"/>

@@ -4,6 +4,7 @@ package eventbus
 import (
 	"sync"
 	"time"
+
 	"trade_agent/pkg/dbagent"
 	"trade_agent/pkg/eventbus/bustopic"
 	"trade_agent/pkg/log"

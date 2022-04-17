@@ -45,9 +45,9 @@ trade_switch:
 # trade
 trade:
     # unit: day
-    history_close_period: 90
+    history_close_period: 85
     history_tick_period: 3
-    history_kbar_period: 90
+    history_kbar_period: 85
     # unit: minute
     hold_time_from_open: 5
     # unit: hours
@@ -61,7 +61,7 @@ trade:
 
 # target condition
 target_cond:
-    limit_price_low: 10
+    limit_price_low: 35
     limit_price_high: 100
     limit_volume: 2000
     black_stock:

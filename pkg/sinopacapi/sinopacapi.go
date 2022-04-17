@@ -353,6 +353,28 @@ func (c *TradeAgent) FetchAllSnapShot() (err error) {
 	return err
 }
 
+// FetchSnapShots FetchSnapShots
+func (c *TradeAgent) FetchSnapShots(stockNumArr []string) (err error) {
+	defer c.ReleaseConnection()
+	stockArr := StockNumArrBody{
+		StockNumArr: stockNumArr,
+	}
+	var resp *resty.Response
+	resp, err = c.Client.R().
+		SetResult(&ResponseCommon{}).
+		SetBody(stockArr).
+		Post(c.urlPrefix + urlFetchSnapShots)
+	if err != nil {
+		return err
+	} else if resp.StatusCode() != http.StatusOK {
+		return errors.New("FetchSnapShots API Fail")
+	}
+	if result := resp.Result().(*ResponseCommon).Result; result != StatusSuccuss {
+		return errors.New(result)
+	}
+	return err
+}
+
 // FetchTSESnapShot FetchTSESnapShot
 func (c *TradeAgent) FetchTSESnapShot() (err error) {
 	defer c.ReleaseConnection()

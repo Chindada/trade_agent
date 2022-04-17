@@ -4,6 +4,7 @@ package sinopacapi
 const (
 	urlFetchAllStockDetail                string = "/sinopac-mq-srv/basic/stock-detail"
 	urlFetchAllSnapShot                   string = "/sinopac-mq-srv/real-time/all-snapshot"
+	urlFetchSnapShots                     string = "/sinopac-mq-srv/real-time/snapshots"
 	urlFetchTSESnapShot                   string = "/sinopac-mq-srv/real-time/snapshot/tse"
 	urlFetchHistoryTickByStockAndDate     string = "/sinopac-mq-srv/history/tick"
 	urlFetchHistoryKbarByDateRange        string = "/sinopac-mq-srv/history/kbar"

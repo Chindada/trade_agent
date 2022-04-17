@@ -14,6 +14,11 @@ func TopicSnapshotAll() MQTopic {
 	return "internal/snapshot_all"
 }
 
+// TopicSnapshots TopicSnapshots
+func TopicSnapshots() MQTopic {
+	return "internal/snapshots"
+}
+
 // TopicSnapshotTSE TopicSnapshotTSE
 func TopicSnapshotTSE() MQTopic {
 	return "internal/snapshot_tse"
