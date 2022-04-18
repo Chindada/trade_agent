@@ -4,6 +4,7 @@ package routers
 import (
 	"net/http"
 	"sort"
+	"sync"
 	"time"
 
 	"trade_agent/global"
@@ -122,6 +123,11 @@ func queryAllStockByMinMax(min, max float64, originalMap map[string]bool) ([]*db
 	return tmp, nil
 }
 
+var (
+	belowQuaterArr []QuaterMAResponse
+	once           sync.Once
+)
+
 // GetQuaterTargets GetQuaterTargets
 // @Summary GetTradeDayTargets
 // @tags Targets V1
@@ -131,6 +137,14 @@ func queryAllStockByMinMax(min, max float64, originalMap map[string]bool) ([]*db
 // @failure 500 {object} ErrorResponse
 // @Router /v1/targets/quater [get]
 func GetQuaterTargets(c *gin.Context) {
+	once.Do(comuteQuaterBelow)
+	if len(belowQuaterArr) == 0 {
+		c.JSON(http.StatusOK, []QuaterMAResponse{})
+	}
+	c.JSON(http.StatusOK, belowQuaterArr)
+}
+
+func comuteQuaterBelow() {
 	targets := cache.GetCache().GetTargets()
 	belowQuater := make(map[time.Time][]dbagent.Stock)
 	result := []QuaterMAResponse{}
@@ -140,16 +154,12 @@ func GetQuaterTargets(c *gin.Context) {
 		maArr, err := dbagent.Get().GetAllQuaterMAByStockID(int64(tmp.Stock.ID))
 		if err != nil {
 			log.Get().Error(err)
-			c.JSON(http.StatusInternalServerError, err)
-			return
 		}
 		for _, ma := range maArr {
 			if close := cache.GetCache().GetHistoryClose(ma.Stock.Number, ma.CalendarDate.Date); close != 0 && close-ma.QuaterMA < 0 {
 				nextTradeDay, err := tradeday.GetAbsNextTradeDayTime(ma.CalendarDate.Date)
 				if err != nil {
 					log.Get().Error(err)
-					c.JSON(http.StatusInternalServerError, err)
-					return
 				}
 				if nextTradeDay.Equal(cache.GetCache().GetTradeDay()) {
 					tmp := ma
@@ -165,8 +175,6 @@ func GetQuaterTargets(c *gin.Context) {
 				firstTick, err := dbagent.Get().GetFirstTickByStockAndDate(s.Stock.ID, cache.GetCache().GetTradeDay())
 				if err != nil && err != gorm.ErrRecordNotFound {
 					log.Get().Error(err)
-					c.JSON(http.StatusInternalServerError, err)
-					return
 				}
 				if firstTick.Open > s.QuaterMA {
 					belowQuater[s.CalendarDate.Date] = append(belowQuater[s.CalendarDate.Date], *s.Stock)
@@ -190,5 +198,5 @@ func GetQuaterTargets(c *gin.Context) {
 			Stocks: belowQuater[date],
 		})
 	}
-	c.JSON(http.StatusOK, result)
+	belowQuaterArr = result
 }
