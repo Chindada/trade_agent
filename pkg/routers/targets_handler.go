@@ -125,7 +125,7 @@ func queryAllStockByMinMax(min, max float64, originalMap map[string]bool) ([]*db
 // @tags Targets V1
 // @accept json
 // @produce json
-// @success 200 {object} []QuaterMAResponse{}
+// @success 200 {object} []dbagent.BelowQuaterMA{}
 // @failure 500 {object} ErrorResponse
 // @Router /v1/targets/quater [get]
 func GetQuaterTargets(c *gin.Context) {

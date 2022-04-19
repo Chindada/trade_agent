@@ -1,0 +1,583 @@
+definitions:
+  config.Analyze:
+    properties:
+      close_change_ratio_high:
+        type: number
+      close_change_ratio_low:
+        type: number
+      in_out_ratio:
+        type: number
+      ma_period:
+        type: integer
+      max_loss:
+        type: number
+      open_close_change_ratio_high:
+        type: number
+      open_close_change_ratio_low:
+        type: number
+      out_in_ratio:
+        type: number
+      rsi_high:
+        type: number
+      rsi_low:
+        type: number
+      rsi_min_count:
+        type: integer
+      tick_analyze_max_period:
+        type: number
+      tick_analyze_min_period:
+        type: number
+      volume_pr_high:
+        type: number
+      volume_pr_low:
+        type: number
+    type: object
+  config.Config:
+    properties:
+      analyze:
+        $ref: '#/definitions/config.Analyze'
+      database:
+        $ref: '#/definitions/config.Database'
+      mqtt:
+        $ref: '#/definitions/config.MQTT'
+      quota:
+        $ref: '#/definitions/config.Quota'
+      schedule:
+        $ref: '#/definitions/config.Schedule'
+      server:
+        $ref: '#/definitions/config.Server'
+      target_cond:
+        $ref: '#/definitions/config.TargetCond'
+      trade:
+        $ref: '#/definitions/config.Trade'
+      trade_switch:
+        $ref: '#/definitions/config.TradeSwitch'
+    type: object
+  config.Database:
+    properties:
+      database:
+        type: string
+      host:
+        type: string
+      passwd:
+        type: string
+      port:
+        type: string
+      time_zone:
+        type: string
+      user:
+        type: string
+    type: object
+  config.MQTT:
+    properties:
+      ca_path:
+        type: string
+      cert_path:
+        type: string
+      client_id:
+        type: string
+      host:
+        type: string
+      key_path:
+        type: string
+      passwd:
+        type: string
+      port:
+        type: string
+      user:
+        type: string
+    type: object
+  config.Quota:
+    properties:
+      fee_discount:
+        type: number
+      trade_fee_ratio:
+        type: number
+      trade_quota:
+        type: integer
+      trade_tax_ratio:
+        type: number
+    type: object
+  config.Schedule:
+    properties:
+      clean_event:
+        type: string
+      restart_sinopac:
+        type: string
+    type: object
+  config.Server:
+    properties:
+      cert_path:
+        type: string
+      http_port:
+        type: string
+      key_path:
+        type: string
+      run_mode:
+        type: string
+      sinopac_max_conn:
+        type: integer
+      sinopac_srv_host:
+        type: string
+      sinopac_srv_port:
+        type: string
+    type: object
+  config.TargetCond:
+    properties:
+      black_category:
+        items:
+          type: string
+        type: array
+      black_stock:
+        items:
+          type: string
+        type: array
+      limit_price_high:
+        type: number
+      limit_price_low:
+        type: number
+      limit_volume:
+        type: integer
+      real_time_targets_count:
+        type: integer
+    type: object
+  config.Trade:
+    properties:
+      history_close_period:
+        type: integer
+      history_kbar_period:
+        type: integer
+      history_tick_period:
+        type: integer
+      hold_time_from_open:
+        type: number
+      total_open_time:
+        type: number
+      trade_in_end_time:
+        type: number
+      trade_in_wait_time:
+        type: integer
+      trade_out_end_time:
+        type: number
+      trade_out_wait_time:
+        type: integer
+    type: object
+  config.TradeSwitch:
+    properties:
+      buy:
+        type: boolean
+      buy_later:
+        type: boolean
+      forward_max:
+        type: integer
+      mean_time_forward:
+        type: integer
+      mean_time_reverse:
+        type: integer
+      reverse_max:
+        type: integer
+      sell:
+        type: boolean
+      sell_first:
+        type: boolean
+      simulation:
+        type: boolean
+    type: object
+  dbagent.Balance:
+    properties:
+      discount:
+        type: integer
+      forward:
+        type: integer
+      original_balance:
+        type: integer
+      reverse:
+        type: integer
+      total:
+        type: integer
+      trade_count:
+        type: integer
+      trade_day:
+        type: string
+    type: object
+  dbagent.BelowQuaterMA:
+    properties:
+      date:
+        type: string
+      stocks:
+        items:
+          $ref: '#/definitions/dbagent.Stock'
+        type: array
+    type: object
+  dbagent.Login:
+    properties:
+      password:
+        type: string
+      username:
+        type: string
+    required:
+    - password
+    - username
+    type: object
+  dbagent.OrderStatus:
+    properties:
+      action:
+        type: integer
+      order_id:
+        type: string
+      order_time:
+        type: string
+      price:
+        type: number
+      quantity:
+        type: integer
+      status:
+        type: integer
+      stock:
+        $ref: '#/definitions/dbagent.Stock'
+      stock_id:
+        type: integer
+    type: object
+  dbagent.Stock:
+    properties:
+      category:
+        type: string
+      day_trade:
+        type: boolean
+      exchange:
+        type: string
+      last_close:
+        type: number
+      name:
+        type: string
+      number:
+        type: string
+    type: object
+  dbagent.TSESnapShot:
+    properties:
+      amount:
+        type: integer
+      amount_sum:
+        type: integer
+      chg_type:
+        type: string
+      close:
+        type: number
+      high:
+        type: number
+      low:
+        type: number
+      open:
+        type: number
+      pct_chg:
+        type: number
+      price_chg:
+        type: number
+      stock:
+        $ref: '#/definitions/dbagent.Stock'
+      tick_time:
+        type: string
+      tick_type:
+        type: string
+      volume:
+        type: integer
+      volume_ratio:
+        type: number
+      volume_sum:
+        type: integer
+      yesterday_volume:
+        type: number
+    type: object
+  dbagent.Target:
+    properties:
+      rank:
+        type: integer
+      real_time_add:
+        type: boolean
+      stock:
+        $ref: '#/definitions/dbagent.Stock'
+      stock_id:
+        type: integer
+      subscribe:
+        type: boolean
+      trade_day:
+        type: string
+      volume:
+        type: integer
+    type: object
+  routers.ErrorResponse:
+    properties:
+      attachment: {}
+      response:
+        type: string
+    type: object
+info:
+  contact: {}
+  description: API docs for Trade Agent
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  title: Trade Agent
+paths:
+  /v1/balance:
+    delete:
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ""
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/routers.ErrorResponse'
+      summary: DeletaAllBalance V1
+      tags:
+      - Balance
+    get:
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/dbagent.Balance'
+            type: array
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/routers.ErrorResponse'
+      summary: GetAllBalance V1
+      tags:
+      - Balance
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Body
+        in: body
+        name: body
+        required: true
+        schema:
+          items:
+            $ref: '#/definitions/dbagent.Balance'
+          type: array
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ""
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/routers.ErrorResponse'
+      summary: ImportBalance V1
+      tags:
+      - Balance
+  /v1/cache:
+    get:
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              type: string
+            type: array
+      summary: GetTradeDayTargets V1
+      tags:
+      - Cache
+  /v1/cache/{key}:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: key
+        in: path
+        name: key
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: object
+      summary: GetTradeDayTargets V1
+      tags:
+      - Cache
+  /v1/config:
+    get:
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/config.Config'
+      summary: GetAllConfig V1
+      tags:
+      - Config
+  /v1/login:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Body
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/dbagent.Login'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ""
+      tags:
+      - Login V1
+  /v1/order:
+    delete:
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ""
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/routers.ErrorResponse'
+      summary: DeletaAllOrder V1
+      tags:
+      - Order
+    get:
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/dbagent.OrderStatus'
+            type: array
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/routers.ErrorResponse'
+      summary: GetAllOrder V1
+      tags:
+      - Order
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Body
+        in: body
+        name: body
+        required: true
+        schema:
+          items:
+            $ref: '#/definitions/dbagent.OrderStatus'
+          type: array
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ""
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/routers.ErrorResponse'
+      summary: ImportOrder V1
+      tags:
+      - Order
+  /v1/targets:
+    get:
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/dbagent.Target'
+            type: array
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/routers.ErrorResponse'
+      summary: GetTradeDayTargets
+      tags:
+      - Targets V1
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: price_range
+        in: header
+        name: price_range
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ""
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/routers.ErrorResponse'
+      summary: GetTradeDayTargets
+      tags:
+      - Targets V1
+  /v1/targets/quater:
+    get:
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/dbagent.BelowQuaterMA'
+            type: array
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/routers.ErrorResponse'
+      summary: GetTradeDayTargets
+      tags:
+      - Targets V1
+  /v1/tse/real-time:
+    get:
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dbagent.TSESnapShot'
+      summary: GetRealTimeTSE V1
+      tags:
+      - TSE
+swagger: "2.0"

@@ -1,0 +1,897 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "API docs for Trade Agent",
+        "title": "Trade Agent",
+        "contact": {},
+        "license": {
+            "name": "Apache 2.0",
+            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+        }
+    },
+    "paths": {
+        "/v1/balance": {
+            "get": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Balance"
+                ],
+                "summary": "GetAllBalance V1",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/dbagent.Balance"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/routers.ErrorResponse"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Balance"
+                ],
+                "summary": "ImportBalance V1",
+                "parameters": [
+                    {
+                        "description": "Body",
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/dbagent.Balance"
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/routers.ErrorResponse"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Balance"
+                ],
+                "summary": "DeletaAllBalance V1",
+                "responses": {
+                    "200": {
+                        "description": ""
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/routers.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/cache": {
+            "get": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Cache"
+                ],
+                "summary": "GetTradeDayTargets V1",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/cache/{key}": {
+            "get": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Cache"
+                ],
+                "summary": "GetTradeDayTargets V1",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "key",
+                        "name": "key",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/config": {
+            "get": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Config"
+                ],
+                "summary": "GetAllConfig V1",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/config.Config"
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/login": {
+            "post": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Login V1"
+                ],
+                "parameters": [
+                    {
+                        "description": "Body",
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/dbagent.Login"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                }
+            }
+        },
+        "/v1/order": {
+            "get": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Order"
+                ],
+                "summary": "GetAllOrder V1",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/dbagent.OrderStatus"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/routers.ErrorResponse"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Order"
+                ],
+                "summary": "ImportOrder V1",
+                "parameters": [
+                    {
+                        "description": "Body",
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/dbagent.OrderStatus"
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/routers.ErrorResponse"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Order"
+                ],
+                "summary": "DeletaAllOrder V1",
+                "responses": {
+                    "200": {
+                        "description": ""
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/routers.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/targets": {
+            "get": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Targets V1"
+                ],
+                "summary": "GetTradeDayTargets",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/dbagent.Target"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/routers.ErrorResponse"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Targets V1"
+                ],
+                "summary": "GetTradeDayTargets",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "price_range",
+                        "name": "price_range",
+                        "in": "header",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/routers.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/targets/quater": {
+            "get": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Targets V1"
+                ],
+                "summary": "GetTradeDayTargets",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/dbagent.BelowQuaterMA"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/routers.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/tse/real-time": {
+            "get": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "TSE"
+                ],
+                "summary": "GetRealTimeTSE V1",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/dbagent.TSESnapShot"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "config.Analyze": {
+            "type": "object",
+            "properties": {
+                "close_change_ratio_high": {
+                    "type": "number"
+                },
+                "close_change_ratio_low": {
+                    "type": "number"
+                },
+                "in_out_ratio": {
+                    "type": "number"
+                },
+                "ma_period": {
+                    "type": "integer"
+                },
+                "max_loss": {
+                    "type": "number"
+                },
+                "open_close_change_ratio_high": {
+                    "type": "number"
+                },
+                "open_close_change_ratio_low": {
+                    "type": "number"
+                },
+                "out_in_ratio": {
+                    "type": "number"
+                },
+                "rsi_high": {
+                    "type": "number"
+                },
+                "rsi_low": {
+                    "type": "number"
+                },
+                "rsi_min_count": {
+                    "type": "integer"
+                },
+                "tick_analyze_max_period": {
+                    "type": "number"
+                },
+                "tick_analyze_min_period": {
+                    "type": "number"
+                },
+                "volume_pr_high": {
+                    "type": "number"
+                },
+                "volume_pr_low": {
+                    "type": "number"
+                }
+            }
+        },
+        "config.Config": {
+            "type": "object",
+            "properties": {
+                "analyze": {
+                    "$ref": "#/definitions/config.Analyze"
+                },
+                "database": {
+                    "$ref": "#/definitions/config.Database"
+                },
+                "mqtt": {
+                    "$ref": "#/definitions/config.MQTT"
+                },
+                "quota": {
+                    "$ref": "#/definitions/config.Quota"
+                },
+                "schedule": {
+                    "$ref": "#/definitions/config.Schedule"
+                },
+                "server": {
+                    "$ref": "#/definitions/config.Server"
+                },
+                "target_cond": {
+                    "$ref": "#/definitions/config.TargetCond"
+                },
+                "trade": {
+                    "$ref": "#/definitions/config.Trade"
+                },
+                "trade_switch": {
+                    "$ref": "#/definitions/config.TradeSwitch"
+                }
+            }
+        },
+        "config.Database": {
+            "type": "object",
+            "properties": {
+                "database": {
+                    "type": "string"
+                },
+                "host": {
+                    "type": "string"
+                },
+                "passwd": {
+                    "type": "string"
+                },
+                "port": {
+                    "type": "string"
+                },
+                "time_zone": {
+                    "type": "string"
+                },
+                "user": {
+                    "type": "string"
+                }
+            }
+        },
+        "config.MQTT": {
+            "type": "object",
+            "properties": {
+                "ca_path": {
+                    "type": "string"
+                },
+                "cert_path": {
+                    "type": "string"
+                },
+                "client_id": {
+                    "type": "string"
+                },
+                "host": {
+                    "type": "string"
+                },
+                "key_path": {
+                    "type": "string"
+                },
+                "passwd": {
+                    "type": "string"
+                },
+                "port": {
+                    "type": "string"
+                },
+                "user": {
+                    "type": "string"
+                }
+            }
+        },
+        "config.Quota": {
+            "type": "object",
+            "properties": {
+                "fee_discount": {
+                    "type": "number"
+                },
+                "trade_fee_ratio": {
+                    "type": "number"
+                },
+                "trade_quota": {
+                    "type": "integer"
+                },
+                "trade_tax_ratio": {
+                    "type": "number"
+                }
+            }
+        },
+        "config.Schedule": {
+            "type": "object",
+            "properties": {
+                "clean_event": {
+                    "type": "string"
+                },
+                "restart_sinopac": {
+                    "type": "string"
+                }
+            }
+        },
+        "config.Server": {
+            "type": "object",
+            "properties": {
+                "cert_path": {
+                    "type": "string"
+                },
+                "http_port": {
+                    "type": "string"
+                },
+                "key_path": {
+                    "type": "string"
+                },
+                "run_mode": {
+                    "type": "string"
+                },
+                "sinopac_max_conn": {
+                    "type": "integer"
+                },
+                "sinopac_srv_host": {
+                    "type": "string"
+                },
+                "sinopac_srv_port": {
+                    "type": "string"
+                }
+            }
+        },
+        "config.TargetCond": {
+            "type": "object",
+            "properties": {
+                "black_category": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "black_stock": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "limit_price_high": {
+                    "type": "number"
+                },
+                "limit_price_low": {
+                    "type": "number"
+                },
+                "limit_volume": {
+                    "type": "integer"
+                },
+                "real_time_targets_count": {
+                    "type": "integer"
+                }
+            }
+        },
+        "config.Trade": {
+            "type": "object",
+            "properties": {
+                "history_close_period": {
+                    "type": "integer"
+                },
+                "history_kbar_period": {
+                    "type": "integer"
+                },
+                "history_tick_period": {
+                    "type": "integer"
+                },
+                "hold_time_from_open": {
+                    "type": "number"
+                },
+                "total_open_time": {
+                    "type": "number"
+                },
+                "trade_in_end_time": {
+                    "type": "number"
+                },
+                "trade_in_wait_time": {
+                    "type": "integer"
+                },
+                "trade_out_end_time": {
+                    "type": "number"
+                },
+                "trade_out_wait_time": {
+                    "type": "integer"
+                }
+            }
+        },
+        "config.TradeSwitch": {
+            "type": "object",
+            "properties": {
+                "buy": {
+                    "type": "boolean"
+                },
+                "buy_later": {
+                    "type": "boolean"
+                },
+                "forward_max": {
+                    "type": "integer"
+                },
+                "mean_time_forward": {
+                    "type": "integer"
+                },
+                "mean_time_reverse": {
+                    "type": "integer"
+                },
+                "reverse_max": {
+                    "type": "integer"
+                },
+                "sell": {
+                    "type": "boolean"
+                },
+                "sell_first": {
+                    "type": "boolean"
+                },
+                "simulation": {
+                    "type": "boolean"
+                }
+            }
+        },
+        "dbagent.Balance": {
+            "type": "object",
+            "properties": {
+                "discount": {
+                    "type": "integer"
+                },
+                "forward": {
+                    "type": "integer"
+                },
+                "original_balance": {
+                    "type": "integer"
+                },
+                "reverse": {
+                    "type": "integer"
+                },
+                "total": {
+                    "type": "integer"
+                },
+                "trade_count": {
+                    "type": "integer"
+                },
+                "trade_day": {
+                    "type": "string"
+                }
+            }
+        },
+        "dbagent.BelowQuaterMA": {
+            "type": "object",
+            "properties": {
+                "date": {
+                    "type": "string"
+                },
+                "stocks": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/dbagent.Stock"
+                    }
+                }
+            }
+        },
+        "dbagent.Login": {
+            "type": "object",
+            "required": [
+                "password",
+                "username"
+            ],
+            "properties": {
+                "password": {
+                    "type": "string"
+                },
+                "username": {
+                    "type": "string"
+                }
+            }
+        },
+        "dbagent.OrderStatus": {
+            "type": "object",
+            "properties": {
+                "action": {
+                    "type": "integer"
+                },
+                "order_id": {
+                    "type": "string"
+                },
+                "order_time": {
+                    "type": "string"
+                },
+                "price": {
+                    "type": "number"
+                },
+                "quantity": {
+                    "type": "integer"
+                },
+                "status": {
+                    "type": "integer"
+                },
+                "stock": {
+                    "$ref": "#/definitions/dbagent.Stock"
+                },
+                "stock_id": {
+                    "type": "integer"
+                }
+            }
+        },
+        "dbagent.Stock": {
+            "type": "object",
+            "properties": {
+                "category": {
+                    "type": "string"
+                },
+                "day_trade": {
+                    "type": "boolean"
+                },
+                "exchange": {
+                    "type": "string"
+                },
+                "last_close": {
+                    "type": "number"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "number": {
+                    "type": "string"
+                }
+            }
+        },
+        "dbagent.TSESnapShot": {
+            "type": "object",
+            "properties": {
+                "amount": {
+                    "type": "integer"
+                },
+                "amount_sum": {
+                    "type": "integer"
+                },
+                "chg_type": {
+                    "type": "string"
+                },
+                "close": {
+                    "type": "number"
+                },
+                "high": {
+                    "type": "number"
+                },
+                "low": {
+                    "type": "number"
+                },
+                "open": {
+                    "type": "number"
+                },
+                "pct_chg": {
+                    "type": "number"
+                },
+                "price_chg": {
+                    "type": "number"
+                },
+                "stock": {
+                    "$ref": "#/definitions/dbagent.Stock"
+                },
+                "tick_time": {
+                    "type": "string"
+                },
+                "tick_type": {
+                    "type": "string"
+                },
+                "volume": {
+                    "type": "integer"
+                },
+                "volume_ratio": {
+                    "type": "number"
+                },
+                "volume_sum": {
+                    "type": "integer"
+                },
+                "yesterday_volume": {
+                    "type": "number"
+                }
+            }
+        },
+        "dbagent.Target": {
+            "type": "object",
+            "properties": {
+                "rank": {
+                    "type": "integer"
+                },
+                "real_time_add": {
+                    "type": "boolean"
+                },
+                "stock": {
+                    "$ref": "#/definitions/dbagent.Stock"
+                },
+                "stock_id": {
+                    "type": "integer"
+                },
+                "subscribe": {
+                    "type": "boolean"
+                },
+                "trade_day": {
+                    "type": "string"
+                },
+                "volume": {
+                    "type": "integer"
+                }
+            }
+        },
+        "routers.ErrorResponse": {
+            "type": "object",
+            "properties": {
+                "attachment": {},
+                "response": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}
