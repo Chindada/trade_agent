@@ -3,7 +3,6 @@ package tickprocess
 
 import (
 	"trade_agent/pkg/cache"
-	"trade_agent/pkg/dbagent"
 	"trade_agent/pkg/log"
 	"trade_agent/pkg/mqhandler"
 	"trade_agent/pkg/pb"
@@ -44,7 +43,7 @@ func realTimeTickCallback(m mqhandler.MQMessage) {
 	}
 
 	// save to db
-	if err := dbagent.Get().InsertRealTimeTick(tick); err != nil {
-		log.Get().Panic(err)
-	}
+	// if err := dbagent.Get().InsertRealTimeTick(tick); err != nil {
+	// 	log.Get().Panic(err)
+	// }
 }

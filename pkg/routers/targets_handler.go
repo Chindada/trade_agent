@@ -4,7 +4,6 @@ package routers
 import (
 	"net/http"
 	"sort"
-	"sync"
 	"time"
 
 	"trade_agent/global"
@@ -16,7 +15,6 @@ import (
 	"trade_agent/pkg/modules/tradeday"
 
 	"github.com/gin-gonic/gin"
-	"gorm.io/gorm"
 )
 
 // AddTargetsHandlersV1 AddTargetsHandlersV1
@@ -123,11 +121,6 @@ func queryAllStockByMinMax(min, max float64, originalMap map[string]bool) ([]*db
 	return tmp, nil
 }
 
-var (
-	belowQuaterArr []QuaterMAResponse
-	once           sync.Once
-)
-
 // GetQuaterTargets GetQuaterTargets
 // @Summary GetTradeDayTargets
 // @tags Targets V1
@@ -137,14 +130,6 @@ var (
 // @failure 500 {object} ErrorResponse
 // @Router /v1/targets/quater [get]
 func GetQuaterTargets(c *gin.Context) {
-	once.Do(comuteQuaterBelow)
-	if len(belowQuaterArr) == 0 {
-		c.JSON(http.StatusOK, []QuaterMAResponse{})
-	}
-	c.JSON(http.StatusOK, belowQuaterArr)
-}
-
-func comuteQuaterBelow() {
 	targets := cache.GetCache().GetTargets()
 	belowQuater := make(map[time.Time][]dbagent.Stock)
 	result := []QuaterMAResponse{}
@@ -155,6 +140,7 @@ func comuteQuaterBelow() {
 		if err != nil {
 			log.Get().Error(err)
 		}
+
 		for _, ma := range maArr {
 			if close := cache.GetCache().GetHistoryClose(ma.Stock.Number, ma.CalendarDate.Date); close != 0 && close-ma.QuaterMA < 0 {
 				nextTradeDay, err := tradeday.GetAbsNextTradeDayTime(ma.CalendarDate.Date)
@@ -170,14 +156,13 @@ func comuteQuaterBelow() {
 				}
 			}
 		}
+
 		if len(lastBelowMAStock) != 0 {
 			for _, s := range lastBelowMAStock {
-				firstTick, err := dbagent.Get().GetFirstTickByStockAndDate(s.Stock.ID, cache.GetCache().GetTradeDay())
-				if err != nil && err != gorm.ErrRecordNotFound {
-					log.Get().Error(err)
-				}
-				if firstTick.Open > s.QuaterMA {
-					belowQuater[s.CalendarDate.Date] = append(belowQuater[s.CalendarDate.Date], *s.Stock)
+				if open := cache.GetCache().GetHistoryOpen(s.Stock.Number, cache.GetCache().GetTradeDay()); open != 0 {
+					if open > s.QuaterMA {
+						belowQuater[s.CalendarDate.Date] = append(belowQuater[s.CalendarDate.Date], *s.Stock)
+					}
 				}
 			}
 		}
@@ -198,5 +183,5 @@ func comuteQuaterBelow() {
 			Stocks: belowQuater[date],
 		})
 	}
-	belowQuaterArr = result
+	c.JSON(http.StatusOK, result)
 }

@@ -70,9 +70,14 @@ func realTimeTickProcessor(stockNum string) {
 
 	var tickArr dbagent.RealTimeTickArr
 	var lastPeriodEndTime time.Time
+	var firstArrive bool
 	for {
 		tick := <-ch
 		tickArr = append(tickArr, tick)
+		if !firstArrive {
+			firstArrive = true
+			cache.GetCache().SetStockHistoryOpen(stockNum, tick.Close, cache.GetCache().GetTradeDay())
+		}
 
 		// save realtime tick close to cache
 		cache.GetCache().SetRealTimeTickClose(stockNum, tick.Close)
