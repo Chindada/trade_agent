@@ -209,6 +209,25 @@ definitions:
           $ref: '#/definitions/dbagent.Stock'
         type: array
     type: object
+  dbagent.HistoryKbar:
+    properties:
+      close:
+        type: number
+      high:
+        type: number
+      low:
+        type: number
+      open:
+        type: number
+      stock:
+        $ref: '#/definitions/dbagent.Stock'
+      stock_id:
+        type: integer
+      tick_time:
+        type: string
+      volume:
+        type: integer
+    type: object
   dbagent.Login:
     properties:
       password:
@@ -428,6 +447,42 @@ paths:
       summary: GetAllConfig V1
       tags:
       - Config
+  /v1/history/day_kbar/{stock}/{start_date}/{interval}:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: stock
+        in: path
+        name: stock
+        required: true
+        type: string
+      - description: start_date
+        in: path
+        name: start_date
+        required: true
+        type: string
+      - description: interval
+        in: path
+        name: interval
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/dbagent.HistoryKbar'
+            type: array
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/routers.ErrorResponse'
+      summary: GetKbarData V1
+      tags:
+      - HistoryData
   /v1/login:
     post:
       consumes:

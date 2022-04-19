@@ -179,6 +179,60 @@
                 }
             }
         },
+        "/v1/history/day_kbar/{stock}/{start_date}/{interval}": {
+            "get": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "HistoryData"
+                ],
+                "summary": "GetKbarData V1",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "stock",
+                        "name": "stock",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "start_date",
+                        "name": "start_date",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "interval",
+                        "name": "interval",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/dbagent.HistoryKbar"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/routers.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
         "/v1/login": {
             "post": {
                 "consumes": [
@@ -735,6 +789,35 @@
                     "items": {
                         "$ref": "#/definitions/dbagent.Stock"
                     }
+                }
+            }
+        },
+        "dbagent.HistoryKbar": {
+            "type": "object",
+            "properties": {
+                "close": {
+                    "type": "number"
+                },
+                "high": {
+                    "type": "number"
+                },
+                "low": {
+                    "type": "number"
+                },
+                "open": {
+                    "type": "number"
+                },
+                "stock": {
+                    "$ref": "#/definitions/dbagent.Stock"
+                },
+                "stock_id": {
+                    "type": "integer"
+                },
+                "tick_time": {
+                    "type": "string"
+                },
+                "volume": {
+                    "type": "integer"
                 }
             }
         },

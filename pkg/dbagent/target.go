@@ -11,14 +11,14 @@ import (
 type Target struct {
 	gorm.Model `json:"-" swaggerignore:"true"`
 
-	Stock    *Stock    `json:"stock,omitempty" yaml:"stock" gorm:"foreignKey:StockID"`
-	StockID  int64     `json:"stock_id,omitempty" yaml:"stock_id" gorm:"column:stock_id"`
-	TradeDay time.Time `json:"trade_day,omitempty" yaml:"trade_day" gorm:"column:trade_day"`
+	Stock    *Stock    `json:"stock" yaml:"stock" gorm:"foreignKey:StockID"`
+	StockID  int64     `json:"stock_id" yaml:"stock_id" gorm:"column:stock_id"`
+	TradeDay time.Time `json:"trade_day" yaml:"trade_day" gorm:"column:trade_day"`
 
-	Rank        int   `json:"rank,omitempty" yaml:"rank" gorm:"column:rank"`
-	Volume      int64 `json:"volume,omitempty" yaml:"volume" gorm:"column:volume"`
-	Subscribe   bool  `json:"subscribe,omitempty" yaml:"subscribe"`
-	RealTimeAdd bool  `json:"real_time_add,omitempty" yaml:"real_time_add" gorm:"column:real_time_add"`
+	Rank        int   `json:"rank" yaml:"rank" gorm:"column:rank"`
+	Volume      int64 `json:"volume" yaml:"volume" gorm:"column:volume"`
+	Subscribe   bool  `json:"subscribe" yaml:"subscribe"`
+	RealTimeAdd bool  `json:"real_time_add" yaml:"real_time_add" gorm:"column:real_time_add"`
 }
 
 // TableName TableName
