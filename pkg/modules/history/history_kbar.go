@@ -37,6 +37,37 @@ func subHistoryKbar(targetArr []*dbagent.Target, fetchDate []time.Time) error {
 				noDataDateArr = append(noDataDateArr, tempFetch{targetMap[s], date})
 			} else {
 				cache.GetCache().SetStockHistoryOpen(arr[0].Stock.Number, arr[0].Open, date)
+				var close, open, high, low float64
+				var volume int64
+				var lastTickTime time.Time
+				for i, kbar := range arr {
+					if i == 0 {
+						open = kbar.Open
+					}
+					if i == len(arr)-1 {
+						close = kbar.Close
+						lastTickTime = kbar.TickTime
+					}
+					if high == 0 {
+						high = kbar.High
+					} else if kbar.High > high {
+						high = kbar.High
+					}
+					if low == 0 {
+						low = kbar.Low
+					} else if kbar.Low < low {
+						low = kbar.Low
+					}
+					volume += kbar.Volume
+				}
+				cache.GetCache().SetStockHistoryDayKbar(date.Format(global.ShortTimeLayout), arr[0].Stock.Number, &dbagent.HistoryKbar{
+					Close:    close,
+					Open:     open,
+					High:     high,
+					Low:      low,
+					Volume:   volume,
+					TickTime: lastTickTime,
+				})
 				log.Get().WithFields(map[string]interface{}{
 					"Stock": arr[0].Stock.Number,
 					"Date":  date.Format(global.ShortTimeLayout),

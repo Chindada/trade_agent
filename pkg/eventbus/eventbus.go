@@ -55,6 +55,19 @@ func (c *BusAgent) SubscribeTargets(f func(targetArr []*dbagent.Target)) {
 	}
 }
 
+// PublishNeedAnalyzeTargets PublishNeedAnalyzeTargets
+func (c *BusAgent) PublishNeedAnalyzeTargets(targetArr []*dbagent.Target) {
+	go c.bus.Publish(bustopic.NeedAnalyzeTargets, targetArr)
+}
+
+// SubscribeNeedAnalyzeTargets SubscribeNeedAnalyzeTargets
+func (c *BusAgent) SubscribeNeedAnalyzeTargets(f func(targetArr []*dbagent.Target)) {
+	err := c.bus.Subscribe(bustopic.NeedAnalyzeTargets, f)
+	if err != nil {
+		log.Get().Panic(err)
+	}
+}
+
 // PublishStockOrder PublishStockOrder
 func (c *BusAgent) PublishStockOrder(order *sinopacapi.Order) {
 	go c.bus.Publish(bustopic.StockOrder, order)

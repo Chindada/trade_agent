@@ -11,8 +11,7 @@ import (
 	"trade_agent/pkg/config"
 	"trade_agent/pkg/dbagent"
 	"trade_agent/pkg/eventbus"
-	"trade_agent/pkg/log"
-	"trade_agent/pkg/modules/tradeday"
+	"trade_agent/pkg/modules/analyze"
 
 	"github.com/gin-gonic/gin"
 )
@@ -130,46 +129,11 @@ func queryAllStockByMinMax(min, max float64, originalMap map[string]bool) ([]*db
 // @failure 500 {object} ErrorResponse
 // @Router /v1/targets/quater [get]
 func GetQuaterTargets(c *gin.Context) {
-	targets := cache.GetCache().GetTargets()
-	belowQuater := make(map[time.Time][]dbagent.Stock)
-	result := []QuaterMAResponse{}
-	var lastBelowMAStock []*dbagent.HistoryMA
-	for _, t := range targets {
-		tmp := *t
-		maArr, err := dbagent.Get().GetAllQuaterMAByStockID(int64(tmp.Stock.ID))
-		if err != nil {
-			log.Get().Error(err)
-		}
+	mapData := analyze.GetBelowQuaterMap()
 
-		for _, ma := range maArr {
-			if close := cache.GetCache().GetHistoryClose(ma.Stock.Number, ma.CalendarDate.Date); close != 0 && close-ma.QuaterMA < 0 {
-				nextTradeDay, err := tradeday.GetAbsNextTradeDayTime(ma.CalendarDate.Date)
-				if err != nil {
-					log.Get().Error(err)
-				}
-				if nextTradeDay.Equal(cache.GetCache().GetTradeDay()) {
-					tmp := ma
-					lastBelowMAStock = append(lastBelowMAStock, &tmp)
-				}
-				if nextOpen := cache.GetCache().GetHistoryOpen(ma.Stock.Number, nextTradeDay); nextOpen != 0 && nextOpen-ma.QuaterMA > 0 {
-					belowQuater[ma.CalendarDate.Date] = append(belowQuater[ma.CalendarDate.Date], *tmp.Stock)
-				}
-			}
-		}
-
-		if len(lastBelowMAStock) != 0 {
-			for _, s := range lastBelowMAStock {
-				if open := cache.GetCache().GetHistoryOpen(s.Stock.Number, cache.GetCache().GetTradeDay()); open != 0 {
-					if open > s.QuaterMA {
-						belowQuater[s.CalendarDate.Date] = append(belowQuater[s.CalendarDate.Date], *s.Stock)
-					}
-				}
-			}
-		}
-	}
-
+	result := []dbagent.BelowQuaterMA{}
 	dateArr := []time.Time{}
-	for date := range belowQuater {
+	for date := range mapData {
 		dateArr = append(dateArr, date)
 	}
 
@@ -178,9 +142,9 @@ func GetQuaterTargets(c *gin.Context) {
 	})
 
 	for _, date := range dateArr {
-		result = append(result, QuaterMAResponse{
+		result = append(result, dbagent.BelowQuaterMA{
 			Date:   date.Format(global.ShortTimeLayout),
-			Stocks: belowQuater[date],
+			Stocks: mapData[date],
 		})
 	}
 	c.JSON(http.StatusOK, result)

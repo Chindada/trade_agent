@@ -7,6 +7,7 @@ import (
 	"trade_agent/global"
 	"trade_agent/pkg/dbagent"
 	"trade_agent/pkg/log"
+	"trade_agent/pkg/modules/analyze"
 	"trade_agent/pkg/modules/cloudevent"
 	"trade_agent/pkg/modules/healthcheck"
 	"trade_agent/pkg/modules/history"
@@ -51,6 +52,9 @@ func main() {
 
 	// sub sino srv event to update db event
 	cloudevent.InitCloudEvent()
+
+	// after history data is ready, sub to analyze
+	analyze.InitAnalyze()
 
 	// wait order and simulation result to place order
 	// update all order status looply

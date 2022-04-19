@@ -83,3 +83,9 @@ func (c *DBAgent) GetAllQuaterMAByStockID(stockID int64) (maArr []HistoryMA, err
 	err = c.DB.Preload("Stock").Preload("CalendarDate").Model(&HistoryMA{}).Where("stock_id = ?", stockID).Find(&maArr).Error
 	return maArr, err
 }
+
+// BelowQuaterMA BelowQuaterMA
+type BelowQuaterMA struct {
+	Date   string  `json:"date"`
+	Stocks []Stock `json:"stocks"`
+}

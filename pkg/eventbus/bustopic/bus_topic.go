@@ -8,6 +8,8 @@ const (
 	UnSubscribeTargets string = "unsubscribe_targets"
 	// Targets Targets
 	Targets string = "targets"
+	// NeedAnalyzeTargets NeedAnalyzeTargets
+	NeedAnalyzeTargets string = "need_analyze_targets"
 	// StockOrder StockOrder
 	StockOrder string = "stock_order"
 	// RestartSinopacMQSRV RestartSinopacMQSRV
