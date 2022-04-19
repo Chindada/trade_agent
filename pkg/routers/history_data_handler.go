@@ -61,14 +61,22 @@ func GetKbarData(c *gin.Context) {
 		c.JSON(http.StatusInternalServerError, err)
 	}
 
+	var retryTimes int
 	var result []dbagent.HistoryKbar
 	for i := 0; i < interval; i++ {
+		if retryTimes >= 300 {
+			c.JSON(http.StatusInternalServerError, nil)
+			return
+		}
 		tmp := cache.GetCache().GetStockHistoryDayKbar(startDateTime.AddDate(0, 0, -i).Format(global.ShortTimeLayout), stockNum)
-		if tmp == nil {
+		if i == 0 && tmp == nil {
+			retryTimes++
+			time.Sleep(100 * time.Millisecond)
 			continue
 		}
-		result = append(result, *tmp)
+		if tmp != nil {
+			result = append(result, *tmp)
+		}
 	}
-
 	c.JSON(http.StatusOK, result)
 }
