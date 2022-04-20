@@ -67,7 +67,12 @@ func GetKbarData(c *gin.Context) {
 	}
 
 	var result []dbagent.HistoryKbar
+	starTime := time.Now()
 	for i := 0; i < interval; i++ {
+		if starTime.Add(60 * time.Second).Before(time.Now()) {
+			c.JSON(http.StatusInternalServerError, nil)
+			return
+		}
 		tmp := cache.GetCache().GetStockHistoryDayKbar(startDateTime.Format(global.ShortTimeLayout), stockNum)
 		startDateTime = startDateTime.AddDate(0, 0, -1)
 		if tmp == nil {
