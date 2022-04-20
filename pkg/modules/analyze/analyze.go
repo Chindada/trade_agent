@@ -20,6 +20,7 @@ func InitAnalyze() {
 	log.Get().Info("Initial Analyze")
 
 	belowQuaterMap = make(map[time.Time][]dbagent.Stock)
+	lastBelowMAStock = make(map[string]*dbagent.HistoryMA)
 
 	eventbus.Get().SubscribeNeedAnalyzeTargets(targetsBusCallback)
 }
