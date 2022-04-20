@@ -45,9 +45,9 @@ trade_switch:
 # trade
 trade:
     # unit: day
-    history_close_period: 85
+    history_close_period: 120
     history_tick_period: 3
-    history_kbar_period: 85
+    history_kbar_period: 120
     # unit: minute
     hold_time_from_open: 5
     # unit: hours

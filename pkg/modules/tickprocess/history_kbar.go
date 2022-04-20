@@ -46,6 +46,37 @@ func historyKbarCallback(m mqhandler.MQMessage) {
 		log.Get().Panic(err)
 	}
 	cache.GetCache().SetStockHistoryOpen(body.GetStockNum(), saveKbar[0].Open, dataTime)
+	var close, open, high, low float64
+	var volume int64
+	var lastTickTime time.Time
+	for i, kbar := range saveKbar {
+		if i == 0 {
+			open = kbar.Open
+		}
+		if i == len(saveKbar)-1 {
+			close = kbar.Close
+			lastTickTime = kbar.TickTime
+		}
+		if high == 0 {
+			high = kbar.High
+		} else if kbar.High > high {
+			high = kbar.High
+		}
+		if low == 0 {
+			low = kbar.Low
+		} else if kbar.Low < low {
+			low = kbar.Low
+		}
+		volume += kbar.Volume
+	}
+	cache.GetCache().SetStockHistoryDayKbar(body.GetStartDate(), saveKbar[0].Stock.Number, &dbagent.HistoryKbar{
+		Close:    close,
+		Open:     open,
+		High:     high,
+		Low:      low,
+		Volume:   volume,
+		TickTime: lastTickTime,
+	})
 
 	if err := dbagent.Get().InsertMultiHistoryKbar(saveKbar); err != nil {
 		log.Get().Panic(err)
