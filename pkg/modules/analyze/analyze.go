@@ -120,8 +120,9 @@ func calculateQuaterMA(targetArr []*dbagent.Target, fetchDate []time.Time) error
 }
 
 var (
-	belowQuaterMap  map[time.Time][]dbagent.Stock
-	belowQuaterLock sync.Mutex
+	lastBelowMAStock map[string]*dbagent.HistoryMA
+	belowQuaterMap   map[time.Time][]dbagent.Stock
+	belowQuaterLock  sync.Mutex
 )
 
 // GetBelowQuaterMap GetBelowQuaterMap
@@ -129,22 +130,18 @@ func GetBelowQuaterMap() map[time.Time][]dbagent.Stock {
 	belowQuaterLock.Lock()
 	tmp := belowQuaterMap
 	if len(lastBelowMAStock) != 0 {
-		for i, s := range lastBelowMAStock {
+		for _, s := range lastBelowMAStock {
 			if open := cache.GetCache().GetHistoryOpen(s.Stock.Number, cache.GetCache().GetTradeDay()); open != 0 {
 				if open > s.QuaterMA {
 					belowQuaterMap[s.CalendarDate.Date] = append(belowQuaterMap[s.CalendarDate.Date], *s.Stock)
 				}
-				tmp := lastBelowMAStock[i+1:]
-				lastBelowMAStock = lastBelowMAStock[:i]
-				lastBelowMAStock = append(lastBelowMAStock, tmp...)
+				delete(lastBelowMAStock, s.Stock.Number)
 			}
 		}
 	}
 	belowQuaterLock.Unlock()
 	return tmp
 }
-
-var lastBelowMAStock []*dbagent.HistoryMA
 
 func findBelowQuaterMATargets(targetArr []*dbagent.Target) error {
 	defer log.Get().Info("FindBelowQuaterMATargets Done")
@@ -165,7 +162,7 @@ func findBelowQuaterMATargets(targetArr []*dbagent.Target) error {
 				}
 				if nextTradeDay.Equal(cache.GetCache().GetTradeDay()) {
 					tmp := ma
-					lastBelowMAStock = append(lastBelowMAStock, &tmp)
+					lastBelowMAStock[tmp.Stock.Number] = &tmp
 				}
 				if nextOpen := cache.GetCache().GetHistoryOpen(ma.Stock.Number, nextTradeDay); nextOpen != 0 && nextOpen-ma.QuaterMA > 0 {
 					belowQuaterMap[ma.CalendarDate.Date] = append(belowQuaterMap[ma.CalendarDate.Date], *tmp.Stock)
