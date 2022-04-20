@@ -32,7 +32,6 @@ func AddHistoryDataHandlersV1(group *gin.RouterGroup) {
 // @Router /v1/history/day_kbar/{stock}/{start_date}/{interval} [get]
 func GetKbarData(c *gin.Context) {
 	stockNum := c.Param("stock")
-
 	if target := cache.GetCache().GetTargetByStockNum(stockNum); target == nil {
 		tmp := &dbagent.Target{
 			Stock:       cache.GetCache().GetStock(stockNum),
@@ -53,12 +52,14 @@ func GetKbarData(c *gin.Context) {
 	interval, err := strconv.Atoi(c.Param("interval"))
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, err)
+		return
 	}
 
 	startDate := c.Param("start_date")
 	startDateTime, err := time.Parse(global.ShortTimeLayout, startDate)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, err)
+		return
 	}
 
 	var retryTimes int

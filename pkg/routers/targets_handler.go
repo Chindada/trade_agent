@@ -130,7 +130,6 @@ func queryAllStockByMinMax(min, max float64, originalMap map[string]bool) ([]*db
 // @Router /v1/targets/quater [get]
 func GetQuaterTargets(c *gin.Context) {
 	mapData := analyze.GetBelowQuaterMap()
-
 	result := []dbagent.BelowQuaterMA{}
 	dateArr := []time.Time{}
 	for date := range mapData {

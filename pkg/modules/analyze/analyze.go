@@ -132,9 +132,7 @@ func GetBelowQuaterMap() map[time.Time][]dbagent.Stock {
 		for i, s := range lastBelowMAStock {
 			if open := cache.GetCache().GetHistoryOpen(s.Stock.Number, cache.GetCache().GetTradeDay()); open != 0 {
 				if open > s.QuaterMA {
-					belowQuaterLock.Lock()
 					belowQuaterMap[s.CalendarDate.Date] = append(belowQuaterMap[s.CalendarDate.Date], *s.Stock)
-					belowQuaterLock.Unlock()
 				}
 				tmp := lastBelowMAStock[i+1:]
 				lastBelowMAStock = lastBelowMAStock[:i]
