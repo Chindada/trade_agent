@@ -88,7 +88,7 @@ func (c *DBAgent) DeleteAllStock() error {
 func (c *DBAgent) GetAllStockMap() (allStockMap map[string]*Stock, err error) {
 	allStockMap = make(map[string]*Stock)
 	var stockArr []*Stock
-	err = c.DB.Model(&Stock{}).Not("name = ?", "").Not("category = ?", "00").Not("category = ?", "custom").Order("number").Find(&stockArr).Error
+	err = c.DB.Model(&Stock{}).Not("name = ?", "").Order("number").Find(&stockArr).Error
 
 	for _, v := range stockArr {
 		allStockMap[v.Number] = v

@@ -36,15 +36,15 @@ func GetKbarData(c *gin.Context) {
 		tmp := &dbagent.Target{
 			Stock:       cache.GetCache().GetStock(stockNum),
 			TradeDay:    cache.GetCache().GetTradeDay(),
-			Rank:        0,
+			Rank:        -1,
 			Volume:      0,
 			Subscribe:   false,
 			RealTimeAdd: true,
 		}
-		// send to bus
-		eventbus.Get().PublishTargets([]*dbagent.Target{tmp})
 		// append to cache
 		cache.GetCache().AppendTargets([]*dbagent.Target{tmp})
+		// send to bus
+		eventbus.Get().PublishTargets([]*dbagent.Target{tmp})
 		c.JSON(http.StatusInternalServerError, nil)
 		return
 	}
@@ -62,19 +62,13 @@ func GetKbarData(c *gin.Context) {
 		return
 	}
 
-	var retryTimes int
+	if startDateTime.Equal(cache.GetCache().GetTradeDay()) {
+		startDateTime = startDateTime.AddDate(0, 0, -1)
+	}
+
 	var result []dbagent.HistoryKbar
 	for i := 0; i < interval; i++ {
-		if retryTimes >= 300 {
-			c.JSON(http.StatusInternalServerError, nil)
-			return
-		}
 		tmp := cache.GetCache().GetStockHistoryDayKbar(startDateTime.AddDate(0, 0, -i).Format(global.ShortTimeLayout), stockNum)
-		if i == 0 && tmp == nil {
-			retryTimes++
-			time.Sleep(100 * time.Millisecond)
-			continue
-		}
 		if tmp != nil {
 			result = append(result, *tmp)
 		}
