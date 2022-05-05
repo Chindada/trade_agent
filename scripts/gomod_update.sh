@@ -9,6 +9,5 @@ go install github.com/ofabry/go-callvis@latest
 
 go mod init trade_agent
 go mod tidy
-go mod download github.com/AdaLogics/go-fuzz-headers
 # go mod tidy -go=1.16 && go mod tidy -go=1.17 && go mod tidy -go=1.18
 # go mod tidy -compat=1.18
