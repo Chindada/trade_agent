@@ -18,6 +18,7 @@ import (
 	"trade_agent/pkg/modules/tickprocess"
 	"trade_agent/pkg/modules/tradeday"
 	"trade_agent/pkg/mqhandler"
+
 	"trade_agent/pkg/routers"
 	"trade_agent/pkg/sinopacapi"
 	"trade_agent/pkg/tasks"
