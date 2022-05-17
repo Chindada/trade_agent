@@ -1,5 +1,6 @@
 include:
-    - template: SAST.gitlab-ci.yml
+    - local: SAST.gitlab-ci.yml
+    - local: Secret-Detection.gitlab-ci.yml
 
 variables:
     DOCKER_DRIVER: overlay2
@@ -33,7 +34,7 @@ go-lint:
             codequality: gl-code-quality-report.json
 
 go-build-test:
-    image: golang:1.18.1-bullseye
+    image: golang:1.18.2-bullseye
     only:
         - main
     stage: test
@@ -41,7 +42,7 @@ go-build-test:
         - go build -o trade_agent ./cmd
 
 go-test:
-    image: golang:1.18.1-bullseye
+    image: golang:1.18.2-bullseye
     only:
         - main
     stage: test
