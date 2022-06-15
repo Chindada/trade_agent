@@ -49,6 +49,7 @@ func ServeHTTP() {
 		AddTSEHandlersV1(public)
 		AddSocketHandlersV1(public)
 		AddHistoryDataHandlersV1(public)
+		AddDayTradeHandlersV1(public)
 
 		// log.Get().Infof("HTTP Server On %s", docs.SwaggerInfo.Host)
 		listenPath := fmt.Sprintf(":%s", serverConf.HTTPPort)

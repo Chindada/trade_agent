@@ -447,6 +447,43 @@ paths:
       summary: GetAllConfig V1
       tags:
       - Config
+  /v1/day-trade/forward:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: buy_price
+        in: header
+        name: buy_price
+        required: true
+        type: string
+      - description: buy_quantity
+        in: header
+        name: buy_quantity
+        required: true
+        type: string
+      - description: sell_price
+        in: header
+        name: sell_price
+        required: true
+        type: string
+      - description: sell_quantity
+        in: header
+        name: sell_quantity
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ""
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/routers.ErrorResponse'
+      summary: CalculateDayTradeBalance V1
+      tags:
+      - DayTrade
   /v1/history/day_kbar/{stock}/{start_date}/{interval}:
     get:
       consumes:

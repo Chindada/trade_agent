@@ -189,6 +189,61 @@ const docTemplate = `{
                 }
             }
         },
+        "/v1/day-trade/forward": {
+            "get": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "DayTrade"
+                ],
+                "summary": "CalculateDayTradeBalance V1",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "buy_price",
+                        "name": "buy_price",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "buy_quantity",
+                        "name": "buy_quantity",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "sell_price",
+                        "name": "sell_price",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "sell_quantity",
+                        "name": "sell_quantity",
+                        "in": "header",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/routers.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
         "/v1/history/day_kbar/{stock}/{start_date}/{interval}": {
             "get": {
                 "consumes": [
