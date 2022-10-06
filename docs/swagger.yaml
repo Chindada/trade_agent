@@ -346,7 +346,7 @@ paths:
       - application/json
       responses:
         "200":
-          description: ""
+          description: OK
         "500":
           description: Internal Server Error
           schema:
@@ -389,7 +389,7 @@ paths:
       - application/json
       responses:
         "200":
-          description: ""
+          description: OK
         "500":
           description: Internal Server Error
           schema:
@@ -476,7 +476,7 @@ paths:
       - application/json
       responses:
         "200":
-          description: ""
+          description: OK
         "500":
           description: Internal Server Error
           schema:
@@ -535,7 +535,7 @@ paths:
       - application/json
       responses:
         "200":
-          description: ""
+          description: OK
       tags:
       - Login V1
   /v1/order:
@@ -546,7 +546,7 @@ paths:
       - application/json
       responses:
         "200":
-          description: ""
+          description: OK
         "500":
           description: Internal Server Error
           schema:
@@ -589,7 +589,7 @@ paths:
       - application/json
       responses:
         "200":
-          description: ""
+          description: OK
         "500":
           description: Internal Server Error
           schema:
@@ -630,7 +630,7 @@ paths:
       - application/json
       responses:
         "200":
-          description: ""
+          description: OK
         "500":
           description: Internal Server Error
           schema:

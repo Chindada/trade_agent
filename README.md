@@ -1,8 +1,5 @@
 # TRADE AGENT
 
-[![Latest Release](https://gitlab.tocraw.com/root/trade_agent/-/badges/release.svg)](https://gitlab.tocraw.com/root/trade_agent/-/releases)
-[![pipeline status](https://gitlab.tocraw.com/root/trade_agent/badges/main/pipeline.svg)](https://gitlab.tocraw.com/root/trade_agent/-/commits/main)
-[![coverage report](https://gitlab.tocraw.com/root/trade_agent/badges/main/coverage.svg)](https://gitlab.tocraw.com/root/trade_agent/-/commits/main)
 [![Maintained](https://img.shields.io/badge/Maintained-yes-green)](https://gitlab.tocraw.com/root/trade_agent)
 [![Go](https://img.shields.io/badge/Go-1.18.2-blue?logo=go&logoColor=blue)](https://golang.org)
 [![OS](https://img.shields.io/badge/OS-Linux-orange?logo=linux&logoColor=orange)](https://www.linux.org/)

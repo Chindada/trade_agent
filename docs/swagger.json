@@ -67,7 +67,7 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": ""
+                        "description": "OK"
                     },
                     "500": {
                         "description": "Internal Server Error",
@@ -90,7 +90,7 @@
                 "summary": "DeletaAllBalance V1",
                 "responses": {
                     "200": {
-                        "description": ""
+                        "description": "OK"
                     },
                     "500": {
                         "description": "Internal Server Error",
@@ -223,7 +223,7 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": ""
+                        "description": "OK"
                     },
                     "500": {
                         "description": "Internal Server Error",
@@ -312,7 +312,7 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": ""
+                        "description": "OK"
                     }
                 }
             }
@@ -374,7 +374,7 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": ""
+                        "description": "OK"
                     },
                     "500": {
                         "description": "Internal Server Error",
@@ -397,7 +397,7 @@
                 "summary": "DeletaAllOrder V1",
                 "responses": {
                     "200": {
-                        "description": ""
+                        "description": "OK"
                     },
                     "500": {
                         "description": "Internal Server Error",
@@ -460,7 +460,7 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": ""
+                        "description": "OK"
                     },
                     "500": {
                         "description": "Internal Server Error",

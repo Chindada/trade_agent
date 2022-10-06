@@ -77,7 +77,7 @@ const docTemplate = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": ""
+                        "description": "OK"
                     },
                     "500": {
                         "description": "Internal Server Error",
@@ -100,7 +100,7 @@ const docTemplate = `{
                 "summary": "DeletaAllBalance V1",
                 "responses": {
                     "200": {
-                        "description": ""
+                        "description": "OK"
                     },
                     "500": {
                         "description": "Internal Server Error",
@@ -233,7 +233,7 @@ const docTemplate = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": ""
+                        "description": "OK"
                     },
                     "500": {
                         "description": "Internal Server Error",
@@ -322,7 +322,7 @@ const docTemplate = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": ""
+                        "description": "OK"
                     }
                 }
             }
@@ -384,7 +384,7 @@ const docTemplate = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": ""
+                        "description": "OK"
                     },
                     "500": {
                         "description": "Internal Server Error",
@@ -407,7 +407,7 @@ const docTemplate = `{
                 "summary": "DeletaAllOrder V1",
                 "responses": {
                     "200": {
-                        "description": ""
+                        "description": "OK"
                     },
                     "500": {
                         "description": "Internal Server Error",
@@ -470,7 +470,7 @@ const docTemplate = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": ""
+                        "description": "OK"
                     },
                     "500": {
                         "description": "Internal Server Error",
